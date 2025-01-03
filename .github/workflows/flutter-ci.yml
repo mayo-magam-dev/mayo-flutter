@@ -1,5 +1,5 @@
 name: flutter-ci
-on: [ push, pull_request ]
+on: [push, pull_request]
 
 jobs:
   analyze:
@@ -7,6 +7,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v2
+        cache: true
+        cache-key: "20250103"
         with:
           architecture: x64
       - run: flutter pub get
@@ -21,6 +23,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v2
+        cache: true
+        cache-key: "20250103"
         with:
           architecture: x64
       - run: flutter pub get
@@ -30,8 +34,8 @@ jobs:
           DB_URL: ${{ secrets.API_URL }}
       - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          distribution: "zulu"
+          java-version: "17"
       - run: flutter build apk
       - uses: actions/upload-artifact@v3
         with:
