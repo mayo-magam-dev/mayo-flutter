@@ -5,11 +5,11 @@ jobs:
   analyze:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
-        cache: true
-        cache-key: "20250103"
         with:
+          cache: true
+          cache-key: "20250103"
           architecture: x64
       - run: flutter pub get
       - run: |
