@@ -30,5 +30,4 @@ class _AppDio with DioMixin implements Dio {
   }
 }
 
-final String _baseUrl =
-    'https://${dotenv.env['API_URL']}-default-rtdb.asia-southeast1.firebasedatabase.app';
+final String _baseUrl = '${dotenv.env['API_URL']}';
