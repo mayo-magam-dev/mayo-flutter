@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: unused_element
 class _Scaffold extends StatelessWidget {
   const _Scaffold(
       {required this.logo, required this.form, required this.socialLogin});
