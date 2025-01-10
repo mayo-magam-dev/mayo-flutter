@@ -9,7 +9,10 @@ class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _Scaffold(
-      topBar: Topbar(),
+      topBar: Topbar(
+        title: "가게 이름",
+        showCarts: false,
+      ),
       infoHeader: Text(""),
       infoMiddle: Text(""),
       infoBottom: Text(""),

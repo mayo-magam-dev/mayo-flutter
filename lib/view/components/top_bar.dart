@@ -3,7 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/desginSystem/fontsize.dart';
 
 class Topbar extends StatelessWidget {
-  const Topbar({super.key});
+  const Topbar({super.key, required this.title, required this.showCarts});
+  final String title;
+  final bool showCarts;
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +17,15 @@ class Topbar extends StatelessWidget {
           children: [
             SvgPicture.asset("assets/icons/arrow.svg"),
             Text(
-              "가게 정보",
+              title,
               style: AppTextStyle.body1Medium,
             ),
-            SvgPicture.asset("assets/icons/cart.svg"),
+            showCarts
+                ? SvgPicture.asset("assets/icons/cart.svg")
+                : SizedBox(
+                    height: 30,
+                    width: 30,
+                  )
           ],
         ));
   }
