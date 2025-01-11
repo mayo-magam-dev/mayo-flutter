@@ -24,11 +24,33 @@ class _StoreInfoHeader extends StatelessWidget {
                 child: Container(
                   width: 390.w,
                   height: 50.h,
+                  padding: EdgeInsets.only(top: 9.h),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(15.w),
                           topRight: Radius.circular(15.w)),
                       color: Colors.white),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SvgPicture.asset(
+                        "assets/icons/heart-border.svg",
+                        width: 24.w,
+                        height: 24.h,
+                      ),
+                      SizedBox(
+                        width: 20.w,
+                      ),
+                      SvgPicture.asset(
+                        "assets/icons/alert-border.svg",
+                        width: 24.w,
+                        height: 24.h,
+                      ),
+                      SizedBox(
+                        width: 25.w,
+                      )
+                    ],
+                  ),
                 )),
             Positioned(
                 left: 25.w,
@@ -46,7 +68,7 @@ class _StoreInfoHeader extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 30.h,
+          height: 40.h,
         ),
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.w),
@@ -57,10 +79,22 @@ class _StoreInfoHeader extends StatelessWidget {
                   "힘쎈드위치",
                   style: AppTextStyle.heading2Bold,
                 ),
-                Text(
-                  "광주광역시 동구 지산로 38",
-                  style: AppTextStyle.body2Medium
-                      .copyWith(color: GlobalMainGrey.grey700),
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      "assets/icons/location.svg",
+                      width: 16.w,
+                      height: 16.h,
+                    ),
+                    SizedBox(
+                      width: 6.w,
+                    ),
+                    Text(
+                      "광주광역시 동구 지산로 38",
+                      style: AppTextStyle.body2Medium
+                          .copyWith(color: GlobalMainGrey.grey700),
+                    )
+                  ],
                 )
               ],
             ))
