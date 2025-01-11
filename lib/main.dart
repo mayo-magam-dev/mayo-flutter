@@ -2,8 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mayo_flutter/desginSystem/themedata.dart';
 import 'package:mayo_flutter/firebase_options.dart';
-import 'package:mayo_flutter/view/store/store_page.dart';
+import 'package:mayo_flutter/view/product/prouduct_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,11 +27,8 @@ class MyApp extends StatelessWidget {
         builder: (_, child) {
           return MaterialApp(
             title: '마요',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            home: const StorePage(),
+            theme: customThemeData,
+            home: const ProuductPage(),
           );
         });
   }
