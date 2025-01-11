@@ -1,0 +1,166 @@
+{
+  "project_info": {
+    "project_number": "292349774898",
+    "project_id": "mayo-app-280d4",
+    "storage_bucket": "mayo-app-280d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292349774898:android:65f9207b0adfa97efbc02b",
+        "android_client_info": {
+          "package_name": "com.mayo.flutter.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292349774898-ek0h49c6l0ulvt39g507v84vhah4dsql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLaZwZ9Bm3J3Zr7cwOoY7UOy6F1xCXpAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292349774898-ek0h49c6l0ulvt39g507v84vhah4dsql.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "292349774898-14kug5hr8fr84kt44e36b61q4ddvlkv6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mayoFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292349774898:android:82a124d6d577728cfbc02b",
+        "android_client_info": {
+          "package_name": "com.mayo.mayoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292349774898-21rdegphp613mokklskps4o538jnq4cu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mayo.mayoapp",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "292349774898-2lc18vo3nbm3143kr3spq70heba7sif7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mayo.mayoapp",
+            "certificate_hash": "ba3ff220403594d3c6fc8647c9651b0c34e14fe2"
+          }
+        },
+        {
+          "client_id": "292349774898-6138qqe5knf19cleh9778b2r7vaqrrg0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mayo.mayoapp",
+            "certificate_hash": "635ceb0949ca1761a30553d1065e1ad7e64a43ae"
+          }
+        },
+        {
+          "client_id": "292349774898-6m7gptim2j0p37r80ok4ihp5s3n6i1e1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mayo.mayoapp",
+            "certificate_hash": "ed154e3f77eddc55e35800002276efd8eeb6ba82"
+          }
+        },
+        {
+          "client_id": "292349774898-j1vk607v91uv7hog43t0nkovvk7eeipv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mayo.mayoapp",
+            "certificate_hash": "f23b371a817d37b3b9fbfd040def14a5206d9ab8"
+          }
+        },
+        {
+          "client_id": "292349774898-sshpko1r5qhf65g362f576j72pj2eurp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mayo.mayoapp",
+            "certificate_hash": "6ac4a17c273b50c57dd79301d6b71b26a1a8e213"
+          }
+        },
+        {
+          "client_id": "292349774898-ek0h49c6l0ulvt39g507v84vhah4dsql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLaZwZ9Bm3J3Zr7cwOoY7UOy6F1xCXpAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292349774898-ek0h49c6l0ulvt39g507v84vhah4dsql.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "292349774898-14kug5hr8fr84kt44e36b61q4ddvlkv6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mayoFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292349774898:android:227686fe24ecb2a7fbc02b",
+        "android_client_info": {
+          "package_name": "com.mayo.user.flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292349774898-ek0h49c6l0ulvt39g507v84vhah4dsql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLaZwZ9Bm3J3Zr7cwOoY7UOy6F1xCXpAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292349774898-ek0h49c6l0ulvt39g507v84vhah4dsql.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "292349774898-14kug5hr8fr84kt44e36b61q4ddvlkv6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mayoFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
