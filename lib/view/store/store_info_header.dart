@@ -95,10 +95,74 @@ class _StoreInfoHeader extends StatelessWidget {
                           .copyWith(color: GlobalMainGrey.grey700),
                     )
                   ],
-                )
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SelectableMenu(
+                      menuName: "가게 정보",
+                      menuIcon: "calendar.svg",
+                      onTap: () {},
+                    ),
+                    SelectableMenu(
+                      menuName: "가게 위치",
+                      menuIcon: "location-with-ground.svg",
+                      onTap: () {},
+                    ),
+                    SelectableMenu(
+                      menuName: "전화 문의",
+                      menuIcon: "call.svg",
+                      onTap: () {},
+                    ),
+                    SelectableMenu(
+                      menuName: "원산지 정보",
+                      menuIcon: "info.svg",
+                      onTap: () {},
+                    ),
+                  ],
+                ),
               ],
-            ))
+            )),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Container(
+            height: 1.h,
+            color: GlobalMainGrey.grey200,
+          ),
+        )
       ],
     );
+  }
+}
+
+class SelectableMenu extends StatelessWidget {
+  const SelectableMenu(
+      {super.key,
+      required this.menuName,
+      required this.menuIcon,
+      required this.onTap});
+  final String menuName;
+  final String menuIcon;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: onTap,
+        child: Column(
+          children: [
+            SvgPicture.asset(
+              "assets/icons/$menuIcon",
+            ),
+            SizedBox(
+              height: 11.h,
+            ),
+            Text(menuName, style: AppTextStyle.body2Medium)
+          ],
+        ));
   }
 }
