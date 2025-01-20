@@ -24,6 +24,7 @@ dependencies:
   flutter_svg: ^2.0.17
   google_sign_in: ^6.2.2
   intl: ^0.20.1
+  kakao_map_plugin: ^0.3.5
 
 dev_dependencies:
   flutter_test:

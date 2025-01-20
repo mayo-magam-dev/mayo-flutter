@@ -2,9 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:mayo_flutter/desginSystem/themedata.dart';
 import 'package:mayo_flutter/firebase_options.dart';
-import 'package:mayo_flutter/view/store/store_page.dart';
+import 'package:mayo_flutter/view/store/store_map.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await dotenv.load(fileName: './.env');
+  AuthRepository.initialize(appKey: dotenv.env['MAP_API_KEY']!);
   runApp(const MyApp());
 }
 
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: '마요',
             theme: customThemeData,
-            home: const StorePage(),
+            home: const StoreMap(),
           );
         });
   }
