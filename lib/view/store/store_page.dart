@@ -11,6 +11,9 @@ part 'store_scaffold.dart';
 part 'store_info_header.dart';
 part 'store_info_middle.dart';
 part 'store_info_bottom.dart';
+part 'store_map.dart';
+part 'store_origin_info.dart';
+
 
 class StorePage extends StatelessWidget {
   const StorePage({super.key});
