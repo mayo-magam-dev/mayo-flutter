@@ -1,16 +1,36 @@
-part of 'store_page.dart';
+import 'package:flutter/material.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 
-// ignore: unused_element
-class _StoreMap extends StatelessWidget {
-  // ignore: unused_element
-  const _StoreMap({super.key});
+class StoreMap extends StatefulWidget {
+  const StoreMap({super.key});
+
+  @override
+  State<StoreMap> createState() => _StoreMapState();
+}
+
+class _StoreMapState extends State<StoreMap> {
+  late KakaoMapController mapController;
+
+  Set<Marker> markers = {};
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        
-      ],
+    return Scaffold(
+     
+      body: KakaoMap(
+        onMapCreated: ((controller) async {
+          mapController = controller;
+
+          markers.add(Marker(
+            markerId: UniqueKey().toString(),
+            latLng: await mapController.getCenter(),
+          ));
+
+          setState(() {});
+        }),
+        markers: markers.toList(),
+        center: LatLng(37.3608681, 126.9306506),
+      ),
     );
   }
 }
