@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/desginSystem/color.dart';
 import 'package:mayo_flutter/desginSystem/fontsize.dart';
 import 'package:mayo_flutter/model/read_item.dart';
-import 'package:mayo_flutter/util/formater.dart';
+import 'package:mayo_flutter/view/components/proudct.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 
 part 'store_scaffold.dart';
