@@ -8,7 +8,7 @@ class _HomeBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 100.h,
+      height: 424.h,
       padding: EdgeInsets.fromLTRB(24, 29, 24, 21),
       child: Column(
         children: [
@@ -21,17 +21,42 @@ class _HomeBottom extends StatelessWidget {
                   '일상에서 마요가 필요한 순간!',
                   style: TextStyle(
                     fontSize: 21.sp,
-                    // fontFamily: 'Pretendard',
+                    fontFamily: 'Pretendard',
                     fontWeight: FontWeight.w700,
                     letterSpacing: -0.84,
                   ),
                 ),
-                Icon(Icons.keyboard_arrow_right_sharp)
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.keyboard_arrow_right_sharp))
               ],
             ),
           ),
+          SizedBox(height: 17.h),
           StoreInfoBar(),
+          Container(
+            width: double.infinity,
+            decoration: ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  width: 1,
+                  color: GlobalMainGrey.grey200,
+                ),
+              ),
+            ),
+          ),
           StoreInfoBar(),
+          Container(
+            width: double.infinity,
+            decoration: ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  width: 1,
+                  color: GlobalMainGrey.grey200,
+                ),
+              ),
+            ),
+          ),
           StoreInfoBar(),
         ],
       ),

@@ -19,21 +19,21 @@ class _Scaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.h),
-        child: topBar,
-      ),
-      body: Column(
-        children: [
-          Stack(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
             children: [
-              header,
-              middle,
+              topBar,
+              Stack(
+                children: [
+                  header,
+                  middle,
+                ],
+              ),
+              bottom,
             ],
           ),
-          bottom,
-        ],
+        ),
       ),
       bottomNavigationBar: bottomBar,
     );
