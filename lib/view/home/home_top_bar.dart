@@ -6,12 +6,14 @@ class _HomeTopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return GestureDetector(
+      onTap: () {}, //로그인 화면으로 이동
+      child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SvgPicture.asset('assets/icons/mayo_logo.svg'),
+            SvgPicture.asset('assets/icons/mayo_logo_80x27.svg'),
             Stack(
               alignment: AlignmentDirectional.topEnd,
               children: [
@@ -45,6 +47,7 @@ class _HomeTopBar extends StatelessWidget {
             ),
           ],
         ),
-      );
+      ),
+    );
   }
 }

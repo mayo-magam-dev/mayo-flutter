@@ -14,11 +14,11 @@ class BottomBar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       items: [
         BottomNavigationBarItem(
-          icon: SvgPicture.asset('assets/icons/home.svg'),
+          icon: SvgPicture.asset('assets/icons/selected_home.svg'),
           label: '홈',
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset('assets/icons/arrow_discount.svg'),
+          icon: SvgPicture.asset('assets/icons/discount.svg'),
           label: '지금 할인중',
         ),
         BottomNavigationBarItem(
