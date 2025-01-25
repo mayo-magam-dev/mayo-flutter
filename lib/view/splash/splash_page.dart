@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/desginSystem/color.dart';
 part 'splash_scaffold.dart';
 
@@ -10,7 +9,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _Scaffold(
-      logo: SvgPicture.asset('assets/icons/mayo_logo_208x74.svg'),
+      logo: Image.asset('assets/icons/mayo_logo_208x74.png'),
       introText: Text(
         '환경을 살리는 합리적 소비, 마감할인 플랫폼',
         style: TextStyle(
