@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:mayo_flutter/desginSystem/themedata.dart';
 import 'package:mayo_flutter/firebase_options.dart';
-import 'package:mayo_flutter/view/store/store_map.dart';
+import 'package:mayo_flutter/view/store/store_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: '마요',
             theme: customThemeData,
-            home: const StoreMap(),
+            home: const StorePage(),
           );
         });
   }
