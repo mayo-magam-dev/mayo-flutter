@@ -13,7 +13,7 @@ class _HomeTopBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SvgPicture.asset('assets/icons/mayo_logo_80x27.svg'),
+            Image.asset('assets/icons/mayo_logo_80x27.png'),
             Stack(
               alignment: AlignmentDirectional.topEnd,
               children: [
@@ -31,16 +31,9 @@ class _HomeTopBar extends StatelessWidget {
                     ),
                   ),
                   child: Center(
-                    child: Text(
-                      '0',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10.sp,
-                        fontFamily: 'Pretendard',
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: -0.2,
-                      ),
-                    ),
+                    child: Text('0',
+                        style: AppTextStyle.captionMedium
+                            .copyWith(color: Colors.white)),
                   ),
                 ),
               ],

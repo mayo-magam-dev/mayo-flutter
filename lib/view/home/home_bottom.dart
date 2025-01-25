@@ -19,12 +19,8 @@ class _HomeBottom extends StatelessWidget {
               children: [
                 Text(
                   '일상에서 마요가 필요한 순간!',
-                  style: TextStyle(
-                    fontSize: 21.sp,
-                    fontFamily: 'Pretendard',
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.84,
-                  ),
+                  style:
+                      AppTextStyle.heading2Bold.copyWith(letterSpacing: -0.84),
                 ),
                 IconButton(
                     onPressed: () {},
