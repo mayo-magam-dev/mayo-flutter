@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/desginSystem/color.dart';
+import 'package:mayo_flutter/desginSystem/fontsize.dart';
 import 'package:mayo_flutter/view/components/bottom_bar.dart';
 import 'package:mayo_flutter/view/components/category_buttons.dart';
 import 'package:mayo_flutter/view/components/store_info_bar.dart';
@@ -22,8 +23,7 @@ class HomePage extends StatelessWidget {
       header: _HomeHeader(),
       middle: _HomeMiddle(),
       bottom: _HomeBottom(),
-      bottomBar: BottomBar(),
-      // bottomBar: SizedBox(),
+      bottomBar: BottomBar(index: 0),
     );
   }
 }
