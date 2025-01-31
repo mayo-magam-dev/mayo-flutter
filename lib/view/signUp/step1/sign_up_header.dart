@@ -1,4 +1,4 @@
-part of 'sign_up_page.dart';
+part of 'sign_up_step1_page.dart';
 
 class _SignUpHeader extends StatelessWidget {
   //ignore: unused_element
