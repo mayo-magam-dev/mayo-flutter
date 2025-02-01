@@ -251,32 +251,7 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
             ],
           ),
         ),
-        SizedBox(height: 228.h),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 24),
-          width: double.infinity,
-          height: 46,
-          decoration: ShapeDecoration(
-            color: list['first'] && list['second']
-                ? GlobalMainYellow.yellow200
-                : GlobalMainGrey.grey200,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          ),
-          child: InkWell(
-            onTap: () {},
-            borderRadius: BorderRadius.circular(10),
-            child: Center(
-              child: Text(
-                '다음',
-                style: AppTextStyle.body1Bold.copyWith(
-                  color: Colors.white,
-                  letterSpacing: -0.32,
-                ),
-              ),
-            ),
-          ),
-        ),
+        
       ],
     );
   }
