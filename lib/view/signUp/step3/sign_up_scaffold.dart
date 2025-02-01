@@ -22,6 +22,16 @@ class _Scaffold extends StatelessWidget {
               Column(
                 children: [
                   topBar,
+                  Container(
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: GlobalMainGrey.grey200,
+                        ),
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 57.h),
                   header,
                   SizedBox(height: 54.h),
