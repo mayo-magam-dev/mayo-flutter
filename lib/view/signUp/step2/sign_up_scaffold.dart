@@ -5,23 +5,35 @@ class _Scaffold extends StatelessWidget {
     required this.topBar,
     required this.header,
     required this.middle,
+    required this.nextButton,
   });
   final Widget topBar;
   final Widget header;
   final Widget middle;
+  final Widget nextButton;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
+          child: Stack(
             children: [
-              topBar,
-              SizedBox(height: 84.h),
-              header,
-              SizedBox(height: 117.h),
-              middle,
+              Column(
+                children: [
+                  topBar,
+                  SizedBox(height: 84.h),
+                  header,
+                  SizedBox(height: 117.h),
+                  middle,
+                ],
+              ),
+              Column(
+                children: [
+                  SizedBox(height: 741.h),
+                  nextButton,
+                ],
+              ),
             ],
           ),
         ),
