@@ -7,9 +7,11 @@ class Button extends StatelessWidget {
     super.key,
     required this.text,
     required this.onTap,
+    this.submit = false,
   });
   final String text;
   final VoidCallback onTap;
+  final bool submit;
 
   @override
   Widget build(BuildContext context) {
