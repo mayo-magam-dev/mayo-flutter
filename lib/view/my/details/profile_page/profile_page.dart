@@ -1,5 +1,10 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mayo_flutter/desginSystem/color.dart';
+import 'package:mayo_flutter/desginSystem/fontsize.dart';
 import 'package:mayo_flutter/view/components/bottom_bar.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 
@@ -8,8 +13,8 @@ part 'profile_header.dart';
 part 'profile_info_tables.dart';
 part 'profile_account_actions.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
