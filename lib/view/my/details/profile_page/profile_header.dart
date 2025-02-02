@@ -1,4 +1,4 @@
-part of 'profile.dart';
+part of 'profile_page.dart';
 
 class _Header extends StatelessWidget {
   //ignore: unused_element
@@ -7,6 +7,7 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Stack(
           children: [
