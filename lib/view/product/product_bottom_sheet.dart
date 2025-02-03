@@ -5,8 +5,6 @@ class _BottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLogined = false;
-
     return Container(
       height: 221.h,
       width: double.infinity,
