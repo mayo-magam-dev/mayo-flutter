@@ -1,8 +1,9 @@
 part of 'my_page.dart';
 
 class _MyHeader extends StatelessWidget {
-  //ignore: unused_element
-  const _MyHeader({super.key});
+  const _MyHeader({required this.inLogged});
+
+  final bool inLogged;
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +64,20 @@ class _MyHeader extends StatelessWidget {
               ),
               SizedBox(width: 16.w),
               GestureDetector(
-                onTap: () {}, //로그인 화면으로 이동
+                onTap: () {
+                  inLogged
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfilePage(),
+                          ),
+                        )
+                      : SizedBox.shrink();
+                },
                 child: Row(
                   children: [
                     Text(
-                      '로그인/회원가입',
+                      inLogged ? '김마요' : '로그인/회원가입',
                       style: TextStyle(
                         color: GlobalMainColor.globalPrimaryBlackColor,
                         fontSize: 18.sp,
