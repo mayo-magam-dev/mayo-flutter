@@ -33,7 +33,14 @@ class _AccountActions extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AccountDeletePage(),
+              ),
+            );
+          },
           style: TextButton.styleFrom(
             minimumSize: Size.zero,
             padding: EdgeInsets.zero,

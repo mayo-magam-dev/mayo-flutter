@@ -355,71 +355,6 @@ class _InfoTablesState extends State<_InfoTables> {
                               );
                             },
                           );
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (context) {
-                          //     return AlertDialog(
-                          //       title: Text(
-                          //         '알람을 끄시겠습니까?',
-                          //         style: AppTextStyle.heading2Bold.copyWith(
-                          //           color:
-                          //               GlobalMainColor.globalPrimaryBlackColor,
-                          //           letterSpacing: -0.48,
-                          //         ),
-                          //       ),
-                          //       content: Text(
-                          //         '수신 알림을 끄시면 마요가 제공하는 유익한 서비스뿐만 아니라\n중요한 주문 알림을 놓칠 수 있습니다.',
-                          //         style: AppTextStyle.subheadingBold.copyWith(
-                          //             color: GlobalMainGrey.grey300,
-                          //             fontSize: 17.5.sp),
-                          //       ),
-                          //       titlePadding: EdgeInsets.only(
-                          //           left: 27, top: 28, bottom: 19),
-                          //       contentPadding: EdgeInsets.only(
-                          //           left: 25, right: 25, bottom: 21),
-                          //       actionsAlignment: MainAxisAlignment.center,
-                          //       actions: [
-                          //         Container(
-                          //           width: 128.9,
-                          //           height: 56.1,
-                          //           decoration: ShapeDecoration(
-                          //             color:
-                          //                 GlobalMainColor.globalPrimaryRedColor,
-                          //             shape: RoundedRectangleBorder(
-                          //               borderRadius: BorderRadius.circular(20),
-                          //             ),
-                          //           ),
-                          //           alignment: Alignment.center,
-                          //           child: Text(
-                          //             '예',
-                          //             style: AppTextStyle.body1Bold.copyWith(
-                          //               color: Colors.white,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //         Container(
-                          //           width: 128.9,
-                          //           height: 56.1,
-                          //           decoration: ShapeDecoration(
-                          //             color: GlobalMainGrey.grey200,
-                          //             shape: RoundedRectangleBorder(
-                          //               borderRadius: BorderRadius.circular(20),
-                          //             ),
-                          //           ),
-                          //           alignment: Alignment.center,
-                          //           child: Text(
-                          //             '아니오',
-                          //             style: AppTextStyle.body1Bold.copyWith(
-                          //               color: GlobalMainColor
-                          //                   .globalPrimaryBlackColor,
-                          //               letterSpacing: -0.32,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     );
-                          //   },
-                          // );
                         },
                       ),
                     ],
@@ -436,7 +371,14 @@ class _InfoTablesState extends State<_InfoTables> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TermsPolicyListsPage(),
+                      ),
+                    );
+                  },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     height: 63.h,

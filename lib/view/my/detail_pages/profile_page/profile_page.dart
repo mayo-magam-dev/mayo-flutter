@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +5,8 @@ import 'package:mayo_flutter/desginSystem/color.dart';
 import 'package:mayo_flutter/desginSystem/fontsize.dart';
 import 'package:mayo_flutter/view/components/bottom_bar.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:mayo_flutter/view/my/detail_pages/acount_delete_page/account_delete_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/terms_policy_lists_page/terms_policy_page.dart';
 
 part 'profile_scaffold.dart';
 part 'profile_header.dart';

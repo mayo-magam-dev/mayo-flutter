@@ -1,6 +1,7 @@
 part of 'terms_policy_page.dart';
 
 class _Lists extends StatelessWidget {
+  //ignore: unused_element
   const _Lists({super.key});
 
   @override
@@ -25,7 +26,12 @@ class _Lists extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => ,),);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TermsPolicyPage(),
+                    ),
+                  );
                 },
                 child: Text(
                   '[전문 보기]',

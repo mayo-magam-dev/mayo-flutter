@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mayo_flutter/view/store/store_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/acount_delete_page/account_delete_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/event_page/event_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/faq_page/faq_page.dart';
+import 'package:mayo_flutter/view/my/my_page.dart';
 
 void main() async {
   await dotenv.load(fileName: './.env');
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: const StorePage(),
+            home: AccountDeletePage(),
           );
         });
   }
