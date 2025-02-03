@@ -1,4 +1,4 @@
-part of 'prouduct_page.dart';
+part of 'product_page.dart';
 
 // ignore: unused_element
 class _Scaffold extends StatelessWidget {
@@ -23,6 +23,7 @@ class _Scaffold extends StatelessWidget {
           topBar,
           infoImage,
           infoText,
+          SizedBox(height: 120.h),
           infoButton,
         ],
       ),
