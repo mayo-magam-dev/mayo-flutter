@@ -5,6 +5,8 @@ class _BottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLogined = false;
+
     return Container(
       height: 221.h,
       width: double.infinity,
@@ -68,17 +70,24 @@ class _BottomSheet extends StatelessWidget {
                       style: AppTextStyle.body1Bold
                           .copyWith(color: GlobalMainGrey.grey400)),
                 ),
-                Container(
-                  width: 159.w,
-                  height: 50.h,
-                  decoration: BoxDecoration(
-                    color: GlobalMainColor.globalButtonColor,
-                    borderRadius: BorderRadius.circular(12),
+                GestureDetector(
+                  onTap: () => showDialog(
+                      context: context,
+                      builder: (context) {
+                        return _OnCart();
+                      }),
+                  child: Container(
+                    width: 159.w,
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      color: GlobalMainColor.globalButtonColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text("장바구니 담기",
+                        style: AppTextStyle.body1Bold
+                            .copyWith(color: Colors.white)),
                   ),
-                  alignment: Alignment.center,
-                  child: Text("장바구니 담기",
-                      style:
-                          AppTextStyle.body1Bold.copyWith(color: Colors.white)),
                 ),
               ],
             )

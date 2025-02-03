@@ -9,6 +9,7 @@ import 'package:mayo_flutter/view/components/top_bar.dart';
 part 'prouduct_scaffold.dart';
 part 'product_info.dart';
 part 'product_bottom_sheet.dart';
+part 'product_on_cart.dart';
 
 class ProuductPage extends StatelessWidget {
   const ProuductPage({super.key});
