@@ -1,5 +1,6 @@
 part of 'product_page.dart';
 
+// ignore: unused_element
 class _BeforeLoginOnCart extends StatelessWidget {
   const _BeforeLoginOnCart();
 
