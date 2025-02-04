@@ -1,4 +1,4 @@
-package com.mayo.user.flutter
+package com.example.mayo_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 

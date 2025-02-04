@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mayo_flutter/view/store/store_page.dart';
 
 void main() async {
   await dotenv.load(fileName: './.env');
@@ -13,19 +11,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(390, 844),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (_, child) {
-          return MaterialApp(
-            title: '마요',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            home: const StorePage(),
-          );
-        });
+    return MaterialApp(
+      title: '마요',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
