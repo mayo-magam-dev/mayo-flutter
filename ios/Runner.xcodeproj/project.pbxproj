@@ -76,6 +76,28 @@
 			path = RunnerTests;
 			sourceTree = "<group>";
 		};
+		450FEA68E494943766AE8323 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				429050CC8A898CF061DA1521 /* Pods-Runner.debug.xcconfig */,
+				70D6AAC07DFE68B00A67FEFB /* Pods-Runner.release.xcconfig */,
+				E95A457981BB6D5441A3A758 /* Pods-Runner.profile.xcconfig */,
+				94FE31CB2296845CC96EDC05 /* Pods-RunnerTests.debug.xcconfig */,
+				84C879B7F1EFE75A5A288B8B /* Pods-RunnerTests.release.xcconfig */,
+				A7E48353BE4E5E5DE71BFE33 /* Pods-RunnerTests.profile.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		64EFB046A813E458F5ADD56B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97F8BECB41EBEBB985C698BF /* Pods_Runner.framework */,
+				3BE0C1B067A40249E5821975 /* Pods_RunnerTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +173,8 @@
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
+				64803C7E79E8846AA544F743 /* [CP] Embed Pods Frameworks */,
+				BEE1238625EE372DA125DF2D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -252,6 +276,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+		};
+		BEE1238625EE372DA125DF2D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
