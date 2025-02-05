@@ -1,8 +1,8 @@
 part of 'home_page.dart';
 
-class _HomeMiddle extends StatelessWidget {
+class _Category extends StatelessWidget {
   //ignore: unused_element
-  const _HomeMiddle({super.key});
+  const _Category({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class _HomeMiddle extends StatelessWidget {
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
           ),
-          child: CategoryButtons(),
+          child: CategoryButton(),
         ),
         Container(
           width: double.infinity,

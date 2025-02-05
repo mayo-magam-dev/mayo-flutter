@@ -1,8 +1,8 @@
 part of 'home_page.dart';
 
-class _HomeBottom extends StatelessWidget {
+class _List extends StatelessWidget {
   //ignore: unused_element
-  const _HomeBottom({super.key});
+  const _List({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,18 @@ class _HomeBottom extends StatelessWidget {
               children: [
                 Text(
                   '일상에서 마요가 필요한 순간!',
-                  style:
-                      AppTextStyle.heading2Bold.copyWith(letterSpacing: -0.84),
+                  style: AppTextStyle.heading2Bold.copyWith(
+                    color: GlobalMainColor.globalPrimaryBlackColor,
+                    letterSpacing: -0.84,
+                  ),
                 ),
                 IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.keyboard_arrow_right_sharp))
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.keyboard_arrow_right_rounded,
+                    size: 10.2,
+                  ),
+                ),
               ],
             ),
           ),
