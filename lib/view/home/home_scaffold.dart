@@ -4,16 +4,16 @@ part of 'home_page.dart';
 class _Scaffold extends StatelessWidget {
   const _Scaffold({
     required this.topBar,
-    required this.header,
-    required this.middle,
-    required this.bottom,
+    required this.banner,
+    required this.category,
+    required this.storeList,
     required this.bottomBar,
   });
 
   final Widget topBar;
-  final Widget header;
-  final Widget middle;
-  final Widget bottom;
+  final Widget banner;
+  final Widget category;
+  final Widget storeList;
   final Widget bottomBar;
 
   @override
@@ -26,11 +26,11 @@ class _Scaffold extends StatelessWidget {
               topBar,
               Stack(
                 children: [
-                  header,
-                  middle,
+                  banner,
+                  category,
                 ],
               ),
-              bottom,
+              storeList,
             ],
           ),
         ),
