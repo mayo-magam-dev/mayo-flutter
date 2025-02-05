@@ -1,20 +1,20 @@
 part of 'home_page.dart';
 
-class _HomeTopBar extends StatelessWidget {
+class _TopBar extends StatelessWidget {
   //ignore: unused_element
-  const _HomeTopBar({super.key});
+  const _TopBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {}, //로그인 화면으로 이동
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('assets/icons/mayo_logo_80x27.png'),
-            Stack(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset('assets/icons/mayo_logo_80x27.png'),
+          GestureDetector(
+            onTap: () {},
+            child: Stack(
               alignment: AlignmentDirectional.topEnd,
               children: [
                 Padding(
@@ -31,15 +31,18 @@ class _HomeTopBar extends StatelessWidget {
                     ),
                   ),
                   child: Center(
-                    child: Text('0',
-                        style: AppTextStyle.captionMedium
-                            .copyWith(color: Colors.white)),
+                    child: Text(
+                      '0',
+                      style: AppTextStyle.captionMedium.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
