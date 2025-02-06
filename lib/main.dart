@@ -4,8 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mayo_flutter/desginSystem/themedata.dart';
 import 'package:mayo_flutter/firebase_options.dart';
-import 'package:mayo_flutter/view/cart/cart_page.dart';
-
+import 'package:mayo_flutter/view/cart/cart_empty.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: '마요',
             theme: customThemeData,
-            home: const CartPage(),
+            home: const CartEmpty(),
           );
         });
   }
