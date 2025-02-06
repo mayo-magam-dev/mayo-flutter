@@ -20,7 +20,7 @@ class _Scaffold extends StatelessWidget {
         children: [
           topBar,
           content,
-          SizedBox(height: 105.h),
+          SizedBox(height: 30.h),
           requestButton,
         ],
       ),

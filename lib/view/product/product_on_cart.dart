@@ -117,7 +117,7 @@ class _OnCart extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => CartPage(),
                     child: Container(
                       width: 129.w,
                       height: 56.h,
