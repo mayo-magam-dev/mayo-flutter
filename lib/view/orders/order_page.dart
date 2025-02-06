@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 
-part 'myorder_scaffold.dart';
-part 'myorder_content.dart';
+part 'order_scaffold.dart';
+part 'order_content.dart';
 
 class MyorderPage extends StatelessWidget {
   const MyorderPage({super.key});
