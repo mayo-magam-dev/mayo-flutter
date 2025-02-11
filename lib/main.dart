@@ -6,6 +6,7 @@ import 'package:mayo_flutter/view/my/detail_pages/acount_delete_page/account_del
 import 'package:mayo_flutter/view/my/detail_pages/event_page/event_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/faq_page/faq_page.dart';
 import 'package:mayo_flutter/view/my/my_page.dart';
+import 'package:mayo_flutter/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
