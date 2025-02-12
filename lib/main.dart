@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:mayo_flutter/desginSystem/themedata.dart';
 import 'package:mayo_flutter/view/my/detail_pages/acount_delete_page/account_delete_page.dart';
 import 'package:mayo_flutter/firebase_options.dart';
 
@@ -11,7 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await dotenv.load(fileName: './.env');
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  AuthRepository.initialize(appKey: dotenv.env['MAP_API_KEY']!);
   runApp(const MyApp());
 }
 
