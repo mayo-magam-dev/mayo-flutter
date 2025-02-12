@@ -1,7 +1,7 @@
 part of 'account_delete_page.dart';
 
 class _Main extends StatefulWidget {
-  const _Main({super.key});
+  const _Main();
 
   @override
   State<_Main> createState() => _MainState();

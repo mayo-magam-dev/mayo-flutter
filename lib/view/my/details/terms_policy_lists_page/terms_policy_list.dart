@@ -1,7 +1,7 @@
 part of 'terms_policy_page.dart';
 
 class _Lists extends StatelessWidget {
-  const _Lists({super.key});
+  const _Lists();
 
   @override
   Widget build(BuildContext context) {
