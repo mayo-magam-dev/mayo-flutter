@@ -18,7 +18,6 @@ class _AppDio with DioMixin implements Dio {
       baseUrl: _baseUrl,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${FirebaseAuth.instance.currentUser?.getIdToken()}',
       },
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
@@ -27,10 +26,20 @@ class _AppDio with DioMixin implements Dio {
     );
 
     interceptors.addAll([
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final user = FirebaseAuth.instance.currentUser;
+          if (user != null) {
+            final token = await user.getIdToken();
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+          return handler.next(options);
+        },
+      ),
       LogInterceptor(
         requestBody: true,
         responseBody: true,
-      )
+      ),
     ]);
   }
 }
