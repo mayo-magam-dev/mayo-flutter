@@ -5,14 +5,14 @@ import 'package:mayo_flutter/network/dio.dart';
 class BoardDataSource {
   final dio = AppDio.getInstance();
 
-  getPostByBoardId(String boardId) async {
+  Future<Board> getPostByBoardId(String boardId) async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/$boardId',
     );
     return Board.fromJson(response.data);
   }
 
-  getTerms() async {
+  Future<List<Board>> getTerms() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/terms',
     );
@@ -20,7 +20,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getNotice() async {
+  Future<List<Board>> getNotice() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/notice',
     );
@@ -29,7 +29,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getFaqUpdateInfo() async {
+  Future<List<Board>> getFaqUpdateInfo() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/faq-update-info',
     );
@@ -38,7 +38,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getFaqStorePickUp() async {
+  Future<List<Board>> getFaqStorePickUp() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/faq-store-pickup',
     );
@@ -47,7 +47,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getFaqPayment() async {
+  Future<List<Board>> getFaqPayment() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/faq-payment',
     );
@@ -56,7 +56,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getFaqOrderNotification() async {
+  Future<List<Board>> getFaqOrderNotification() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/faq-order-notification',
     );
@@ -65,7 +65,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getFaqOrderHistory() async {
+  Future<List<Board>> getFaqOrderHistory() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/faq-order-history',
     );
@@ -74,7 +74,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getFaqMainFeature() async {
+  Future<List<Board>> getFaqMainFeature() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/faq-main-feature',
     );
@@ -83,7 +83,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getHowToUse() async {
+  Future<List<Board>> getHowToUse() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/faq-how-to-use',
     );
@@ -92,7 +92,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getFaqEvent() async {
+  Future<List<Board>> getFaqEvent() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/faq-event',
     );
@@ -101,7 +101,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getFaqDeleteAccount() async {
+  Future<List<Board>> getFaqDeleteAccount() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/faq-delete-account',
     );
@@ -110,7 +110,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getFaqCoupon() async {
+  Future<List<Board>> getFaqCoupon() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/faq-coupon',
     );
@@ -119,7 +119,7 @@ class BoardDataSource {
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
-  getEvent() async {
+  Future<List<Board>> getEvent() async {
     var response = await dio.get(
       '${dotenv.env['API_URL']}/board/event',
     );

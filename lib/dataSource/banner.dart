@@ -5,7 +5,7 @@ import 'package:mayo_flutter/network/dio.dart';
 class BannerDataSource {
   final dio = AppDio.getInstance();
 
-  getBannerList(String boardId) async {
+  Future<List<Banner>> getBannerList(String boardId) async {
     var response = await dio.put(
       '${dotenv.env['API_URL']}/banners',
     );
