@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mayo_flutter/desginSystem/color.dart';
 import 'package:mayo_flutter/desginSystem/fontsize.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:mayo_flutter/view/login/login_page.dart';
 
 part 'account_delete_scaffold.dart';
 part 'account_delete_main.dart';

@@ -11,7 +11,7 @@ class _Banner extends StatefulWidget {
 class _BannerState extends State<_Banner> {
   final controller = PageController(initialPage: 0);
 
-  late int pageIndex;
+  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {

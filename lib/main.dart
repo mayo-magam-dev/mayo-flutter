@@ -2,12 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mayo_flutter/desginSystem/themedata.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
-import 'package:mayo_flutter/desginSystem/themedata.dart';
-import 'package:mayo_flutter/view/my/detail_pages/acount_delete_page/account_delete_page.dart';
 import 'package:mayo_flutter/firebase_options.dart';
-import 'package:mayo_flutter/view/cart/cart_empty.dart';
+import 'package:mayo_flutter/view/my/details/announcement_page/announcement_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +32,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: const StorePage(),
+            home: const AnnouncementPage(),
           );
         });
   }

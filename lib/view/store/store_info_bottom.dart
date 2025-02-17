@@ -1,5 +1,6 @@
 part of 'store_page.dart';
 
+// ignore: unused_element
 class _StoreInfoBottom extends StatelessWidget {
   // ignore: unused_element
   const _StoreInfoBottom({super.key});
