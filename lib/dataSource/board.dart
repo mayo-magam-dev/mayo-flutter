@@ -6,7 +6,7 @@ class BoardDataSource {
   final dio = AppDio.getInstance();
 
   getPostByBoardId(String boardId) async {
-    var response = await dio.put(
+    var response = await dio.get(
       '${dotenv.env['API_URL']}/board/$boardId',
     );
     return Board.fromJson(response.data);
