@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:mayo_flutter/firebase_options.dart';
-import 'package:mayo_flutter/view/my/details/announcement_page/announcement_page.dart';
+import 'package:mayo_flutter/view/home/home_page.dart';
+import 'package:mayo_flutter/view/login/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,13 +29,20 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (_, child) {
           return MaterialApp(
-            title: '마요',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            home: const AnnouncementPage(),
-          );
+              title: '마요',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                useMaterial3: true,
+              ),
+              home: StreamBuilder(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (ctx, snapshot) {
+                    if (snapshot.hasData) {
+                      return const HomePage();
+                    } else {
+                      return const LoginPage();
+                    }
+                  }));
         });
   }
 }

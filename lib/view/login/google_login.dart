@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -8,9 +6,6 @@ class GoogleLogin {
   Future<UserCredential> login() async {
 
     final GoogleSignInAccount? user = await GoogleSignIn().signIn();
-    if(user == null){
-      log('fail');
-    }
     final GoogleSignInAuthentication? userAuthentication = await user?.authentication;
     final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: userAuthentication?.accessToken,
