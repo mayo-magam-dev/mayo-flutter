@@ -23,7 +23,7 @@ mixin _$Board {
   String get boardId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
-  int? get category => throw _privateConstructorUsedError;
+  int get category => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
   String get writer => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -47,7 +47,7 @@ abstract class $BoardCopyWith<$Res> {
       {String boardId,
       String title,
       String content,
-      int? category,
+      int category,
       String image,
       String writer,
       @TimestampConverter() DateTime writeTime});
@@ -71,7 +71,7 @@ class _$BoardCopyWithImpl<$Res, $Val extends Board>
     Object? boardId = null,
     Object? title = null,
     Object? content = null,
-    Object? category = freezed,
+    Object? category = null,
     Object? image = null,
     Object? writer = null,
     Object? writeTime = null,
@@ -89,10 +89,10 @@ class _$BoardCopyWithImpl<$Res, $Val extends Board>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      category: freezed == category
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -120,7 +120,7 @@ abstract class _$$BoardImplCopyWith<$Res> implements $BoardCopyWith<$Res> {
       {String boardId,
       String title,
       String content,
-      int? category,
+      int category,
       String image,
       String writer,
       @TimestampConverter() DateTime writeTime});
@@ -142,7 +142,7 @@ class __$$BoardImplCopyWithImpl<$Res>
     Object? boardId = null,
     Object? title = null,
     Object? content = null,
-    Object? category = freezed,
+    Object? category = null,
     Object? image = null,
     Object? writer = null,
     Object? writeTime = null,
@@ -160,10 +160,10 @@ class __$$BoardImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      category: freezed == category
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -187,7 +187,7 @@ class _$BoardImpl implements _Board {
       {required this.boardId,
       required this.title,
       required this.content,
-      this.category,
+      required this.category,
       required this.image,
       required this.writer,
       @TimestampConverter() required this.writeTime});
@@ -202,7 +202,7 @@ class _$BoardImpl implements _Board {
   @override
   final String content;
   @override
-  final int? category;
+  final int category;
   @override
   final String image;
   @override
@@ -258,7 +258,7 @@ abstract class _Board implements Board {
       {required final String boardId,
       required final String title,
       required final String content,
-      final int? category,
+      required final int category,
       required final String image,
       required final String writer,
       @TimestampConverter() required final DateTime writeTime}) = _$BoardImpl;
@@ -272,7 +272,7 @@ abstract class _Board implements Board {
   @override
   String get content;
   @override
-  int? get category;
+  int get category;
   @override
   String get image;
   @override

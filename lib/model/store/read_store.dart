@@ -24,6 +24,5 @@ class ReadStore with _$ReadStore {
     required int storeSellingType,
   }) = _ReadStore;
 
-  factory ReadStore.fromJson(Map<String, dynamic> json) =>
-      _$ReadStoreFromJson(json);
+  factory ReadStore.fromJson(Map<String, dynamic> json) => _$ReadStoreFromJson(json);
 }

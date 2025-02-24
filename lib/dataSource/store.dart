@@ -1,32 +1,34 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mayo_flutter/model/store/read_store.dart';
+import 'package:mayo_flutter/model/store/read_recently_store_response.dart';
+import 'package:mayo_flutter/model/store/read_simple_store_response.dart';
 import 'package:mayo_flutter/network/dio.dart';
 
 class StoreDataSource {
   final dio = AppDio.getInstance();
 
-  Future<List<ReadStore>> getAllStores() async {
+  Future<List<ReadSimpleStoreResponse>> getAllStores() async {
     final response = await dio.get('${dotenv.env['API_URL']}/store');
     var result = response.data as List;
-    return result.map((v) => ReadStore.fromJson(v)).toList();
+    return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
   }
 
-  Future<List<ReadStore>> getRecentlyStores() async {
+  Future<List<ReadRecentlyStoreResponse>> getRecentlyStores() async {
     final response = await dio.get('${dotenv.env['API_URL']}/store/recently');
     var result = response.data as List;
-    return result.map((v) => ReadStore.fromJson(v)).toList();
+    return result.map((v) => ReadRecentlyStoreResponse.fromJson(v)).toList();
   }
 
-  Future<List<ReadStore>> getRandomOpenStores() async {
+  Future<List<ReadSimpleStoreResponse>> getRandomOpenStores() async {
     final response = await dio.get('${dotenv.env['API_URL']}/store/random-open-store');
     var result = response.data as List;
-    return result.map((v) => ReadStore.fromJson(v)).toList();
+    return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
   }
 
-  Future<List<ReadStore>> getOnSaleStores() async {
+  Future<List<ReadSimpleStoreResponse>> getOnSaleStores() async {
     final response = await dio.get('${dotenv.env['API_URL']}/store/on-sale');
     var result = response.data as List;
-    return result.map((v) => ReadStore.fromJson(v)).toList();
+    return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
   }
 
   Future<ReadStore> getStoreDetail(String storeId) async {
@@ -34,9 +36,9 @@ class StoreDataSource {
     return ReadStore.fromJson(response.data);
   }
 
-  Future<List<ReadStore>> getStoresByCategory(int category) async {
+  Future<List<ReadSimpleStoreResponse>> getStoresByCategory(int category) async {
     final response = await dio.get('${dotenv.env['API_URL']}/store/category/$category');
     var result = response.data as List;
-    return result.map((v) => ReadStore.fromJson(v)).toList();
+    return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
   }
 } 

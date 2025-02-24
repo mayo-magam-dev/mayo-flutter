@@ -10,7 +10,7 @@ class Board with _$Board {
     required String boardId,
     required String title,
     required String content,
-    int? category,
+    required int category,
     required String image,
     required String writer,
     @TimestampConverter() required DateTime writeTime,
