@@ -25,6 +25,7 @@ mixin _$ReadUser {
   String get email => throw _privateConstructorUsedError;
   String get displayName => throw _privateConstructorUsedError;
   String get photoUrl => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get createdTime => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   bool get isManager => throw _privateConstructorUsedError;
@@ -34,6 +35,7 @@ mixin _$ReadUser {
   String get currentLocation => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get birthday => throw _privateConstructorUsedError;
 
   /// Serializes this ReadUser to a JSON map.
@@ -57,7 +59,7 @@ abstract class $ReadUserCopyWith<$Res> {
       String email,
       String displayName,
       String photoUrl,
-      DateTime createdTime,
+      @TimestampConverter() DateTime createdTime,
       String phoneNumber,
       bool isManager,
       bool agreeTerms1,
@@ -66,7 +68,7 @@ abstract class $ReadUserCopyWith<$Res> {
       String currentLocation,
       String gender,
       String name,
-      DateTime birthday});
+      @TimestampConverter() DateTime birthday});
 }
 
 /// @nodoc
@@ -179,7 +181,7 @@ abstract class _$$ReadUserImplCopyWith<$Res>
       String email,
       String displayName,
       String photoUrl,
-      DateTime createdTime,
+      @TimestampConverter() DateTime createdTime,
       String phoneNumber,
       bool isManager,
       bool agreeTerms1,
@@ -188,7 +190,7 @@ abstract class _$$ReadUserImplCopyWith<$Res>
       String currentLocation,
       String gender,
       String name,
-      DateTime birthday});
+      @TimestampConverter() DateTime birthday});
 }
 
 /// @nodoc
@@ -294,7 +296,7 @@ class _$ReadUserImpl implements _ReadUser {
       required this.email,
       required this.displayName,
       required this.photoUrl,
-      required this.createdTime,
+      @TimestampConverter() required this.createdTime,
       required this.phoneNumber,
       required this.isManager,
       required this.agreeTerms1,
@@ -303,7 +305,7 @@ class _$ReadUserImpl implements _ReadUser {
       required this.currentLocation,
       required this.gender,
       required this.name,
-      required this.birthday});
+      @TimestampConverter() required this.birthday});
 
   factory _$ReadUserImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReadUserImplFromJson(json);
@@ -319,6 +321,7 @@ class _$ReadUserImpl implements _ReadUser {
   @override
   final String photoUrl;
   @override
+  @TimestampConverter()
   final DateTime createdTime;
   @override
   final String phoneNumber;
@@ -337,6 +340,7 @@ class _$ReadUserImpl implements _ReadUser {
   @override
   final String name;
   @override
+  @TimestampConverter()
   final DateTime birthday;
 
   @override
@@ -419,7 +423,7 @@ abstract class _ReadUser implements ReadUser {
       required final String email,
       required final String displayName,
       required final String photoUrl,
-      required final DateTime createdTime,
+      @TimestampConverter() required final DateTime createdTime,
       required final String phoneNumber,
       required final bool isManager,
       required final bool agreeTerms1,
@@ -428,7 +432,7 @@ abstract class _ReadUser implements ReadUser {
       required final String currentLocation,
       required final String gender,
       required final String name,
-      required final DateTime birthday}) = _$ReadUserImpl;
+      @TimestampConverter() required final DateTime birthday}) = _$ReadUserImpl;
 
   factory _ReadUser.fromJson(Map<String, dynamic> json) =
       _$ReadUserImpl.fromJson;
@@ -444,6 +448,7 @@ abstract class _ReadUser implements ReadUser {
   @override
   String get photoUrl;
   @override
+  @TimestampConverter()
   DateTime get createdTime;
   @override
   String get phoneNumber;
@@ -462,6 +467,7 @@ abstract class _ReadUser implements ReadUser {
   @override
   String get name;
   @override
+  @TimestampConverter()
   DateTime get birthday;
 
   /// Create a copy of ReadUser

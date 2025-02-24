@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mayo_flutter/util/timestamp_converter.dart';
 
 part 'read_user.freezed.dart';
 part 'read_user.g.dart';
@@ -11,7 +12,7 @@ class ReadUser with _$ReadUser {
     required String email,
     required String displayName,
     required String photoUrl,
-    required DateTime createdTime,
+    @TimestampConverter() required DateTime createdTime,
     required String phoneNumber,
     required bool isManager,
     required bool agreeTerms1,
@@ -20,7 +21,7 @@ class ReadUser with _$ReadUser {
     required String currentLocation,
     required String gender,
     required String name,
-    required DateTime birthday,
+    @TimestampConverter() required DateTime birthday,
   }) = _ReadUser;
 
   factory ReadUser.fromJson(Map<String, dynamic> json) =>

@@ -13,7 +13,8 @@ _$ReadUserImpl _$$ReadUserImplFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       displayName: json['displayName'] as String,
       photoUrl: json['photoUrl'] as String,
-      createdTime: DateTime.parse(json['createdTime'] as String),
+      createdTime: const TimestampConverter()
+          .fromJson(json['createdTime'] as Map<String, dynamic>),
       phoneNumber: json['phoneNumber'] as String,
       isManager: json['isManager'] as bool,
       agreeTerms1: json['agreeTerms1'] as bool,
@@ -22,7 +23,8 @@ _$ReadUserImpl _$$ReadUserImplFromJson(Map<String, dynamic> json) =>
       currentLocation: json['currentLocation'] as String,
       gender: json['gender'] as String,
       name: json['name'] as String,
-      birthday: DateTime.parse(json['birthday'] as String),
+      birthday: const TimestampConverter()
+          .fromJson(json['birthday'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ReadUserImplToJson(_$ReadUserImpl instance) =>
@@ -32,7 +34,7 @@ Map<String, dynamic> _$$ReadUserImplToJson(_$ReadUserImpl instance) =>
       'email': instance.email,
       'displayName': instance.displayName,
       'photoUrl': instance.photoUrl,
-      'createdTime': instance.createdTime.toIso8601String(),
+      'createdTime': const TimestampConverter().toJson(instance.createdTime),
       'phoneNumber': instance.phoneNumber,
       'isManager': instance.isManager,
       'agreeTerms1': instance.agreeTerms1,
@@ -41,5 +43,5 @@ Map<String, dynamic> _$$ReadUserImplToJson(_$ReadUserImpl instance) =>
       'currentLocation': instance.currentLocation,
       'gender': instance.gender,
       'name': instance.name,
-      'birthday': instance.birthday.toIso8601String(),
+      'birthday': const TimestampConverter().toJson(instance.birthday),
     };
