@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mayo_flutter/desginSystem/color.dart';
+import 'package:mayo_flutter/designSystem/color.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({

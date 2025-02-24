@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mayo_flutter/desginSystem/fontsize.dart';
+import 'package:mayo_flutter/designSystem/fontsize.dart';
 
 class Topbar extends StatelessWidget {
   const Topbar({super.key, required this.title, required this.showCarts});

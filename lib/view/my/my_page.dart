@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mayo_flutter/desginSystem/color.dart';
-import 'package:mayo_flutter/desginSystem/fontsize.dart';
+import 'package:mayo_flutter/designSystem/color.dart';
+import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/view/components/bottom_bar.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:mayo_flutter/view/my/detail_pages/announcement_page/announcement_page.dart';

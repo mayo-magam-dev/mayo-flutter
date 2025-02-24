@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mayo_flutter/desginSystem/color.dart';
-import 'package:mayo_flutter/desginSystem/fontsize.dart';
+import 'package:mayo_flutter/designSystem/color.dart';
+import 'package:mayo_flutter/designSystem/fontsize.dart';
 
 class Button extends StatelessWidget {
   const Button({

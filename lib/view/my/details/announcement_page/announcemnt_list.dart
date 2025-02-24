@@ -20,7 +20,7 @@ class _ListsState extends State<_Lists> {
 
   Future<List<Board>> _fetchAnnouncements() async {
     try {
-      final notices = await _boardDataSource.getNotice();
+      final notices = await _boardDataSource.getNoticeBoard();
       _expandedItems.addAll(List.generate(notices.length, (_) => false));
       return notices;
     } catch (e) {

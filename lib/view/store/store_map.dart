@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
-import 'package:mayo_flutter/desginSystem/fontsize.dart';
+import 'package:mayo_flutter/designSystem/fontsize.dart';
 
 class StoreMap extends StatefulWidget {
   const StoreMap({super.key});

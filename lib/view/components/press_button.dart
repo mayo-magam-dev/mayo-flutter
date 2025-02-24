@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mayo_flutter/desginSystem/color.dart';
-import 'package:mayo_flutter/desginSystem/fontsize.dart';
+import 'package:mayo_flutter/designSystem/color.dart';
+import 'package:mayo_flutter/designSystem/fontsize.dart';
 
 class PressButton extends StatelessWidget {
   const PressButton({super.key, required this.text, required this.onPressed});
