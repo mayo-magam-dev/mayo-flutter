@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+CreateUser _$CreateUserFromJson(Map<String, dynamic> json) {
+  return _CreateUser.fromJson(json);
+}
+
 /// @nodoc
 mixin _$CreateUser {
   String get email => throw _privateConstructorUsedError;
@@ -24,6 +28,9 @@ mixin _$CreateUser {
   bool get agreeMarketing => throw _privateConstructorUsedError;
   bool get agreeTerms1 => throw _privateConstructorUsedError;
   bool get agreeTerms2 => throw _privateConstructorUsedError;
+
+  /// Serializes this CreateUser to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of CreateUser
   /// with the given fields replaced by the non-null parameter values.
@@ -189,7 +196,7 @@ class __$$CreateUserImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$CreateUserImpl implements _CreateUser {
   _$CreateUserImpl(
       {required this.email,
@@ -200,6 +207,9 @@ class _$CreateUserImpl implements _CreateUser {
       required this.agreeMarketing,
       required this.agreeTerms1,
       required this.agreeTerms2});
+
+  factory _$CreateUserImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateUserImplFromJson(json);
 
   @override
   final String email;
@@ -243,6 +253,7 @@ class _$CreateUserImpl implements _CreateUser {
                 other.agreeTerms2 == agreeTerms2));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, email, gender, name, displayName,
       phoneNumber, agreeMarketing, agreeTerms1, agreeTerms2);
@@ -254,6 +265,13 @@ class _$CreateUserImpl implements _CreateUser {
   @pragma('vm:prefer-inline')
   _$$CreateUserImplCopyWith<_$CreateUserImpl> get copyWith =>
       __$$CreateUserImplCopyWithImpl<_$CreateUserImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CreateUserImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _CreateUser implements CreateUser {
@@ -266,6 +284,9 @@ abstract class _CreateUser implements CreateUser {
       required final bool agreeMarketing,
       required final bool agreeTerms1,
       required final bool agreeTerms2}) = _$CreateUserImpl;
+
+  factory _CreateUser.fromJson(Map<String, dynamic> json) =
+      _$CreateUserImpl.fromJson;
 
   @override
   String get email;
