@@ -38,28 +38,29 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: StreamBuilder<User?>(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (ctx, snapshot) {
-                if (snapshot.hasData) {
-                  return FutureBuilder(
-                    future: userDataSource.getUser(),
-                    builder: (ctx, userSnapshot) {
-                      if (userSnapshot.hasError) {
-                        return SignUpStep1Page();
-                      }
-                      if (userSnapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return const HomePage();
-                    },
-                  );
-                } else {
-                  return const LoginPage();
-                }
-              },
-            ),
+            // home: StreamBuilder<User?>(
+            //   stream: FirebaseAuth.instance.authStateChanges(),
+            //   builder: (ctx, snapshot) {
+            //     if (snapshot.hasData) {
+            //       return FutureBuilder(
+            //         future: userDataSource.getUser(),
+            //         builder: (ctx, userSnapshot) {
+            //           if (userSnapshot.hasError) {
+            //             return SignUpStep1Page();
+            //           }
+            //           if (userSnapshot.connectionState ==
+            //               ConnectionState.waiting) {
+            //             return const Center(child: CircularProgressIndicator());
+            //           }
+            //           return const HomePage();
+            //         },
+            //       );
+            //     } else {
+            //       return const LoginPage();
+            //     }
+            //   },
+            // ),
+            home: const HomePage(),
           );
         });
   }

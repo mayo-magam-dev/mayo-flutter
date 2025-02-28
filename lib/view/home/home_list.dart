@@ -35,31 +35,42 @@ class _List extends StatelessWidget {
             ),
           ),
           SizedBox(height: 17.h),
-          StoreInfoBar(),
-          Container(
-            width: double.infinity,
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 1,
-                  color: GlobalMainGrey.grey200,
-                ),
-              ),
-            ),
+          Consumer<HomeViewModel>(
+            builder: (context, viewModel, child) {
+              if (viewModel.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              return Column(
+                children: viewModel.randomStores.map((store) {
+                  return Column(
+                    children: [
+                      StoreInfoBar(
+                        storeName: store.storeName,
+                        storeDescription: '${store.address}\n최대 ${store.maxSalePercent.toStringAsFixed(0)}% 할인중',
+                        imageUrl: 'assets/icons/store_food_example.svg',
+                        onTap: () {
+                          // TODO: Navigate to store detail page
+                        },
+                      ),
+                      if (store != viewModel.randomStores.last)
+                        Container(
+                          width: double.infinity,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                width: 1,
+                                color: GlobalMainGrey.grey200,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  );
+                }).toList(),
+              );
+            },
           ),
-          StoreInfoBar(),
-          Container(
-            width: double.infinity,
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 1,
-                  color: GlobalMainGrey.grey200,
-                ),
-              ),
-            ),
-          ),
-          StoreInfoBar(),
         ],
       ),
     );

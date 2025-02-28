@@ -12,35 +12,41 @@ class _TopBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset('assets/icons/mayo_logo_80x27.png'),
-          GestureDetector(
-            onTap: () {},
-            child: Stack(
-              alignment: AlignmentDirectional.topEnd,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 5, 5, 0),
-                  child: SvgPicture.asset('assets/icons/cart.svg'),
-                ),
-                Container(
-                  width: 15,
-                  height: 15,
-                  decoration: ShapeDecoration(
-                    color: Colors.amber,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+          Consumer<HomeViewModel>(
+            builder: (context, viewModel, child) {
+              return GestureDetector(
+                onTap: () {
+                  // TODO: Navigate to cart page
+                },
+                child: Stack(
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 5, 0),
+                      child: SvgPicture.asset('assets/icons/cart.svg'),
                     ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      '0',
-                      style: AppTextStyle.captionMedium.copyWith(
-                        color: Colors.white,
+                    Container(
+                      width: 15,
+                      height: 15,
+                      decoration: ShapeDecoration(
+                        color: Colors.amber,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          viewModel.cartItemCount.toString(),
+                          style: AppTextStyle.captionMedium.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
           ),
         ],
       ),
