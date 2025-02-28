@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 
 class Topbar extends StatelessWidget {
@@ -15,7 +16,12 @@ class Topbar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset('assets/icons/arrow.svg'),
+          GestureDetector(
+            onTap: () {
+              context.pop();
+            },
+            child: SvgPicture.asset('assets/icons/arrow.svg'),
+          ),
           Text(
             title,
             style: AppTextStyle.body1Medium,

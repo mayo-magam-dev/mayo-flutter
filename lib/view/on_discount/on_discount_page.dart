@@ -31,7 +31,6 @@ class OnDiscountPage extends StatelessWidget {
           StoreList.notShowList()
         ],
       ),
-      bottomBar: BottomBar(index: 2),
     );
   }
 }

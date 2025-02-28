@@ -25,7 +25,6 @@ class _Scaffold extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomBar(index: 3),
     );
   }
 }

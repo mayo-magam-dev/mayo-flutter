@@ -9,6 +9,7 @@ import 'package:mayo_flutter/firebase_options.dart';
 import 'package:mayo_flutter/view/home/home_page.dart';
 import 'package:mayo_flutter/view/login/login_page.dart';
 import 'package:mayo_flutter/view/signUp/step1/sign_up_step1_page.dart';
+import 'package:mayo_flutter/router/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,40 +29,19 @@ class MyApp extends StatelessWidget {
     final UserDataSource userDataSource = UserDataSource();
 
     return ScreenUtilInit(
-        designSize: const Size(390, 844),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (_, child) {
-          return MaterialApp(
-            title: '마요',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            // home: StreamBuilder<User?>(
-            //   stream: FirebaseAuth.instance.authStateChanges(),
-            //   builder: (ctx, snapshot) {
-            //     if (snapshot.hasData) {
-            //       return FutureBuilder(
-            //         future: userDataSource.getUser(),
-            //         builder: (ctx, userSnapshot) {
-            //           if (userSnapshot.hasError) {
-            //             return SignUpStep1Page();
-            //           }
-            //           if (userSnapshot.connectionState ==
-            //               ConnectionState.waiting) {
-            //             return const Center(child: CircularProgressIndicator());
-            //           }
-            //           return const HomePage();
-            //         },
-            //       );
-            //     } else {
-            //       return const LoginPage();
-            //     }
-            //   },
-            // ),
-            home: const HomePage(),
-          );
-        });
+      designSize: const Size(390, 844),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) {
+        return MaterialApp.router(
+          title: 'Mayo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          routerConfig: router,
+        );
+      },
+    );
   }
 }

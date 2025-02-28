@@ -7,14 +7,13 @@ class _Scaffold extends StatelessWidget {
     required this.banner,
     required this.category,
     required this.storeList,
-    required this.bottomBar,
   });
 
   final Widget topBar;
   final Widget banner;
   final Widget category;
   final Widget storeList;
-  final Widget bottomBar;
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,6 @@ class _Scaffold extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: bottomBar,
     );
   }
 }

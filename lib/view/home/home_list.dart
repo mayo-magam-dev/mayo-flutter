@@ -50,7 +50,7 @@ class _List extends StatelessWidget {
                         storeDescription: '${store.address}\n최대 ${store.maxSalePercent.toStringAsFixed(0)}% 할인중',
                         imageUrl: 'assets/icons/store_food_example.svg',
                         onTap: () {
-                          // TODO: Navigate to store detail page
+                          context.push('/store/${store.id}');
                         },
                       ),
                       if (store != viewModel.randomStores.last)

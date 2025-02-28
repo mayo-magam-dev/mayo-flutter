@@ -15,7 +15,12 @@ part 'store_info_bottom.dart';
 part 'store_origin_info.dart';
 
 class StorePage extends StatelessWidget {
-  const StorePage({super.key});
+  const StorePage({
+    super.key,
+    required this.id,
+  });
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {

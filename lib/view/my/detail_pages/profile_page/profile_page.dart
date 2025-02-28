@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
-import 'package:mayo_flutter/view/components/bottom_bar.dart';
+
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:mayo_flutter/view/my/detail_pages/acount_delete_page/account_delete_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/terms_policy_lists_page/terms_policy_page.dart';
@@ -23,7 +23,6 @@ class ProfilePage extends StatelessWidget {
       header: _Header(),
       infoTables: _InfoTables(),
       accountActions: _AccountActions(),
-      bottomBar: BottomBar(index: 3),
     );
   }
 }

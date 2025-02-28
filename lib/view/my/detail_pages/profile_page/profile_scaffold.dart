@@ -6,13 +6,12 @@ class _Scaffold extends StatelessWidget {
     required this.header,
     required this.infoTables,
     required this.accountActions,
-    required this.bottomBar,
   });
   final Widget topBar;
   final Widget header;
   final Widget infoTables;
   final Widget accountActions;
-  final Widget bottomBar;
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,6 @@ class _Scaffold extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: bottomBar,
     );
   }
 }

@@ -16,7 +16,7 @@ class _TopBar extends StatelessWidget {
             builder: (context, viewModel, child) {
               return GestureDetector(
                 onTap: () {
-                  // TODO: Navigate to cart page
+                  context.push('/cart');
                 },
                 child: Stack(
                   alignment: AlignmentDirectional.topEnd,
