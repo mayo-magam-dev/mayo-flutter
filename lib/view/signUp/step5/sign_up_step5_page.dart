@@ -22,7 +22,6 @@ class SignUpStep5Page extends StatelessWidget {
       submitButton: Button(
         text: '마요 시작하기',
         onTap: () {},
-        submit: true,
       ),
     );
   }

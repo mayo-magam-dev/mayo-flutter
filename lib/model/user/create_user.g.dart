@@ -16,6 +16,8 @@ _$CreateUserImpl _$$CreateUserImplFromJson(Map<String, dynamic> json) =>
       agreeMarketing: json['agreeMarketing'] as bool,
       agreeTerms1: json['agreeTerms1'] as bool,
       agreeTerms2: json['agreeTerms2'] as bool,
+      birthday: const TimestampConverter()
+          .fromJson(json['birthday'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$CreateUserImplToJson(_$CreateUserImpl instance) =>
@@ -28,4 +30,5 @@ Map<String, dynamic> _$$CreateUserImplToJson(_$CreateUserImpl instance) =>
       'agreeMarketing': instance.agreeMarketing,
       'agreeTerms1': instance.agreeTerms1,
       'agreeTerms2': instance.agreeTerms2,
+      'birthday': const TimestampConverter().toJson(instance.birthday),
     };

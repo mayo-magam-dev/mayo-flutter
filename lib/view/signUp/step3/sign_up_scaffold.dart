@@ -4,50 +4,35 @@ class _Scaffold extends StatelessWidget {
   const _Scaffold({
     required this.topBar,
     required this.header,
-    required this.form,
-    required this.successButton,
+    required this.middle,
+    required this.nextButton,
   });
+
   final Widget topBar;
   final Widget header;
-  final Widget form;
-  final Widget successButton;
+  final Widget middle;
+  final Widget nextButton;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Stack(
+        child:  SingleChildScrollView(
+          child: Column(
             children: [
-              Column(
-                children: [
-                  topBar,
-                  Container(
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          color: GlobalMainGrey.grey200,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 57.h),
-                  header,
-                  SizedBox(height: 54.h),
-                  form,
-                ],
-              ),
-              Column(
-                children: [
-                  SizedBox(height: 741.h),
-                  successButton,
-                ],
-              ),
-            ],
-          ),
+              topBar,
+              SizedBox(height: 32.h),
+              header,
+              SizedBox(height: 40.h),
+              middle,
+              SizedBox(height: 70.h),
+              nextButton
+          ],
         ),
       ),
-    );
+      
+    ));
   }
 }

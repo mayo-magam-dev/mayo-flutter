@@ -35,14 +35,14 @@ class _List extends StatelessWidget {
             ),
           ),
           SizedBox(height: 17.h),
-          Consumer<HomeViewModel>(
-            builder: (context, viewModel, child) {
-              if (viewModel.isLoading) {
+          BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state.isLoading) {
                 return const Center(child: CircularProgressIndicator());
               }
 
               return Column(
-                children: viewModel.randomStores.map((store) {
+                children: state.randomStores.map((store) {
                   return Column(
                     children: [
                       StoreInfoBar(
@@ -53,7 +53,7 @@ class _List extends StatelessWidget {
                           context.push('/store/${store.id}');
                         },
                       ),
-                      if (store != viewModel.randomStores.last)
+                      if (store != state.randomStores.last)
                         Container(
                           width: double.infinity,
                           decoration: ShapeDecoration(

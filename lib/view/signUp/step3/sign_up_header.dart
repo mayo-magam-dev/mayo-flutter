@@ -2,7 +2,7 @@ part of 'sign_up_step3_page.dart';
 
 class _SignUpHeader extends StatelessWidget {
   //ignore: unused_element
-  const _SignUpHeader({super.key});
+  const _SignUpHeader();
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/view/components/button.dart';
@@ -15,14 +18,29 @@ class SignUpStep1Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _Scaffold(
-      topBar: Topbar(title: '회원가입', showCarts: false),
-      header: _SignUpHeader(),
-      middle: _SignUpMiddle(),
-      nextButton: Button(
-        text: '다음',
-        onTap: () {},
-      ),
+    return _SignUpStep1View();
+  }
+}
+
+class _SignUpStep1View extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignUpBloc, SignUpState>(
+      builder: (context, state) {
+        return _Scaffold(
+          topBar: Topbar(title: '회원가입', showCarts: false),
+          header: _SignUpHeader(),
+          middle: _SignUpMiddle(),
+          nextButton: Button(
+            text: '다음',
+            onTap: state.isStep1Valid
+              ? () {
+                  context.push('/signup/step2');
+                }
+              : null,
+          ),
+        );
+      },
     );
   }
 }

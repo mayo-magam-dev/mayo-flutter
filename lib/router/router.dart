@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
+import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/view/cart/cart_page.dart';
 import 'package:mayo_flutter/view/home/home_page.dart';
+import 'package:mayo_flutter/view/login/login_page.dart';
 import 'package:mayo_flutter/view/my/my_page.dart';
 import 'package:mayo_flutter/view/on_discount/on_discount_page.dart';
 import 'package:mayo_flutter/view/orders/order_page.dart';
+import 'package:mayo_flutter/view/signUp/step1/sign_up_step1_page.dart';
+import 'package:mayo_flutter/view/signUp/step2/sign_up_step2_page.dart';
+import 'package:mayo_flutter/view/signUp/step3/sign_up_step3_page.dart';
 import 'package:mayo_flutter/view/store/store_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
@@ -12,10 +19,59 @@ import 'package:mayo_flutter/designSystem/color.dart';
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
 
+// 회원가입에 사용할 BloC을 미리 생성 (Singleton처럼 사용)
+final _signUpBloc = SignUpBloc(userDataSource: UserDataSource());
+
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
+  // redirect: (context, state) async {
+  //   final auth = FirebaseAuth.instance;
+  //   final userDataSource = UserDataSource();
+    
+  //   if (auth.currentUser == null) {
+  //     return '/login';
+  //   }
+    
+  //   try {
+  //     await userDataSource.getUser();
+  //     debugPrint('사용자 정보 있음: 리다이렉트 없음');
+  //     return null;
+  //   } catch (e) {
+  //     debugPrint('사용자 정보 없음: /signup으로 리다이렉트');
+  //     if (state.uri.path.startsWith('/signup')) {
+  //       debugPrint('이미 회원가입 페이지에 있음: 리다이렉트 없음');
+  //       return null;
+  //     }
+  //     return '/signup';
+  //   }
+  // },
   routes: [
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      path: '/signup',
+      builder: (context, state) => BlocProvider.value(
+        value: _signUpBloc,
+        child: SignUpStep1Page(),
+      ),
+    ),
+    GoRoute(
+      path: '/signup/step2',
+      builder: (context, state) => BlocProvider.value(
+        value: _signUpBloc,
+        child: SignUpStep2Page(),
+      ),
+    ),
+    GoRoute(
+      path: '/signup/step3',
+      builder: (context, state) => BlocProvider.value(
+        value: _signUpBloc,
+        child: SignUpStep3Page(),
+      ),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {

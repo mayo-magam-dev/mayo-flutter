@@ -12,8 +12,8 @@ class _TopBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset('assets/icons/mayo_logo_80x27.png'),
-          Consumer<HomeViewModel>(
-            builder: (context, viewModel, child) {
+          BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
               return GestureDetector(
                 onTap: () {
                   context.push('/cart');
@@ -36,7 +36,7 @@ class _TopBar extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          viewModel.cartItemCount.toString(),
+                          state.cartItemCount.toString(),
                           style: AppTextStyle.captionMedium.copyWith(
                             color: Colors.white,
                           ),

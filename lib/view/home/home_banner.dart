@@ -14,9 +14,9 @@ class _BannerState extends State<_Banner> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeViewModel>(
-      builder: (context, viewModel, child) {
-        if (viewModel.isLoading) {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
 
@@ -33,9 +33,9 @@ class _BannerState extends State<_Banner> {
                 },
                 controller: controller,
                 scrollDirection: Axis.horizontal,
-                itemCount: viewModel.banners.length,
+                itemCount: state.banners.length,
                 itemBuilder: (context, index) {
-                  final banner = viewModel.banners[index];
+                  final banner = state.banners[index];
                   return Image.network(
                     banner.imageUrl,
                     fit: BoxFit.cover,
@@ -52,10 +52,10 @@ class _BannerState extends State<_Banner> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
-                    viewModel.banners.length,
+                    state.banners.length,
                     (index) => Container(
                       margin: EdgeInsets.only(
-                        right: index != viewModel.banners.length - 1 ? 15 : 0,
+                        right: index != state.banners.length - 1 ? 15 : 0,
                       ),
                       width: 5,
                       height: 5,

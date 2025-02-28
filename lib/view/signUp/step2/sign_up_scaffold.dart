@@ -17,8 +17,7 @@ class _Scaffold extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
+          child: 
               Column(
                 children: [
                   topBar,
@@ -36,18 +35,13 @@ class _Scaffold extends StatelessWidget {
                   header,
                   SizedBox(height: 117.h),
                   middle,
-                ],
-              ),
-              Column(
-                children: [
-                  SizedBox(height: 741.h),
+                  SizedBox(height: 160.h),
                   nextButton,
                 ],
+                  
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        );
   }
 }

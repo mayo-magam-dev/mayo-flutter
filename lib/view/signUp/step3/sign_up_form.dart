@@ -9,8 +9,21 @@ class _SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<_SignUpForm> {
-  Map list = {'man': false, 'woman': false, 'notSelect': false};
+  Map<String, bool> list = {'man': false, 'woman': false, 'notSelect': false};
+  
+  // 컨트롤러 추가
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _displayNameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
 
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _displayNameController.dispose();
+    _phoneNumberController.dispose();
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,8 +41,12 @@ class _SignUpFormState extends State<_SignUpForm> {
             width: double.infinity,
             height: 45.h,
             child: TextFormField(
+              controller: _nameController,
               onTapOutside: (event) => FocusScope.of(context).unfocus(),
               textInputAction: TextInputAction.next,
+              onChanged: (value) {
+                context.read<SignUpBloc>().add(SetName(value));
+              },
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -73,8 +90,12 @@ class _SignUpFormState extends State<_SignUpForm> {
             width: double.infinity,
             height: 45.h,
             child: TextFormField(
+              controller: _displayNameController,
               onTapOutside: (event) => FocusScope.of(context).unfocus(),
               textInputAction: TextInputAction.next,
+              onChanged: (value) {
+                context.read<SignUpBloc>().add(SetDisplayName(value));
+              },
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -120,6 +141,22 @@ class _SignUpFormState extends State<_SignUpForm> {
             child: TextFormField(
               onTapOutside: (event) => FocusScope.of(context).unfocus(),
               textInputAction: TextInputAction.next,
+              onChanged: (value) {
+                if (value.length == 8) {
+                  try {
+                    // YYYYMMDD 형식의 문자열을 DateTime으로 변환
+                    final year = int.parse(value.substring(0, 4));
+                    final month = int.parse(value.substring(4, 6));
+                    final day = int.parse(value.substring(6, 8));
+                    
+                    final birthDate = DateTime(year, month, day);
+                    context.read<SignUpBloc>().add(SetBirthDate(birthDate));
+                  } catch (e) {
+                    // 날짜 변환 오류 처리
+                    // 입력 값이 유효하지 않은 경우 무시
+                  }
+                }
+              },
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -163,8 +200,13 @@ class _SignUpFormState extends State<_SignUpForm> {
             width: double.infinity,
             height: 45.h,
             child: TextFormField(
+              controller: _phoneNumberController,
               onTapOutside: (event) => FocusScope.of(context).unfocus(),
               textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.phone,
+              onChanged: (value) {
+                context.read<SignUpBloc>().add(SetPhoneNumber(value));
+              },
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -214,6 +256,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     list['woman'] = false;
                     list['notSelect'] = false;
                   });
+                  context.read<SignUpBloc>().add(SetGender('male'));
                 },
                 child: Container(
                   width: 102.w,
@@ -223,7 +266,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 2,
-                        color: list['man']
+                        color: list['man']!
                             ? GlobalMainColor.globalMainColor
                             : GlobalMainGrey.grey200,
                       ),
@@ -245,6 +288,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     list['woman'] = true;
                     list['notSelect'] = false;
                   });
+                  context.read<SignUpBloc>().add(SetGender('female'));
                 },
                 child: Container(
                   width: 102.w,
@@ -254,7 +298,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 2,
-                        color: list['woman']
+                        color: list['woman']!
                             ? GlobalMainColor.globalMainColor
                             : GlobalMainGrey.grey200,
                       ),
@@ -276,6 +320,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     list['woman'] = false;
                     list['notSelect'] = true;
                   });
+                  context.read<SignUpBloc>().add(SetGender('other'));
                 },
                 child: Container(
                   width: 102.w,
@@ -285,7 +330,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 2,
-                        color: list['notSelect']
+                        color: list['notSelect']!
                             ? GlobalMainColor.globalMainColor
                             : GlobalMainGrey.grey200,
                       ),
@@ -293,7 +338,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     ),
                   ),
                   child: Text(
-                    '미선택',
+                    '선택안함',
                     style: AppTextStyle.body1Medium.copyWith(
                       color: GlobalMainColor.globalPrimaryBlackColor,
                     ),
@@ -301,7 +346,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

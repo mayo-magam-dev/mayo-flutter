@@ -28,6 +28,8 @@ mixin _$CreateUser {
   bool get agreeMarketing => throw _privateConstructorUsedError;
   bool get agreeTerms1 => throw _privateConstructorUsedError;
   bool get agreeTerms2 => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get birthday => throw _privateConstructorUsedError;
 
   /// Serializes this CreateUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,7 +55,8 @@ abstract class $CreateUserCopyWith<$Res> {
       String phoneNumber,
       bool agreeMarketing,
       bool agreeTerms1,
-      bool agreeTerms2});
+      bool agreeTerms2,
+      @TimestampConverter() DateTime birthday});
 }
 
 /// @nodoc
@@ -79,6 +82,7 @@ class _$CreateUserCopyWithImpl<$Res, $Val extends CreateUser>
     Object? agreeMarketing = null,
     Object? agreeTerms1 = null,
     Object? agreeTerms2 = null,
+    Object? birthday = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -113,6 +117,10 @@ class _$CreateUserCopyWithImpl<$Res, $Val extends CreateUser>
           ? _value.agreeTerms2
           : agreeTerms2 // ignore: cast_nullable_to_non_nullable
               as bool,
+      birthday: null == birthday
+          ? _value.birthday
+          : birthday // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -133,7 +141,8 @@ abstract class _$$CreateUserImplCopyWith<$Res>
       String phoneNumber,
       bool agreeMarketing,
       bool agreeTerms1,
-      bool agreeTerms2});
+      bool agreeTerms2,
+      @TimestampConverter() DateTime birthday});
 }
 
 /// @nodoc
@@ -157,6 +166,7 @@ class __$$CreateUserImplCopyWithImpl<$Res>
     Object? agreeMarketing = null,
     Object? agreeTerms1 = null,
     Object? agreeTerms2 = null,
+    Object? birthday = null,
   }) {
     return _then(_$CreateUserImpl(
       email: null == email
@@ -191,6 +201,10 @@ class __$$CreateUserImplCopyWithImpl<$Res>
           ? _value.agreeTerms2
           : agreeTerms2 // ignore: cast_nullable_to_non_nullable
               as bool,
+      birthday: null == birthday
+          ? _value.birthday
+          : birthday // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -206,7 +220,8 @@ class _$CreateUserImpl implements _CreateUser {
       required this.phoneNumber,
       required this.agreeMarketing,
       required this.agreeTerms1,
-      required this.agreeTerms2});
+      required this.agreeTerms2,
+      @TimestampConverter() required this.birthday});
 
   factory _$CreateUserImpl.fromJson(Map<String, dynamic> json) =>
       _$$CreateUserImplFromJson(json);
@@ -227,10 +242,13 @@ class _$CreateUserImpl implements _CreateUser {
   final bool agreeTerms1;
   @override
   final bool agreeTerms2;
+  @override
+  @TimestampConverter()
+  final DateTime birthday;
 
   @override
   String toString() {
-    return 'CreateUser(email: $email, gender: $gender, name: $name, displayName: $displayName, phoneNumber: $phoneNumber, agreeMarketing: $agreeMarketing, agreeTerms1: $agreeTerms1, agreeTerms2: $agreeTerms2)';
+    return 'CreateUser(email: $email, gender: $gender, name: $name, displayName: $displayName, phoneNumber: $phoneNumber, agreeMarketing: $agreeMarketing, agreeTerms1: $agreeTerms1, agreeTerms2: $agreeTerms2, birthday: $birthday)';
   }
 
   @override
@@ -250,13 +268,15 @@ class _$CreateUserImpl implements _CreateUser {
             (identical(other.agreeTerms1, agreeTerms1) ||
                 other.agreeTerms1 == agreeTerms1) &&
             (identical(other.agreeTerms2, agreeTerms2) ||
-                other.agreeTerms2 == agreeTerms2));
+                other.agreeTerms2 == agreeTerms2) &&
+            (identical(other.birthday, birthday) ||
+                other.birthday == birthday));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, email, gender, name, displayName,
-      phoneNumber, agreeMarketing, agreeTerms1, agreeTerms2);
+      phoneNumber, agreeMarketing, agreeTerms1, agreeTerms2, birthday);
 
   /// Create a copy of CreateUser
   /// with the given fields replaced by the non-null parameter values.
@@ -276,14 +296,16 @@ class _$CreateUserImpl implements _CreateUser {
 
 abstract class _CreateUser implements CreateUser {
   factory _CreateUser(
-      {required final String email,
-      required final String gender,
-      required final String name,
-      required final String displayName,
-      required final String phoneNumber,
-      required final bool agreeMarketing,
-      required final bool agreeTerms1,
-      required final bool agreeTerms2}) = _$CreateUserImpl;
+          {required final String email,
+          required final String gender,
+          required final String name,
+          required final String displayName,
+          required final String phoneNumber,
+          required final bool agreeMarketing,
+          required final bool agreeTerms1,
+          required final bool agreeTerms2,
+          @TimestampConverter() required final DateTime birthday}) =
+      _$CreateUserImpl;
 
   factory _CreateUser.fromJson(Map<String, dynamic> json) =
       _$CreateUserImpl.fromJson;
@@ -304,6 +326,9 @@ abstract class _CreateUser implements CreateUser {
   bool get agreeTerms1;
   @override
   bool get agreeTerms2;
+  @override
+  @TimestampConverter()
+  DateTime get birthday;
 
   /// Create a copy of CreateUser
   /// with the given fields replaced by the non-null parameter values.
