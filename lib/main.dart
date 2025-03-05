@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:mayo_flutter/firebase_options.dart';
 import 'package:mayo_flutter/router/router.dart';
-
+import 'package:mayo_flutter/designSystem/themedata.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -28,10 +28,7 @@ class MyApp extends StatelessWidget {
         builder: (_, child) {
           return MaterialApp.router(
             title: '마요',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
+            theme: customThemeData,
             routerConfig: router,
           );
         });
