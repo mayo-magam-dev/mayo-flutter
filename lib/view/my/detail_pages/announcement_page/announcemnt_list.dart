@@ -1,7 +1,7 @@
 part of 'announcement_page.dart';
 
 class _Lists extends StatefulWidget {
-  const _Lists({super.key});
+  const _Lists();
 
   @override
   State<_Lists> createState() => _ListsState();
