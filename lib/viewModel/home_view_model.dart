@@ -30,7 +30,8 @@ class HomeViewModel extends ChangeNotifier {
       notifyListeners();
       _banners = await _bannerDataSource.getBanners();
     } catch (e) {
-      print('Error loading banners: $e');
+      debugPrint(e.toString());
+      throw Exception('배너를 불러오는데 실패했습니다');
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -42,7 +43,8 @@ class HomeViewModel extends ChangeNotifier {
       _cartItems = await _cartDataSource.getCarts();
       notifyListeners();
     } catch (e) {
-      print('Error loading cart items: $e');
+      debugPrint(e.toString());
+      throw Exception('장바구니를 불러오는데 실패했습니다');
     }
   }
 
@@ -51,7 +53,8 @@ class HomeViewModel extends ChangeNotifier {
       _randomStores = await _storeDataSource.getRandomOpenStores();
       notifyListeners();
     } catch (e) {
-      print('Error loading random stores: $e');
+      debugPrint(e.toString());
+      throw Exception('랜덤 가게를 불러오는데 실패했습니다');
     }
   }
 
