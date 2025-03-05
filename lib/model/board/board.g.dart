@@ -10,8 +10,8 @@ _$BoardImpl _$$BoardImplFromJson(Map<String, dynamic> json) => _$BoardImpl(
       boardId: json['boardId'] as String,
       title: json['title'] as String,
       content: json['content'] as String,
-      category: (json['category'] as num).toInt(),
-      image: json['image'] as String,
+      category: (json['category'] as num?)?.toInt(),
+      image: json['image'] as String?,
       writer: json['writer'] as String,
       writeTime: const TimestampConverter()
           .fromJson(json['writeTime'] as Map<String, dynamic>),
