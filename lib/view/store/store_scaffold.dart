@@ -6,10 +6,12 @@ class _Scaffold extends StatelessWidget {
     required this.topBar,
     required this.infoHeader,
     required this.infoMiddle,
+    required this.infoBottom,
   });
   final Widget topBar;
   final Widget infoHeader;
   final Widget infoMiddle;
+  final Widget infoBottom;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class _Scaffold extends StatelessWidget {
           topBar,
           infoHeader,
           infoMiddle,
+          infoBottom
         ],
       ),
     )));

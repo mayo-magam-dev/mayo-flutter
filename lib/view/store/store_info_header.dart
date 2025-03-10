@@ -4,6 +4,7 @@ class _StoreInfoHeader extends StatelessWidget {
   // ignore: unused_element
   const _StoreInfoHeader({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -63,7 +64,7 @@ class _StoreInfoHeader extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25.w),
                       image: DecorationImage(
                           image: AssetImage(
-                              "assets/images/store_info_logo_example.png"))),
+                              "assets/images/${StorePage.storeData.storeImage}"))),
                 ))
           ],
         ),
@@ -76,7 +77,7 @@ class _StoreInfoHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "힘쎈드위치",
+                  StorePage.storeData.storeName,
                   style: AppTextStyle.heading2Bold,
                 ),
                 Row(
@@ -90,7 +91,7 @@ class _StoreInfoHeader extends StatelessWidget {
                       width: 6.w,
                     ),
                     Text(
-                      "광주광역시 동구 지산로 38",
+                      StorePage.storeData.address,
                       style: AppTextStyle.body2Medium
                           .copyWith(color: GlobalMainGrey.grey700),
                     )

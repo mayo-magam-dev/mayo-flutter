@@ -17,7 +17,7 @@ class _StoreInfoBottom extends StatelessWidget {
               children: [
                 Text("마감 할인 정보", style: AppTextStyle.body1Bold),
                 Text(
-                  "19:00 ~ 21:00",
+                  "${StorePage.storeData.saleStart} ~ ${StorePage.storeData.saleEnd}",
                   style: AppTextStyle.body1Bold
                       .copyWith(color: GlobalMainColor.globalButtonColor),
                 )

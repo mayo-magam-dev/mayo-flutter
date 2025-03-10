@@ -19,7 +19,7 @@ class _StoreInfoMiddle extends StatelessWidget {
                   height: 10.h,
                 ),
                 Text(
-                    "영업시간 : 화 ~ 토  11:00 ~ 21:00\n마감할인 시간 : 화 ~ 토  11:00 ~ 21:00",
+                    "영업시간 : 화 ~ 토  ${StorePage.storeData.openTime} ~ ${StorePage.storeData.closeTime}\n마감할인 시간 : 화 ~ 토  ${StorePage.storeData.saleStart} ~ ${StorePage.storeData.saleEnd}",
                     style: AppTextStyle.body1Medium),
               ],
             )),
