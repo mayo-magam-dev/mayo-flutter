@@ -1,16 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kakao_map_plugin/kakao_map_plugin.dart';
-import 'package:mayo_flutter/designSystem/fontsize.dart';
+part of 'store_page.dart';
 
-class StoreMap extends StatefulWidget {
-  const StoreMap({super.key});
+class _StoreMap extends StatefulWidget {
+  //ignore: unused_element
+  const _StoreMap({super.key});
 
   @override
-  State<StoreMap> createState() => _StoreMapState();
+  State<_StoreMap> createState() => _StoreMapState();
 }
 
-class _StoreMapState extends State<StoreMap> {
+class _StoreMapState extends State<_StoreMap> {
   late KakaoMapController mapController;
 
   Set<Marker> markers = {};
