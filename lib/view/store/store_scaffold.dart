@@ -5,13 +5,11 @@ class _Scaffold extends StatelessWidget {
   const _Scaffold({
     required this.topBar,
     required this.infoHeader,
-    required this.infoMiddle,
-    required this.infoBottom,
+    required this.infoMain,
   });
   final Widget topBar;
   final Widget infoHeader;
-  final Widget infoMiddle;
-  final Widget infoBottom;
+  final Widget infoMain;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +20,7 @@ class _Scaffold extends StatelessWidget {
         children: [
           topBar,
           infoHeader,
-          infoMiddle,
-          infoBottom
+          infoMain,
         ],
       ),
     )));

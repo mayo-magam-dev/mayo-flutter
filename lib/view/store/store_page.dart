@@ -1,6 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:mayo_flutter/bloc/store/store_bloc.dart';
+import 'package:mayo_flutter/bloc/store/store_event.dart';
+import 'package:mayo_flutter/bloc/store/store_state.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/item/read_item.dart';
@@ -10,9 +17,10 @@ import 'package:mayo_flutter/view/components/top_bar.dart';
 
 part 'store_scaffold.dart';
 part 'store_info_header.dart';
-part 'store_info_middle.dart';
-part 'store_info_bottom.dart';
+part 'store_info_main.dart';
+part 'store_info_section.dart';
 part 'store_origin_info.dart';
+part 'store_map.dart';
 
 class StorePage extends StatelessWidget {
   const StorePage({
@@ -21,6 +29,10 @@ class StorePage extends StatelessWidget {
   });
 
   final String id;
+
+  // static int viewIndex = 0;
+
+  // List view = [_StoreInfoMain(), _StoreMap(), _StoreOriginInfo(),];
 
   static ReadStore storeData = ReadStore(
     id: '', //가게별 고유 값
@@ -37,20 +49,22 @@ class StorePage extends StatelessWidget {
     storeMapUrl: '가게 지도 url',
     originInfo: '국내산',
     additionalComment: '추가 설명',
-    storeCategory: 1, //음식 종류류
+    storeCategory: 1, //음식 종류
     storeSellingType: 1,
   );
 
   @override
   Widget build(BuildContext context) {
-    return _Scaffold(
-      topBar: Topbar(
-        title: storeData.storeName,
-        showCarts: false,
+    return BlocProvider(
+      create: (context) => StoreBloc()..add(ChangeViewEvent(0)),
+      child: _Scaffold(
+        topBar: Topbar(
+          title: storeData.storeName,
+          showCarts: false,
+        ),
+        infoHeader: _StoreInfoHeader(),
+        infoMain: _StoreInfoMain(),
       ),
-      infoHeader: _StoreInfoHeader(),
-      infoMiddle: _StoreInfoMiddle(),
-      infoBottom: _StoreInfoBottom(),
     );
   }
 }
