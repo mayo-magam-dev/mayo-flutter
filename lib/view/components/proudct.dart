@@ -18,7 +18,7 @@ class ProductComponents extends StatelessWidget {
           width: 22.w,
         ),
         SizedBox(
-          width: 232.w,
+          width: 230.w,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(result.itemName, style: AppTextStyle.body1Bold),
