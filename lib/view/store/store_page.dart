@@ -14,6 +14,7 @@ import 'package:mayo_flutter/model/item/read_item.dart';
 import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/view/components/proudct.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'store_scaffold.dart';
 part 'store_info_header.dart';

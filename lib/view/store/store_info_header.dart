@@ -122,7 +122,7 @@ class _StoreInfoHeader extends StatelessWidget {
                         menuName: "전화 문의",
                         menuIcon: "call.svg",
                         onTap: () {
-                          launch
+                          launchUrl(Uri(scheme: 'tel', path: '01040172010',)); //전화 연결
                         },
                       ),
                       SelectableMenu(
