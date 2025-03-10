@@ -28,7 +28,8 @@ class _BottomSheet extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("18,000원", style: AppTextStyle.heading3Bold),
+            Text("${ProductPage.itemData.salePrice}",
+                style: AppTextStyle.heading3Bold),
             SizedBox(height: 18.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
