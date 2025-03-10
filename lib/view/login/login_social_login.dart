@@ -9,8 +9,8 @@ class _LoginSocialLogin extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          onTap: () {
-            GoogleLogin().login();
+          onTap: () async {
+            await GoogleLogin().login();
           },
           borderRadius: BorderRadius.circular(50),
           child: Container(
