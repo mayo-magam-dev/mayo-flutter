@@ -12,8 +12,8 @@ part 'product_info.dart';
 part 'product_bottom_sheet.dart';
 part 'product_on_cart.dart';
 
-class ProuductPage extends StatelessWidget {
-  const ProuductPage({super.key});
+class ProductPage extends StatelessWidget {
+  const ProductPage({super.key});
 
   @override
   Widget build(BuildContext context) {
