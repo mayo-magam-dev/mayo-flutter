@@ -17,8 +17,8 @@ _$ReadItemImpl _$$ReadItemImplFromJson(Map<String, dynamic> json) =>
       itemOnSale: json['itemOnSale'] as bool,
       itemImage: json['itemImage'] as String,
       salePrice: (json['salePrice'] as num).toDouble(),
-      cookingTime: (json['cookingTime'] as num).toInt(),
-      additionalInformation: json['additionalInformation'] as String,
+      cookingTime: (json['cookingTime'] as num?)?.toInt(),
+      additionalInformation: json['additionalInformation'] as String?,
     );
 
 Map<String, dynamic> _$$ReadItemImplToJson(_$ReadItemImpl instance) =>

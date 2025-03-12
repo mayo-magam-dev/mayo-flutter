@@ -29,8 +29,8 @@ mixin _$ReadItem {
   bool get itemOnSale => throw _privateConstructorUsedError;
   String get itemImage => throw _privateConstructorUsedError;
   double get salePrice => throw _privateConstructorUsedError;
-  int get cookingTime => throw _privateConstructorUsedError;
-  String get additionalInformation => throw _privateConstructorUsedError;
+  int? get cookingTime => throw _privateConstructorUsedError;
+  String? get additionalInformation => throw _privateConstructorUsedError;
 
   /// Serializes this ReadItem to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -57,8 +57,8 @@ abstract class $ReadItemCopyWith<$Res> {
       bool itemOnSale,
       String itemImage,
       double salePrice,
-      int cookingTime,
-      String additionalInformation});
+      int? cookingTime,
+      String? additionalInformation});
 }
 
 /// @nodoc
@@ -85,8 +85,8 @@ class _$ReadItemCopyWithImpl<$Res, $Val extends ReadItem>
     Object? itemOnSale = null,
     Object? itemImage = null,
     Object? salePrice = null,
-    Object? cookingTime = null,
-    Object? additionalInformation = null,
+    Object? cookingTime = freezed,
+    Object? additionalInformation = freezed,
   }) {
     return _then(_value.copyWith(
       itemId: null == itemId
@@ -125,14 +125,14 @@ class _$ReadItemCopyWithImpl<$Res, $Val extends ReadItem>
           ? _value.salePrice
           : salePrice // ignore: cast_nullable_to_non_nullable
               as double,
-      cookingTime: null == cookingTime
+      cookingTime: freezed == cookingTime
           ? _value.cookingTime
           : cookingTime // ignore: cast_nullable_to_non_nullable
-              as int,
-      additionalInformation: null == additionalInformation
+              as int?,
+      additionalInformation: freezed == additionalInformation
           ? _value.additionalInformation
           : additionalInformation // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -155,8 +155,8 @@ abstract class _$$ReadItemImplCopyWith<$Res>
       bool itemOnSale,
       String itemImage,
       double salePrice,
-      int cookingTime,
-      String additionalInformation});
+      int? cookingTime,
+      String? additionalInformation});
 }
 
 /// @nodoc
@@ -181,8 +181,8 @@ class __$$ReadItemImplCopyWithImpl<$Res>
     Object? itemOnSale = null,
     Object? itemImage = null,
     Object? salePrice = null,
-    Object? cookingTime = null,
-    Object? additionalInformation = null,
+    Object? cookingTime = freezed,
+    Object? additionalInformation = freezed,
   }) {
     return _then(_$ReadItemImpl(
       itemId: null == itemId
@@ -221,14 +221,14 @@ class __$$ReadItemImplCopyWithImpl<$Res>
           ? _value.salePrice
           : salePrice // ignore: cast_nullable_to_non_nullable
               as double,
-      cookingTime: null == cookingTime
+      cookingTime: freezed == cookingTime
           ? _value.cookingTime
           : cookingTime // ignore: cast_nullable_to_non_nullable
-              as int,
-      additionalInformation: null == additionalInformation
+              as int?,
+      additionalInformation: freezed == additionalInformation
           ? _value.additionalInformation
           : additionalInformation // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -246,8 +246,8 @@ class _$ReadItemImpl implements _ReadItem {
       required this.itemOnSale,
       required this.itemImage,
       required this.salePrice,
-      required this.cookingTime,
-      required this.additionalInformation});
+      this.cookingTime,
+      this.additionalInformation});
 
   factory _$ReadItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReadItemImplFromJson(json);
@@ -271,9 +271,9 @@ class _$ReadItemImpl implements _ReadItem {
   @override
   final double salePrice;
   @override
-  final int cookingTime;
+  final int? cookingTime;
   @override
-  final String additionalInformation;
+  final String? additionalInformation;
 
   @override
   String toString() {
@@ -351,8 +351,8 @@ abstract class _ReadItem implements ReadItem {
       required final bool itemOnSale,
       required final String itemImage,
       required final double salePrice,
-      required final int cookingTime,
-      required final String additionalInformation}) = _$ReadItemImpl;
+      final int? cookingTime,
+      final String? additionalInformation}) = _$ReadItemImpl;
 
   factory _ReadItem.fromJson(Map<String, dynamic> json) =
       _$ReadItemImpl.fromJson;
@@ -376,9 +376,9 @@ abstract class _ReadItem implements ReadItem {
   @override
   double get salePrice;
   @override
-  int get cookingTime;
+  int? get cookingTime;
   @override
-  String get additionalInformation;
+  String? get additionalInformation;
 
   /// Create a copy of ReadItem
   /// with the given fields replaced by the non-null parameter values.

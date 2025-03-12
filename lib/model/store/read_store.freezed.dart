@@ -29,10 +29,10 @@ mixin _$ReadStore {
   String get closeTime => throw _privateConstructorUsedError;
   String get saleStart => throw _privateConstructorUsedError;
   String get saleEnd => throw _privateConstructorUsedError;
-  String get storeDescription => throw _privateConstructorUsedError;
+  String? get storeDescription => throw _privateConstructorUsedError;
   String get storeNumber => throw _privateConstructorUsedError;
-  String get storeMapUrl => throw _privateConstructorUsedError;
-  String get originInfo => throw _privateConstructorUsedError;
+  String? get storeMapUrl => throw _privateConstructorUsedError;
+  String? get originInfo => throw _privateConstructorUsedError;
   String get additionalComment => throw _privateConstructorUsedError;
   int get storeCategory => throw _privateConstructorUsedError;
   int get storeSellingType => throw _privateConstructorUsedError;
@@ -62,10 +62,10 @@ abstract class $ReadStoreCopyWith<$Res> {
       String closeTime,
       String saleStart,
       String saleEnd,
-      String storeDescription,
+      String? storeDescription,
       String storeNumber,
-      String storeMapUrl,
-      String originInfo,
+      String? storeMapUrl,
+      String? originInfo,
       String additionalComment,
       int storeCategory,
       int storeSellingType});
@@ -95,10 +95,10 @@ class _$ReadStoreCopyWithImpl<$Res, $Val extends ReadStore>
     Object? closeTime = null,
     Object? saleStart = null,
     Object? saleEnd = null,
-    Object? storeDescription = null,
+    Object? storeDescription = freezed,
     Object? storeNumber = null,
-    Object? storeMapUrl = null,
-    Object? originInfo = null,
+    Object? storeMapUrl = freezed,
+    Object? originInfo = freezed,
     Object? additionalComment = null,
     Object? storeCategory = null,
     Object? storeSellingType = null,
@@ -140,22 +140,22 @@ class _$ReadStoreCopyWithImpl<$Res, $Val extends ReadStore>
           ? _value.saleEnd
           : saleEnd // ignore: cast_nullable_to_non_nullable
               as String,
-      storeDescription: null == storeDescription
+      storeDescription: freezed == storeDescription
           ? _value.storeDescription
           : storeDescription // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       storeNumber: null == storeNumber
           ? _value.storeNumber
           : storeNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      storeMapUrl: null == storeMapUrl
+      storeMapUrl: freezed == storeMapUrl
           ? _value.storeMapUrl
           : storeMapUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      originInfo: null == originInfo
+              as String?,
+      originInfo: freezed == originInfo
           ? _value.originInfo
           : originInfo // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       additionalComment: null == additionalComment
           ? _value.additionalComment
           : additionalComment // ignore: cast_nullable_to_non_nullable
@@ -190,10 +190,10 @@ abstract class _$$ReadStoreImplCopyWith<$Res>
       String closeTime,
       String saleStart,
       String saleEnd,
-      String storeDescription,
+      String? storeDescription,
       String storeNumber,
-      String storeMapUrl,
-      String originInfo,
+      String? storeMapUrl,
+      String? originInfo,
       String additionalComment,
       int storeCategory,
       int storeSellingType});
@@ -221,10 +221,10 @@ class __$$ReadStoreImplCopyWithImpl<$Res>
     Object? closeTime = null,
     Object? saleStart = null,
     Object? saleEnd = null,
-    Object? storeDescription = null,
+    Object? storeDescription = freezed,
     Object? storeNumber = null,
-    Object? storeMapUrl = null,
-    Object? originInfo = null,
+    Object? storeMapUrl = freezed,
+    Object? originInfo = freezed,
     Object? additionalComment = null,
     Object? storeCategory = null,
     Object? storeSellingType = null,
@@ -266,22 +266,22 @@ class __$$ReadStoreImplCopyWithImpl<$Res>
           ? _value.saleEnd
           : saleEnd // ignore: cast_nullable_to_non_nullable
               as String,
-      storeDescription: null == storeDescription
+      storeDescription: freezed == storeDescription
           ? _value.storeDescription
           : storeDescription // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       storeNumber: null == storeNumber
           ? _value.storeNumber
           : storeNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      storeMapUrl: null == storeMapUrl
+      storeMapUrl: freezed == storeMapUrl
           ? _value.storeMapUrl
           : storeMapUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      originInfo: null == originInfo
+              as String?,
+      originInfo: freezed == originInfo
           ? _value.originInfo
           : originInfo // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       additionalComment: null == additionalComment
           ? _value.additionalComment
           : additionalComment // ignore: cast_nullable_to_non_nullable
@@ -311,10 +311,10 @@ class _$ReadStoreImpl implements _ReadStore {
       required this.closeTime,
       required this.saleStart,
       required this.saleEnd,
-      required this.storeDescription,
+      this.storeDescription,
       required this.storeNumber,
-      required this.storeMapUrl,
-      required this.originInfo,
+      this.storeMapUrl,
+      this.originInfo,
       required this.additionalComment,
       required this.storeCategory,
       required this.storeSellingType});
@@ -341,13 +341,13 @@ class _$ReadStoreImpl implements _ReadStore {
   @override
   final String saleEnd;
   @override
-  final String storeDescription;
+  final String? storeDescription;
   @override
   final String storeNumber;
   @override
-  final String storeMapUrl;
+  final String? storeMapUrl;
   @override
-  final String originInfo;
+  final String? originInfo;
   @override
   final String additionalComment;
   @override
@@ -444,10 +444,10 @@ abstract class _ReadStore implements ReadStore {
       required final String closeTime,
       required final String saleStart,
       required final String saleEnd,
-      required final String storeDescription,
+      final String? storeDescription,
       required final String storeNumber,
-      required final String storeMapUrl,
-      required final String originInfo,
+      final String? storeMapUrl,
+      final String? originInfo,
       required final String additionalComment,
       required final int storeCategory,
       required final int storeSellingType}) = _$ReadStoreImpl;
@@ -474,13 +474,13 @@ abstract class _ReadStore implements ReadStore {
   @override
   String get saleEnd;
   @override
-  String get storeDescription;
+  String? get storeDescription;
   @override
   String get storeNumber;
   @override
-  String get storeMapUrl;
+  String? get storeMapUrl;
   @override
-  String get originInfo;
+  String? get originInfo;
   @override
   String get additionalComment;
   @override

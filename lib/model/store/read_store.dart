@@ -15,14 +15,15 @@ class ReadStore with _$ReadStore {
     required String closeTime,
     required String saleStart,
     required String saleEnd,
-    required String storeDescription,
+    String? storeDescription,
     required String storeNumber,
-    required String storeMapUrl,
-    required String originInfo,
+    String? storeMapUrl,
+    String? originInfo,
     required String additionalComment,
     required int storeCategory,
     required int storeSellingType,
   }) = _ReadStore;
 
-  factory ReadStore.fromJson(Map<String, dynamic> json) => _$ReadStoreFromJson(json);
+  factory ReadStore.fromJson(Map<String, dynamic> json) =>
+      _$ReadStoreFromJson(json);
 }

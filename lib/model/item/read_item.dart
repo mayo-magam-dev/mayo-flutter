@@ -15,8 +15,8 @@ class ReadItem with _$ReadItem {
     required bool itemOnSale,
     required String itemImage,
     required double salePrice,
-    required int cookingTime,
-    required String additionalInformation,
+    int? cookingTime,
+    String? additionalInformation,
   }) = _ReadItem;
 
   factory ReadItem.fromJson(Map<String, dynamic> json) =>
