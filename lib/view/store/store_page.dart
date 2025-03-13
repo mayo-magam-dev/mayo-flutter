@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +6,8 @@ import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:mayo_flutter/bloc/store/store_bloc.dart';
 import 'package:mayo_flutter/bloc/store/store_event.dart';
 import 'package:mayo_flutter/bloc/store/store_state.dart';
+import 'package:mayo_flutter/dataSource/item.dart';
+import 'package:mayo_flutter/dataSource/store.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/item/read_item.dart';
@@ -23,48 +23,58 @@ part 'store_info_section.dart';
 part 'store_origin_info.dart';
 part 'store_map.dart';
 
-class StorePage extends StatelessWidget {
-  const StorePage({
-    super.key,
-    required this.id,
-  });
+class StorePage extends StatefulWidget {
+  const StorePage({super.key, required this.id});
 
   final String id;
 
-  // static int viewIndex = 0;
+  @override
+  State<StorePage> createState() => _StorePageState();
+}
 
-  // List view = [_StoreInfoMain(), _StoreMap(), _StoreOriginInfo(),];
+class _StorePageState extends State<StorePage> {
+  late Future<ReadStore?> store;
+  late Future<List<ReadItem?>> storeItems;
 
-  static ReadStore storeData = ReadStore(
-    id: '', //가게별 고유 값
-    storeName: '힘쎈드위치',
-    openState: true,
-    address: '광주광역시 동구 지산로 38',
-    storeImage: 'store_info_logo_example.png',
-    openTime: '11:00',
-    closeTime: '21:00',
-    saleStart: '19:00',
-    saleEnd: '21:00',
-    storeDescription: '가게 설명',
-    storeNumber: '가게 전화번호',
-    storeMapUrl: '가게 지도 url',
-    originInfo: '국내산',
-    additionalComment: '추가 설명',
-    storeCategory: 1, //음식 종류
-    storeSellingType: 1,
-  );
+  @override
+  void initState() {
+    super.initState();
+    store = StoreDataSource().getStoreDetail(widget.id);
+    storeItems = ItemDataSource().getItemsByStoreId(widget.id);
+  }
+
+  Future<(ReadStore, List<ReadItem>)> featchStoreData(String storeId) async {
+    final results = await Future.wait([store, storeItems]);
+    return (results[0] as ReadStore, results[1] as List<ReadItem>);
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => StoreBloc()..add(ChangeViewEvent(0)),
-      child: _Scaffold(
-        topBar: Topbar(
-          title: storeData.storeName,
-          showCarts: false,
-        ),
-        infoHeader: _StoreInfoHeader(),
-        infoMain: _StoreInfoMain(),
+      child: FutureBuilder(
+        future: featchStoreData(widget.id),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return CircularProgressIndicator();
+            default:
+              if (snapshot.hasError) {
+                return Text('데이터를 불러올 수 없습니다.');
+              } else {
+                return _Scaffold(
+                  topBar: Topbar(
+                    title: snapshot.data!.$1.storeName,
+                    showCarts: false,
+                  ),
+                  infoHeader: _StoreInfoHeader(storeData: snapshot.data!.$1),
+                  infoMain: _StoreInfoMain(
+                      storeData: snapshot.data!.$1,
+                      itemData: snapshot.data!.$2),
+                );
+              }
+          }
+        },
       ),
     );
   }

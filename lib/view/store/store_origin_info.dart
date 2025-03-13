@@ -1,9 +1,9 @@
 part of 'store_page.dart';
 
-// ignore: unused_element
 class _StoreOriginInfo extends StatelessWidget {
-  // ignore: unused_element
-  const _StoreOriginInfo({super.key});
+  const _StoreOriginInfo({required this.storeData});
+
+  final ReadStore storeData;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class _StoreOriginInfo extends StatelessWidget {
           children: [
             Text("원산지 정보", style: AppTextStyle.heading3Bold),
             Text(
-              "햄(돼기고기, 닭고기: 국내산",
+              storeData.originInfo ?? '',
               style: AppTextStyle.body2Medium,
             ),
           ],

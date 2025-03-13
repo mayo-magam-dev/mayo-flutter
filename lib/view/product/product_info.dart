@@ -1,7 +1,9 @@
 part of 'product_page.dart';
 
 class _ProductInfo extends StatelessWidget {
-  _ProductInfo();
+  _ProductInfo({required this.itemData});
+
+  final ReadItem? itemData;
 
   var numberFormat = NumberFormat('###,###,###,###');
 
@@ -15,19 +17,18 @@ class _ProductInfo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(ProductPage.itemData.itemName,
-                  style: AppTextStyle.heading2Bold),
+              Text(itemData!.itemName, style: AppTextStyle.heading2Bold),
               SizedBox(height: 8.h),
               Row(
                 children: [
-                  Text("${ProductPage.itemData.salePercent}%",
+                  Text("${itemData!.salePercent}%",
                       style: AppTextStyle.body2Bold.copyWith(
                           color: GlobalMainColor.globalPrimaryRedColor)),
                   SizedBox(width: 5.w),
-                  Text(numberFormat.format(ProductPage.itemData.salePrice),
+                  Text(numberFormat.format(itemData!.salePrice),
                       style: AppTextStyle.body2Bold),
                   SizedBox(width: 5.w),
-                  Text(numberFormat.format(ProductPage.itemData.originalPrice),
+                  Text(numberFormat.format(itemData!.originalPrice),
                       style: AppTextStyle.body2Medium.copyWith(
                           color: GlobalMainGrey.grey300,
                           decoration: TextDecoration.lineThrough)),
@@ -48,7 +49,7 @@ class _ProductInfo extends StatelessWidget {
                   SvgPicture.asset("assets/icons/pizza.svg",
                       height: 20.h, width: 20.w),
                   SizedBox(width: 2.w),
-                  Text("${ProductPage.itemData.itemQuantity}",
+                  Text("${itemData!.itemQuantity}",
                       style: AppTextStyle.body2Medium),
                 ],
               ),
@@ -67,21 +68,15 @@ class _ProductInfo extends StatelessWidget {
             children: [
               Text("추가 전달 사항", style: AppTextStyle.body1Bold),
               SizedBox(height: 4.h),
-              Text(ProductPage.itemData.additionalInformation,
+              Text(itemData!.additionalInformation ?? '',
                   style: AppTextStyle.body2Medium),
               SizedBox(height: 15.h),
               Text("평균 조리 시간", style: AppTextStyle.body1Bold),
               SizedBox(height: 4.h),
-              Text("${ProductPage.itemData.cookingTime}",
+              Text("${itemData!.cookingTime ?? ''}",
                   style: AppTextStyle.body2Medium),
             ],
           ),
-        ),
-        TextButton(
-          onPressed: () {
-            var data = ItemDataSource().getItemsByStoreId('1');
-          },
-          child: Text('data'),
         ),
       ],
     );

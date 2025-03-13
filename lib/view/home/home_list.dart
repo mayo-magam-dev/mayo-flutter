@@ -43,16 +43,26 @@ class _List extends StatelessWidget {
 
               return Column(
                 children: state.randomStores.map((store) {
+                  Future<ReadStore> data =
+                      StoreDataSource().getStoreDetail(store.id);
                   return Column(
                     children: [
-                      StoreInfoBar(
-                        storeName: store.storeName,
-                        storeDescription: '${store.address}\n최대 ${store.maxSalePercent.toStringAsFixed(0)}% 할인중',
-                        imageUrl: 'assets/icons/store_food_example.svg',
-                        onTap: () {
-                          context.push('/store/${store.id}');
-                        },
-                      ),
+                      FutureBuilder(
+                          future: data,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData == false) {
+                              return CircularProgressIndicator();
+                            }
+                            return StoreInfoBar(
+                              storeName: store.storeName,
+                              storeDescription:
+                                  '${store.address}\n최대 ${store.maxSalePercent.toStringAsFixed(0)}% 할인중',
+                              imageUrl: snapshot.data!.storeImage,
+                              onTap: () {
+                                context.push('/store/${store.id}');
+                              },
+                            );
+                          }),
                       if (store != state.randomStores.last)
                         Container(
                           width: double.infinity,

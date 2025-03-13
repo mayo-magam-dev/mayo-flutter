@@ -1,7 +1,9 @@
 part of 'product_page.dart';
 
 class _BottomSheet extends StatelessWidget {
-  const _BottomSheet();
+  const _BottomSheet({required this.itemData});
+
+  final ReadItem? itemData;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,7 @@ class _BottomSheet extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("${ProductPage.itemData.salePrice}",
-                style: AppTextStyle.heading3Bold),
+            Text("${itemData!.salePrice}", style: AppTextStyle.heading3Bold),
             SizedBox(height: 18.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,9 +66,12 @@ class _BottomSheet extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   alignment: Alignment.center,
-                  child: Text("가게 둘러보기",
-                      style: AppTextStyle.body1Bold
-                          .copyWith(color: GlobalMainGrey.grey400)),
+                  child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Text("가게 둘러보기",
+                        style: AppTextStyle.body1Bold
+                            .copyWith(color: GlobalMainGrey.grey400)),
+                  ),
                 ),
                 GestureDetector(
                   onTap: () => showDialog(

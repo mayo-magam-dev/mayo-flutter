@@ -1,8 +1,9 @@
 part of 'store_page.dart';
 
 class _StoreInfoHeader extends StatelessWidget {
-  // ignore: unused_element
-  const _StoreInfoHeader({super.key});
+  const _StoreInfoHeader({required this.storeData});
+
+  final ReadStore storeData;
 
   @override
   Widget build(BuildContext context) {
@@ -54,18 +55,20 @@ class _StoreInfoHeader extends StatelessWidget {
                     ),
                   )),
               Positioned(
-                  left: 25.w,
-                  bottom: -25.h,
-                  child: Container(
-                    width: 100.w,
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25.w),
-                        image: DecorationImage(
-                            image: AssetImage(
-                                "assets/images/${StorePage.storeData.storeImage}"))),
-                  ))
+                left: 25.w,
+                bottom: -25.h,
+                child: Container(
+                  width: 100.w,
+                  height: 100.h,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25.w),
+                    image: DecorationImage(
+                      image: NetworkImage(storeData.storeImage),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           SizedBox(
@@ -77,7 +80,7 @@ class _StoreInfoHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    StorePage.storeData.storeName,
+                    storeData.storeName,
                     style: AppTextStyle.heading2Bold,
                   ),
                   Row(
@@ -91,7 +94,7 @@ class _StoreInfoHeader extends StatelessWidget {
                         width: 6.w,
                       ),
                       Text(
-                        StorePage.storeData.address,
+                        storeData.address,
                         style: AppTextStyle.body2Medium
                             .copyWith(color: GlobalMainGrey.grey700),
                       )
@@ -122,7 +125,10 @@ class _StoreInfoHeader extends StatelessWidget {
                         menuName: "전화 문의",
                         menuIcon: "call.svg",
                         onTap: () {
-                          launchUrl(Uri(scheme: 'tel', path: '01040172010',)); //전화 연결
+                          launchUrl(Uri(
+                            scheme: 'tel',
+                            path: storeData.storeNumber,
+                          )); //전화 연결
                         },
                       ),
                       SelectableMenu(

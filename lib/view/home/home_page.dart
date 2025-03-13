@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mayo_flutter/bloc/home/home_bloc.dart';
+import 'package:mayo_flutter/dataSource/store.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
+import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/view/components/category_buttons.dart';
 import 'package:mayo_flutter/view/components/store_info_bar.dart';
 
