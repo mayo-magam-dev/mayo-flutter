@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
+import 'package:mayo_flutter/model/user/create_fcm_token.dart';
 import 'package:mayo_flutter/model/user/create_user.dart';
 
 part 'sign_up_event.dart';
@@ -7,8 +11,8 @@ part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final UserDataSource _userDataSource;
-  
-  SignUpBloc({required UserDataSource userDataSource}) 
+
+  SignUpBloc({required UserDataSource userDataSource})
       : _userDataSource = userDataSource,
         super(SignUpState()) {
     on<SetTermsAgreement>(_onSetTermsAgreement);
@@ -26,15 +30,18 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SubmitSignUp>(_onSubmitSignUp);
   }
 
-  void _onSetTermsAgreement(SetTermsAgreement event, Emitter<SignUpState> emit) {
+  void _onSetTermsAgreement(
+      SetTermsAgreement event, Emitter<SignUpState> emit) {
     emit(state.copyWith(agreeTerms1: event.value));
   }
 
-  void _onSetPrivacyAgreement(SetPrivacyAgreement event, Emitter<SignUpState> emit) {
+  void _onSetPrivacyAgreement(
+      SetPrivacyAgreement event, Emitter<SignUpState> emit) {
     emit(state.copyWith(agreeTerms2: event.value));
   }
 
-  void _onSetMarketingAgreement(SetMarketingAgreement event, Emitter<SignUpState> emit) {
+  void _onSetMarketingAgreement(
+      SetMarketingAgreement event, Emitter<SignUpState> emit) {
     emit(state.copyWith(agreeMarketing: event.value));
   }
 
@@ -53,8 +60,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   void _onSetPassword(SetPassword event, Emitter<SignUpState> emit) {
     emit(state.copyWith(password: event.password));
   }
-  
-  void _onSetPasswordConfirmation(SetPasswordConfirmation event, Emitter<SignUpState> emit) {
+
+  void _onSetPasswordConfirmation(
+      SetPasswordConfirmation event, Emitter<SignUpState> emit) {
     emit(state.copyWith(passwordConfirmed: event.passwordsMatch));
   }
 
@@ -78,7 +86,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emit(state.copyWith(birthDate: event.birthDate));
   }
 
-  Future<void> _onSubmitSignUp(SubmitSignUp event, Emitter<SignUpState> emit) async {
+  Future<void> _onSubmitSignUp(
+      SubmitSignUp event, Emitter<SignUpState> emit) async {
     if (!state.isStep1Valid || !state.isStep2Valid || !state.isStep3Valid) {
       return;
     }
@@ -88,10 +97,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       // userInfo가 null이면 모든 필수 정보를 사용하여 생성
       if (state.userInfo == null) {
-        if (state.email != null && state.displayName != null && 
-            state.phoneNumber != null && state.gender != null && 
+        if (state.email != null &&
+            state.displayName != null &&
+            state.phoneNumber != null &&
+            state.gender != null &&
             state.name != null) {
-          
           final newUserInfo = CreateUser(
             email: state.email!,
             displayName: state.displayName!,
@@ -103,11 +113,17 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             agreeMarketing: state.agreeMarketing,
             birthday: DateTime.now(), // 임시값으로 현재 날짜 사용
           );
-          
+
           await _userDataSource.createUser(createUser: newUserInfo);
           emit(state.copyWith(userInfo: newUserInfo, isSuccess: true));
+          String? fcmToken = await FirebaseMessaging.instance.getToken();
+          await _userDataSource.createFcmToken(
+              createFcmToken: CreateFcmToken(
+                  deviceType: Platform.isAndroid ? "Android" : "iOS",
+                  fcmToken: fcmToken!));
         } else {
-          throw Exception('사용자 정보가 불완전합니다: email=${state.email}, name=${state.name}, displayName=${state.displayName}, phoneNumber=${state.phoneNumber}, gender=${state.gender}');
+          throw Exception(
+              '사용자 정보가 불완전합니다: email=${state.email}, name=${state.name}, displayName=${state.displayName}, phoneNumber=${state.phoneNumber}, gender=${state.gender}');
         }
       } else {
         await _userDataSource.createUser(createUser: state.userInfo!);
@@ -119,4 +135,4 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       emit(state.copyWith(isLoading: false));
     }
   }
-} 
+}

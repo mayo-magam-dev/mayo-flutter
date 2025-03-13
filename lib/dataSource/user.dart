@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mayo_flutter/model/store/read_store.dart';
+import 'package:mayo_flutter/model/user/create_fcm_token.dart';
 import 'package:mayo_flutter/model/user/create_user.dart';
 import 'package:mayo_flutter/model/user/read_user.dart';
 import 'package:mayo_flutter/model/user/update_agree_marketing_request.dart';
@@ -71,14 +72,21 @@ class UserDataSource {
   }
 
   Future<List<ReadStore>> getNoticeStores() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/user/notice-stores');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/user/notice-stores');
     var result = response.data as List;
     return result.map((v) => ReadStore.fromJson(v)).toList();
   }
 
   Future<List<ReadStore>> getFavoriteStores() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/user/favorite-stores');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/user/favorite-stores');
     var result = response.data as List;
     return result.map((v) => ReadStore.fromJson(v)).toList();
+  }
+
+  Future<void> createFcmToken({required CreateFcmToken createFcmToken}) async {
+    await dio.post('${dotenv.env['API_URL']}/user/fcm',
+        data: createFcmToken.toJson());
   }
 }

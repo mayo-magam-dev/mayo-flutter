@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,7 @@ class SignUpStep3Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpBloc, SignUpState>(
-      builder: (context, state) {        
+      builder: (context, state) {
         return _Scaffold(
           topBar: Topbar(title: '회원가입3', showCarts: false),
           header: _SignUpHeader(),
@@ -27,23 +28,31 @@ class SignUpStep3Page extends StatelessWidget {
           nextButton: Button(
             text: '가입하기',
             onTap: state.isStep3Valid
-              ? () {
-                  context.read<SignUpBloc>().add(SubmitSignUp());
-                  if (state.isSuccess && !state.isLoading && state.error == null) {
-                    context.go('/home');
-                  } else if (state.error != null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(state.error!),
-                        backgroundColor: GlobalMainColor.globalPrimaryRedColor,
-                      ),
-                    );
+                ? () {
+                    context.read<SignUpBloc>().add(SubmitSignUp());
+                    if (state.isSuccess &&
+                        !state.isLoading &&
+                        state.error == null) {
+                          
+                      context.go('/home');
+                    } else if (state.error != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.error!),
+                          backgroundColor:
+                              GlobalMainColor.globalPrimaryRedColor,
+                        ),
+                      );
+                    }
                   }
-                }
-              : null,
+                : null,
           ),
         );
       },
     );
   }
+}
+
+Future<String?> getFcmToken() async {
+  return await FirebaseMessaging.instance.getToken();
 }
