@@ -30,6 +30,7 @@ class _MainState extends State<_Main> {
   }
 
   void _showDeleteCompleteDialog() {
+    UserDataSource().deleteUser();
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
