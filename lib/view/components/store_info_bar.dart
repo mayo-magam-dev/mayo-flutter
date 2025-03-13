@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 
@@ -22,7 +21,8 @@ class StoreInfoBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<String> descriptionParts = storeDescription.split('\n');
     final String address = descriptionParts[0];
-    final String discount = descriptionParts.length > 1 ? descriptionParts[1] : '';
+    final String discount =
+        descriptionParts.length > 1 ? descriptionParts[1] : '';
 
     return GestureDetector(
       onTap: onTap,
@@ -32,14 +32,16 @@ class StoreInfoBar extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Row(
           children: [
-            Image.network(
-              imageUrl,
+            Container(
               width: 80.w,
               height: 80.h,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return SvgPicture.asset('assets/icons/store_food_example.svg');
-              },
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(imageUrl),
+                ),
+              ),
             ),
             SizedBox(width: 15.w),
             Expanded(
@@ -83,14 +85,13 @@ class StoreInfoBar extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                      SizedBox(height: 7.h),
-                      Text(
-                        discount,
-                        style: AppTextStyle.captionBold.copyWith(
-                          color: GlobalMainColor.globalPrimaryRedColor,
-                        ),
+                    SizedBox(height: 7.h),
+                    Text(
+                      discount,
+                      style: AppTextStyle.captionBold.copyWith(
+                        color: GlobalMainColor.globalPrimaryRedColor,
                       ),
-                    
+                    ),
                   ],
                 ),
               ),

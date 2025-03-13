@@ -1,5 +1,6 @@
 part of 'sign_up_step3_page.dart';
 
+//ignore: unused_element
 class _SignUpMiddle extends StatelessWidget {
   const _SignUpMiddle();
 

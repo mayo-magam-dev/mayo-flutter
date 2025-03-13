@@ -9,6 +9,7 @@ import 'package:mayo_flutter/view/login/login_page.dart';
 import 'package:mayo_flutter/view/my/my_page.dart';
 import 'package:mayo_flutter/view/on_discount/on_discount_page.dart';
 import 'package:mayo_flutter/view/orders/order_page.dart';
+import 'package:mayo_flutter/view/product/product_page.dart';
 import 'package:mayo_flutter/view/signUp/step1/sign_up_step1_page.dart';
 import 'package:mayo_flutter/view/signUp/step2/sign_up_step2_page.dart';
 import 'package:mayo_flutter/view/signUp/step3/sign_up_step3_page.dart';
@@ -17,7 +18,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>();
 
 // 회원가입에 사용할 BloC을 미리 생성 (Singleton처럼 사용)
 final _signUpBloc = SignUpBloc(userDataSource: UserDataSource());
@@ -28,11 +30,10 @@ final router = GoRouter(
   // redirect: (context, state) async {
   //   final auth = FirebaseAuth.instance;
   //   final userDataSource = UserDataSource();
-    
   //   if (auth.currentUser == null) {
   //     return '/login';
   //   }
-    
+
   //   try {
   //     await userDataSource.getUser();
   //     debugPrint('사용자 정보 있음: 리다이렉트 없음');
@@ -47,6 +48,14 @@ final router = GoRouter(
   //   }
   // },
   routes: [
+    GoRoute(
+      path: '/product/:data',
+      builder: (context, state) {
+        return ProductPage(
+          id: state.pathParameters['data']!,
+        );
+      },
+    ),
     GoRoute(
       path: '/login',
       builder: (context, state) => const LoginPage(),
@@ -83,11 +92,10 @@ final router = GoRouter(
           builder: (context, state) => const HomePage(),
           routes: [
             GoRoute(
-              path: 'store/:id',
-              builder: (context, state) => StorePage(
-                id: state.pathParameters['id']!,
-              ),
-            ),
+                path: 'store/:id',
+                builder: (context, state) {
+                  return StorePage(id: state.pathParameters['id']!);
+                }),
           ],
         ),
         GoRoute(

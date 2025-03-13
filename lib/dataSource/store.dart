@@ -20,7 +20,8 @@ class StoreDataSource {
   }
 
   Future<List<ReadSimpleStoreResponse>> getRandomOpenStores() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/store/random-open-store');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/store/random-open-store');
     var result = response.data as List;
     return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
   }
@@ -32,13 +33,16 @@ class StoreDataSource {
   }
 
   Future<ReadStore> getStoreDetail(String storeId) async {
-    final response = await dio.get('${dotenv.env['API_URL']}/store/detail/$storeId');
+    final response = await dio
+        .get('${dotenv.env['API_URL']}/store/detail/$storeId');
     return ReadStore.fromJson(response.data);
   }
 
-  Future<List<ReadSimpleStoreResponse>> getStoresByCategory(int category) async {
-    final response = await dio.get('${dotenv.env['API_URL']}/store/category/$category');
+  Future<List<ReadSimpleStoreResponse>> getStoresByCategory(
+      int category) async {
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/store/category/$category');
     var result = response.data as List;
     return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
   }
-} 
+}
