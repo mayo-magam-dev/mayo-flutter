@@ -8,6 +8,7 @@ import 'package:mayo_flutter/view/home/home_page.dart';
 import 'package:mayo_flutter/view/login/login_page.dart';
 import 'package:mayo_flutter/view/my/my_page.dart';
 import 'package:mayo_flutter/view/on_discount/on_discount_page.dart';
+import 'package:mayo_flutter/view/orders/order_detail_page.dart';
 import 'package:mayo_flutter/view/orders/order_page.dart';
 import 'package:mayo_flutter/view/product/product_page.dart';
 import 'package:mayo_flutter/view/signUp/step1/sign_up_step1_page.dart';
@@ -16,6 +17,7 @@ import 'package:mayo_flutter/view/signUp/step3/sign_up_step3_page.dart';
 import 'package:mayo_flutter/view/store/store_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
+import 'package:mayo_flutter/view/sub/onsale_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey =
@@ -26,7 +28,7 @@ final _signUpBloc = SignUpBloc(userDataSource: UserDataSource());
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/',
+  initialLocation: '/store/1',
   // redirect: (context, state) async {
   //   final auth = FirebaseAuth.instance;
   //   final userDataSource = UserDataSource();
@@ -57,9 +59,23 @@ final router = GoRouter(
       },
     ),
     GoRoute(
+        path: '/store/:id',
+        builder: (context, state) {
+          return StorePage(id: state.pathParameters['id']!);
+        }),
+    GoRoute(
       path: '/login',
       builder: (context, state) => const LoginPage(),
     ),
+    GoRoute(
+      path: '/onsale',
+      builder: (context, state) => const OnsalePage(),
+    ),
+    GoRoute(
+        path: '/order/:id',
+        builder: (context, state) {
+          return OrderDetailPage(id: state.pathParameters['id']!);
+        }),
     GoRoute(
       path: '/signup',
       builder: (context, state) => BlocProvider.value(
@@ -90,13 +106,6 @@ final router = GoRouter(
         GoRoute(
           path: '/',
           builder: (context, state) => const HomePage(),
-          routes: [
-            GoRoute(
-                path: 'store/:id',
-                builder: (context, state) {
-                  return StorePage(id: state.pathParameters['id']!);
-                }),
-          ],
         ),
         GoRoute(
           path: '/on-discount',
