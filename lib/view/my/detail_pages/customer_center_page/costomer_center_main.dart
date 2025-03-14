@@ -44,11 +44,15 @@ class _Main extends StatelessWidget {
                 ),
               ),
               alignment: Alignment.center,
-              child: Text(
-                '마요 카카오톡 채널',
-                style: AppTextStyle.body1Bold.copyWith(
-                  color: Colors.white,
-                  letterSpacing: -0.32,
+              child: GestureDetector(
+                onTap: () =>
+                    launchUrl(Uri.parse('http://pf.kakao.com/_pxojzxj/chat')),
+                child: Text(
+                  '마요 카카오톡 채널',
+                  style: AppTextStyle.body1Bold.copyWith(
+                    color: Colors.white,
+                    letterSpacing: -0.32,
+                  ),
                 ),
               ),
             ),
