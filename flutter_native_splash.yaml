@@ -3,4 +3,4 @@ flutter_native_splash:
   image: assets/icons/splash_mayo_logo.png
 
   android_12:
-    image: assets/icons/splash_mayo_logo.png
+    image: assets/icons/mayo_native_splash_android12.png
