@@ -1,10 +1,18 @@
 part of 'store_page.dart';
 
-class _StoreInfoHeader extends StatelessWidget {
-  const _StoreInfoHeader({required this.storeData});
+class _StoreInfoHeader extends StatefulWidget {
+  _StoreInfoHeader({required this.storeData});
+
+  bool favorite = false;
+  bool notice = false;
 
   final ReadStore storeData;
 
+  @override
+  State<_StoreInfoHeader> createState() => _StoreInfoHeaderState();
+}
+
+class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StoreBloc, StoreState>(builder: (context, state) {
@@ -35,18 +43,49 @@ class _StoreInfoHeader extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        SvgPicture.asset(
-                          "assets/icons/heart-border.svg",
-                          width: 24.w,
-                          height: 24.h,
+                        GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              widget.favorite = !widget.favorite;
+                            });
+                            UserDataSource()
+                                .putFavoriteStore(widget.storeData.id);
+                            // try {
+                            //   var data =
+                            //       await UserDataSource().getFavoriteStores();
+                            //   ReadStore targetStore = data.firstWhere(
+                            //       (store) => store.id == widget.storeData.id);
+                            //   //통과시 좋아요 표시
+                            // } catch (e) {
+                            //   //비좋아요 표시
+                            // }
+                          },
+                          child: SvgPicture.asset(
+                            widget.favorite
+                                ? "assets/icons/selected_like_function.svg"
+                                : "assets/icons/heart-border.svg",
+                            width: 24.w,
+                            height: 24.h,
+                          ),
                         ),
                         SizedBox(
                           width: 20.w,
                         ),
-                        SvgPicture.asset(
-                          "assets/icons/alert-border.svg",
-                          width: 24.w,
-                          height: 24.h,
+                        GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              widget.notice = !widget.notice;
+                            });
+                            UserDataSource()
+                                .putNoticeStore(widget.storeData.id);
+                          },
+                          child: SvgPicture.asset(
+                            widget.notice
+                                ? "assets/icons/selected_alert_function.svg"
+                                : "assets/icons/alert-border.svg",
+                            width: 24.w,
+                            height: 24.h,
+                          ),
                         ),
                         SizedBox(
                           width: 25.w,
@@ -64,7 +103,7 @@ class _StoreInfoHeader extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(25.w),
                     image: DecorationImage(
-                      image: NetworkImage(storeData.storeImage),
+                      image: NetworkImage(widget.storeData.storeImage),
                     ),
                   ),
                 ),
@@ -80,7 +119,7 @@ class _StoreInfoHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    storeData.storeName,
+                    widget.storeData.storeName,
                     style: AppTextStyle.heading2Bold,
                   ),
                   Row(
@@ -94,7 +133,7 @@ class _StoreInfoHeader extends StatelessWidget {
                         width: 6.w,
                       ),
                       Text(
-                        storeData.address,
+                        widget.storeData.address,
                         style: AppTextStyle.body2Medium
                             .copyWith(color: GlobalMainGrey.grey700),
                       )
@@ -127,7 +166,7 @@ class _StoreInfoHeader extends StatelessWidget {
                         onTap: () {
                           launchUrl(Uri(
                             scheme: 'tel',
-                            path: storeData.storeNumber,
+                            path: widget.storeData.storeNumber,
                           )); //전화 연결
                         },
                       ),
