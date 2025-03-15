@@ -31,6 +31,7 @@ class _MainState extends State<_Main> {
 
   void _showDeleteCompleteDialog() {
     UserDataSource().deleteUser();
+    FirebaseAuth.instance.currentUser!.delete();
     showGeneralDialog(
       context: context,
       barrierDismissible: true,

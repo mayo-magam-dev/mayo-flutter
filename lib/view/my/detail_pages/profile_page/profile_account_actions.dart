@@ -10,7 +10,10 @@ class _AccountActions extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+            context.go("/login");
+          },
           style: TextButton.styleFrom(
             minimumSize: Size.zero,
             padding: EdgeInsets.zero,
