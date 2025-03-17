@@ -24,7 +24,7 @@ class LightMealPage extends StatelessWidget {
               Text("지금 업데이트된 우리 동네 마감 할인 정보",
                   style: AppTextStyle.body1Medium
                       .copyWith(color: GlobalMainGrey.grey700)),
-              OneProductWidget(),
+              OneProductWidget(storeIndex: 0,),
             ]),
           ),
           Divider(
