@@ -12,8 +12,8 @@ class Board with _$Board {
     required String content,
     int? category,
     String? image,
-    required String writer,
-    @TimestampConverter() required DateTime writeTime,
+    String? writer,
+    @TimestampConverter() DateTime? writeTime,
   }) = _Board;
 
   factory Board.fromJson(Map<String, dynamic> json) => _$BoardFromJson(json);

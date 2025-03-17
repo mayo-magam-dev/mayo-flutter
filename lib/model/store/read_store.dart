@@ -19,7 +19,7 @@ class ReadStore with _$ReadStore {
     required String storeNumber,
     String? storeMapUrl,
     String? originInfo,
-    required String additionalComment,
+    String? additionalComment,
     required int storeCategory,
     required int storeSellingType,
   }) = _ReadStore;

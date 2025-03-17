@@ -11,8 +11,9 @@ class ReadRecentlyStoreResponse with _$ReadRecentlyStoreResponse {
     required bool openState,
     required int storeSellingType,
     required String address,
+    String? mainImage,
   }) = _ReadRecentlyStoreResponse;
 
   factory ReadRecentlyStoreResponse.fromJson(Map<String, dynamic> json) =>
       _$ReadRecentlyStoreResponseFromJson(json);
-} 
+}
