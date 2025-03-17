@@ -51,7 +51,7 @@ class PartnerStorePage extends StatelessWidget {
                   ],
                 ),
               ),
-              OneProductWidget(storeIndex: 0,),
+              OneProductWidget(),
             ]),
           ),
           Divider(
