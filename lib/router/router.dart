@@ -17,7 +17,10 @@ import 'package:mayo_flutter/view/signUp/step3/sign_up_step3_page.dart';
 import 'package:mayo_flutter/view/store/store_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
+import 'package:mayo_flutter/view/sub/hearty_meal_page.dart';
+import 'package:mayo_flutter/view/sub/light_meal_page.dart';
 import 'package:mayo_flutter/view/sub/onsale_page.dart';
+import 'package:mayo_flutter/view/sub/partner_store_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey =
@@ -28,7 +31,7 @@ final _signUpBloc = SignUpBloc(userDataSource: UserDataSource());
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/store/1',
+  initialLocation: '/onsale',
   // redirect: (context, state) async {
   //   final auth = FirebaseAuth.instance;
   //   final userDataSource = UserDataSource();
@@ -70,6 +73,18 @@ final router = GoRouter(
     GoRoute(
       path: '/onsale',
       builder: (context, state) => const OnsalePage(),
+    ),
+    GoRoute(
+      path: '/hearty-meal',
+      builder: (context, state) => const HeartyMealPage(),
+    ),
+    GoRoute(
+      path: '/light-meal',
+      builder: (context, state) => const LightMealPage(),
+    ),
+    GoRoute(
+      path: '/partner-store',
+      builder: (context, state) => const PartnerStorePage(),
     ),
     GoRoute(
         path: '/order/:id',
