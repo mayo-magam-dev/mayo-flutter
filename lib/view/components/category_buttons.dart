@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 
@@ -13,7 +14,9 @@ class CategoryButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            context.push('/onsale');
+          },
           child: Column(
             children: [
               SvgPicture.asset('assets/icons/category_logo.svg'),
@@ -29,7 +32,9 @@ class CategoryButton extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            context.push('/hearty-meal');
+          },
           child: Column(
             children: [
               SvgPicture.asset('assets/icons/category_cooking.svg'),
@@ -45,7 +50,9 @@ class CategoryButton extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            context.push('/light-meal');
+          },
           child: Column(
             children: [
               SvgPicture.asset('assets/icons/category_cake.svg'),
@@ -61,7 +68,9 @@ class CategoryButton extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            context.push('/partner-store');
+          },
           child: Column(
             children: [
               SvgPicture.asset('assets/icons/category_dish.svg'),
