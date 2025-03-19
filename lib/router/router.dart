@@ -17,8 +17,8 @@ import 'package:mayo_flutter/view/signUp/step3/sign_up_step3_page.dart';
 import 'package:mayo_flutter/view/store/store_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
-import 'package:mayo_flutter/view/sub/hearty_meal_page.dart';
-import 'package:mayo_flutter/view/sub/light_meal_page.dart';
+import 'package:mayo_flutter/view/sub/meal_page.dart';
+import 'package:mayo_flutter/view/sub/dessert_page.dart';
 import 'package:mayo_flutter/view/sub/onsale_page.dart';
 import 'package:mayo_flutter/view/sub/partner_store_page.dart';
 
@@ -54,10 +54,11 @@ final router = GoRouter(
   // },
   routes: [
     GoRoute(
-      path: '/product/:data',
+      path: '/product/:data/:storeName',
       builder: (context, state) {
         return ProductPage(
           id: state.pathParameters['data']!,
+          storeName: state.pathParameters['storeName']!,
         );
       },
     ),
@@ -72,21 +73,20 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/onsale',
-      builder: (context, state) => const OnsalePage(),
+      builder: (context, state) => OnsalePage(),
     ),
     GoRoute(
-      path: '/hearty-meal',
-      builder: (context, state) => const HeartyMealPage(),
+      path: '/meal',
+      builder: (context, state) => MealPage(),
     ),
     GoRoute(
-      path: '/light-meal',
-      builder: (context, state) => const LightMealPage(),
+      path: '/dessert',
+      builder: (context, state) => DessertPage(),
     ),
     GoRoute(
       path: '/partner-store',
-      builder: (context, state) => const PartnerStorePage(),
+      builder: (context, state) => PartnerStorePage(),
     ),
-    
     GoRoute(
         path: '/order/:id',
         builder: (context, state) {
