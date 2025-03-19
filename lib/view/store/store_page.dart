@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +13,6 @@ import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/item/read_item.dart';
 import 'package:mayo_flutter/model/store/read_store.dart';
-import 'package:mayo_flutter/network/dio.dart';
 import 'package:mayo_flutter/view/components/proudct.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -47,7 +44,7 @@ class _StorePageState extends State<StorePage> {
     storeItems = ItemDataSource().getItemsByStoreId(widget.id);
   }
 
-  Future<(ReadStore, List<ReadItem>)> featchStoreData(String storeId) async {
+  Future<(ReadStore, List<ReadItem>)> featchStoreData() async {
     final results = await Future.wait([store, storeItems]);
     return (results[0] as ReadStore, results[1] as List<ReadItem>);
   }
@@ -57,13 +54,13 @@ class _StorePageState extends State<StorePage> {
     return BlocProvider(
       create: (context) => StoreBloc()..add(ChangeViewEvent(0)),
       child: FutureBuilder(
-        future: featchStoreData(widget.id),
+        future: featchStoreData(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return CircularProgressIndicator();
+              return SizedBox();
             default:
-              if (snapshot.hasError) {
+              if (!snapshot.hasData) {
                 return Text('데이터를 불러올 수 없습니다.');
               } else {
                 return _Scaffold(
@@ -73,8 +70,9 @@ class _StorePageState extends State<StorePage> {
                   ),
                   infoHeader: _StoreInfoHeader(storeData: snapshot.data!.$1),
                   infoMain: _StoreInfoMain(
-                      storeData: snapshot.data!.$1,
-                      itemData: snapshot.data!.$2),
+                    storeData: snapshot.data!.$1,
+                    itemData: snapshot.data!.$2,
+                  ),
                 );
               }
           }

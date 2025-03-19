@@ -11,6 +11,7 @@ class _StoreInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool itemDataNotEmpty = itemData.isNotEmpty;
     return Column(
       children: [
         Container(
@@ -45,12 +46,8 @@ class _StoreInfoSection extends StatelessWidget {
                 SizedBox(
                   height: 10.h,
                 ),
-                Text(
-                  storeData.additionalComment,
-                  style: AppTextStyle.body1Medium,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                ),
+                AdditionalComment(
+                    additionalComment: storeData.additionalComment),
               ],
             )),
         Padding(
@@ -79,20 +76,62 @@ class _StoreInfoSection extends StatelessWidget {
               SizedBox(
                 height: 15.h,
               ),
-              ProductComponents(
-                itemData: itemData[0],
-              ),
-              Container(
-                  margin: EdgeInsets.symmetric(vertical: 16.5.h),
-                  height: 1.h,
-                  color: GlobalMainGrey.grey200),
-              ProductComponents(
-                itemData: itemData[1],
-              ),
+              itemDataNotEmpty
+                  ? Column(
+                      children: [
+                        ProductComponents(
+                          itemData: itemData[0],
+                          storeName: storeData.storeName,
+                        ),
+                        Divider(
+                          color: GlobalMainGrey.grey200,
+                          thickness: 2,
+                        ),
+                        ProductComponents(
+                          itemData: itemData[1],
+                          storeName: storeData.storeName,
+                        ),
+                      ],
+                    )
+                  : SizedBox(),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class AdditionalComment extends StatefulWidget {
+  const AdditionalComment({
+    super.key,
+    required this.additionalComment,
+  });
+
+  final String? additionalComment;
+
+  @override
+  State<AdditionalComment> createState() => _AdditionalCommentState();
+}
+
+class _AdditionalCommentState extends State<AdditionalComment> {
+  bool isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isExpanded = !isExpanded;
+        });
+      },
+      child: Text(
+        widget.additionalComment ?? '',
+        style: AppTextStyle.body1Medium,
+        overflow: TextOverflow.ellipsis,
+        maxLines: isExpanded ? 13 : 2,
+        softWrap: false,
+      ),
     );
   }
 }

@@ -47,7 +47,7 @@ class _AnnouncementListItem extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Text(
-            DateFormat('yyyy/MM/dd').format(item.writeTime),
+            DateFormat('yyyy/MM/dd').format(item.writeTime!),
             style: AppTextStyle.body2Medium.copyWith(
               color: GlobalMainGrey.grey600,
               letterSpacing: -0.28,
@@ -89,7 +89,7 @@ class _AnnouncementContent extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            item.writer,
+            item.writer!,
             style: AppTextStyle.body2Medium.copyWith(
               color: GlobalMainGrey.grey600,
             ),

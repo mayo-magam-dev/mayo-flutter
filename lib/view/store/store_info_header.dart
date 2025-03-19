@@ -1,10 +1,7 @@
 part of 'store_page.dart';
 
 class _StoreInfoHeader extends StatefulWidget {
-  _StoreInfoHeader({required this.storeData});
-
-  bool favorite = false;
-  bool notice = false;
+  const _StoreInfoHeader({required this.storeData});
 
   final ReadStore storeData;
 
@@ -13,6 +10,9 @@ class _StoreInfoHeader extends StatefulWidget {
 }
 
 class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
+  bool favorite = false;
+  bool notice = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StoreBloc, StoreState>(builder: (context, state) {
@@ -23,12 +23,14 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
             alignment: Alignment.bottomLeft,
             clipBehavior: Clip.none,
             children: [
-              Image.asset(
-                "assets/images/store_info_header_example.png",
-                width: 390.w,
-                height: 235.h,
-                fit: BoxFit.cover,
-              ),
+              // Image.asset(
+              //   "assets/images/store_info_header_example.png",
+              //   width: 390.w,
+              //   height: 235.h,
+              //   fit: BoxFit.cover,
+              // ),
+              Image.network(widget.storeData.mainImage,
+                  width: double.infinity, height: 235.h, fit: BoxFit.cover),
               Positioned(
                   bottom: -25.h,
                   child: Container(
@@ -43,10 +45,10 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        GestureDetector(
-                          onTap: () async {
+                        IconButton(
+                          onPressed: () {
                             setState(() {
-                              widget.favorite = !widget.favorite;
+                              favorite = !favorite;
                             });
                             UserDataSource()
                                 .putFavoriteStore(widget.storeData.id);
@@ -54,33 +56,30 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                             //   var data =
                             //       await UserDataSource().getFavoriteStores();
                             //   ReadStore targetStore = data.firstWhere(
-                            //       (store) => store.id == widget.storeData.id);
+                            //       (store) => store.id == storeData.id);
                             //   //통과시 좋아요 표시
                             // } catch (e) {
                             //   //비좋아요 표시
                             // }
                           },
-                          child: SvgPicture.asset(
-                            widget.favorite
+                          icon: SvgPicture.asset(
+                            favorite
                                 ? "assets/icons/selected_like_function.svg"
                                 : "assets/icons/heart-border.svg",
                             width: 24.w,
                             height: 24.h,
                           ),
                         ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        GestureDetector(
-                          onTap: () async {
+                        IconButton(
+                          onPressed: () async {
                             setState(() {
-                              widget.notice = !widget.notice;
+                              notice = !notice;
                             });
                             UserDataSource()
                                 .putNoticeStore(widget.storeData.id);
                           },
-                          child: SvgPicture.asset(
-                            widget.notice
+                          icon: SvgPicture.asset(
+                            notice
                                 ? "assets/icons/selected_alert_function.svg"
                                 : "assets/icons/alert-border.svg",
                             width: 24.w,
@@ -104,6 +103,7 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                     borderRadius: BorderRadius.circular(25.w),
                     image: DecorationImage(
                       image: NetworkImage(widget.storeData.storeImage),
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),

@@ -51,7 +51,7 @@ class _List extends StatelessWidget {
                           future: data,
                           builder: (context, snapshot) {
                             if (snapshot.hasData == false) {
-                              return CircularProgressIndicator();
+                              return SizedBox();
                             }
                             return StoreInfoBar(
                               storeName: store.storeName,

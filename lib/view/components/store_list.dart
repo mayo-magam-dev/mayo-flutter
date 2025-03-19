@@ -161,15 +161,9 @@ class StoreList extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 1,
-                      color: GlobalMainGrey.grey200,
-                    ),
-                  ),
-                ),
+              Divider(
+                color: GlobalMainGrey.grey200,
+                thickness: 2,
               ),
             ],
           )

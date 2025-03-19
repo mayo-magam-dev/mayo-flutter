@@ -112,7 +112,7 @@ class _ListState extends State<_List> {
                     ),
                     SizedBox(height: 10.h),
                     Text(
-                      DateFormat('yyyy/MM/dd').format(item.writeTime),
+                      DateFormat('yyyy/MM/dd').format(item.writeTime!),
                       style: AppTextStyle.body2Medium.copyWith(
                         color: GlobalMainGrey.grey600,
                         letterSpacing: -0.28,
