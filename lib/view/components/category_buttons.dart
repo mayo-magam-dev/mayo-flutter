@@ -33,7 +33,7 @@ class CategoryButton extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            context.push('/hearty-meal');
+            context.push('/meal');
           },
           child: Column(
             children: [
@@ -51,7 +51,7 @@ class CategoryButton extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            context.push('/light-meal');
+            context.push('/dessert');
           },
           child: Column(
             children: [
