@@ -26,16 +26,34 @@ class StoreDataSource {
     return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
   }
 
+  Future<List<ReadSimpleStoreResponse>> getPartnerStores() async {
+    final response = await dio.get('${dotenv.env['API_URL']}/store/partner');
+    var result = response.data as List;
+    return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
+  }
+
   Future<List<ReadSimpleStoreResponse>> getOnSaleStores() async {
     final response = await dio.get('${dotenv.env['API_URL']}/store/on-sale');
     var result = response.data as List;
     return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
   }
 
+  Future<List<ReadSimpleStoreResponse>> getMealStores() async {
+    final response = await dio.get('${dotenv.env['API_URL']}/store/meal');
+    var result = response.data as List;
+    return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
+  }
+
   Future<ReadStore> getStoreDetail(String storeId) async {
-    final response = await dio
-        .get('${dotenv.env['API_URL']}/store/detail/$storeId');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/store/detail/$storeId');
     return ReadStore.fromJson(response.data);
+  }
+
+  Future<List<ReadSimpleStoreResponse>> getDessertStores() async {
+    final response = await dio.get('${dotenv.env['API_URL']}/store/dessert');
+    var result = response.data as List;
+    return result.map((v) => ReadSimpleStoreResponse.fromJson(v)).toList();
   }
 
   Future<List<ReadSimpleStoreResponse>> getStoresByCategory(
