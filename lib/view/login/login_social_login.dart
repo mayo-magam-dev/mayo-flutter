@@ -37,7 +37,9 @@ class _LoginSocialLogin extends StatelessWidget {
         ),
         SizedBox(height: 24.h),
         InkWell(
-          onTap: () {},
+          onTap: () async {
+            await AppleLogin().login();
+          },
           borderRadius: BorderRadius.circular(50),
           child: Container(
             width: 281.w,

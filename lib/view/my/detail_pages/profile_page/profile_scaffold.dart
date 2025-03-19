@@ -12,11 +12,11 @@ class _Scaffold extends StatelessWidget {
   final Widget infoTables;
   final Widget accountActions;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+          child: SingleChildScrollView(
         child: Column(
           children: [
             topBar,
@@ -38,7 +38,7 @@ class _Scaffold extends StatelessWidget {
             accountActions,
           ],
         ),
-      ),
+      )),
     );
   }
 }

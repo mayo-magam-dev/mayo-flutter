@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,27 +33,38 @@ final _signUpBloc = SignUpBloc(userDataSource: UserDataSource());
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/',
-  // redirect: (context, state) async {
-  //   final auth = FirebaseAuth.instance;
-  //   final userDataSource = UserDataSource();
-  //   if (auth.currentUser == null) {
-  //     return '/login';
-  //   }
+  initialLocation: '/my',
+  redirect: (context, state) async {
+    final auth = FirebaseAuth.instance;
+    final userDataSource = UserDataSource();
+    debugPrint('리다이렉트: ${state.uri}');
+    debugPrint('유저: ${auth.currentUser}');
 
-  //   try {
-  //     await userDataSource.getUser();
-  //     debugPrint('사용자 정보 있음: 리다이렉트 없음');
-  //     return null;
-  //   } catch (e) {
-  //     debugPrint('사용자 정보 없음: /signup으로 리다이렉트');
-  //     if (state.uri.path.startsWith('/signup')) {
-  //       debugPrint('이미 회원가입 페이지에 있음: 리다이렉트 없음');
-  //       return null;
-  //     }
-  //     return '/signup';
-  //   }
-  // },
+    // 로그인 되어있지 않으면 로그인 페이지로
+    if (auth.currentUser == null) {
+      return '/login';
+    }
+
+    // 회원가입 페이지에 이미 있으면 그대로 유지
+    if (state.uri.path.startsWith('/signup')) {
+      debugPrint('이미 회원가입 페이지에 있음: 리다이렉트 없음');
+      return null; // 리다이렉트 하지 않음
+    }
+
+    try {
+      final user = await userDataSource.getUser();
+      debugPrint('사용자 정보 있음: 홈으로 리다이렉트');
+      if (user.userid.isEmpty) {
+        return '/home';
+      } else {
+        debugPrint('사용자 정보 불완전: /signup으로 리다이렉트');
+        return '/signup';
+      }
+    } on DioException catch (e) {
+      debugPrint('사용자 정보 요청 실패: ${e.toString()}');
+      return '/signup';
+    }
+  },
   routes: [
     GoRoute(
       path: '/product/:data/:storeName',
