@@ -26,6 +26,7 @@ mixin _$ReadRecentlyStoreResponse {
   bool get openState => throw _privateConstructorUsedError;
   int get storeSellingType => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
+  String? get mainImage => throw _privateConstructorUsedError;
 
   /// Serializes this ReadRecentlyStoreResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +49,8 @@ abstract class $ReadRecentlyStoreResponseCopyWith<$Res> {
       String storeName,
       bool openState,
       int storeSellingType,
-      String address});
+      String address,
+      String? mainImage});
 }
 
 /// @nodoc
@@ -72,6 +74,7 @@ class _$ReadRecentlyStoreResponseCopyWithImpl<$Res,
     Object? openState = null,
     Object? storeSellingType = null,
     Object? address = null,
+    Object? mainImage = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -94,6 +97,10 @@ class _$ReadRecentlyStoreResponseCopyWithImpl<$Res,
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
+      mainImage: freezed == mainImage
+          ? _value.mainImage
+          : mainImage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -112,7 +119,8 @@ abstract class _$$ReadRecentlyStoreResponseImplCopyWith<$Res>
       String storeName,
       bool openState,
       int storeSellingType,
-      String address});
+      String address,
+      String? mainImage});
 }
 
 /// @nodoc
@@ -135,6 +143,7 @@ class __$$ReadRecentlyStoreResponseImplCopyWithImpl<$Res>
     Object? openState = null,
     Object? storeSellingType = null,
     Object? address = null,
+    Object? mainImage = freezed,
   }) {
     return _then(_$ReadRecentlyStoreResponseImpl(
       id: null == id
@@ -157,6 +166,10 @@ class __$$ReadRecentlyStoreResponseImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
+      mainImage: freezed == mainImage
+          ? _value.mainImage
+          : mainImage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -169,7 +182,8 @@ class _$ReadRecentlyStoreResponseImpl implements _ReadRecentlyStoreResponse {
       required this.storeName,
       required this.openState,
       required this.storeSellingType,
-      required this.address});
+      required this.address,
+      this.mainImage});
 
   factory _$ReadRecentlyStoreResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReadRecentlyStoreResponseImplFromJson(json);
@@ -184,10 +198,12 @@ class _$ReadRecentlyStoreResponseImpl implements _ReadRecentlyStoreResponse {
   final int storeSellingType;
   @override
   final String address;
+  @override
+  final String? mainImage;
 
   @override
   String toString() {
-    return 'ReadRecentlyStoreResponse(id: $id, storeName: $storeName, openState: $openState, storeSellingType: $storeSellingType, address: $address)';
+    return 'ReadRecentlyStoreResponse(id: $id, storeName: $storeName, openState: $openState, storeSellingType: $storeSellingType, address: $address, mainImage: $mainImage)';
   }
 
   @override
@@ -202,13 +218,15 @@ class _$ReadRecentlyStoreResponseImpl implements _ReadRecentlyStoreResponse {
                 other.openState == openState) &&
             (identical(other.storeSellingType, storeSellingType) ||
                 other.storeSellingType == storeSellingType) &&
-            (identical(other.address, address) || other.address == address));
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.mainImage, mainImage) ||
+                other.mainImage == mainImage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, storeName, openState, storeSellingType, address);
+  int get hashCode => Object.hash(runtimeType, id, storeName, openState,
+      storeSellingType, address, mainImage);
 
   /// Create a copy of ReadRecentlyStoreResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -233,7 +251,8 @@ abstract class _ReadRecentlyStoreResponse implements ReadRecentlyStoreResponse {
       required final String storeName,
       required final bool openState,
       required final int storeSellingType,
-      required final String address}) = _$ReadRecentlyStoreResponseImpl;
+      required final String address,
+      final String? mainImage}) = _$ReadRecentlyStoreResponseImpl;
 
   factory _ReadRecentlyStoreResponse.fromJson(Map<String, dynamic> json) =
       _$ReadRecentlyStoreResponseImpl.fromJson;
@@ -248,6 +267,8 @@ abstract class _ReadRecentlyStoreResponse implements ReadRecentlyStoreResponse {
   int get storeSellingType;
   @override
   String get address;
+  @override
+  String? get mainImage;
 
   /// Create a copy of ReadRecentlyStoreResponse
   /// with the given fields replaced by the non-null parameter values.

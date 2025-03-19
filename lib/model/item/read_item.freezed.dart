@@ -23,12 +23,12 @@ mixin _$ReadItem {
   String get itemId => throw _privateConstructorUsedError;
   String get itemName => throw _privateConstructorUsedError;
   String? get itemDescription => throw _privateConstructorUsedError;
-  int get originalPrice => throw _privateConstructorUsedError;
-  double get salePercent => throw _privateConstructorUsedError;
+  int? get originalPrice => throw _privateConstructorUsedError;
+  double? get salePercent => throw _privateConstructorUsedError;
   int get itemQuantity => throw _privateConstructorUsedError;
   bool get itemOnSale => throw _privateConstructorUsedError;
   String? get itemImage => throw _privateConstructorUsedError;
-  double get salePrice => throw _privateConstructorUsedError;
+  double? get salePrice => throw _privateConstructorUsedError;
   int? get cookingTime => throw _privateConstructorUsedError;
   String? get additionalInformation => throw _privateConstructorUsedError;
 
@@ -51,12 +51,12 @@ abstract class $ReadItemCopyWith<$Res> {
       {String itemId,
       String itemName,
       String? itemDescription,
-      int originalPrice,
-      double salePercent,
+      int? originalPrice,
+      double? salePercent,
       int itemQuantity,
       bool itemOnSale,
       String? itemImage,
-      double salePrice,
+      double? salePrice,
       int? cookingTime,
       String? additionalInformation});
 }
@@ -79,12 +79,12 @@ class _$ReadItemCopyWithImpl<$Res, $Val extends ReadItem>
     Object? itemId = null,
     Object? itemName = null,
     Object? itemDescription = freezed,
-    Object? originalPrice = null,
-    Object? salePercent = null,
+    Object? originalPrice = freezed,
+    Object? salePercent = freezed,
     Object? itemQuantity = null,
     Object? itemOnSale = null,
     Object? itemImage = freezed,
-    Object? salePrice = null,
+    Object? salePrice = freezed,
     Object? cookingTime = freezed,
     Object? additionalInformation = freezed,
   }) {
@@ -101,14 +101,14 @@ class _$ReadItemCopyWithImpl<$Res, $Val extends ReadItem>
           ? _value.itemDescription
           : itemDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalPrice: null == originalPrice
+      originalPrice: freezed == originalPrice
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int,
-      salePercent: null == salePercent
+              as int?,
+      salePercent: freezed == salePercent
           ? _value.salePercent
           : salePercent // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       itemQuantity: null == itemQuantity
           ? _value.itemQuantity
           : itemQuantity // ignore: cast_nullable_to_non_nullable
@@ -121,10 +121,10 @@ class _$ReadItemCopyWithImpl<$Res, $Val extends ReadItem>
           ? _value.itemImage
           : itemImage // ignore: cast_nullable_to_non_nullable
               as String?,
-      salePrice: null == salePrice
+      salePrice: freezed == salePrice
           ? _value.salePrice
           : salePrice // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       cookingTime: freezed == cookingTime
           ? _value.cookingTime
           : cookingTime // ignore: cast_nullable_to_non_nullable
@@ -149,12 +149,12 @@ abstract class _$$ReadItemImplCopyWith<$Res>
       {String itemId,
       String itemName,
       String? itemDescription,
-      int originalPrice,
-      double salePercent,
+      int? originalPrice,
+      double? salePercent,
       int itemQuantity,
       bool itemOnSale,
       String? itemImage,
-      double salePrice,
+      double? salePrice,
       int? cookingTime,
       String? additionalInformation});
 }
@@ -175,12 +175,12 @@ class __$$ReadItemImplCopyWithImpl<$Res>
     Object? itemId = null,
     Object? itemName = null,
     Object? itemDescription = freezed,
-    Object? originalPrice = null,
-    Object? salePercent = null,
+    Object? originalPrice = freezed,
+    Object? salePercent = freezed,
     Object? itemQuantity = null,
     Object? itemOnSale = null,
     Object? itemImage = freezed,
-    Object? salePrice = null,
+    Object? salePrice = freezed,
     Object? cookingTime = freezed,
     Object? additionalInformation = freezed,
   }) {
@@ -197,14 +197,14 @@ class __$$ReadItemImplCopyWithImpl<$Res>
           ? _value.itemDescription
           : itemDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalPrice: null == originalPrice
+      originalPrice: freezed == originalPrice
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int,
-      salePercent: null == salePercent
+              as int?,
+      salePercent: freezed == salePercent
           ? _value.salePercent
           : salePercent // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       itemQuantity: null == itemQuantity
           ? _value.itemQuantity
           : itemQuantity // ignore: cast_nullable_to_non_nullable
@@ -217,10 +217,10 @@ class __$$ReadItemImplCopyWithImpl<$Res>
           ? _value.itemImage
           : itemImage // ignore: cast_nullable_to_non_nullable
               as String?,
-      salePrice: null == salePrice
+      salePrice: freezed == salePrice
           ? _value.salePrice
           : salePrice // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       cookingTime: freezed == cookingTime
           ? _value.cookingTime
           : cookingTime // ignore: cast_nullable_to_non_nullable
@@ -240,12 +240,12 @@ class _$ReadItemImpl implements _ReadItem {
       {required this.itemId,
       required this.itemName,
       this.itemDescription,
-      required this.originalPrice,
-      required this.salePercent,
+      this.originalPrice,
+      this.salePercent,
       required this.itemQuantity,
       required this.itemOnSale,
       this.itemImage,
-      required this.salePrice,
+      this.salePrice,
       this.cookingTime,
       this.additionalInformation});
 
@@ -259,9 +259,9 @@ class _$ReadItemImpl implements _ReadItem {
   @override
   final String? itemDescription;
   @override
-  final int originalPrice;
+  final int? originalPrice;
   @override
-  final double salePercent;
+  final double? salePercent;
   @override
   final int itemQuantity;
   @override
@@ -269,7 +269,7 @@ class _$ReadItemImpl implements _ReadItem {
   @override
   final String? itemImage;
   @override
-  final double salePrice;
+  final double? salePrice;
   @override
   final int? cookingTime;
   @override
@@ -345,12 +345,12 @@ abstract class _ReadItem implements ReadItem {
       {required final String itemId,
       required final String itemName,
       final String? itemDescription,
-      required final int originalPrice,
-      required final double salePercent,
+      final int? originalPrice,
+      final double? salePercent,
       required final int itemQuantity,
       required final bool itemOnSale,
       final String? itemImage,
-      required final double salePrice,
+      final double? salePrice,
       final int? cookingTime,
       final String? additionalInformation}) = _$ReadItemImpl;
 
@@ -364,9 +364,9 @@ abstract class _ReadItem implements ReadItem {
   @override
   String? get itemDescription;
   @override
-  int get originalPrice;
+  int? get originalPrice;
   @override
-  double get salePercent;
+  double? get salePercent;
   @override
   int get itemQuantity;
   @override
@@ -374,7 +374,7 @@ abstract class _ReadItem implements ReadItem {
   @override
   String? get itemImage;
   @override
-  double get salePrice;
+  double? get salePrice;
   @override
   int? get cookingTime;
   @override

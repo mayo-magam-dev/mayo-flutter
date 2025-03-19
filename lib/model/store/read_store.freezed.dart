@@ -30,12 +30,13 @@ mixin _$ReadStore {
   String get saleStart => throw _privateConstructorUsedError;
   String get saleEnd => throw _privateConstructorUsedError;
   String? get storeDescription => throw _privateConstructorUsedError;
-  String get storeNumber => throw _privateConstructorUsedError;
+  String? get storeNumber => throw _privateConstructorUsedError;
   String? get storeMapUrl => throw _privateConstructorUsedError;
   String? get originInfo => throw _privateConstructorUsedError;
-  String get additionalComment => throw _privateConstructorUsedError;
+  String? get additionalComment => throw _privateConstructorUsedError;
   int get storeCategory => throw _privateConstructorUsedError;
   int get storeSellingType => throw _privateConstructorUsedError;
+  String get mainImage => throw _privateConstructorUsedError;
 
   /// Serializes this ReadStore to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -63,12 +64,13 @@ abstract class $ReadStoreCopyWith<$Res> {
       String saleStart,
       String saleEnd,
       String? storeDescription,
-      String storeNumber,
+      String? storeNumber,
       String? storeMapUrl,
       String? originInfo,
-      String additionalComment,
+      String? additionalComment,
       int storeCategory,
-      int storeSellingType});
+      int storeSellingType,
+      String mainImage});
 }
 
 /// @nodoc
@@ -96,12 +98,13 @@ class _$ReadStoreCopyWithImpl<$Res, $Val extends ReadStore>
     Object? saleStart = null,
     Object? saleEnd = null,
     Object? storeDescription = freezed,
-    Object? storeNumber = null,
+    Object? storeNumber = freezed,
     Object? storeMapUrl = freezed,
     Object? originInfo = freezed,
-    Object? additionalComment = null,
+    Object? additionalComment = freezed,
     Object? storeCategory = null,
     Object? storeSellingType = null,
+    Object? mainImage = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -144,10 +147,10 @@ class _$ReadStoreCopyWithImpl<$Res, $Val extends ReadStore>
           ? _value.storeDescription
           : storeDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      storeNumber: null == storeNumber
+      storeNumber: freezed == storeNumber
           ? _value.storeNumber
           : storeNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       storeMapUrl: freezed == storeMapUrl
           ? _value.storeMapUrl
           : storeMapUrl // ignore: cast_nullable_to_non_nullable
@@ -156,10 +159,10 @@ class _$ReadStoreCopyWithImpl<$Res, $Val extends ReadStore>
           ? _value.originInfo
           : originInfo // ignore: cast_nullable_to_non_nullable
               as String?,
-      additionalComment: null == additionalComment
+      additionalComment: freezed == additionalComment
           ? _value.additionalComment
           : additionalComment // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       storeCategory: null == storeCategory
           ? _value.storeCategory
           : storeCategory // ignore: cast_nullable_to_non_nullable
@@ -168,6 +171,10 @@ class _$ReadStoreCopyWithImpl<$Res, $Val extends ReadStore>
           ? _value.storeSellingType
           : storeSellingType // ignore: cast_nullable_to_non_nullable
               as int,
+      mainImage: null == mainImage
+          ? _value.mainImage
+          : mainImage // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -191,12 +198,13 @@ abstract class _$$ReadStoreImplCopyWith<$Res>
       String saleStart,
       String saleEnd,
       String? storeDescription,
-      String storeNumber,
+      String? storeNumber,
       String? storeMapUrl,
       String? originInfo,
-      String additionalComment,
+      String? additionalComment,
       int storeCategory,
-      int storeSellingType});
+      int storeSellingType,
+      String mainImage});
 }
 
 /// @nodoc
@@ -222,12 +230,13 @@ class __$$ReadStoreImplCopyWithImpl<$Res>
     Object? saleStart = null,
     Object? saleEnd = null,
     Object? storeDescription = freezed,
-    Object? storeNumber = null,
+    Object? storeNumber = freezed,
     Object? storeMapUrl = freezed,
     Object? originInfo = freezed,
-    Object? additionalComment = null,
+    Object? additionalComment = freezed,
     Object? storeCategory = null,
     Object? storeSellingType = null,
+    Object? mainImage = null,
   }) {
     return _then(_$ReadStoreImpl(
       id: null == id
@@ -270,10 +279,10 @@ class __$$ReadStoreImplCopyWithImpl<$Res>
           ? _value.storeDescription
           : storeDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      storeNumber: null == storeNumber
+      storeNumber: freezed == storeNumber
           ? _value.storeNumber
           : storeNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       storeMapUrl: freezed == storeMapUrl
           ? _value.storeMapUrl
           : storeMapUrl // ignore: cast_nullable_to_non_nullable
@@ -282,10 +291,10 @@ class __$$ReadStoreImplCopyWithImpl<$Res>
           ? _value.originInfo
           : originInfo // ignore: cast_nullable_to_non_nullable
               as String?,
-      additionalComment: null == additionalComment
+      additionalComment: freezed == additionalComment
           ? _value.additionalComment
           : additionalComment // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       storeCategory: null == storeCategory
           ? _value.storeCategory
           : storeCategory // ignore: cast_nullable_to_non_nullable
@@ -294,6 +303,10 @@ class __$$ReadStoreImplCopyWithImpl<$Res>
           ? _value.storeSellingType
           : storeSellingType // ignore: cast_nullable_to_non_nullable
               as int,
+      mainImage: null == mainImage
+          ? _value.mainImage
+          : mainImage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -312,12 +325,13 @@ class _$ReadStoreImpl implements _ReadStore {
       required this.saleStart,
       required this.saleEnd,
       this.storeDescription,
-      required this.storeNumber,
+      this.storeNumber,
       this.storeMapUrl,
       this.originInfo,
-      required this.additionalComment,
+      this.additionalComment,
       required this.storeCategory,
-      required this.storeSellingType});
+      required this.storeSellingType,
+      required this.mainImage});
 
   factory _$ReadStoreImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReadStoreImplFromJson(json);
@@ -343,21 +357,23 @@ class _$ReadStoreImpl implements _ReadStore {
   @override
   final String? storeDescription;
   @override
-  final String storeNumber;
+  final String? storeNumber;
   @override
   final String? storeMapUrl;
   @override
   final String? originInfo;
   @override
-  final String additionalComment;
+  final String? additionalComment;
   @override
   final int storeCategory;
   @override
   final int storeSellingType;
+  @override
+  final String mainImage;
 
   @override
   String toString() {
-    return 'ReadStore(id: $id, storeName: $storeName, openState: $openState, address: $address, storeImage: $storeImage, openTime: $openTime, closeTime: $closeTime, saleStart: $saleStart, saleEnd: $saleEnd, storeDescription: $storeDescription, storeNumber: $storeNumber, storeMapUrl: $storeMapUrl, originInfo: $originInfo, additionalComment: $additionalComment, storeCategory: $storeCategory, storeSellingType: $storeSellingType)';
+    return 'ReadStore(id: $id, storeName: $storeName, openState: $openState, address: $address, storeImage: $storeImage, openTime: $openTime, closeTime: $closeTime, saleStart: $saleStart, saleEnd: $saleEnd, storeDescription: $storeDescription, storeNumber: $storeNumber, storeMapUrl: $storeMapUrl, originInfo: $originInfo, additionalComment: $additionalComment, storeCategory: $storeCategory, storeSellingType: $storeSellingType, mainImage: $mainImage)';
   }
 
   @override
@@ -393,7 +409,9 @@ class _$ReadStoreImpl implements _ReadStore {
             (identical(other.storeCategory, storeCategory) ||
                 other.storeCategory == storeCategory) &&
             (identical(other.storeSellingType, storeSellingType) ||
-                other.storeSellingType == storeSellingType));
+                other.storeSellingType == storeSellingType) &&
+            (identical(other.mainImage, mainImage) ||
+                other.mainImage == mainImage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -415,7 +433,8 @@ class _$ReadStoreImpl implements _ReadStore {
       originInfo,
       additionalComment,
       storeCategory,
-      storeSellingType);
+      storeSellingType,
+      mainImage);
 
   /// Create a copy of ReadStore
   /// with the given fields replaced by the non-null parameter values.
@@ -445,12 +464,13 @@ abstract class _ReadStore implements ReadStore {
       required final String saleStart,
       required final String saleEnd,
       final String? storeDescription,
-      required final String storeNumber,
+      final String? storeNumber,
       final String? storeMapUrl,
       final String? originInfo,
-      required final String additionalComment,
+      final String? additionalComment,
       required final int storeCategory,
-      required final int storeSellingType}) = _$ReadStoreImpl;
+      required final int storeSellingType,
+      required final String mainImage}) = _$ReadStoreImpl;
 
   factory _ReadStore.fromJson(Map<String, dynamic> json) =
       _$ReadStoreImpl.fromJson;
@@ -476,17 +496,19 @@ abstract class _ReadStore implements ReadStore {
   @override
   String? get storeDescription;
   @override
-  String get storeNumber;
+  String? get storeNumber;
   @override
   String? get storeMapUrl;
   @override
   String? get originInfo;
   @override
-  String get additionalComment;
+  String? get additionalComment;
   @override
   int get storeCategory;
   @override
   int get storeSellingType;
+  @override
+  String get mainImage;
 
   /// Create a copy of ReadStore
   /// with the given fields replaced by the non-null parameter values.

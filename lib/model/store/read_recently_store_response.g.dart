@@ -14,6 +14,7 @@ _$ReadRecentlyStoreResponseImpl _$$ReadRecentlyStoreResponseImplFromJson(
       openState: json['openState'] as bool,
       storeSellingType: (json['storeSellingType'] as num).toInt(),
       address: json['address'] as String,
+      mainImage: json['mainImage'] as String?,
     );
 
 Map<String, dynamic> _$$ReadRecentlyStoreResponseImplToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$ReadRecentlyStoreResponseImplToJson(
       'openState': instance.openState,
       'storeSellingType': instance.storeSellingType,
       'address': instance.address,
+      'mainImage': instance.mainImage,
     };

@@ -24,17 +24,15 @@ mixin _$ReadUser {
   String get uid => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get displayName => throw _privateConstructorUsedError;
-  String get photoUrl => throw _privateConstructorUsedError;
+  String? get photoUrl => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdTime => throw _privateConstructorUsedError;
-  String get phoneNumber => throw _privateConstructorUsedError;
+  String? get phoneNumber => throw _privateConstructorUsedError;
   bool get isManager => throw _privateConstructorUsedError;
-  bool get agreeTerms1 => throw _privateConstructorUsedError;
-  bool get agreeTerms2 => throw _privateConstructorUsedError;
-  bool get agreeMarketing => throw _privateConstructorUsedError;
+  bool? get agreeMarketing => throw _privateConstructorUsedError;
   String get currentLocation => throw _privateConstructorUsedError;
-  String get gender => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String? get gender => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get birthday => throw _privateConstructorUsedError;
 
@@ -58,16 +56,14 @@ abstract class $ReadUserCopyWith<$Res> {
       String uid,
       String email,
       String displayName,
-      String photoUrl,
+      String? photoUrl,
       @TimestampConverter() DateTime createdTime,
-      String phoneNumber,
+      String? phoneNumber,
       bool isManager,
-      bool agreeTerms1,
-      bool agreeTerms2,
-      bool agreeMarketing,
+      bool? agreeMarketing,
       String currentLocation,
-      String gender,
-      String name,
+      String? gender,
+      String? name,
       @TimestampConverter() DateTime birthday});
 }
 
@@ -90,16 +86,14 @@ class _$ReadUserCopyWithImpl<$Res, $Val extends ReadUser>
     Object? uid = null,
     Object? email = null,
     Object? displayName = null,
-    Object? photoUrl = null,
+    Object? photoUrl = freezed,
     Object? createdTime = null,
-    Object? phoneNumber = null,
+    Object? phoneNumber = freezed,
     Object? isManager = null,
-    Object? agreeTerms1 = null,
-    Object? agreeTerms2 = null,
-    Object? agreeMarketing = null,
+    Object? agreeMarketing = freezed,
     Object? currentLocation = null,
-    Object? gender = null,
-    Object? name = null,
+    Object? gender = freezed,
+    Object? name = freezed,
     Object? birthday = null,
   }) {
     return _then(_value.copyWith(
@@ -119,46 +113,38 @@ class _$ReadUserCopyWithImpl<$Res, $Val extends ReadUser>
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String,
-      photoUrl: null == photoUrl
+      photoUrl: freezed == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       createdTime: null == createdTime
           ? _value.createdTime
           : createdTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      phoneNumber: null == phoneNumber
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isManager: null == isManager
           ? _value.isManager
           : isManager // ignore: cast_nullable_to_non_nullable
               as bool,
-      agreeTerms1: null == agreeTerms1
-          ? _value.agreeTerms1
-          : agreeTerms1 // ignore: cast_nullable_to_non_nullable
-              as bool,
-      agreeTerms2: null == agreeTerms2
-          ? _value.agreeTerms2
-          : agreeTerms2 // ignore: cast_nullable_to_non_nullable
-              as bool,
-      agreeMarketing: null == agreeMarketing
+      agreeMarketing: freezed == agreeMarketing
           ? _value.agreeMarketing
           : agreeMarketing // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       currentLocation: null == currentLocation
           ? _value.currentLocation
           : currentLocation // ignore: cast_nullable_to_non_nullable
               as String,
-      gender: null == gender
+      gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       birthday: null == birthday
           ? _value.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
@@ -180,16 +166,14 @@ abstract class _$$ReadUserImplCopyWith<$Res>
       String uid,
       String email,
       String displayName,
-      String photoUrl,
+      String? photoUrl,
       @TimestampConverter() DateTime createdTime,
-      String phoneNumber,
+      String? phoneNumber,
       bool isManager,
-      bool agreeTerms1,
-      bool agreeTerms2,
-      bool agreeMarketing,
+      bool? agreeMarketing,
       String currentLocation,
-      String gender,
-      String name,
+      String? gender,
+      String? name,
       @TimestampConverter() DateTime birthday});
 }
 
@@ -210,16 +194,14 @@ class __$$ReadUserImplCopyWithImpl<$Res>
     Object? uid = null,
     Object? email = null,
     Object? displayName = null,
-    Object? photoUrl = null,
+    Object? photoUrl = freezed,
     Object? createdTime = null,
-    Object? phoneNumber = null,
+    Object? phoneNumber = freezed,
     Object? isManager = null,
-    Object? agreeTerms1 = null,
-    Object? agreeTerms2 = null,
-    Object? agreeMarketing = null,
+    Object? agreeMarketing = freezed,
     Object? currentLocation = null,
-    Object? gender = null,
-    Object? name = null,
+    Object? gender = freezed,
+    Object? name = freezed,
     Object? birthday = null,
   }) {
     return _then(_$ReadUserImpl(
@@ -239,46 +221,38 @@ class __$$ReadUserImplCopyWithImpl<$Res>
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String,
-      photoUrl: null == photoUrl
+      photoUrl: freezed == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       createdTime: null == createdTime
           ? _value.createdTime
           : createdTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      phoneNumber: null == phoneNumber
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isManager: null == isManager
           ? _value.isManager
           : isManager // ignore: cast_nullable_to_non_nullable
               as bool,
-      agreeTerms1: null == agreeTerms1
-          ? _value.agreeTerms1
-          : agreeTerms1 // ignore: cast_nullable_to_non_nullable
-              as bool,
-      agreeTerms2: null == agreeTerms2
-          ? _value.agreeTerms2
-          : agreeTerms2 // ignore: cast_nullable_to_non_nullable
-              as bool,
-      agreeMarketing: null == agreeMarketing
+      agreeMarketing: freezed == agreeMarketing
           ? _value.agreeMarketing
           : agreeMarketing // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       currentLocation: null == currentLocation
           ? _value.currentLocation
           : currentLocation // ignore: cast_nullable_to_non_nullable
               as String,
-      gender: null == gender
+      gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       birthday: null == birthday
           ? _value.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
@@ -295,16 +269,14 @@ class _$ReadUserImpl implements _ReadUser {
       required this.uid,
       required this.email,
       required this.displayName,
-      required this.photoUrl,
+      this.photoUrl,
       @TimestampConverter() required this.createdTime,
-      required this.phoneNumber,
+      this.phoneNumber,
       required this.isManager,
-      required this.agreeTerms1,
-      required this.agreeTerms2,
-      required this.agreeMarketing,
+      this.agreeMarketing,
       required this.currentLocation,
-      required this.gender,
-      required this.name,
+      this.gender,
+      this.name,
       @TimestampConverter() required this.birthday});
 
   factory _$ReadUserImpl.fromJson(Map<String, dynamic> json) =>
@@ -319,33 +291,29 @@ class _$ReadUserImpl implements _ReadUser {
   @override
   final String displayName;
   @override
-  final String photoUrl;
+  final String? photoUrl;
   @override
   @TimestampConverter()
   final DateTime createdTime;
   @override
-  final String phoneNumber;
+  final String? phoneNumber;
   @override
   final bool isManager;
   @override
-  final bool agreeTerms1;
-  @override
-  final bool agreeTerms2;
-  @override
-  final bool agreeMarketing;
+  final bool? agreeMarketing;
   @override
   final String currentLocation;
   @override
-  final String gender;
+  final String? gender;
   @override
-  final String name;
+  final String? name;
   @override
   @TimestampConverter()
   final DateTime birthday;
 
   @override
   String toString() {
-    return 'ReadUser(userid: $userid, uid: $uid, email: $email, displayName: $displayName, photoUrl: $photoUrl, createdTime: $createdTime, phoneNumber: $phoneNumber, isManager: $isManager, agreeTerms1: $agreeTerms1, agreeTerms2: $agreeTerms2, agreeMarketing: $agreeMarketing, currentLocation: $currentLocation, gender: $gender, name: $name, birthday: $birthday)';
+    return 'ReadUser(userid: $userid, uid: $uid, email: $email, displayName: $displayName, photoUrl: $photoUrl, createdTime: $createdTime, phoneNumber: $phoneNumber, isManager: $isManager, agreeMarketing: $agreeMarketing, currentLocation: $currentLocation, gender: $gender, name: $name, birthday: $birthday)';
   }
 
   @override
@@ -366,10 +334,6 @@ class _$ReadUserImpl implements _ReadUser {
                 other.phoneNumber == phoneNumber) &&
             (identical(other.isManager, isManager) ||
                 other.isManager == isManager) &&
-            (identical(other.agreeTerms1, agreeTerms1) ||
-                other.agreeTerms1 == agreeTerms1) &&
-            (identical(other.agreeTerms2, agreeTerms2) ||
-                other.agreeTerms2 == agreeTerms2) &&
             (identical(other.agreeMarketing, agreeMarketing) ||
                 other.agreeMarketing == agreeMarketing) &&
             (identical(other.currentLocation, currentLocation) ||
@@ -392,8 +356,6 @@ class _$ReadUserImpl implements _ReadUser {
       createdTime,
       phoneNumber,
       isManager,
-      agreeTerms1,
-      agreeTerms2,
       agreeMarketing,
       currentLocation,
       gender,
@@ -422,16 +384,14 @@ abstract class _ReadUser implements ReadUser {
       required final String uid,
       required final String email,
       required final String displayName,
-      required final String photoUrl,
+      final String? photoUrl,
       @TimestampConverter() required final DateTime createdTime,
-      required final String phoneNumber,
+      final String? phoneNumber,
       required final bool isManager,
-      required final bool agreeTerms1,
-      required final bool agreeTerms2,
-      required final bool agreeMarketing,
+      final bool? agreeMarketing,
       required final String currentLocation,
-      required final String gender,
-      required final String name,
+      final String? gender,
+      final String? name,
       @TimestampConverter() required final DateTime birthday}) = _$ReadUserImpl;
 
   factory _ReadUser.fromJson(Map<String, dynamic> json) =
@@ -446,26 +406,22 @@ abstract class _ReadUser implements ReadUser {
   @override
   String get displayName;
   @override
-  String get photoUrl;
+  String? get photoUrl;
   @override
   @TimestampConverter()
   DateTime get createdTime;
   @override
-  String get phoneNumber;
+  String? get phoneNumber;
   @override
   bool get isManager;
   @override
-  bool get agreeTerms1;
-  @override
-  bool get agreeTerms2;
-  @override
-  bool get agreeMarketing;
+  bool? get agreeMarketing;
   @override
   String get currentLocation;
   @override
-  String get gender;
+  String? get gender;
   @override
-  String get name;
+  String? get name;
   @override
   @TimestampConverter()
   DateTime get birthday;

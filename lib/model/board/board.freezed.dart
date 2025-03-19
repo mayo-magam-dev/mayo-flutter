@@ -25,9 +25,9 @@ mixin _$Board {
   String get content => throw _privateConstructorUsedError;
   int? get category => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
-  String get writer => throw _privateConstructorUsedError;
+  String? get writer => throw _privateConstructorUsedError;
   @TimestampConverter()
-  DateTime get writeTime => throw _privateConstructorUsedError;
+  DateTime? get writeTime => throw _privateConstructorUsedError;
 
   /// Serializes this Board to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,8 +49,8 @@ abstract class $BoardCopyWith<$Res> {
       String content,
       int? category,
       String? image,
-      String writer,
-      @TimestampConverter() DateTime writeTime});
+      String? writer,
+      @TimestampConverter() DateTime? writeTime});
 }
 
 /// @nodoc
@@ -73,8 +73,8 @@ class _$BoardCopyWithImpl<$Res, $Val extends Board>
     Object? content = null,
     Object? category = freezed,
     Object? image = freezed,
-    Object? writer = null,
-    Object? writeTime = null,
+    Object? writer = freezed,
+    Object? writeTime = freezed,
   }) {
     return _then(_value.copyWith(
       boardId: null == boardId
@@ -97,14 +97,14 @@ class _$BoardCopyWithImpl<$Res, $Val extends Board>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String?,
-      writer: null == writer
+      writer: freezed == writer
           ? _value.writer
           : writer // ignore: cast_nullable_to_non_nullable
-              as String,
-      writeTime: null == writeTime
+              as String?,
+      writeTime: freezed == writeTime
           ? _value.writeTime
           : writeTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -122,8 +122,8 @@ abstract class _$$BoardImplCopyWith<$Res> implements $BoardCopyWith<$Res> {
       String content,
       int? category,
       String? image,
-      String writer,
-      @TimestampConverter() DateTime writeTime});
+      String? writer,
+      @TimestampConverter() DateTime? writeTime});
 }
 
 /// @nodoc
@@ -144,8 +144,8 @@ class __$$BoardImplCopyWithImpl<$Res>
     Object? content = null,
     Object? category = freezed,
     Object? image = freezed,
-    Object? writer = null,
-    Object? writeTime = null,
+    Object? writer = freezed,
+    Object? writeTime = freezed,
   }) {
     return _then(_$BoardImpl(
       boardId: null == boardId
@@ -168,14 +168,14 @@ class __$$BoardImplCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String?,
-      writer: null == writer
+      writer: freezed == writer
           ? _value.writer
           : writer // ignore: cast_nullable_to_non_nullable
-              as String,
-      writeTime: null == writeTime
+              as String?,
+      writeTime: freezed == writeTime
           ? _value.writeTime
           : writeTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ));
   }
 }
@@ -189,8 +189,8 @@ class _$BoardImpl implements _Board {
       required this.content,
       this.category,
       this.image,
-      required this.writer,
-      @TimestampConverter() required this.writeTime});
+      this.writer,
+      @TimestampConverter() this.writeTime});
 
   factory _$BoardImpl.fromJson(Map<String, dynamic> json) =>
       _$$BoardImplFromJson(json);
@@ -206,10 +206,10 @@ class _$BoardImpl implements _Board {
   @override
   final String? image;
   @override
-  final String writer;
+  final String? writer;
   @override
   @TimestampConverter()
-  final DateTime writeTime;
+  final DateTime? writeTime;
 
   @override
   String toString() {
@@ -260,8 +260,8 @@ abstract class _Board implements Board {
       required final String content,
       final int? category,
       final String? image,
-      required final String writer,
-      @TimestampConverter() required final DateTime writeTime}) = _$BoardImpl;
+      final String? writer,
+      @TimestampConverter() final DateTime? writeTime}) = _$BoardImpl;
 
   factory _Board.fromJson(Map<String, dynamic> json) = _$BoardImpl.fromJson;
 
@@ -276,10 +276,10 @@ abstract class _Board implements Board {
   @override
   String? get image;
   @override
-  String get writer;
+  String? get writer;
   @override
   @TimestampConverter()
-  DateTime get writeTime;
+  DateTime? get writeTime;
 
   /// Create a copy of Board
   /// with the given fields replaced by the non-null parameter values.

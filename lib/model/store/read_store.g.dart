@@ -18,12 +18,13 @@ _$ReadStoreImpl _$$ReadStoreImplFromJson(Map<String, dynamic> json) =>
       saleStart: json['saleStart'] as String,
       saleEnd: json['saleEnd'] as String,
       storeDescription: json['storeDescription'] as String?,
-      storeNumber: json['storeNumber'] as String,
+      storeNumber: json['storeNumber'] as String?,
       storeMapUrl: json['storeMapUrl'] as String?,
       originInfo: json['originInfo'] as String?,
-      additionalComment: json['additionalComment'] as String,
+      additionalComment: json['additionalComment'] as String?,
       storeCategory: (json['storeCategory'] as num).toInt(),
       storeSellingType: (json['storeSellingType'] as num).toInt(),
+      mainImage: json['mainImage'] as String,
     );
 
 Map<String, dynamic> _$$ReadStoreImplToJson(_$ReadStoreImpl instance) =>
@@ -44,4 +45,5 @@ Map<String, dynamic> _$$ReadStoreImplToJson(_$ReadStoreImpl instance) =>
       'additionalComment': instance.additionalComment,
       'storeCategory': instance.storeCategory,
       'storeSellingType': instance.storeSellingType,
+      'mainImage': instance.mainImage,
     };
