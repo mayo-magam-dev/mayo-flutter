@@ -11,13 +11,13 @@ class SignUpState {
   final bool agreeTerms1;
   final bool agreeTerms2;
   final bool agreeMarketing;
-  
+
   // 비밀번호 확인 상태
   final bool passwordConfirmed;
-  
+
   // 이메일 직접 관리 (userInfo와 별도로)
   final String? emailValue;
-  
+
   // 개인정보 필드 직접 관리 (새로 추가)
   final String? displayNameValue;
   final String? phoneNumberValue;
@@ -49,20 +49,20 @@ class SignUpState {
   String? get phoneNumber => phoneNumberValue ?? userInfo?.phoneNumber;
   String? get gender => genderValue ?? userInfo?.gender;
   String? get name => nameValue ?? userInfo?.name;
-  DateTime? get birthDate => birthDateValue ?? userInfo?.birthday;
+  // DateTime? get birthDate => birthDateValue ?? userInfo?.birthday;
 
   bool get isStep1Valid => agreeTerms1 && agreeTerms2;
 
   bool get isStep2Valid {
     // 이메일 정규식을 조금 덜 엄격하게 변경
     final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+$');
-    
+
     // 비밀번호 정규식을 조금 덜 엄격하게 변경 (8자 이상만 요구)
     final passwordRegex = RegExp(r'.{8,}');
-    
+
     final emailValid = email != null && emailRegex.hasMatch(email!);
     final passwordValid = password != null && passwordRegex.hasMatch(password!);
-    
+
     return emailValid && passwordValid && passwordConfirmed;
   }
 
@@ -71,7 +71,7 @@ class SignUpState {
     final phoneNumberValid = phoneNumber != null && phoneNumber!.isNotEmpty;
     final genderValid = gender != null && gender!.isNotEmpty;
     final nameValid = name != null && name!.isNotEmpty;
-    
+
     return displayNameValid && phoneNumberValid && genderValid && nameValid;
   }
 
@@ -95,33 +95,35 @@ class SignUpState {
   }) {
     // 이메일 값을 직접 업데이트 (userInfo와 별도로)
     final updatedEmail = email ?? emailValue;
-    
+
     // 개인정보 값들을 직접 업데이트
     final updatedDisplayName = displayName ?? displayNameValue;
     final updatedPhoneNumber = phoneNumber ?? phoneNumberValue;
     final updatedGender = gender ?? genderValue;
     final updatedName = name ?? nameValue;
     final updatedBirthDate = birthDate ?? birthDateValue;
-    
+
     // 사용자 정보 업데이트 로직
     CreateUser? updatedUserInfo = userInfo;
-    
+
     // 이메일과 스텝3 정보가 모두 있으면 userInfo 생성 또는 업데이트
     final hasEmail = updatedEmail != null;
-    final hasStep3Info = 
-      updatedDisplayName != null && 
-      updatedPhoneNumber != null && 
-      updatedGender != null && 
-      updatedName != null;
-    
+    final hasStep3Info = updatedDisplayName != null &&
+        updatedPhoneNumber != null &&
+        updatedGender != null &&
+        updatedName != null;
+
     // 최종 회원가입 제출 시 모든 필드가 갖춰진 userInfo 객체가 필요함
-    if (email != null || displayName != null || phoneNumber != null || 
-        gender != null || name != null || birthDate != null) {
-      
+    if (email != null ||
+        displayName != null ||
+        phoneNumber != null ||
+        gender != null ||
+        name != null ||
+        birthDate != null) {
       final updatedAgreeTerms1 = agreeTerms1 ?? this.agreeTerms1;
       final updatedAgreeTerms2 = agreeTerms2 ?? this.agreeTerms2;
       final updatedAgreeMarketing = agreeMarketing ?? this.agreeMarketing;
-      
+
       // 모든 필수 정보가 있으면 userInfo 생성
       if (hasEmail && hasStep3Info) {
         updatedUserInfo = CreateUser(
@@ -133,7 +135,7 @@ class SignUpState {
           phoneNumber: updatedPhoneNumber,
           gender: updatedGender,
           name: updatedName,
-          birthday: updatedBirthDate ?? DateTime.now(), // 기본값으로 현재 날짜 사용
+          birthday: Formater.dateFormat(DateTime.now()), // 기본값으로 현재 날짜 사용
         );
       }
       // 기존 userInfo가 있는 경우 업데이트
@@ -147,7 +149,8 @@ class SignUpState {
           phoneNumber: phoneNumber ?? updatedUserInfo.phoneNumber,
           gender: gender ?? updatedUserInfo.gender,
           name: name ?? updatedUserInfo.name,
-          birthday: birthDate ?? updatedUserInfo.birthday,
+          birthday: Formater.dateFormat(
+              birthDate ?? DateTime.now()), // 기본값으로 현재 날짜 사용
         );
       }
     }
@@ -170,4 +173,4 @@ class SignUpState {
       birthDateValue: updatedBirthDate,
     );
   }
-} 
+}

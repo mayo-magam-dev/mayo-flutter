@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -11,6 +12,7 @@ class GoogleLogin {
       accessToken: userAuthentication?.accessToken,
       idToken: userAuthentication?.idToken,
     );
+    // debugPrint(userAuthentication?.accessToken);
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
     return userCredential;

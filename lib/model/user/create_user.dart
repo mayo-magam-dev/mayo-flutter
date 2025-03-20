@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mayo_flutter/util/timestamp_converter.dart';
 
 part 'create_user.freezed.dart';
 part 'create_user.g.dart';
@@ -15,7 +14,7 @@ class CreateUser with _$CreateUser {
     required bool agreeMarketing,
     required bool agreeTerms1,
     required bool agreeTerms2,
-    @TimestampConverter() required DateTime birthday,
+    required String birthday,
   }) = _CreateUser;
 
   factory CreateUser.fromJson(Map<String, dynamic> json) =>

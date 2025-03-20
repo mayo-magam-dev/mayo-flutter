@@ -28,8 +28,7 @@ mixin _$CreateUser {
   bool get agreeMarketing => throw _privateConstructorUsedError;
   bool get agreeTerms1 => throw _privateConstructorUsedError;
   bool get agreeTerms2 => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime get birthday => throw _privateConstructorUsedError;
+  String get birthday => throw _privateConstructorUsedError;
 
   /// Serializes this CreateUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,7 +55,7 @@ abstract class $CreateUserCopyWith<$Res> {
       bool agreeMarketing,
       bool agreeTerms1,
       bool agreeTerms2,
-      @TimestampConverter() DateTime birthday});
+      String birthday});
 }
 
 /// @nodoc
@@ -120,7 +119,7 @@ class _$CreateUserCopyWithImpl<$Res, $Val extends CreateUser>
       birthday: null == birthday
           ? _value.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ) as $Val);
   }
 }
@@ -142,7 +141,7 @@ abstract class _$$CreateUserImplCopyWith<$Res>
       bool agreeMarketing,
       bool agreeTerms1,
       bool agreeTerms2,
-      @TimestampConverter() DateTime birthday});
+      String birthday});
 }
 
 /// @nodoc
@@ -204,7 +203,7 @@ class __$$CreateUserImplCopyWithImpl<$Res>
       birthday: null == birthday
           ? _value.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ));
   }
 }
@@ -221,7 +220,7 @@ class _$CreateUserImpl implements _CreateUser {
       required this.agreeMarketing,
       required this.agreeTerms1,
       required this.agreeTerms2,
-      @TimestampConverter() required this.birthday});
+      required this.birthday});
 
   factory _$CreateUserImpl.fromJson(Map<String, dynamic> json) =>
       _$$CreateUserImplFromJson(json);
@@ -243,8 +242,7 @@ class _$CreateUserImpl implements _CreateUser {
   @override
   final bool agreeTerms2;
   @override
-  @TimestampConverter()
-  final DateTime birthday;
+  final String birthday;
 
   @override
   String toString() {
@@ -296,16 +294,15 @@ class _$CreateUserImpl implements _CreateUser {
 
 abstract class _CreateUser implements CreateUser {
   factory _CreateUser(
-          {required final String email,
-          required final String gender,
-          required final String name,
-          required final String displayName,
-          required final String phoneNumber,
-          required final bool agreeMarketing,
-          required final bool agreeTerms1,
-          required final bool agreeTerms2,
-          @TimestampConverter() required final DateTime birthday}) =
-      _$CreateUserImpl;
+      {required final String email,
+      required final String gender,
+      required final String name,
+      required final String displayName,
+      required final String phoneNumber,
+      required final bool agreeMarketing,
+      required final bool agreeTerms1,
+      required final bool agreeTerms2,
+      required final String birthday}) = _$CreateUserImpl;
 
   factory _CreateUser.fromJson(Map<String, dynamic> json) =
       _$CreateUserImpl.fromJson;
@@ -327,8 +324,7 @@ abstract class _CreateUser implements CreateUser {
   @override
   bool get agreeTerms2;
   @override
-  @TimestampConverter()
-  DateTime get birthday;
+  String get birthday;
 
   /// Create a copy of CreateUser
   /// with the given fields replaced by the non-null parameter values.

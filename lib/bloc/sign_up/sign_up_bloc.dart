@@ -108,12 +108,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             email: state.email!,
             displayName: state.displayName!,
             phoneNumber: state.phoneNumber!,
-            gender: state.gender!,
+            gender: '남자',
             name: state.name!,
             agreeTerms1: state.agreeTerms1,
             agreeTerms2: state.agreeTerms2,
             agreeMarketing: state.agreeMarketing,
-            birthday: Formater.dateFormat(state.birthDate), // 임시값으로 현재 날짜 사용
+            birthday: '20001010', // 임시값으로 현재 날짜 사용
           );
 
           await _userDataSource.createUser(createUser: newUserInfo);

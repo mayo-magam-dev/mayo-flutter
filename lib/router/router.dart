@@ -50,11 +50,11 @@ final router = GoRouter(
       debugPrint('이미 회원가입 페이지에 있음: 리다이렉트 없음');
       return null; // 리다이렉트 하지 않음
     }
-
+/
     try {
       final user = await userDataSource.getUser();
       debugPrint('사용자 정보 있음: 홈으로 리다이렉트');
-      if (user.userid.isEmpty) {
+      if (user.uid.isEmpty) {
         return '/home';
       } else {
         debugPrint('사용자 정보 불완전: /signup으로 리다이렉트');
@@ -71,7 +71,6 @@ final router = GoRouter(
       builder: (context, state) {
         return ProductPage(
           id: state.pathParameters['data']!,
-          storeName: state.pathParameters['storeName']!,
         );
       },
     ),
