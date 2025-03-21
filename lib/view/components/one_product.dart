@@ -71,28 +71,66 @@ class OneProductWidget extends StatelessWidget {
                       SizedBox(
                         height: 5.h,
                       ),
-                      Row(children: [
-                        Container(
-                            padding: EdgeInsets.symmetric(horizontal: 7.5.w),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: GlobalMainColor.globalButtonColor,
-                            ),
-                            child:
-                                Text("포장", style: AppTextStyle.captionMedium)),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Container(
-                            padding: EdgeInsets.symmetric(horizontal: 7.5.w),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  color: GlobalMainColor.globalButtonColor),
-                            ),
-                            child:
-                                Text("매장", style: AppTextStyle.captionMedium)),
-                      ]),
+                      Row(
+                        children: [
+                          (storeData![storeIndex].storeSellingType == 3)
+                              ? Row(
+                                  children: [
+                                    Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 7.5.w),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color:
+                                              GlobalMainColor.globalButtonColor,
+                                        ),
+                                        child: Text("포장",
+                                            style: AppTextStyle.captionMedium)),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 7.5.w,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: GlobalMainColor
+                                                .globalButtonColor),
+                                      ),
+                                      child: Text("매장",
+                                          style: AppTextStyle.captionMedium),
+                                    ),
+                                  ],
+                                )
+                              : (storeData![storeIndex].storeSellingType == 1)
+                                  ? Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 7.5.w,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color:
+                                            GlobalMainColor.globalButtonColor,
+                                      ),
+                                      child: Text("포장",
+                                          style: AppTextStyle.captionMedium))
+                                  : Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 7.5.w),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: GlobalMainColor
+                                                .globalButtonColor),
+                                      ),
+                                      child: Text("매장",
+                                          style: AppTextStyle.captionMedium),
+                                    ),
+                        ],
+                      ),
                     ],
                   ),
                   GestureDetector(
