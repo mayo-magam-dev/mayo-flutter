@@ -12,7 +12,6 @@ class GoogleLogin {
       accessToken: userAuthentication?.accessToken,
       idToken: userAuthentication?.idToken,
     );
-    // debugPrint(userAuthentication?.accessToken);
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
     return userCredential;
