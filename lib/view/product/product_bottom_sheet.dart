@@ -1,9 +1,13 @@
 part of 'product_page.dart';
 
 class _BottomSheet extends StatelessWidget {
-  const _BottomSheet({required this.itemData});
+  const _BottomSheet({
+    required this.itemData,
+    required this.storeId,
+  });
 
   final ReadItem? itemData;
+  final String storeId;
 
   @override
   Widget build(BuildContext context) {
@@ -30,26 +34,7 @@ class _BottomSheet extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("${itemData!.salePrice}", style: AppTextStyle.heading3Bold),
-            SizedBox(height: 18.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "수량 선택",
-                  style: AppTextStyle.body1Bold,
-                ),
-                Row(
-                  children: [
-                    Text("1개", style: AppTextStyle.body1Bold),
-                    SizedBox(width: 15.w),
-                    SvgPicture.asset("assets/icons/minus.svg"),
-                    SizedBox(width: 20.w),
-                    SvgPicture.asset("assets/icons/plus.svg"),
-                  ],
-                ),
-              ],
-            ),
+            ItemQuantityCounter(salePrice: itemData!.salePrice!),
             Container(
               height: 1.h,
               color: GlobalMainGrey.grey200,
@@ -67,18 +52,28 @@ class _BottomSheet extends StatelessWidget {
                   ),
                   alignment: Alignment.center,
                   child: GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => context.pop(),
                     child: Text("가게 둘러보기",
                         style: AppTextStyle.body1Bold
                             .copyWith(color: GlobalMainGrey.grey400)),
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => showDialog(
-                      context: context,
-                      builder: (context) {
-                        return _OnCart();
-                      }),
+                  onTap: () async {
+                    final itemInfo = CreateCartRequest(
+                      itemId: itemData!.itemId,
+                      itemCount: ItemQuantityCounter.itemCount,
+                      storeId: storeId,
+                    );
+
+                    await CartDataSource().createCart(request: itemInfo);
+
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return _OnCart();
+                        });
+                  },
                   child: Container(
                     width: 159.w,
                     height: 50.h,
@@ -97,6 +92,67 @@ class _BottomSheet extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ItemQuantityCounter extends StatefulWidget {
+  const ItemQuantityCounter({
+    super.key,
+    required this.salePrice,
+  });
+  final double salePrice;
+
+  static int itemCount = 1;
+
+  @override
+  State<ItemQuantityCounter> createState() => _ItemQuantityCounterState();
+}
+
+class _ItemQuantityCounterState extends State<ItemQuantityCounter> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+            "${Formater.moneyFormat((widget.salePrice) * ItemQuantityCounter.itemCount.toInt())}원",
+            style: AppTextStyle.heading3Bold),
+        SizedBox(height: 18.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "수량 선택",
+              style: AppTextStyle.body1Bold,
+            ),
+            Row(
+              children: [
+                Text("${ItemQuantityCounter.itemCount}",
+                    style: AppTextStyle.body1Bold),
+                SizedBox(width: 15.w),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (ItemQuantityCounter.itemCount > 1)
+                        --ItemQuantityCounter.itemCount;
+                    });
+                  },
+                  child: SvgPicture.asset("assets/icons/minus.svg"),
+                ),
+                SizedBox(width: 20.w),
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        ++ItemQuantityCounter.itemCount;
+                      });
+                    },
+                    child: SvgPicture.asset("assets/icons/plus.svg")),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

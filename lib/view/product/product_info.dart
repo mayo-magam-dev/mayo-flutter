@@ -1,11 +1,15 @@
 part of 'product_page.dart';
 
 class _ProductInfo extends StatelessWidget {
-  _ProductInfo({required this.itemData});
+  _ProductInfo({
+    required this.itemData,
+    required this.storeName,
+  });
 
   final ReadItem? itemData;
+  final String storeName;
 
-  var numberFormat = NumberFormat('###,###,###,###');
+  final numberFormat = NumberFormat('###,###,###,###');
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,7 @@ class _ProductInfo extends StatelessWidget {
                   SvgPicture.asset("assets/icons/pin.svg",
                       height: 20.h, width: 20.w),
                   SizedBox(width: 2.w),
-                  Text("힘쎈드위치", style: AppTextStyle.body2Medium),
+                  Text(storeName, style: AppTextStyle.body2Medium),
                 ],
               ),
               SizedBox(width: 3.h),
@@ -68,7 +72,7 @@ class _ProductInfo extends StatelessWidget {
             children: [
               Text("추가 전달 사항", style: AppTextStyle.body1Bold),
               SizedBox(height: 4.h),
-              Text(itemData!.additionalInformation ?? '',
+              Text(itemData!.additionalInformation ?? '없음',
                   style: AppTextStyle.body2Medium),
               SizedBox(height: 15.h),
               Text("평균 조리 시간", style: AppTextStyle.body1Bold),
