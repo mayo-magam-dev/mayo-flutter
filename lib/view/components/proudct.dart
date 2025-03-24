@@ -4,22 +4,23 @@ import 'package:go_router/go_router.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/item/read_item.dart';
+import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/util/formater.dart';
 
 class ProductComponents extends StatelessWidget {
   const ProductComponents({
     super.key,
     required this.itemData,
-    required this.storeName,
+    required this.storeData,
   });
   final ReadItem itemData;
-  final String storeName;
+  final ReadStore storeData;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push('/product/${itemData.itemId}/$storeName');
+        context.push('/product/${itemData.itemId}/${storeData.id}/${storeData.storeName}');
       },
       child: Row(
         children: [
