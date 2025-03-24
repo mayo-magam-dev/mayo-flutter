@@ -35,7 +35,8 @@ mixin _$ReadStore {
   String? get originInfo => throw _privateConstructorUsedError;
   String? get additionalComment => throw _privateConstructorUsedError;
   int get storeCategory => throw _privateConstructorUsedError;
-  int get storeSellingType => throw _privateConstructorUsedError;
+  int get storeSellingType =>
+      throw _privateConstructorUsedError; // 1 : 포장, 2 : 매장, 3 : 포장·매장
   String get mainImage => throw _privateConstructorUsedError;
 
   /// Serializes this ReadStore to a JSON map.
@@ -368,6 +369,7 @@ class _$ReadStoreImpl implements _ReadStore {
   final int storeCategory;
   @override
   final int storeSellingType;
+// 1 : 포장, 2 : 매장, 3 : 포장·매장
   @override
   final String mainImage;
 
@@ -506,7 +508,7 @@ abstract class _ReadStore implements ReadStore {
   @override
   int get storeCategory;
   @override
-  int get storeSellingType;
+  int get storeSellingType; // 1 : 포장, 2 : 매장, 3 : 포장·매장
   @override
   String get mainImage;
 

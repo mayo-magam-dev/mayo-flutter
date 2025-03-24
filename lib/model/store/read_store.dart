@@ -21,7 +21,7 @@ class ReadStore with _$ReadStore {
     String? originInfo,
     String? additionalComment,
     required int storeCategory,
-    required int storeSellingType,
+    required int storeSellingType, // 1 : 포장, 2 : 매장, 3 : 포장·매장
     required String mainImage,
   }) = _ReadStore;
 
