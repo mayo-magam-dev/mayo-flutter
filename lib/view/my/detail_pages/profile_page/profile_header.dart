@@ -1,8 +1,11 @@
 part of 'profile_page.dart';
 
 class _Header extends StatelessWidget {
-  //ignore: unused_element
-  const _Header({super.key});
+  const _Header({
+    required this.photoUrl,
+  });
+
+  final String photoUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +20,10 @@ class _Header extends StatelessWidget {
               decoration: ShapeDecoration(
                 shape: OvalBorder(),
                 color: Color(0xFFFFF7DA),
+                image: DecorationImage(
+                  image: NetworkImage(photoUrl),
+                ),
               ),
-              child: Icon(Icons.person),
             ),
             Container(
               width: 30,
