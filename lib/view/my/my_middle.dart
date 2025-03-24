@@ -11,14 +11,7 @@ class _MyMiddle extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AnnouncementPage(),
-                ),
-              );
-            },
+            onTap: () => context.push('/announcement'),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -32,14 +25,7 @@ class _MyMiddle extends StatelessWidget {
           ),
           SizedBox(height: 41.h),
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EventPage(),
-                ),
-              );
-            },
+            onTap: () => context.push('/event'),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -53,7 +39,7 @@ class _MyMiddle extends StatelessWidget {
           ),
           SizedBox(height: 41.h),
           GestureDetector(
-            onTap: () {},
+            onTap: () => context.push('/favorite-store'),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -67,14 +53,7 @@ class _MyMiddle extends StatelessWidget {
           ),
           SizedBox(height: 41.h),
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CostomerCenterPage(),
-                ),
-              );
-            },
+            onTap: () => context.push('/costomer-center'),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -88,14 +67,7 @@ class _MyMiddle extends StatelessWidget {
           ),
           SizedBox(height: 41.h),
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FaqPage(),
-                ),
-              );
-            },
+            onTap: () => context.push('/faq'),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
