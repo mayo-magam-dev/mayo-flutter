@@ -23,14 +23,19 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
             alignment: Alignment.bottomLeft,
             clipBehavior: Clip.none,
             children: [
-              // Image.asset(
-              //   "assets/images/store_info_header_example.png",
-              //   width: 390.w,
-              //   height: 235.h,
-              //   fit: BoxFit.cover,
-              // ),
-              Image.network(widget.storeData.mainImage,
-                  width: double.infinity, height: 235.h, fit: BoxFit.cover),
+              (widget.storeData.mainImage != "")
+                  ? Image.network(
+                      widget.storeData.mainImage,
+                      width: double.infinity,
+                      height: 235.h,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      "assets/images/empty_cart.png",
+                      width: double.infinity,
+                      height: 235.h,
+                      fit: BoxFit.cover,
+                    ),
               Positioned(
                   bottom: -25.h,
                   child: Container(
@@ -46,21 +51,18 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IconButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            var data =
+                                await UserDataSource().getFavoriteStores();
+                            ReadStore targetStore = data.firstWhere(
+                                (store) => store.id == widget.storeData.id);
                             setState(() {
-                              favorite = !favorite;
+                              targetStore.id == widget.storeData.id
+                                  ? favorite = false
+                                  : favorite = true;
                             });
                             UserDataSource()
                                 .putFavoriteStore(widget.storeData.id);
-                            // try {
-                            //   var data =
-                            //       await UserDataSource().getFavoriteStores();
-                            //   ReadStore targetStore = data.firstWhere(
-                            //       (store) => store.id == storeData.id);
-                            //   //통과시 좋아요 표시
-                            // } catch (e) {
-                            //   //비좋아요 표시
-                            // }
                           },
                           icon: SvgPicture.asset(
                             favorite
@@ -70,8 +72,8 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                             height: 24.h,
                           ),
                         ),
-                        IconButton(
-                          onPressed: () async {
+                        IconButton(             
+                          onPressed: () async { 
                             setState(() {
                               notice = !notice;
                             });
@@ -102,7 +104,9 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(25.w),
                     image: DecorationImage(
-                      image: NetworkImage(widget.storeData.storeImage),
+                      image: (widget.storeData.storeImage != "")
+                          ? NetworkImage(widget.storeData.storeImage)
+                          : AssetImage('assets/images/empty_cart.png'),
                       fit: BoxFit.cover,
                     ),
                   ),

@@ -81,7 +81,7 @@ class _StoreInfoSection extends StatelessWidget {
                       children: [
                         ProductComponents(
                           itemData: itemData[0],
-                          storeName: storeData.storeName,
+                          storeData: storeData,
                         ),
                         Divider(
                           color: GlobalMainGrey.grey200,
@@ -89,7 +89,7 @@ class _StoreInfoSection extends StatelessWidget {
                         ),
                         ProductComponents(
                           itemData: itemData[1],
-                          storeName: storeData.storeName,
+                          storeData: storeData,
                         ),
                       ],
                     )

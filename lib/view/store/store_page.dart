@@ -56,26 +56,21 @@ class _StorePageState extends State<StorePage> {
       child: FutureBuilder(
         future: featchStoreData(),
         builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              return SizedBox();
-            default:
-              if (!snapshot.hasData) {
-                return Text('데이터를 불러올 수 없습니다.');
-              } else {
-                return _Scaffold(
-                  topBar: Topbar(
-                    title: snapshot.data!.$1.storeName,
-                    showCarts: false,
-                  ),
-                  infoHeader: _StoreInfoHeader(storeData: snapshot.data!.$1),
-                  infoMain: _StoreInfoMain(
-                    storeData: snapshot.data!.$1,
-                    itemData: snapshot.data!.$2,
-                  ),
-                );
-              }
+          if (!snapshot.hasData) {
+            return SizedBox();
           }
+
+          return _Scaffold(
+            topBar: Topbar(
+              title: snapshot.data!.$1.storeName,
+              showCarts: false,
+            ),
+            infoHeader: _StoreInfoHeader(storeData: snapshot.data!.$1),
+            infoMain: _StoreInfoMain(
+              storeData: snapshot.data!.$1,
+              itemData: snapshot.data!.$2,
+            ),
+          );
         },
       ),
     );
