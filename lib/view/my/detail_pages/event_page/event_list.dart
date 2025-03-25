@@ -89,63 +89,62 @@ class _ListState extends State<_List> {
         }
 
         final events = snapshot.data!;
-        return ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: events.length,
-          separatorBuilder: (context, index) => Container(
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 0.3,
-                  color: GlobalMainGrey.grey200,
-                ),
-              ),
-            ),
-          ),
-          itemBuilder: (context, index) {
-            final item = events[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 17,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        debugPrint('length = ${events.length}');
+        return Expanded(
+          child: ListView.builder(
+            itemCount: events.length,
+            itemBuilder: (context, index) {
+              final item = events[index];
+              return Column(
                 children: [
-                  Text(
-                    item.title,
-                    style: AppTextStyle.body1Medium.copyWith(
-                      color: GlobalMainColor.globalPrimaryBlackColor,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 17,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.title,
+                          style: AppTextStyle.body1Medium.copyWith(
+                            color: GlobalMainColor.globalPrimaryBlackColor,
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                        Text(
+                          DateFormat('yyyy/MM/dd').format(item.writeTime!),
+                          style: AppTextStyle.body1Medium.copyWith(
+                            color: GlobalMainGrey.grey600,
+                          ),
+                        ),
+                        if (item.image != null) ...[
+                          SizedBox(height: 8.h),
+                          Image.network(
+                            item.image!,
+                            width: double.infinity,
+                            height: 193.h,
+                            fit: BoxFit.cover,
+                          ),
+                        ],
+                        SizedBox(height: 8.h),
+                        Text(
+                          item.content,
+                          style: AppTextStyle.body2Medium.copyWith(
+                            color: GlobalMainGrey.grey600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 8.h),
-                  Text(
-                    DateFormat('yyyy/MM/dd').format(item.writeTime!),
-                    style: AppTextStyle.body1Medium.copyWith(
-                      color: GlobalMainGrey.grey600,
-                    ),
-                  ),
-                  if (item.image != null) ...[
-                    SizedBox(height: 8.h),
-                    Image.network(
-                      item.image!,
-                      width: double.infinity,
-                      height: 193.h,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                  SizedBox(height: 8.h),
-                  Text(
-                    item.content,
-                    style: AppTextStyle.body2Medium.copyWith(
-                      color: GlobalMainGrey.grey600,
-                    ),
+                  Divider(
+                    color: GlobalMainGrey.grey200,
+                    thickness: 2,
                   ),
                 ],
-              ),
-            );
-          },
+              );
+            },
+          ),
         );
       },
     );
