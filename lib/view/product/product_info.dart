@@ -25,14 +25,14 @@ class _ProductInfo extends StatelessWidget {
               SizedBox(height: 8.h),
               Row(
                 children: [
-                  Text("${itemData!.salePercent}%",
+                  Text("${itemData!.salePercent?.toInt()}%",
                       style: AppTextStyle.body2Bold.copyWith(
                           color: GlobalMainColor.globalPrimaryRedColor)),
                   SizedBox(width: 5.w),
-                  Text(numberFormat.format(itemData!.salePrice),
+                  Text(Formater.moneyFormat(itemData!.salePrice),
                       style: AppTextStyle.body2Bold),
                   SizedBox(width: 5.w),
-                  Text(numberFormat.format(itemData!.originalPrice),
+                  Text(Formater.moneyFormat(itemData!.originalPrice),
                       style: AppTextStyle.body2Medium.copyWith(
                           color: GlobalMainGrey.grey300,
                           decoration: TextDecoration.lineThrough)),
