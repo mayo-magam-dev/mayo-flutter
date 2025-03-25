@@ -60,13 +60,24 @@ class _BottomSheet extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
+                    List<ReadCartResponse> cartData = await CartDataSource().getCarts();
+                    ReadCartResponse targetStore = cartData.firstWhere(
+                                (item) => item.itemName == itemData?.itemName);
+
+                    if(targetStore.itemName != itemData?.itemName){
+
                     final itemInfo = CreateCartRequest(
                       itemId: itemData!.itemId,
                       itemCount: ItemQuantityCounter.itemCount,
                       storeId: storeId,
                     );
+                    CartDataSource().createCart(request: itemInfo);
+                    }else{
+                      CartDataSource().putQuantity(targetStore.cartId, ItemQuantityCounter.itemCount);
 
-                    await CartDataSource().createCart(request: itemInfo);
+                    }
+                    
+
 
                     showDialog(
                         context: context,
