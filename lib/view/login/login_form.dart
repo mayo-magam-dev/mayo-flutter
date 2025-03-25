@@ -5,7 +5,6 @@ class _LoginForm extends StatelessWidget {
   _LoginForm({super.key});
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +15,10 @@ class _LoginForm extends StatelessWidget {
           TextFormField(
             controller: _emailController,
             validator: (value) {
-              if(value!.isEmpty){
+              if (value!.isEmpty) {
                 return '이메일을 입력해주세요.';
-              }return null;
+              }
+              return null;
             },
             onTapOutside: (event) => FocusScope.of(context).unfocus(),
             textInputAction: TextInputAction.next,

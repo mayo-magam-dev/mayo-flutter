@@ -1,10 +1,12 @@
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
+import 'package:mayo_flutter/model/user/local_login_state.dart';
 import 'package:mayo_flutter/view/cart/cart_page.dart';
 import 'package:mayo_flutter/view/home/home_page.dart';
 import 'package:mayo_flutter/view/login/login_page.dart';
@@ -34,7 +36,6 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>();
 
-// 회원가입에 사용할 BloC을 미리 생성 (Singleton처럼 사용)
 final _signUpBloc = SignUpBloc(userDataSource: UserDataSource());
 
 int count = 0;
@@ -42,43 +43,20 @@ int count = 0;
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
-  redirect: (context, state) async {
-    final auth = FirebaseAuth.instance;
-    final userDataSource = UserDataSource();
-    debugPrint('리다이렉트: ${state.uri}');
-    debugPrint('유저: ${auth.currentUser}');
+  redirect: (context, state) {
+    final loginState = context.read<LoginBloc>().state;
 
-    // 로그인 되어있지 않으면 로그인 페이지로
-    if (auth.currentUser == null) {
-      return '/login';
-    }
-
-    // 회원가입 페이지에 이미 있으면 그대로 유지
-    if (state.uri.path.startsWith('/signup')) {
-      debugPrint('이미 회원가입 페이지에 있음: 리다이렉트 없음');
-      return null; // 리다이렉트 하지 않음
-    }
-    try {
-      final user = await userDataSource.getUser();
-      debugPrint('사용자 정보 있음: 홈으로 리다이렉트');
-
-      // if (user.uid.isNotEmpty) {
-      //   debugPrint('path = ${state.uri.path}');
-      //     return '/'; // 홈으로 이동
-
-      if (user.uid.isNotEmpty) {
-        if (state.uri.path == '/') {
-          return '/'; // 홈으로 이동
-        }
-        return null; // 이미 홈이면 리다이렉트 안 함
-      } else {
-        debugPrint('사용자 정보 불완전: /signup으로 리다이렉트');
-        return '/signup';
+    if (loginState is LoginStateChanged) {
+      switch (loginState.loginState) {
+        case LocalLoginState.needRegister:
+          return "/register";
+        case LocalLoginState.login:
+          return state.matchedLocation == "/login" ? "/" : null;  
+        case LocalLoginState.notLogin:
+          return "/login";
       }
-    } on DioException catch (e) {
-      debugPrint('사용자 정보 요청 실패: ${e.toString()}');
-      return '/signup';
     }
+    return null;
   },
   routes: [
     GoRoute(
