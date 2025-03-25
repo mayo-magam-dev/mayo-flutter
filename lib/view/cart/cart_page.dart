@@ -2,8 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mayo_flutter/dataSource/cart.dart';
+import 'package:mayo_flutter/dataSource/store.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
+import 'package:mayo_flutter/model/cart/read_cart_response.dart';
+import 'package:mayo_flutter/util/formater.dart';
 import 'package:mayo_flutter/view/components/press_button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 
@@ -22,13 +27,14 @@ class CartPage extends StatelessWidget {
         showCarts: true,
       ),
       content: _CartContent(),
-      requestButton: PressButton(
-          text: "예약하기",
-          onPressed: () => showModalBottomSheet(
-              context: context,
-              builder: (context) {
-                return _CartBottomSheet();
-              })),
+      requestButton: SizedBox.shrink(),
+      // requestButton: PressButton(
+      //     text: "예약하기",
+      //     onPressed: () => showModalBottomSheet(
+      //         context: context,
+      //         builder: (context) {
+      //           return _CartBottomSheet();
+      //         })),
     );
   }
 }
