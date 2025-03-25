@@ -51,7 +51,7 @@ final router = GoRouter(
         case LocalLoginState.needRegister:
           return "/register";
         case LocalLoginState.login:
-          return state.matchedLocation == "/login" ? "/" : null;  
+          return state.matchedLocation == "/login" ? "/" : null;
         case LocalLoginState.notLogin:
           return "/login";
       }
