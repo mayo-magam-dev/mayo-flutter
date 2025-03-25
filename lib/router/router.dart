@@ -8,6 +8,12 @@ import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/view/cart/cart_page.dart';
 import 'package:mayo_flutter/view/home/home_page.dart';
 import 'package:mayo_flutter/view/login/login_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/announcement_page/announcement_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/customer_center_page/costomer_center_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/event_page/event_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/faq_page/faq_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/profile_page/profile_page.dart';
+import 'package:mayo_flutter/view/my/details/favorite_store_page/favorite_store_page.dart';
 import 'package:mayo_flutter/view/my/my_page.dart';
 import 'package:mayo_flutter/view/on_discount/on_discount_page.dart';
 import 'package:mayo_flutter/view/orders/order_detail_page.dart';
@@ -31,9 +37,11 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 // 회원가입에 사용할 BloC을 미리 생성 (Singleton처럼 사용)
 final _signUpBloc = SignUpBloc(userDataSource: UserDataSource());
 
+int count = 0;
+
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/my',
+  initialLocation: '/',
   redirect: (context, state) async {
     final auth = FirebaseAuth.instance;
     final userDataSource = UserDataSource();
@@ -50,12 +58,19 @@ final router = GoRouter(
       debugPrint('이미 회원가입 페이지에 있음: 리다이렉트 없음');
       return null; // 리다이렉트 하지 않음
     }
-/
     try {
       final user = await userDataSource.getUser();
       debugPrint('사용자 정보 있음: 홈으로 리다이렉트');
-      if (user.uid.isEmpty) {
-        return '/home';
+
+      // if (user.uid.isNotEmpty) {
+      //   debugPrint('path = ${state.uri.path}');
+      //     return '/'; // 홈으로 이동
+
+      if (user.uid.isNotEmpty) {
+        if (state.uri.path == '/') {
+          return '/'; // 홈으로 이동
+        }
+        return null; // 이미 홈이면 리다이렉트 안 함
       } else {
         debugPrint('사용자 정보 불완전: /signup으로 리다이렉트');
         return '/signup';
@@ -67,10 +82,12 @@ final router = GoRouter(
   },
   routes: [
     GoRoute(
-      path: '/product/:data/:storeName',
+      path: '/product/:data/:storeId/:storeName',
       builder: (context, state) {
         return ProductPage(
           id: state.pathParameters['data']!,
+          storeId: state.pathParameters['storeId']!,
+          storeName: state.pathParameters['storeName']!,
         );
       },
     ),
@@ -146,6 +163,30 @@ final router = GoRouter(
         GoRoute(
           path: '/my',
           builder: (context, state) => const MyPage(),
+        ),
+        GoRoute(
+          path: '/announcement',
+          builder: (context, state) => const AnnouncementPage(),
+        ),
+        GoRoute(
+          path: '/profile',
+          builder: (context, state) => ProfilePage(),
+        ),
+        GoRoute(
+          path: '/event',
+          builder: (context, state) => EventPage(),
+        ),
+        GoRoute(
+          path: '/favorite-store',
+          builder: (context, state) => FavoriteStorePage(),
+        ),
+        GoRoute(
+          path: '/costomer-center',
+          builder: (context, state) => const CostomerCenterPage(),
+        ),
+        GoRoute(
+          path: '/faq',
+          builder: (context, state) => const FaqPage(),
         ),
       ],
     ),
