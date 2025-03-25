@@ -20,7 +20,8 @@ class ProductComponents extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push('/product/${itemData.itemId}/${storeData.id}/${storeData.storeName}');
+        context.push(
+            '/product/${itemData.itemId}/${storeData.id}/${storeData.storeName}');
       },
       child: Row(
         children: [

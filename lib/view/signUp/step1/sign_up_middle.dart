@@ -16,15 +16,14 @@ class _SignUpMiddle extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context.read<SignUpBloc>().add(
-                        SetAllAgreements(!state.agreeTerms1 || !state.agreeTerms2)
-                      );
+                      context.read<SignUpBloc>().add(SetAllAgreements(
+                          !state.agreeTerms1 || !state.agreeTerms2));
                     },
-                    child: SvgPicture.asset(
-                      state.agreeTerms1 && state.agreeTerms2 && state.agreeMarketing
+                    child: SvgPicture.asset(state.agreeTerms1 &&
+                            state.agreeTerms2 &&
+                            state.agreeMarketing
                         ? 'assets/icons/checked.svg'
-                        : 'assets/icons/unchecked.svg'
-                    ),
+                        : 'assets/icons/unchecked.svg'),
                   ),
                   SizedBox(width: 16),
                   Text(
@@ -57,15 +56,13 @@ class _SignUpMiddle extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context.read<SignUpBloc>().add(
-                            SetTermsAgreement(!state.agreeTerms1)
-                          );
+                          context
+                              .read<SignUpBloc>()
+                              .add(SetTermsAgreement(!state.agreeTerms1));
                         },
-                        child: SvgPicture.asset(
-                          state.agreeTerms1
+                        child: SvgPicture.asset(state.agreeTerms1
                             ? 'assets/icons/checked.svg'
-                            : 'assets/icons/unchecked.svg'
-                        ),
+                            : 'assets/icons/unchecked.svg'),
                       ),
                       SizedBox(width: 16),
                       Text(
@@ -96,7 +93,8 @@ class _SignUpMiddle extends StatelessWidget {
                                     ),
                                   ),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       IconButton(
                                         onPressed: () => Navigator.pop(context),
@@ -107,8 +105,10 @@ class _SignUpMiddle extends StatelessWidget {
                                       ),
                                       Text(
                                         'mayo 서비스 이용 약관',
-                                        style: AppTextStyle.subheadingMedium.copyWith(
-                                          color: GlobalMainColor.globalPrimaryBlackColor,
+                                        style: AppTextStyle.subheadingMedium
+                                            .copyWith(
+                                          color: GlobalMainColor
+                                              .globalPrimaryBlackColor,
                                           letterSpacing: -0.36,
                                         ),
                                       ),
@@ -124,20 +124,25 @@ class _SignUpMiddle extends StatelessWidget {
                                     vertical: 18,
                                   ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'mayo(마감해요) 이용 약관',
-                                        style: AppTextStyle.heading2Bold.copyWith(
-                                          color: GlobalMainColor.globalPrimaryBlackColor,
+                                        style:
+                                            AppTextStyle.heading2Bold.copyWith(
+                                          color: GlobalMainColor
+                                              .globalPrimaryBlackColor,
                                           letterSpacing: -0.48,
                                         ),
                                       ),
                                       SizedBox(height: 16.h),
                                       Text(
                                         "제 1조(목적)\n\n\n본 약관은 본 약관은 'mayo(마감해요)'(이하 '회사'라 함)가 운영하는 'mayo(마감해요) 서비스'(이하 '서비스'라 함)와 관련하여 '회사'와 '이용자'간에 서비스의 이용조건 및 절차, '회사'와 '회원'간의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.",
-                                        style: AppTextStyle.body2Medium.copyWith(
-                                          color: GlobalMainColor.globalPrimaryBlackColor,
+                                        style:
+                                            AppTextStyle.body2Medium.copyWith(
+                                          color: GlobalMainColor
+                                              .globalPrimaryBlackColor,
                                           letterSpacing: -0.28,
                                         ),
                                       ),
@@ -173,15 +178,13 @@ class _SignUpMiddle extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context.read<SignUpBloc>().add(
-                            SetPrivacyAgreement(!state.agreeTerms2)
-                          );
+                          context
+                              .read<SignUpBloc>()
+                              .add(SetPrivacyAgreement(!state.agreeTerms2));
                         },
-                        child: SvgPicture.asset(
-                          state.agreeTerms2
+                        child: SvgPicture.asset(state.agreeTerms2
                             ? 'assets/icons/checked.svg'
-                            : 'assets/icons/unchecked.svg'
-                        ),
+                            : 'assets/icons/unchecked.svg'),
                       ),
                       SizedBox(width: 16),
                       Text(
@@ -219,14 +222,11 @@ class _SignUpMiddle extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           context.read<SignUpBloc>().add(
-                            SetMarketingAgreement(!state.agreeMarketing)
-                          );
+                              SetMarketingAgreement(!state.agreeMarketing));
                         },
-                        child: SvgPicture.asset(
-                          state.agreeMarketing
+                        child: SvgPicture.asset(state.agreeMarketing
                             ? 'assets/icons/checked.svg'
-                            : 'assets/icons/unchecked.svg'
-                        ),
+                            : 'assets/icons/unchecked.svg'),
                       ),
                       SizedBox(width: 16),
                       Text(

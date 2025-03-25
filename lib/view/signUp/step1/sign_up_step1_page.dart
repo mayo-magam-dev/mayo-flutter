@@ -34,10 +34,10 @@ class _SignUpStep1View extends StatelessWidget {
           nextButton: Button(
             text: '다음',
             onTap: state.isStep1Valid
-              ? () {
-                  context.push('/signup/step2');
-                }
-              : null,
+                ? () {
+                    context.push('/signup/step2');
+                  }
+                : null,
           ),
         );
       },

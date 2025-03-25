@@ -13,4 +13,4 @@ class CreateCartRequest with _$CreateCartRequest {
 
   factory CreateCartRequest.fromJson(Map<String, dynamic> json) =>
       _$CreateCartRequestFromJson(json);
-} 
+}

@@ -11,4 +11,4 @@ class UpdateEmailRequest with _$UpdateEmailRequest {
 
   factory UpdateEmailRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateEmailRequestFromJson(json);
-} 
+}

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/model/user/create_fcm_token.dart';
 import 'package:mayo_flutter/model/user/create_user.dart';

@@ -59,14 +59,14 @@ class _BottomSheet extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () async {
+                  onTap: () {
                     final itemInfo = CreateCartRequest(
                       itemId: itemData!.itemId,
                       itemCount: ItemQuantityCounter.itemCount,
                       storeId: storeId,
                     );
 
-                    await CartDataSource().createCart(request: itemInfo);
+                    CartDataSource().createCart(request: itemInfo);
 
                     showDialog(
                         context: context,
@@ -134,8 +134,9 @@ class _ItemQuantityCounterState extends State<ItemQuantityCounter> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      if (ItemQuantityCounter.itemCount > 1)
+                      if (ItemQuantityCounter.itemCount > 1) {
                         --ItemQuantityCounter.itemCount;
+                      }
                     });
                   },
                   child: SvgPicture.asset("assets/icons/minus.svg"),

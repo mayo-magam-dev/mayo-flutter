@@ -5,7 +5,8 @@ part 'create_client_push_notification_request.freezed.dart';
 part 'create_client_push_notification_request.g.dart';
 
 @freezed
-class CreateClientPushNotificationRequest with _$CreateClientPushNotificationRequest {
+class CreateClientPushNotificationRequest
+    with _$CreateClientPushNotificationRequest {
   factory CreateClientPushNotificationRequest({
     required String notificationImageUrl,
     required String notificationText,
@@ -16,6 +17,7 @@ class CreateClientPushNotificationRequest with _$CreateClientPushNotificationReq
     @TimestampConverter() required DateTime timestamp,
   }) = _CreateClientPushNotificationRequest;
 
-  factory CreateClientPushNotificationRequest.fromJson(Map<String, dynamic> json) =>
+  factory CreateClientPushNotificationRequest.fromJson(
+          Map<String, dynamic> json) =>
       _$CreateClientPushNotificationRequestFromJson(json);
-} 
+}

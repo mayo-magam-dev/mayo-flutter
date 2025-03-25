@@ -11,4 +11,4 @@ class UpdateNoticeStoreRequest with _$UpdateNoticeStoreRequest {
 
   factory UpdateNoticeStoreRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateNoticeStoreRequestFromJson(json);
-} 
+}

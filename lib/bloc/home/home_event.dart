@@ -8,4 +8,4 @@ class LoadBanners extends HomeEvent {}
 
 class LoadCartItems extends HomeEvent {}
 
-class LoadRandomStores extends HomeEvent {} 
+class LoadRandomStores extends HomeEvent {}

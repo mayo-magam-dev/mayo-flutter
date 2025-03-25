@@ -72,8 +72,8 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                             height: 24.h,
                           ),
                         ),
-                        IconButton(             
-                          onPressed: () async { 
+                        IconButton(
+                          onPressed: () async {
                             setState(() {
                               notice = !notice;
                             });

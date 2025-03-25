@@ -1,7 +1,7 @@
 part of 'terms_policy_page.dart';
 
 class _TermsOfUse extends StatelessWidget {
-  const _TermsOfUse({ required this.board});
+  const _TermsOfUse({required this.board});
 
   final Board board;
 

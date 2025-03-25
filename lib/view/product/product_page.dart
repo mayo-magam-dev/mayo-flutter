@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,9 +9,7 @@ import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/cart/create_cart_request.dart';
 import 'package:mayo_flutter/model/item/read_item.dart';
-import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/util/formater.dart';
-import 'package:mayo_flutter/view/cart/cart_page.dart';
 import 'package:mayo_flutter/view/components/press_button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 

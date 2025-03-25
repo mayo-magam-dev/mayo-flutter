@@ -1,7 +1,7 @@
 part of 'favorite_store_page.dart';
 
 class _FavoriteStoreList extends StatelessWidget {
-  const _FavoriteStoreList({super.key});
+  const _FavoriteStoreList();
 
   Future<(List<ReadStore>, List<ReadStore>)> featchData() async {
     final favoriteStoreData = UserDataSource().getFavoriteStores();

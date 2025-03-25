@@ -12,7 +12,8 @@ class _AccountActions extends StatelessWidget {
         TextButton(
           onPressed: () {
             FirebaseAuth.instance.signOut();
-            context.go("/login");
+            context.go("/");
+            context.read<LoginBloc>().add(UserLogoutEvent());
           },
           style: TextButton.styleFrom(
             minimumSize: Size.zero,

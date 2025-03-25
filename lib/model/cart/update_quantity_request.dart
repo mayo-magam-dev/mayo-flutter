@@ -4,7 +4,7 @@ part 'update_quantity_request.freezed.dart';
 part 'update_quantity_request.g.dart';
 
 @freezed
-class UpdateQuantityRequest with _$UpdateQuantityRequest{
+class UpdateQuantityRequest with _$UpdateQuantityRequest {
   factory UpdateQuantityRequest({
     required String cartId,
     required int itemQuantity,

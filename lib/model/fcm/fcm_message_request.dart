@@ -46,4 +46,4 @@ class FCMData with _$FCMData {
 
   factory FCMData.fromJson(Map<String, dynamic> json) =>
       _$FCMDataFromJson(json);
-} 
+}

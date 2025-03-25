@@ -3,7 +3,7 @@ part 'delete_cart_request.freezed.dart';
 part 'delete_cart_request.g.dart';
 
 @freezed
-class DeleteCartRequest with _$DeleteCartRequest{
+class DeleteCartRequest with _$DeleteCartRequest {
   factory DeleteCartRequest({
     required String cartId,
   }) = _DeleteCartRequest;

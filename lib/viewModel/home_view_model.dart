@@ -65,4 +65,4 @@ class HomeViewModel extends ChangeNotifier {
       loadRandomStores(),
     ]);
   }
-} 
+}

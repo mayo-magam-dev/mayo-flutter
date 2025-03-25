@@ -280,7 +280,7 @@ class _AgreeMarketingButtonState extends State<_AgreeMarketingButton> {
     return CupertinoSwitch(
       activeTrackColor: Color(0xFFFFC600), //on
       inactiveTrackColor: Color(0xFFD1D1D1), //off
-      value: widget.agreeMarketing?? false,
+      value: widget.agreeMarketing ?? false,
       onChanged: (value) {
         showGeneralDialog(
           context: context,

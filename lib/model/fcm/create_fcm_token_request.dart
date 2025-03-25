@@ -12,4 +12,4 @@ class CreateFCMTokenRequest with _$CreateFCMTokenRequest {
 
   factory CreateFCMTokenRequest.fromJson(Map<String, dynamic> json) =>
       _$CreateFCMTokenRequestFromJson(json);
-} 
+}

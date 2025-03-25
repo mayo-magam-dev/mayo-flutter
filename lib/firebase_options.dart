@@ -63,8 +63,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '292349774898',
     projectId: 'mayo-app-280d4',
     storageBucket: 'mayo-app-280d4.appspot.com',
-    androidClientId: '292349774898-21rdegphp613mokklskps4o538jnq4cu.apps.googleusercontent.com',
-    iosClientId: '292349774898-14kug5hr8fr84kt44e36b61q4ddvlkv6.apps.googleusercontent.com',
+    androidClientId:
+        '292349774898-21rdegphp613mokklskps4o538jnq4cu.apps.googleusercontent.com',
+    iosClientId:
+        '292349774898-14kug5hr8fr84kt44e36b61q4ddvlkv6.apps.googleusercontent.com',
     iosBundleId: 'com.example.mayoFlutter',
   );
 }

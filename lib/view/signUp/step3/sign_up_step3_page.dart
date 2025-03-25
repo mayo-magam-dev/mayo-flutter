@@ -33,7 +33,6 @@ class SignUpStep3Page extends StatelessWidget {
                     if (state.isSuccess &&
                         !state.isLoading &&
                         state.error == null) {
-                          
                       context.go('/home');
                     } else if (state.error != null) {
                       ScaffoldMessenger.of(context).showSnackBar(

@@ -22,15 +22,16 @@ class _ListState extends State<_List> {
     'etc': '기타',
   };
 
-  final Map<String, Future<List<Board>> Function(BoardDataSource)> _categoryFunctions = {
+  final Map<String, Future<List<Board>> Function(BoardDataSource)>
+      _categoryFunctions = {
     'main': (ds) => ds.getFaqMainFeature(),
     'update': (ds) => ds.getFaqUpdateInfo(),
     'store': (ds) => ds.getFaqStorePickup(),
     'payment': (ds) => ds.getFaqPayment(),
     'order': (ds) => Future.wait([
-      ds.getFaqOrderNotification(),
-      ds.getFaqOrderHistory(),
-    ]).then((results) => [...results[0], ...results[1]]),
+          ds.getFaqOrderNotification(),
+          ds.getFaqOrderHistory(),
+        ]).then((results) => [...results[0], ...results[1]]),
     'account': (ds) => ds.getFaqDeleteAccount(),
     'etc': (ds) => ds.getFaqEtc(),
   };
@@ -67,7 +68,9 @@ class _ListState extends State<_List> {
         alignment: Alignment.center,
         child: Text(
           text,
-          style: (isSelected ? AppTextStyle.body1Bold : AppTextStyle.body1Medium).copyWith(
+          style:
+              (isSelected ? AppTextStyle.body1Bold : AppTextStyle.body1Medium)
+                  .copyWith(
             color: GlobalMainColor.globalPrimaryBlackColor,
             letterSpacing: isSelected ? -0.32 : 0,
           ),

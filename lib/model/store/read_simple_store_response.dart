@@ -16,4 +16,4 @@ class ReadSimpleStoreResponse with _$ReadSimpleStoreResponse {
 
   factory ReadSimpleStoreResponse.fromJson(Map<String, dynamic> json) =>
       _$ReadSimpleStoreResponseFromJson(json);
-} 
+}

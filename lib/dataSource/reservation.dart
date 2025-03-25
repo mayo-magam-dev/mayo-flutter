@@ -13,8 +13,10 @@ class ReservationDataSource {
     return result.map((v) => ReadReservationResponse.fromJson(v)).toList();
   }
 
-  Future<ReadReservationDetailResponse> getReservationDetail(String reservationId) async {
-    final response = await dio.get('${dotenv.env['API_URL']}/reservation/$reservationId');
+  Future<ReadReservationDetailResponse> getReservationDetail(
+      String reservationId) async {
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/reservation/$reservationId');
     return ReadReservationDetailResponse.fromJson(response.data);
   }
 
@@ -26,4 +28,4 @@ class ReservationDataSource {
       data: request.toJson(),
     );
   }
-} 
+}

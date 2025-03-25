@@ -11,4 +11,4 @@ class UpdateFavoriteStoreRequest with _$UpdateFavoriteStoreRequest {
 
   factory UpdateFavoriteStoreRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateFavoriteStoreRequestFromJson(json);
-} 
+}

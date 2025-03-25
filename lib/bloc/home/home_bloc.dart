@@ -21,9 +21,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<LoadRandomStores>(_onLoadRandomStores);
   }
 
-  Future<void> _onLoadHomeData(LoadHomeData event, Emitter<HomeState> emit) async {
+  Future<void> _onLoadHomeData(
+      LoadHomeData event, Emitter<HomeState> emit) async {
     emit(state.copyWith(isLoading: true));
-    
+
     try {
       // 병렬로 데이터 로드
       await Future.wait([
@@ -38,7 +39,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  Future<void> _onLoadBanners(LoadBanners event, Emitter<HomeState> emit) async {
+  Future<void> _onLoadBanners(
+      LoadBanners event, Emitter<HomeState> emit) async {
     emit(state.copyWith(isLoading: true));
     await _loadBanners(emit);
     emit(state.copyWith(isLoading: false));
@@ -53,7 +55,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  Future<void> _onLoadCartItems(LoadCartItems event, Emitter<HomeState> emit) async {
+  Future<void> _onLoadCartItems(
+      LoadCartItems event, Emitter<HomeState> emit) async {
     await _loadCartItems(emit);
   }
 
@@ -66,7 +69,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  Future<void> _onLoadRandomStores(LoadRandomStores event, Emitter<HomeState> emit) async {
+  Future<void> _onLoadRandomStores(
+      LoadRandomStores event, Emitter<HomeState> emit) async {
     await _loadRandomStores(emit);
   }
 
@@ -78,4 +82,4 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(error: '랜덤 상점 로딩 오류: $e'));
     }
   }
-} 
+}

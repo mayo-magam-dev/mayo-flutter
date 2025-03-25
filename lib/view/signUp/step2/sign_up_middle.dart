@@ -11,11 +11,11 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
   bool _obscurePassword = true;
   bool _obscurePasswordConfirm = true;
   bool _passwordsMatch = false;
-  
+
   // 비밀번호 입력 컨트롤러 추가
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  
+
   @override
   void initState() {
     super.initState();
@@ -23,28 +23,28 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
     _passwordController.addListener(_checkPasswordMatch);
     _confirmPasswordController.addListener(_checkPasswordMatch);
   }
-  
+
   @override
   void dispose() {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
   }
-  
+
   // 비밀번호 일치 확인 함수
   void _checkPasswordMatch() {
     final password = _passwordController.text;
     final confirmPassword = _confirmPasswordController.text;
-    
-    final match = password.isNotEmpty && 
-                 confirmPassword.isNotEmpty && 
-                 password == confirmPassword;
-    
+
+    final match = password.isNotEmpty &&
+        confirmPassword.isNotEmpty &&
+        password == confirmPassword;
+
     if (match != _passwordsMatch) {
       setState(() {
         _passwordsMatch = match;
       });
-      
+
       // BLoC에 비밀번호 일치 상태 업데이트
       context.read<SignUpBloc>().add(SetPasswordConfirmation(match));
     }
@@ -166,9 +166,9 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                         });
                       },
                       icon: SvgPicture.asset(
-                        _obscurePassword 
-                          ? 'assets/icons/eye_off.svg'
-                          : 'assets/icons/eye_on.svg',
+                        _obscurePassword
+                            ? 'assets/icons/eye_off.svg'
+                            : 'assets/icons/eye_on.svg',
                       ),
                     ),
                   ),
@@ -224,15 +224,15 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                         });
                       },
                       icon: SvgPicture.asset(
-                        _obscurePasswordConfirm 
-                          ? 'assets/icons/eye_off.svg'
-                          : 'assets/icons/eye_on.svg',
+                        _obscurePasswordConfirm
+                            ? 'assets/icons/eye_off.svg'
+                            : 'assets/icons/eye_on.svg',
                       ),
                     ),
                   ),
                 ),
               ),
-              
+
               // 비밀번호 일치 여부 메시지 표시
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -240,26 +240,26 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                   children: [
                     Icon(
                       _passwordsMatch ? Icons.check_circle : Icons.warning,
-                      color: _passwordsMatch 
-                        ? Colors.green 
-                        : _confirmPasswordController.text.isEmpty 
-                          ? Colors.transparent
-                          : GlobalMainColor.globalPrimaryRedColor,
+                      color: _passwordsMatch
+                          ? Colors.green
+                          : _confirmPasswordController.text.isEmpty
+                              ? Colors.transparent
+                              : GlobalMainColor.globalPrimaryRedColor,
                       size: 16,
                     ),
                     SizedBox(width: 4),
                     Text(
-                      _passwordsMatch 
-                        ? '비밀번호가 일치합니다.'
-                        : _confirmPasswordController.text.isEmpty
-                          ? ''
-                          : '비밀번호가 일치하지 않습니다.',
-                      style: TextStyle(
-                        color: _passwordsMatch 
-                          ? Colors.green 
+                      _passwordsMatch
+                          ? '비밀번호가 일치합니다.'
                           : _confirmPasswordController.text.isEmpty
-                            ? Colors.transparent
-                            : GlobalMainColor.globalPrimaryRedColor,
+                              ? ''
+                              : '비밀번호가 일치하지 않습니다.',
+                      style: TextStyle(
+                        color: _passwordsMatch
+                            ? Colors.green
+                            : _confirmPasswordController.text.isEmpty
+                                ? Colors.transparent
+                                : GlobalMainColor.globalPrimaryRedColor,
                         fontSize: 12.sp,
                       ),
                     ),

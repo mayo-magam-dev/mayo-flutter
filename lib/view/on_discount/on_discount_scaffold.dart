@@ -10,7 +10,6 @@ class _Scaffold extends StatelessWidget {
   final Widget header;
   final Widget storeList;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
