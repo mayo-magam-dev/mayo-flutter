@@ -1,12 +1,12 @@
-part of 'terms_policy_page.dart';
+part of 'terms_page.dart';
 
 class _Scaffold extends StatelessWidget {
   const _Scaffold({
     required this.topBar,
-    required this.termsPolicyLists,
+    required this.termsList,
   });
   final Widget topBar;
-  final Widget termsPolicyLists;
+  final Widget termsList;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _Scaffold extends StatelessWidget {
                 ),
               ),
             ),
-            termsPolicyLists,
+            termsList,
           ],
         ),
       ),
