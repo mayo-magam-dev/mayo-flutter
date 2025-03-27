@@ -10,8 +10,42 @@ class _StoreInfoHeader extends StatefulWidget {
 }
 
 class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
+  final userDataSource = UserDataSource();
+
+  void favoriteStoresResponse() async {
+    final favoriteData = await userDataSource.getFavoriteStores();
+    setState(() {
+      favoriteStores = favoriteData;
+      favorite = favoriteStores!
+          .any((favoriteStores) => favoriteStores.id == widget.storeData.id);
+    });
+  }
+
+  void noticeStoresResponse() async {
+    final noticeData = await userDataSource.getNoticeStores();
+    setState(() {
+      noticeStores = noticeData;
+      notice = noticeStores!.any(
+        (noticeStores) => noticeStores.id == widget.storeData.id,
+      );
+    });
+  }
+
+  featchData() {
+    favoriteStoresResponse();
+    noticeStoresResponse();
+  }
+
   bool favorite = false;
   bool notice = false;
+  List<ReadStore>? favoriteStores;
+  List<ReadStore>? noticeStores;
+
+  @override
+  void initState() {
+    super.initState();
+    featchData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +57,7 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
             alignment: Alignment.bottomLeft,
             clipBehavior: Clip.none,
             children: [
-              (widget.storeData.mainImage != "")
+              (widget.storeData.mainImage.length > 4)
                   ? Image.network(
                       widget.storeData.mainImage,
                       width: double.infinity,
@@ -52,16 +86,10 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                       children: [
                         IconButton(
                           onPressed: () async {
-                            var data =
-                                await UserDataSource().getFavoriteStores();
-                            ReadStore targetStore = data.firstWhere(
-                                (store) => store.id == widget.storeData.id);
                             setState(() {
-                              targetStore.id == widget.storeData.id
-                                  ? favorite = false
-                                  : favorite = true;
+                              favorite = !favorite;
                             });
-                            UserDataSource()
+                            userDataSource
                                 .putFavoriteStore(widget.storeData.id);
                           },
                           icon: SvgPicture.asset(
@@ -72,13 +100,12 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                             height: 24.h,
                           ),
                         ),
-                        IconButton(             
-                          onPressed: () async { 
+                        IconButton(
+                          onPressed: () async {
                             setState(() {
                               notice = !notice;
                             });
-                            UserDataSource()
-                                .putNoticeStore(widget.storeData.id);
+                            userDataSource.putNoticeStore(widget.storeData.id);
                           },
                           icon: SvgPicture.asset(
                             notice
@@ -104,7 +131,7 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(25.w),
                     image: DecorationImage(
-                      image: (widget.storeData.storeImage != "")
+                      image: (widget.storeData.storeImage.length > 4)
                           ? NetworkImage(widget.storeData.storeImage)
                           : AssetImage('assets/images/empty_cart.png'),
                       fit: BoxFit.cover,
