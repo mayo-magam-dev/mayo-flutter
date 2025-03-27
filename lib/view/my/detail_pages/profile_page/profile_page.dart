@@ -10,7 +10,6 @@ import 'package:mayo_flutter/model/user/read_user.dart';
 
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:mayo_flutter/view/my/detail_pages/acount_delete_page/account_delete_page.dart';
-import 'package:mayo_flutter/view/my/detail_pages/terms_policy_lists_page/terms_policy_page.dart';
 
 part 'profile_scaffold.dart';
 part 'profile_header.dart';
