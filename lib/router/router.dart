@@ -13,6 +13,8 @@ import 'package:mayo_flutter/view/my/detail_pages/customer_center_page/costomer_
 import 'package:mayo_flutter/view/my/detail_pages/event_page/event_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/faq_page/faq_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/profile_page/profile_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/terms_list_page/terms_detail.page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/terms_list_page/terms_page.dart';
 import 'package:mayo_flutter/view/my/details/favorite_store_page/favorite_store_page.dart';
 import 'package:mayo_flutter/view/my/my_page.dart';
 import 'package:mayo_flutter/view/on_discount/on_discount_page.dart';
@@ -22,6 +24,7 @@ import 'package:mayo_flutter/view/product/product_page.dart';
 import 'package:mayo_flutter/view/signUp/step1/sign_up_step1_page.dart';
 import 'package:mayo_flutter/view/signUp/step2/sign_up_step2_page.dart';
 import 'package:mayo_flutter/view/signUp/step3/sign_up_step3_page.dart';
+import 'package:mayo_flutter/view/signUp/step5/sign_up_step5_page.dart';
 import 'package:mayo_flutter/view/store/store_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
@@ -142,6 +145,13 @@ final router = GoRouter(
         child: SignUpStep3Page(),
       ),
     ),
+    GoRoute(
+      path: '/signup/step5',
+      builder: (context, state) => BlocProvider.value(
+        value: _signUpBloc,
+        child: SignUpStep5Page(),
+      ),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
@@ -151,6 +161,7 @@ final router = GoRouter(
         GoRoute(
           path: '/',
           builder: (context, state) => const HomePage(),
+
         ),
         GoRoute(
           path: '/on-discount',
@@ -169,16 +180,26 @@ final router = GoRouter(
           builder: (context, state) => const AnnouncementPage(),
         ),
         GoRoute(
+          path: '/terms-list',
+          builder: (context, state) => const TermsListPage(),
+        ),
+        GoRoute(
+          path: '/terms-detail/:boardId',
+          builder: (context, state) {
+            return TermsDetailPage(boardId: state.pathParameters['boardId']);
+          },
+        ),
+        GoRoute(
           path: '/profile',
           builder: (context, state) => ProfilePage(),
         ),
         GoRoute(
           path: '/event',
-          builder: (context, state) => EventPage(),
+          builder: (context, state) => const EventPage(),
         ),
         GoRoute(
           path: '/favorite-store',
-          builder: (context, state) => FavoriteStorePage(),
+          builder: (context, state) => const FavoriteStorePage(),
         ),
         GoRoute(
           path: '/costomer-center',
