@@ -24,7 +24,7 @@ _$ReadStoreImpl _$$ReadStoreImplFromJson(Map<String, dynamic> json) =>
       additionalComment: json['additionalComment'] as String?,
       storeCategory: (json['storeCategory'] as num).toInt(),
       storeSellingType: (json['storeSellingType'] as num).toInt(),
-      mainImage: json['mainImage'] as String,
+      mainImage: json['mainImage'] as String?,
     );
 
 Map<String, dynamic> _$$ReadStoreImplToJson(_$ReadStoreImpl instance) =>

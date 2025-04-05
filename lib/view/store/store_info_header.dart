@@ -57,19 +57,26 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
             alignment: Alignment.bottomLeft,
             clipBehavior: Clip.none,
             children: [
-              (widget.storeData.mainImage.length > 4)
-                  ? Image.network(
-                      widget.storeData.mainImage,
-                      width: double.infinity,
-                      height: 235.h,
-                      fit: BoxFit.cover,
-                    )
-                  : Image.asset(
+              widget.storeData.mainImage == null
+                  ? Image.asset(
                       "assets/images/empty_cart.png",
                       width: double.infinity,
                       height: 235.h,
                       fit: BoxFit.cover,
-                    ),
+                    )
+                  : (widget.storeData.mainImage!.length > 4)
+                      ? Image.network(
+                          widget.storeData.mainImage!,
+                          width: double.infinity,
+                          height: 235.h,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          "assets/images/empty_cart.png",
+                          width: double.infinity,
+                          height: 235.h,
+                          fit: BoxFit.cover,
+                        ),
               Positioned(
                   bottom: -25.h,
                   child: Container(

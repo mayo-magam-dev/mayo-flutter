@@ -39,7 +39,8 @@ class _CartBottomSheet extends StatelessWidget {
                 Text("오늘 ",
                     style: AppTextStyle.body2Bold
                         .copyWith(color: GlobalMainGrey.grey600)),
-                Text("오후 6시 20분",
+                Text(
+                    '${_CartContent.pickupTime.toString().substring(11, 13)}시 ${_CartContent.pickupTime.toString().substring(14, 16)}분',
                     style: AppTextStyle.body2Bold
                         .copyWith(color: GlobalMainColor.globalMainColor)),
                 Text("에 꼭 와주세요!",
@@ -62,9 +63,11 @@ class _CartBottomSheet extends StatelessWidget {
                   "assets/icons/coin.svg",
                 ),
                 SizedBox(width: 4.w),
-                Text("결제는 현장에서 이루어집니다.",
-                    style: AppTextStyle.body2Bold
-                        .copyWith(color: GlobalMainGrey.grey600)),
+                Text(
+                  "결제는 현장에서 이루어집니다.",
+                  style: AppTextStyle.body2Bold
+                      .copyWith(color: GlobalMainGrey.grey600),
+                ),
               ],
             ),
             SizedBox(
@@ -73,6 +76,12 @@ class _CartBottomSheet extends StatelessWidget {
             PressButton(
               text: "예약하기",
               onPressed: () {
+                final request = CreateReservationRequest(
+                  pickupTime: _CartContent.pickupTime!,
+                  reservationIsPlastic: _CartContent.disposable,
+                  reservationRequest: _CartContent.reservationRequest,
+                );
+                ReservationDataSource().createReservation(request: request);
                 Navigator.pop(context);
               },
             )

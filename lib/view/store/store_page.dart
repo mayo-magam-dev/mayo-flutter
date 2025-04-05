@@ -35,19 +35,16 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
-  late Future<ReadStore?> store;
-  late Future<List<ReadItem?>> storeItems;
-
   @override
   void initState() {
     super.initState();
-    store = StoreDataSource().getStoreDetail(widget.id);
-    storeItems = ItemDataSource().getItemsByStoreId(widget.id);
   }
 
   Future<(ReadStore, List<ReadItem>)> featchStoreData() async {
-    final results = await Future.wait([store, storeItems]);
-    return (results[0] as ReadStore, results[1] as List<ReadItem>);
+    final storeDetail = await StoreDataSource().getStoreDetail(widget.id);
+    await Future.delayed(const Duration(seconds: 1));
+    final storeItems = await ItemDataSource().getItemsByStoreId(widget.id);
+    return (storeDetail, storeItems);
   }
 
   @override
@@ -57,8 +54,9 @@ class _StorePageState extends State<StorePage> {
       child: FutureBuilder(
         future: featchStoreData(),
         builder: (context, snapshot) {
+          // return Text('${snapshot.data}');
           if (!snapshot.hasData) {
-            return SizedBox();
+            return Center(child: CircularProgressIndicator());
           }
 
           return _Scaffold(
