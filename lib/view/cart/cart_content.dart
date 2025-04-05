@@ -1,24 +1,41 @@
 part of 'cart_page.dart';
 
 class _CartContent extends StatefulWidget {
-  const _CartContent();
+  const _CartContent(
+    this.cartData,
+  );
+  static bool disposable = true;
+  static DateTime? pickupTime;
+  static String reservationRequest = '';
+
+  final List<ReadCartResponse> cartData;
 
   @override
   State<_CartContent> createState() => _CartContentState();
 }
 
 class _CartContentState extends State<_CartContent> {
-  int? count;
+  int firstCartItemCount = 0;
+  int secondCartItemCount = 0;
+  int firstItemSubtotal = 0;
+  int secondItemSubtotal = 0;
+
+  final reverationRequestEditingController = TextEditingController();
 
   String? storeName;
 
   featchCartData() async {
-    final data = await CartDataSource().getCarts();
-    final storeData = await StoreDataSource().getStoreDetail(data[0].storeId);
+    final storeData =
+        await StoreDataSource().getStoreDetail(widget.cartData[0].storeId);
 
     setState(() {
-      count = data[0].cartItemCount;
+      firstCartItemCount = widget.cartData[0].cartItemCount;
+      firstItemSubtotal += widget.cartData[0].subtotal.toInt();
       storeName = storeData.storeName;
+      if (widget.cartData.length > 1) {
+        secondCartItemCount = widget.cartData[1].cartItemCount;
+        secondItemSubtotal += widget.cartData[1].subtotal.toInt();
+      }
     });
   }
 
@@ -28,43 +45,146 @@ class _CartContentState extends State<_CartContent> {
     featchCartData();
   }
 
-  final cartData = CartDataSource().getCarts();
-
-  int index = 0;
-
   @override
   Widget build(BuildContext context) {
-    debugPrint('build build');
-    return FutureBuilder(
-      future: cartData,
-      builder: (context, snapshot) {
-        if (snapshot.hasData == false) {
-          return SizedBox();
-        } else {
-          return Column(
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 16.w),
+          child: Row(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 16.w),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      "assets/icons/pin.svg",
-                      height: 30.h,
-                      width: 30.w,
-                    ),
-                    SizedBox(width: 6.w),
-                    Text(
-                      '$storeName',
-                      style: AppTextStyle.heading3Bold,
-                    ),
-                  ],
+              SvgPicture.asset(
+                "assets/icons/pin.svg",
+                height: 30.h,
+                width: 30.w,
+              ),
+              SizedBox(width: 6.w),
+              Text(
+                '$storeName',
+                style: AppTextStyle.heading3Bold,
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 1.h,
+          color: GlobalMainGrey.grey200,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(color: GlobalMainGrey.grey200),
+              bottom: BorderSide(color: GlobalMainGrey.grey200),
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 66.w,
+                height: 66.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  image: DecorationImage(
+                    image: NetworkImage(widget.cartData[0].itemImage ?? ''),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              Container(
-                height: 1.h,
-                color: GlobalMainGrey.grey200,
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 27.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 27.w),
+                      Text(
+                        widget.cartData[0].itemName,
+                        style: AppTextStyle.body1Bold,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 8.h),
+                      Text(
+                        '${Formater.moneyFormat(widget.cartData[0].subtotal.toInt() / widget.cartData[0].cartItemCount)}원',
+                        style: AppTextStyle.body1Medium,
+                      )
+                    ],
+                  ),
+                ),
               ),
-              Container(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          CartDataSource()
+                              .deleteCart(widget.cartData[0].cartId);
+                        });
+                      },
+                      child: SvgPicture.asset("assets/icons/x.svg")),
+                  SizedBox(height: 16.h),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          if (firstCartItemCount > 1) {
+                            setState(
+                              () {
+                                firstItemSubtotal -=
+                                    (firstItemSubtotal / firstCartItemCount)
+                                        .toInt();
+                                --firstCartItemCount;
+                                CartDataSource().putQuantity(
+                                  widget.cartData[0].cartId,
+                                  firstCartItemCount,
+                                );
+                              },
+                            );
+                          }
+                        },
+                        child: SvgPicture.asset(
+                          "assets/icons/minus.svg",
+                          width: 30.w,
+                        ),
+                      ),
+                      SizedBox(width: 4.w),
+                      Text(
+                        '$firstCartItemCount',
+                        style: AppTextStyle.body1Bold,
+                      ),
+                      SizedBox(width: 4.w),
+                      GestureDetector(
+                        onTap: () {
+                          setState(
+                            () {
+                              firstItemSubtotal +=
+                                  (firstItemSubtotal / firstCartItemCount)
+                                      .toInt();
+
+                              ++firstCartItemCount;
+                              CartDataSource().putQuantity(
+                                widget.cartData[0].cartId,
+                                firstCartItemCount,
+                              );
+                            },
+                          );
+                        },
+                        child: SvgPicture.asset(
+                          "assets/icons/plus.svg",
+                          width: 30.w,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        widget.cartData.length > 1
+            ? Container(
                 decoration: BoxDecoration(
                     border: Border(
                   top: BorderSide(color: GlobalMainGrey.grey200),
@@ -80,7 +200,8 @@ class _CartContentState extends State<_CartContent> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r),
                         image: DecorationImage(
-                          image: NetworkImage(snapshot.data![index].itemImage),
+                          image:
+                              NetworkImage(widget.cartData[1].itemImage ?? ''),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -93,14 +214,13 @@ class _CartContentState extends State<_CartContent> {
                           children: [
                             SizedBox(width: 27.w),
                             Text(
-                              snapshot.data![index].itemName,
-                              // 'asfsd',
+                              widget.cartData[1].itemName,
                               style: AppTextStyle.body1Bold,
                               overflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(height: 8.h),
                             Text(
-                              '${Formater.moneyFormat(snapshot.data![index].subtotal.toInt() / snapshot.data![index].cartItemCount)}원',
+                              '${Formater.moneyFormat(widget.cartData[1].subtotal / widget.cartData[1].cartItemCount)}원',
                               style: AppTextStyle.body1Medium,
                             )
                           ],
@@ -114,7 +234,7 @@ class _CartContentState extends State<_CartContent> {
                             onTap: () {
                               setState(() {
                                 CartDataSource()
-                                    .deleteCart(snapshot.data![0].cartId);
+                                    .deleteCart(widget.cartData[1].cartId);
                               });
                             },
                             child: SvgPicture.asset("assets/icons/x.svg")),
@@ -123,12 +243,17 @@ class _CartContentState extends State<_CartContent> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                if (count! > 1) {
+                                if (secondCartItemCount > 1) {
                                   setState(
                                     () {
+                                      secondItemSubtotal -=
+                                          (secondItemSubtotal /
+                                                  secondCartItemCount)
+                                              .toInt();
+                                      --secondCartItemCount;
                                       CartDataSource().putQuantity(
-                                        snapshot.data![index].cartId,
-                                        count! - 1,
+                                        widget.cartData[1].cartId,
+                                        secondCartItemCount,
                                       );
                                     },
                                   );
@@ -141,7 +266,7 @@ class _CartContentState extends State<_CartContent> {
                             ),
                             SizedBox(width: 4.w),
                             Text(
-                              '$count',
+                              '$secondCartItemCount',
                               style: AppTextStyle.body1Bold,
                             ),
                             SizedBox(width: 4.w),
@@ -149,9 +274,13 @@ class _CartContentState extends State<_CartContent> {
                               onTap: () {
                                 setState(
                                   () {
+                                    secondItemSubtotal += (secondItemSubtotal /
+                                            secondCartItemCount)
+                                        .toInt();
+                                    ++secondCartItemCount;
                                     CartDataSource().putQuantity(
-                                      snapshot.data![index].cartId,
-                                      count! + 1,
+                                      widget.cartData[1].cartId,
+                                      secondCartItemCount,
                                     );
                                   },
                                 );
@@ -167,258 +296,238 @@ class _CartContentState extends State<_CartContent> {
                     ),
                   ],
                 ),
+              )
+            : SizedBox.shrink(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 25.w),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "총 ${Formater.moneyFormat(firstItemSubtotal + secondItemSubtotal)}원",
+              style: AppTextStyle.body1Bold,
+            ),
+          ),
+        ),
+        Container(
+          height: 12.h,
+          color: GlobalMainGrey.grey200,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 16.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "픽업 시간 입력",
+                style: AppTextStyle.body1Bold,
               ),
-              snapshot.data?.length != 1
-                  ? Container(
-                      decoration: BoxDecoration(
-                          border: Border(
-                        top: BorderSide(color: GlobalMainGrey.grey200),
-                        bottom: BorderSide(color: GlobalMainGrey.grey200),
-                      )),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 24.w, vertical: 24.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 66.w,
-                            height: 66.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.r),
-                              image: DecorationImage(
-                                image:
-                                    NetworkImage(snapshot.data![1].itemImage),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+              SizedBox(height: 14.w),
+              GestureDetector(
+                onTap: () {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) {
+                      return Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          color: Colors.white,
+                          height: 300,
+                          child: CupertinoDatePicker(
+                            mode: CupertinoDatePickerMode.time,
+                            onDateTimeChanged: (value) {
+                              setState(() {
+                                _CartContent.pickupTime = value;
+                              });
+                            },
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 27.w),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(width: 27.w),
-                                  Text(
-                                    snapshot.data![1].itemName,
-                                    style: AppTextStyle.body1Bold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  SizedBox(height: 8.h),
-                                  Text(
-                                    '${Formater.moneyFormat(snapshot.data![1].subtotal.toInt() / snapshot.data![1].cartItemCount)}원',
-                                    style: AppTextStyle.body1Medium,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              SvgPicture.asset("assets/icons/x.svg"),
-                              SizedBox(height: 16.h),
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      if (count! > 1) {
-                                        setState(
-                                          () {
-                                            CartDataSource().putQuantity(
-                                              snapshot.data![1].cartId,
-                                              count! - 1,
-                                            );
-                                          },
-                                        );
-                                      }
-                                    },
-                                    child: SvgPicture.asset(
-                                      "assets/icons/minus.svg",
-                                      width: 30.w,
-                                    ),
-                                  ),
-                                  SizedBox(width: 4.w),
-                                  Text(
-                                    '$count',
-                                    style: AppTextStyle.body1Bold,
-                                  ),
-                                  SizedBox(width: 4.w),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(
-                                        () {
-                                          CartDataSource().putQuantity(
-                                            snapshot.data![1].cartId,
-                                            count! + 1,
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: SvgPicture.asset(
-                                      "assets/icons/plus.svg",
-                                      width: 30.w,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  : SizedBox(),
-              Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.h, vertical: 25.w),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "총 ${Formater.moneyFormat(snapshot.data![index].subtotal)}원",
-                      style: AppTextStyle.body1Bold,
-                    ),
-                  )),
-              Container(
-                height: 12.h,
-                color: GlobalMainGrey.grey200,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 16.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "픽업 시간 입력",
-                      style: AppTextStyle.body1Bold,
-                    ),
-                    SizedBox(height: 14.w),
-                    Container(
-                      width: 335.w,
-                      height: 45.h,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: GlobalMainGrey.grey100,
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      child: Text("픽업시간을 선택해 주세요.",
-                          style: AppTextStyle.body1Medium
-                              .copyWith(color: GlobalMainGrey.grey400)),
-                    ),
-                    SizedBox(height: 32.h),
-                    Text(
-                      "요청사항을 입력해주세요.",
-                      style: AppTextStyle.body1Medium,
-                    ),
-                    SizedBox(height: 8.h),
-                    Container(
-                      height: 1.h,
-                      color: GlobalMainGrey.grey200,
-                    ),
-                    SizedBox(height: 21.h),
-                    Row(
-                      children: [
-                        Text("일회용품 사용여부", style: AppTextStyle.body1Medium),
-                        Spacer(),
-                        CupertinoSwitch(
-                          value: true,
-                          activeTrackColor: GlobalMainColor.globalButtonColor,
-                          onChanged: (value) {},
                         ),
-                      ],
-                    )
-                  ],
+                      );
+                    },
+                  );
+                },
+                child: Container(
+                  width: 335.w,
+                  height: 45.h,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: GlobalMainGrey.grey100,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Text(
+                      _CartContent.pickupTime == null
+                          ? "픽업시간을 선택해 주세요."
+                          : '${_CartContent.pickupTime.toString().substring(11, 13)} : ${_CartContent.pickupTime.toString().substring(14, 16)}',
+                      style: AppTextStyle.body1Medium
+                          .copyWith(color: GlobalMainGrey.grey400)),
                 ),
               ),
+              SizedBox(height: 32.h),
+              TextField(
+                controller: reverationRequestEditingController,
+                onChanged: (value) {
+                  debugPrint('value = $value');
+                  _CartContent.reservationRequest = value;
+                  debugPrint(
+                      'reservationRequest = ${_CartContent.reservationRequest}');
+                },
+                onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                decoration: InputDecoration(
+                  hintText: '요청사항을 입력해주세요.',
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: GlobalMainGrey.grey200,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: GlobalMainGrey.grey300,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 21.h),
+              Row(
+                children: [
+                  Text("일회용품 사용여부", style: AppTextStyle.body1Medium),
+                  Spacer(),
+                  CupertinoSwitch(
+                    value: _CartContent.disposable,
+                    activeTrackColor: GlobalMainColor.globalButtonColor,
+                    onChanged: (value) {
+                      setState(() {
+                        _CartContent.disposable = value;
+                      });
+                    },
+                  ),
+                ],
+              )
             ],
-          );
-        }
-      },
+          ),
+        ),
+      ],
     );
   }
 }
 
-// class _ProductInCart extends StatefulWidget {
-//   const _ProductInCart({
-//     required this.index,
-//     required this.cartData,
-//   });
+class _CartItem extends StatefulWidget {
+  _CartItem({
+    required this.cartData,
+    required this.cartItemCount,
+  });
+  final ReadCartResponse cartData;
+  late int cartItemCount;
 
-//   final int index;
-//   final List<ReadCartResponse>? cartData;
+  @override
+  State<_CartItem> createState() => _CartItemState();
+}
 
-//   @override
-//   State<_ProductInCart> createState() => _ProductInCartState();
-// }
-
-// class _ProductInCartState extends State<_ProductInCart> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(
-//           border: Border(
-//         top: BorderSide(color: GlobalMainGrey.grey200),
-//         bottom: BorderSide(color: GlobalMainGrey.grey200),
-//       )),
-//       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           Container(
-//             width: 66.w,
-//             height: 66.h,
-//             decoration: BoxDecoration(
-//                 color: GlobalMainGrey.grey200,
-//                 borderRadius: BorderRadius.circular(10.r)),
-//           ),
-//           SizedBox(
-//             width: 22.w,
-//           ),
-//           Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 // cartData?[index].itemName ?? 'itemName',
-//                 '반반 샌드위치',
-//                 style: AppTextStyle.body1Bold,
-//               ),
-//               SizedBox(height: 8.h),
-//               Text(
-//                 '${Formater.moneyFormat(widget.cartData?[widget.index].subtotal.toInt())}원',
-//                 style: AppTextStyle.body1Medium,
-//               )
-//             ],
-//           ),
-//           SizedBox(width: 87.w),
-//           Column(
-//             crossAxisAlignment: CrossAxisAlignment.end,
-//             children: [
-//               SvgPicture.asset("assets/icons/x.svg"),
-//               SizedBox(height: 16.h),
-//               Row(
-//                 children: [
-//                   GestureDetector(
-//                     onTap: () {},
-//                     child: SvgPicture.asset(
-//                       "assets/icons/minus.svg",
-//                       width: 30.w,
-//                     ),
-//                   ),
-//                   SizedBox(width: 4.w),
-//                   Text(
-//                     '${widget.cartData?[widget.index].cartItemCount}',
-//                     style: AppTextStyle.body1Bold,
-//                   ),
-//                   SizedBox(width: 4.w),
-//                   SvgPicture.asset(
-//                     "assets/icons/plus.svg",
-//                     width: 30.w,
-//                   ),
-//                 ],
-//               )
-//             ],
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
+class _CartItemState extends State<_CartItem> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border(
+        top: BorderSide(color: GlobalMainGrey.grey200),
+        bottom: BorderSide(color: GlobalMainGrey.grey200),
+      )),
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: 66.w,
+            height: 66.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.r),
+              image: DecorationImage(
+                image: NetworkImage(widget.cartData.itemImage ?? ''),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 27.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(width: 27.w),
+                  Text(
+                    widget.cartData.itemName,
+                    style: AppTextStyle.body1Bold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    '${Formater.moneyFormat(widget.cartData.subtotal.toInt())}원',
+                    style: AppTextStyle.body1Medium,
+                  )
+                ],
+              ),
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    CartDataSource().deleteCart(widget.cartData.cartId);
+                  });
+                },
+                child: SvgPicture.asset("assets/icons/x.svg"),
+              ),
+              SizedBox(height: 16.h),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      if (widget.cartItemCount > 1) {
+                        setState(
+                          () {
+                            CartDataSource().putQuantity(
+                              widget.cartData.cartId,
+                              widget.cartItemCount - 1,
+                            );
+                            widget.cartItemCount -= 1;
+                          },
+                        );
+                      }
+                    },
+                    child: SvgPicture.asset(
+                      "assets/icons/minus.svg",
+                      width: 30.w,
+                    ),
+                  ),
+                  SizedBox(width: 4.w),
+                  Text(
+                    '${widget.cartItemCount}',
+                    style: AppTextStyle.body1Bold,
+                  ),
+                  SizedBox(width: 4.w),
+                  GestureDetector(
+                    onTap: () {
+                      setState(
+                        () {
+                          CartDataSource().putQuantity(
+                            widget.cartData.cartId,
+                            widget.cartItemCount + 1,
+                          );
+                          widget.cartItemCount += 1;
+                        },
+                      );
+                    },
+                    child: SvgPicture.asset(
+                      "assets/icons/plus.svg",
+                      width: 30.w,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
