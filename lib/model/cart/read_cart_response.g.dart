@@ -14,7 +14,7 @@ _$ReadCartResponseImpl _$$ReadCartResponseImplFromJson(
       itemQuantity: (json['itemQuantity'] as num).toInt(),
       subtotal: (json['subtotal'] as num).toDouble(),
       itemName: json['itemName'] as String,
-      itemImage: json['itemImage'] as String,
+      itemImage: json['itemImage'] as String?,
       storeId: json['storeId'] as String,
     );
 
