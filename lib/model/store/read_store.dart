@@ -22,7 +22,7 @@ class ReadStore with _$ReadStore {
     String? additionalComment,
     required int storeCategory,
     required int storeSellingType, // 1 : 포장, 2 : 매장, 3 : 포장·매장
-    String? mainImage,
+    required String mainImage,
   }) = _ReadStore;
 
   factory ReadStore.fromJson(Map<String, dynamic> json) =>

@@ -25,7 +25,7 @@ mixin _$ReadCartResponse {
   int get itemQuantity => throw _privateConstructorUsedError;
   double get subtotal => throw _privateConstructorUsedError;
   String get itemName => throw _privateConstructorUsedError;
-  String? get itemImage => throw _privateConstructorUsedError;
+  String get itemImage => throw _privateConstructorUsedError;
   String get storeId => throw _privateConstructorUsedError;
 
   /// Serializes this ReadCartResponse to a JSON map.
@@ -50,7 +50,7 @@ abstract class $ReadCartResponseCopyWith<$Res> {
       int itemQuantity,
       double subtotal,
       String itemName,
-      String? itemImage,
+      String itemImage,
       String storeId});
 }
 
@@ -74,7 +74,7 @@ class _$ReadCartResponseCopyWithImpl<$Res, $Val extends ReadCartResponse>
     Object? itemQuantity = null,
     Object? subtotal = null,
     Object? itemName = null,
-    Object? itemImage = freezed,
+    Object? itemImage = null,
     Object? storeId = null,
   }) {
     return _then(_value.copyWith(
@@ -98,10 +98,10 @@ class _$ReadCartResponseCopyWithImpl<$Res, $Val extends ReadCartResponse>
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
               as String,
-      itemImage: freezed == itemImage
+      itemImage: null == itemImage
           ? _value.itemImage
           : itemImage // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
@@ -124,7 +124,7 @@ abstract class _$$ReadCartResponseImplCopyWith<$Res>
       int itemQuantity,
       double subtotal,
       String itemName,
-      String? itemImage,
+      String itemImage,
       String storeId});
 }
 
@@ -146,7 +146,7 @@ class __$$ReadCartResponseImplCopyWithImpl<$Res>
     Object? itemQuantity = null,
     Object? subtotal = null,
     Object? itemName = null,
-    Object? itemImage = freezed,
+    Object? itemImage = null,
     Object? storeId = null,
   }) {
     return _then(_$ReadCartResponseImpl(
@@ -170,10 +170,10 @@ class __$$ReadCartResponseImplCopyWithImpl<$Res>
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
               as String,
-      itemImage: freezed == itemImage
+      itemImage: null == itemImage
           ? _value.itemImage
           : itemImage // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
@@ -191,7 +191,7 @@ class _$ReadCartResponseImpl implements _ReadCartResponse {
       required this.itemQuantity,
       required this.subtotal,
       required this.itemName,
-      this.itemImage,
+      required this.itemImage,
       required this.storeId});
 
   factory _$ReadCartResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -208,7 +208,7 @@ class _$ReadCartResponseImpl implements _ReadCartResponse {
   @override
   final String itemName;
   @override
-  final String? itemImage;
+  final String itemImage;
   @override
   final String storeId;
 
@@ -265,7 +265,7 @@ abstract class _ReadCartResponse implements ReadCartResponse {
       required final int itemQuantity,
       required final double subtotal,
       required final String itemName,
-      final String? itemImage,
+      required final String itemImage,
       required final String storeId}) = _$ReadCartResponseImpl;
 
   factory _ReadCartResponse.fromJson(Map<String, dynamic> json) =
@@ -282,7 +282,7 @@ abstract class _ReadCartResponse implements ReadCartResponse {
   @override
   String get itemName;
   @override
-  String? get itemImage;
+  String get itemImage;
   @override
   String get storeId;
 

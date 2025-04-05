@@ -11,7 +11,7 @@ class OnsalePage extends StatelessWidget {
   OnsalePage({super.key});
 
   final Future<List<ReadSimpleStoreResponse>> onSaleData =
-      StoreDataSource().getAllStores();
+      StoreDataSource().getOnSaleStores();
 
   Widget storeList() {
     return FutureBuilder(
