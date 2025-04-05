@@ -1,6 +1,6 @@
 part of 'product_page.dart';
 
-class _BottomSheet extends StatefulWidget {
+class _BottomSheet extends StatelessWidget {
   const _BottomSheet({
     required this.itemData,
     required this.storeId,
@@ -8,23 +8,6 @@ class _BottomSheet extends StatefulWidget {
 
   final ReadItem? itemData;
   final String storeId;
-
-  @override
-  State<_BottomSheet> createState() => _BottomSheetState();
-}
-
-class _BottomSheetState extends State<_BottomSheet> {
-  Future<List<ReadCartResponse>>? cartData;
-
-  Future<List<ReadCartResponse>>? featchData() async {
-    return await cartData!;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    cartData = CartDataSource().getCarts();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +34,7 @@ class _BottomSheetState extends State<_BottomSheet> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ItemQuantityCounter(salePrice: widget.itemData!.salePrice!),
+            ItemQuantityCounter(salePrice: itemData!.salePrice!),
             Container(
               height: 1.h,
               color: GlobalMainGrey.grey200,
@@ -75,48 +58,45 @@ class _BottomSheetState extends State<_BottomSheet> {
                             .copyWith(color: GlobalMainGrey.grey400)),
                   ),
                 ),
-                FutureBuilder(
-                  future: featchData(),
-                  builder: (context, snapshot) {
-                    return GestureDetector(
-                      onTap: () {
-                        // try {
-                        //   ReadCartResponse targetStore = snapshot.data!
-                        //       .firstWhere((item) =>
-                        //           item.itemName == widget.itemData?.itemName);
-                        //   CartDataSource().putQuantity(targetStore.cartId,
-                        //       ItemQuantityCounter.itemCount);
-                        // } catch (error) {
-                        final itemInfo = CreateCartRequest(
-                          itemId: widget.itemData!.itemId,
-                          itemCount: ItemQuantityCounter.itemCount,
-                          storeId: widget.storeId,
-                        );
-                        CartDataSource().createCart(request: itemInfo);
-                        // }
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return _OnCart();
-                          },
-                        );
-                      },
-                      child: Container(
-                        width: 159.w,
-                        height: 50.h,
-                        decoration: BoxDecoration(
-                          color: GlobalMainColor.globalButtonColor,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          "장바구니 담기",
-                          style: AppTextStyle.body1Bold
-                              .copyWith(color: Colors.white),
-                        ),
-                      ),
+                GestureDetector(
+                  onTap: () async {
+                    List<ReadCartResponse> cartData = await CartDataSource().getCarts();
+                    ReadCartResponse targetStore = cartData.firstWhere(
+                                (item) => item.itemName == itemData?.itemName);
+
+                    if(targetStore.itemName != itemData?.itemName){
+
+                    final itemInfo = CreateCartRequest(
+                      itemId: itemData!.itemId,
+                      itemCount: ItemQuantityCounter.itemCount,
+                      storeId: storeId,
                     );
+                    CartDataSource().createCart(request: itemInfo);
+                    }else{
+                      CartDataSource().putQuantity(targetStore.cartId, ItemQuantityCounter.itemCount);
+
+                    }
+                    
+
+
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return _OnCart();
+                        });
                   },
+                  child: Container(
+                    width: 159.w,
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      color: GlobalMainColor.globalButtonColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text("장바구니 담기",
+                        style: AppTextStyle.body1Bold
+                            .copyWith(color: Colors.white)),
+                  ),
                 ),
               ],
             )
