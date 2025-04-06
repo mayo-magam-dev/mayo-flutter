@@ -19,7 +19,7 @@ class Topbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeBloc(),
+      create: (context) => HomeBloc()..add(LoadCartItems()),
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return Padding(
@@ -64,7 +64,7 @@ class Topbar extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            state.cartItems.length.toString(),
+                            state.cartItemCount.toString(),
                             style: AppTextStyle.captionMedium.copyWith(
                               color: Colors.white,
                             ),
