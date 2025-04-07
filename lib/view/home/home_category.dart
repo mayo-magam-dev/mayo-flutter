@@ -1,8 +1,6 @@
 part of 'home_page.dart';
 
 class _Category extends StatelessWidget {
-  //ignore: unused_element
-  const _Category({super.key});
 
   @override
   Widget build(BuildContext context) {

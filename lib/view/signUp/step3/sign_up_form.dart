@@ -1,8 +1,6 @@
 part of 'sign_up_step3_page.dart';
 
 class _SignUpForm extends StatefulWidget {
-  //ignore: unused_element
-  const _SignUpForm({super.key});
 
   @override
   State<_SignUpForm> createState() => _SignUpFormState();

@@ -1,8 +1,6 @@
 part of 'home_page.dart';
 
 class _List extends StatelessWidget {
-  //ignore: unused_element
-  const _List({super.key});
 
   @override
   Widget build(BuildContext context) {

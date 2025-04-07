@@ -1,8 +1,6 @@
 part of 'sign_up_step5_page.dart';
 
 class _SignUpDecoration extends StatelessWidget {
-  //ignore: unused_element
-  const _SignUpDecoration({super.key});
 
   @override
   Widget build(BuildContext context) {

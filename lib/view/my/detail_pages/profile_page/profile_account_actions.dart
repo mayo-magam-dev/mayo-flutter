@@ -1,7 +1,6 @@
 part of 'profile_page.dart';
 
 class _AccountActions extends StatefulWidget {
-  const _AccountActions({super.key});
 
   @override
   State<_AccountActions> createState() => _AccountActionsState();

@@ -1,8 +1,6 @@
 part of 'favorite_store_page.dart';
 
 class _Header extends StatelessWidget {
-  //ignore: unused_element
-  const _Header({super.key});
 
   @override
   Widget build(BuildContext context) {

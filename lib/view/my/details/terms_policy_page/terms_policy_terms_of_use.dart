@@ -1,8 +1,6 @@
 part of 'terms_policy_page.dart';
 
 class _TermsOfUse extends StatelessWidget {
-  //ignore: unused_element
-  const _TermsOfUse({super.key});
 
   @override
   Widget build(BuildContext context) {

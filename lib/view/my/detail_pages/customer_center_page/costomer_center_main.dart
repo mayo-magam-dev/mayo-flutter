@@ -1,8 +1,6 @@
 part of 'costomer_center_page.dart';
 
 class _Main extends StatelessWidget {
-  //ignore: unused_element
-  const _Main({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,6 @@
 part of 'home_page.dart';
 
 class _Banner extends StatefulWidget {
-  // ignore: unused_element
-  const _Banner({super.key});
 
   @override
   State<_Banner> createState() => _BannerState();

@@ -1,8 +1,6 @@
 part of 'on_discount_page.dart';
 
 class _OnDiscountHeader extends StatelessWidget {
-  //ignore: unused_element
-  const _OnDiscountHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

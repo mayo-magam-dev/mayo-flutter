@@ -1,8 +1,6 @@
 part of 'home_page.dart';
 
 class _TopBar extends StatelessWidget {
-  //ignore: unused_element
-  const _TopBar({super.key});
 
   @override
   Widget build(BuildContext context) {

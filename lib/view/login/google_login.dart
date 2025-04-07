@@ -19,7 +19,6 @@ class GoogleLogin {
 
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
-      print('Google 로그인 실패: $e');
       rethrow;
     }
   }

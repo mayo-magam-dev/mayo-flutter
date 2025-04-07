@@ -1,8 +1,6 @@
 part of 'my_page.dart';
 
 class _MyMiddle extends StatelessWidget {
-  //ignore: unused_element
-  const _MyMiddle({super.key});
 
   @override
   Widget build(BuildContext context) {
