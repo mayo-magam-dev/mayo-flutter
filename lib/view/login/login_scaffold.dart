@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+part of 'login_page.dart';
 
-// ignore: unused_element
 class _Scaffold extends StatelessWidget {
   const _Scaffold(
       {required this.logo, required this.form, required this.socialLogin});
@@ -12,19 +10,21 @@ class _Scaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 70.w, horizontal: 24.h),
-        child: Column(
-          children: [
-            logo,
-            SizedBox(height: 70.h),
-            form,
-            SizedBox(height: 54.h),
-            socialLogin,
-          ],
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 70.w, horizontal: 24.h),
+          child: Column(
+            children: [
+              logo,
+              SizedBox(height: 70.h),
+              form,
+              SizedBox(height: 54.h),
+              socialLogin,
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }
