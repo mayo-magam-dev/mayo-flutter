@@ -161,7 +161,6 @@ final router = GoRouter(
         GoRoute(
           path: '/',
           builder: (context, state) => const HomePage(),
-
         ),
         GoRoute(
           path: '/on-discount',
@@ -271,10 +270,10 @@ class ScaffoldWithBottomNavBar extends StatelessWidget {
   int _calculateSelectedIndex(BuildContext context) {
     final GoRouterState state = GoRouterState.of(context);
     final String path = state.uri.path;
-    if (path.startsWith('/')) return 0;
-    if (path.startsWith('/on-discount')) return 1;
-    if (path.startsWith('/orders')) return 2;
-    if (path.startsWith('/my')) return 3;
+    if (path == '/') return 0;
+    if (path == '/on-discount') return 1;
+    if (path == '/orders') return 2;
+    if (path == '/my') return 3;
     return 0;
   }
 
