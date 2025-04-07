@@ -5,7 +5,30 @@ class _LoginForm extends StatelessWidget {
   _LoginForm({super.key});
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
-  
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _loginWithEmailAndPassword(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        if (context.mounted) {
+          context.go('/');
+        }
+      } on FirebaseAuthException catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.message ?? '로그인에 실패했습니다.'),
+              backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+            ),
+          );
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +39,10 @@ class _LoginForm extends StatelessWidget {
           TextFormField(
             controller: _emailController,
             validator: (value) {
-              if(value!.isEmpty){
+              if (value!.isEmpty) {
                 return '이메일을 입력해주세요.';
-              }return null;
+              }
+              return null;
             },
             onTapOutside: (event) => FocusScope.of(context).unfocus(),
             textInputAction: TextInputAction.next,
@@ -49,8 +73,16 @@ class _LoginForm extends StatelessWidget {
           ),
           SizedBox(height: 25.h),
           TextFormField(
-            onTapOutside: (event) => FocusScope.of(context).unfocus(),
+            controller: _passwordController,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return '비밀번호를 입력해주세요.';
+              }
+              return null;
+            },
             obscureText: true,
+            onTapOutside: (event) => FocusScope.of(context).unfocus(),
+            textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -74,77 +106,26 @@ class _LoginForm extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 letterSpacing: -0.28,
               ),
-              suffixIcon: IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset('assets/icons/eye_off.svg')),
             ),
           ),
-          SizedBox(height: 24.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              GestureDetector(
-                onTap: () {},
-                child: Text(
-                  '회원가입',
-                  style: TextStyle(
-                    color: GlobalMainGrey.grey300,
-                    fontSize: 12.sp,
-                    fontFamily: 'Pretendard',
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: -0.24,
-                  ),
-                ),
+          SizedBox(height: 25.h),
+          ElevatedButton(
+            onPressed: () => _loginWithEmailAndPassword(context),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: GlobalMainYellow.yellow200,
+              minimumSize: Size(double.infinity, 50.h),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 12),
-                child: Text(
-                  '|',
-                  style: TextStyle(
-                    color: GlobalMainGrey.grey300,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: Text(
-                  '비밀번호 찾기',
-                  style: TextStyle(
-                    color: GlobalMainGrey.grey300,
-                    fontSize: 12.sp,
-                    fontFamily: 'Pretendard',
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: -0.24,
-                  ),
-                ),
-              ),
-              SizedBox(height: 40.h),
-            ],
-          ),
-          InkWell(
-            onTap: () {},
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              width: double.infinity,
-              height: 46.h,
-              decoration: ShapeDecoration(
-                color: GlobalMainGrey.grey200,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  '로그인',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.32,
-                  ),
-                ),
+            ),
+            child: Text(
+              '로그인',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.sp,
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w600,
+                letterSpacing: -0.32,
               ),
             ),
           ),
