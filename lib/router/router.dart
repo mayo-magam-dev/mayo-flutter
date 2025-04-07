@@ -164,7 +164,7 @@ final router = GoRouter(
         ),
         GoRoute(
           path: '/on-discount',
-          builder: (context, state) => const OnDiscountPage(),
+          builder: (context, state) => OnDiscountPage(),
         ),
         GoRoute(
           path: '/orders',
