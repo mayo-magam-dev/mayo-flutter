@@ -4,16 +4,23 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class GoogleLogin {
   Future<UserCredential> login() async {
-    final GoogleSignInAccount? user = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication? userAuthentication =
-        await user?.authentication;
-    final OAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: userAuthentication?.accessToken,
-      idToken: userAuthentication?.idToken,
-    );
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    return userCredential;
+    try {
+      final GoogleSignInAccount? user = await GoogleSignIn().signIn();
+      if (user == null) {
+        throw Exception('Google 로그인 취소');
+      }
+
+      final GoogleSignInAuthentication userAuthentication = await user.authentication;
+
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: userAuthentication.accessToken,
+        idToken: userAuthentication.idToken,
+      );
+
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<void> logout() async {
