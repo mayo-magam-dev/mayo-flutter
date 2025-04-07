@@ -1,7 +1,6 @@
 part of 'cart_page.dart';
 
 class _CartBottomSheet extends StatelessWidget {
-  const _CartBottomSheet();
 
   @override
   Widget build(BuildContext context) {

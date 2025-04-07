@@ -1,7 +1,6 @@
 part of 'cart_page.dart';
 
 class _CartEmpty extends StatelessWidget {
-  const _CartEmpty({super.key});
 
   @override
   Widget build(BuildContext context) {

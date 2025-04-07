@@ -1,8 +1,6 @@
 part of 'login_page.dart';
 
 class _LoginSocialLogin extends StatelessWidget {
-  //ignore: unused_element
-  const _LoginSocialLogin({super.key});
 
   @override
   Widget build(BuildContext context) {

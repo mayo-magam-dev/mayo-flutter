@@ -1,8 +1,6 @@
 part of 'login_page.dart';
 
 class _LoginForm extends StatelessWidget {
-  //ignore: unused_element
-  _LoginForm({super.key});
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   

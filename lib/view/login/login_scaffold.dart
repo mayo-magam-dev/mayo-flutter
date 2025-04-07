@@ -1,6 +1,5 @@
 part of 'login_page.dart';
 
-// ignore: unused_element
 class _Scaffold extends StatelessWidget {
   const _Scaffold(
       {required this.logo, required this.form, required this.socialLogin});
