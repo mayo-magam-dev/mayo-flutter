@@ -11,7 +11,7 @@ class ReadCartResponse with _$ReadCartResponse {
     required int itemQuantity,
     required double subtotal,
     required String itemName,
-    required String itemImage,
+    String? itemImage,
     required String storeId,
   }) = _ReadCartResponse;
 

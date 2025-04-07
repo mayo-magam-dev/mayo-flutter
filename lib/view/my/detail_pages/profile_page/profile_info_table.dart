@@ -15,7 +15,7 @@ class _InfoTable extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: 276.3.h,
+            height: 220.3.h,
             decoration: ShapeDecoration(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18),
@@ -139,37 +139,6 @@ class _InfoTable extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '생년월일',
-                        style: AppTextStyle.body1Medium.copyWith(
-                          color: GlobalMainColor.globalPrimaryBlackColor,
-                        ),
-                      ),
-                      Text(
-                        '2000.08.30',
-                        style: AppTextStyle.body1Medium.copyWith(
-                          color: GlobalMainGrey.grey500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 0.5,
-                        color: Colors.black.withValues(alpha: 0.3),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  height: 54.h,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
                         '성별',
                         style: AppTextStyle.body1Medium.copyWith(
                           color: GlobalMainColor.globalPrimaryBlackColor,
@@ -232,12 +201,7 @@ class _InfoTable extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TermsPolicyListsPage(),
-                      ),
-                    );
+                    context.push('/terms-list');
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 24),
