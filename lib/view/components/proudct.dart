@@ -20,7 +20,8 @@ class ProductComponents extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push('/product/${itemData.itemId}/${storeData.id}/${storeData.storeName}');
+        context.push(
+            '/product/${itemData.itemId}/${storeData.id}/${storeData.storeName}');
       },
       child: Row(
         children: [
@@ -75,8 +76,8 @@ class ProductComponents extends StatelessWidget {
                         children: [
                           Text(
                             itemData.salePercent != null
-                                ? "${itemData.salePercent}%"
-                                : "0%",
+                                ? "${itemData.salePercent?.toInt()}%"
+                                : "",
                             style: AppTextStyle.body2Bold
                                 .copyWith(color: Colors.red),
                           ),
