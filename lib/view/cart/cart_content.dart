@@ -15,6 +15,8 @@ class _CartContent extends StatefulWidget {
 }
 
 class _CartContentState extends State<_CartContent> {
+  List<ReadCartResponse>? futureCart;
+
   int firstCartItemCount = 0;
   int secondCartItemCount = 0;
   int firstItemSubtotal = 0;
@@ -27,8 +29,9 @@ class _CartContentState extends State<_CartContent> {
   featchCartData() async {
     final storeData =
         await StoreDataSource().getStoreDetail(widget.cartData[0].storeId);
-
+    final cartDataSource = await CartDataSource().getCarts();
     setState(() {
+      futureCart = cartDataSource;
       firstCartItemCount = widget.cartData[0].cartItemCount;
       firstItemSubtotal += widget.cartData[0].subtotal.toInt();
       storeName = storeData.storeName;
@@ -117,13 +120,13 @@ class _CartContentState extends State<_CartContent> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          CartDataSource()
-                              .deleteCart(widget.cartData[0].cartId);
-                        });
-                      },
-                      child: SvgPicture.asset("assets/icons/x.svg")),
+                    onTap: () async {
+                      await CartDataSource()
+                          .deleteCart(widget.cartData[0].cartId);
+                      context.pushReplacement('/cart');
+                    },
+                    child: SvgPicture.asset("assets/icons/x.svg"),
+                  ),
                   SizedBox(height: 16.h),
                   Row(
                     children: [
@@ -297,7 +300,7 @@ class _CartContentState extends State<_CartContent> {
                   ],
                 ),
               )
-            : SizedBox.shrink(),
+            : const SizedBox.shrink(),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 25.w),
           child: Align(
@@ -365,10 +368,7 @@ class _CartContentState extends State<_CartContent> {
               TextField(
                 controller: reverationRequestEditingController,
                 onChanged: (value) {
-                  debugPrint('value = $value');
                   _CartContent.reservationRequest = value;
-                  debugPrint(
-                      'reservationRequest = ${_CartContent.reservationRequest}');
                 },
                 onTapOutside: (event) => FocusScope.of(context).unfocus(),
                 decoration: InputDecoration(
@@ -400,7 +400,7 @@ class _CartContentState extends State<_CartContent> {
                     },
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
