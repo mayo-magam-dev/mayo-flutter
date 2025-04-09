@@ -234,11 +234,11 @@ class _CartContentState extends State<_CartContent> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                CartDataSource()
+                            onTap: () async{
+                                debugPrint('2 = ${widget.cartData[1]}');
+                                await CartDataSource()
                                     .deleteCart(widget.cartData[1].cartId);
-                              });
+                                context.pushReplacement('/cart');
                             },
                             child: SvgPicture.asset("assets/icons/x.svg")),
                         SizedBox(height: 16.h),
