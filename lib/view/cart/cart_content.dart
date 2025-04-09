@@ -24,6 +24,10 @@ class _CartContentState extends State<_CartContent> {
 
   String? storeName;
 
+  DateTime? pickupTime = DateTime.now(); 
+
+  String? period;
+
   featchCartData() async {
     final storeData =
         await StoreDataSource().getStoreDetail(widget.cartData[0].storeId);
@@ -47,6 +51,8 @@ class _CartContentState extends State<_CartContent> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('pickupTime = $pickupTime');
+    debugPrint('static pickupTime = ${_CartContent.pickupTime}');
     return Column(
       children: [
         Padding(
@@ -327,20 +333,60 @@ class _CartContentState extends State<_CartContent> {
                   showCupertinoDialog(
                     context: context,
                     builder: (context) {
-                      return Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          color: Colors.white,
-                          height: 300,
-                          child: CupertinoDatePicker(
-                            mode: CupertinoDatePickerMode.time,
-                            onDateTimeChanged: (value) {
-                              setState(() {
-                                _CartContent.pickupTime = value;
-                              });
-                            },
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            color: Colors.white,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    context.pop();
+                                  },
+                                  child: Text(
+                                    '취소',
+                                    style: AppTextStyle.body1Medium.copyWith(
+                                      color: GlobalMainColor
+                                          .globalPrimaryBlackColor,
+                                    ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    context.pop();
+                                    setState(() {
+                                      _CartContent.pickupTime = pickupTime;
+                                      period =
+                                          _CartContent.pickupTime!.hour < 12
+                                              ? '오전'
+                                              : '오후';
+                                    });
+                                  },
+                                  child: Text(
+                                    '완료',
+                                    style: AppTextStyle.body1Medium.copyWith(
+                                      color: GlobalMainColor
+                                          .globalPrimaryBlackColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                          Container(
+                            color: Colors.white,
+                            height: 224.h,
+                            child: CupertinoDatePicker(
+                              dateOrder: DatePickerDateOrder.dmy,
+                              mode: CupertinoDatePickerMode.time,
+                              onDateTimeChanged: (value) {
+                                pickupTime = value;
+                              },
+                            ),
+                          ),
+                        ],
                       );
                     },
                   );
@@ -354,9 +400,9 @@ class _CartContentState extends State<_CartContent> {
                     borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Text(
-                      _CartContent.pickupTime == null
+                      period == null
                           ? "픽업시간을 선택해 주세요."
-                          : '${_CartContent.pickupTime.toString().substring(11, 13)} : ${_CartContent.pickupTime.toString().substring(14, 16)}',
+                          : '$period ${_CartContent.pickupTime.toString().substring(11, 13)} : ${_CartContent.pickupTime.toString().substring(14, 16)}',
                       style: AppTextStyle.body1Medium
                           .copyWith(color: GlobalMainGrey.grey400)),
                 ),
@@ -365,10 +411,7 @@ class _CartContentState extends State<_CartContent> {
               TextField(
                 controller: reverationRequestEditingController,
                 onChanged: (value) {
-                  debugPrint('value = $value');
                   _CartContent.reservationRequest = value;
-                  debugPrint(
-                      'reservationRequest = ${_CartContent.reservationRequest}');
                 },
                 onTapOutside: (event) => FocusScope.of(context).unfocus(),
                 decoration: InputDecoration(
