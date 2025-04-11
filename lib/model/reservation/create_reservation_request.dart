@@ -7,7 +7,7 @@ part 'create_reservation_request.g.dart';
 @freezed
 class CreateReservationRequest with _$CreateReservationRequest {
   factory CreateReservationRequest({
-    @TimestampConverter() required DateTime pickupTime,
+    required DateTime pickupTime,
     required bool reservationIsPlastic,
     required String reservationRequest,
   }) = _CreateReservationRequest;
