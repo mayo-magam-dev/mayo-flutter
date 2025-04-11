@@ -1,11 +1,32 @@
 part of 'profile_page.dart';
 
-class _InfoTable extends StatelessWidget {
-  const _InfoTable({
-    required this.userData,
-  });
+class _InfoTable extends StatefulWidget {
 
-  final ReadUser? userData;
+  @override
+  State<_InfoTable> createState() => _InfoTableState();
+}
+
+class _InfoTableState extends State<_InfoTable> {
+  final TextEditingController nickNameController = TextEditingController();
+
+  String nickName = '';
+
+  ReadUser? userData;
+
+  final userDataSource = UserDataSource();
+
+  featchUserData() async {
+    final getUserData = await userDataSource.getUser();
+    setState(() {
+      userData = getUserData;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    featchUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +36,7 @@ class _InfoTable extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: 220.3.h,
+            height: 221.3.h,
             decoration: ShapeDecoration(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18),
@@ -29,7 +50,152 @@ class _InfoTable extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    showGeneralDialog(
+                      context: context,
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return Center(
+                          child: Container(
+                            padding: EdgeInsets.only(
+                              top: 23.h,
+                              bottom: 23.h,
+                              left: 18.w,
+                              right: 26.w,
+                            ),
+                            width: 317.w,
+                            height: 231.1.h,
+                            decoration: ShapeDecoration(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            child: Material(
+                              color: Colors.white,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8.w),
+                                    child: Text(
+                                      '닉네임 변경',
+                                      style: AppTextStyle.heading2Bold.copyWith(
+                                        color: GlobalMainColor
+                                            .globalPrimaryBlackColor,
+                                        letterSpacing: -0.84,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 18.h),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 51.h,
+                                    child: TextFormField(
+                                      controller: nickNameController,
+                                      onTapOutside: (event) =>
+                                          FocusScope.of(context).unfocus(),
+                                      textInputAction: TextInputAction.next,
+                                      onChanged: (value) {
+                                        nickName = value;
+                                      },
+                                      decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            width: 2,
+                                            color: GlobalMainYellow.yellow200,
+                                          ),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            width: 2,
+                                            color: GlobalMainGrey.grey200,
+                                          ),
+                                        ),
+                                        hintText: '변경할 닉네임을 작성해주세요',
+                                        hintStyle:
+                                            AppTextStyle.body2Medium.copyWith(
+                                          color: GlobalMainGrey.grey300,
+                                          letterSpacing: -0.28,
+                                          height: 5,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 22.h),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () async {
+                                          await userDataSource.putUserNickname(
+                                              nickName); //바뀌는데 시간 걸림
+                                          featchUserData();
+                                          if (context.mounted) {
+                                            context.pop();
+                                          }
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(right: 11.w),
+                                          width: 128.9,
+                                          height: 56.1,
+                                          decoration: ShapeDecoration(
+                                            color: GlobalMainColor
+                                                .globalButtonColor,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            '변경하기',
+                                            style:
+                                                AppTextStyle.body1Bold.copyWith(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Container(
+                                          width: 128.9,
+                                          height: 56.1,
+                                          decoration: ShapeDecoration(
+                                            color: GlobalMainGrey.grey200,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            '취소',
+                                            style:
+                                                AppTextStyle.body1Bold.copyWith(
+                                              color: GlobalMainColor
+                                                  .globalPrimaryBlackColor,
+                                              letterSpacing: -0.32,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     height: 54.h,
@@ -145,7 +311,7 @@ class _InfoTable extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${userData?.gender}',
+                        userData?.gender ?? 'null',
                         style: AppTextStyle.body1Medium.copyWith(
                           color: GlobalMainGrey.grey500,
                         ),
@@ -157,6 +323,8 @@ class _InfoTable extends StatelessWidget {
             ),
           ),
           SizedBox(height: 14.h),
+          TextButton(onPressed: (){userDataSource.putAgreeMarketing(true);}, child: Text('on'),),
+          TextButton(onPressed: (){userDataSource.putAgreeMarketing(false);}, child: Text('off'),),
           Container(
             width: double.infinity,
             height: 130.h,
