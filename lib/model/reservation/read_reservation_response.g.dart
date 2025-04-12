@@ -11,7 +11,6 @@ _$ReadReservationResponseImpl _$$ReadReservationResponseImplFromJson(
     _$ReadReservationResponseImpl(
       reservationId: json['reservationId'] as String,
       storeName: json['storeName'] as String,
-      storeNumber: json['storeNumber'] as String,
       createdAt: const TimestampConverter()
           .fromJson(json['createdAt'] as Map<String, dynamic>),
       pickupTime: const TimestampConverter()
@@ -24,7 +23,6 @@ Map<String, dynamic> _$$ReadReservationResponseImplToJson(
     <String, dynamic>{
       'reservationId': instance.reservationId,
       'storeName': instance.storeName,
-      'storeNumber': instance.storeNumber,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'pickupTime': const TimestampConverter().toJson(instance.pickupTime),
       'totalPrice': instance.totalPrice,

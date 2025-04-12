@@ -9,7 +9,6 @@ class ReadReservationResponse with _$ReadReservationResponse {
   factory ReadReservationResponse({
     required String reservationId,
     required String storeName,
-    required String storeNumber,
     @TimestampConverter() required DateTime createdAt,
     @TimestampConverter() required DateTime pickupTime,
     required double totalPrice,
