@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mayo_flutter/bloc/login/login_bloc.dart';
-import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
@@ -20,9 +19,7 @@ part 'profile_info_table.dart';
 part 'profile_account_actions.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({
-    super.key,
-  });
+  const ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -54,8 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
         header: _Header(
           photoUrl: userData!.photoUrl ?? '',
         ),
-        infoTables: _InfoTable(
-        ),
+        infoTables: _InfoTable(),
         accountActions: _AccountActions(),
       );
     }

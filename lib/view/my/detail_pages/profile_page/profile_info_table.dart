@@ -1,7 +1,6 @@
 part of 'profile_page.dart';
 
 class _InfoTable extends StatefulWidget {
-
   @override
   State<_InfoTable> createState() => _InfoTableState();
 }
@@ -10,6 +9,7 @@ class _InfoTableState extends State<_InfoTable> {
   final TextEditingController nickNameController = TextEditingController();
 
   String nickName = '';
+  bool agreeMarketing = false;
 
   ReadUser? userData;
 
@@ -19,6 +19,9 @@ class _InfoTableState extends State<_InfoTable> {
     final getUserData = await userDataSource.getUser();
     setState(() {
       userData = getUserData;
+      if (userData?.agreeMarketing != null) {
+        agreeMarketing = userData!.agreeMarketing!;
+      }
     });
   }
 
@@ -323,8 +326,6 @@ class _InfoTableState extends State<_InfoTable> {
             ),
           ),
           SizedBox(height: 14.h),
-          TextButton(onPressed: (){userDataSource.putAgreeMarketing(true);}, child: Text('on'),),
-          TextButton(onPressed: (){userDataSource.putAgreeMarketing(false);}, child: Text('off'),),
           Container(
             width: double.infinity,
             height: 130.h,
@@ -352,8 +353,147 @@ class _InfoTableState extends State<_InfoTable> {
                           color: GlobalMainColor.globalPrimaryBlackColor,
                         ),
                       ),
-                      _AgreeMarketingButton(
-                          agreeMarketing: userData?.agreeMarketing),
+                      CupertinoSwitch(
+                        activeTrackColor: Color(0xFFFFC600), //on
+                        inactiveTrackColor: Color(0xFFD1D1D1), //off
+                        value: agreeMarketing,
+                        onChanged: (value) {
+                          if (agreeMarketing == false) {
+                            setState(() {
+                              agreeMarketing = !agreeMarketing;
+                            });
+                            UserDataSource().putAgreeMarketing(agreeMarketing);
+                          } else {
+                            showGeneralDialog(
+                              context: context,
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) {
+                                return Center(
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.only(top: 28, bottom: 16.8),
+                                    width: 313.w,
+                                    height: 250.h,
+                                    decoration: ShapeDecoration(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                    ),
+                                    child: Material(
+                                      color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 27),
+                                            child: Text(
+                                              '알람을 끄시겠습니까?',
+                                              style: AppTextStyle.heading2Bold
+                                                  .copyWith(
+                                                color: GlobalMainColor
+                                                    .globalPrimaryBlackColor,
+                                                letterSpacing: -0.48,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 19.h),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 27),
+                                            child: Text(
+                                              '수신 알림을 끄시면 마요가 제공하는\n유익한 서비스뿐만 아니라\n중요한 주문 알림을 놓칠 수 있습니다.',
+                                              style: AppTextStyle.subheadingBold
+                                                  .copyWith(
+                                                color: GlobalMainGrey.grey300,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 21.h),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                  setState(() {
+                                                    agreeMarketing =
+                                                        !agreeMarketing;
+                                                  });
+                                                  UserDataSource()
+                                                      .putAgreeMarketing(
+                                                          agreeMarketing);
+                                                },
+                                                child: Container(
+                                                  margin: EdgeInsets.only(
+                                                      right: 11.3),
+                                                  width: 128.9,
+                                                  height: 56.1,
+                                                  decoration: ShapeDecoration(
+                                                    color: GlobalMainColor
+                                                        .globalPrimaryRedColor,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                  ),
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    '예',
+                                                    style: AppTextStyle
+                                                        .body1Bold
+                                                        .copyWith(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Container(
+                                                  width: 128.9,
+                                                  height: 56.1,
+                                                  decoration: ShapeDecoration(
+                                                    color:
+                                                        GlobalMainGrey.grey200,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                  ),
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    '아니오',
+                                                    style: AppTextStyle
+                                                        .body1Bold
+                                                        .copyWith(
+                                                      color: GlobalMainColor
+                                                          .globalPrimaryBlackColor,
+                                                      letterSpacing: -0.32,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -407,8 +547,17 @@ class _AgreeMarketingButton extends StatefulWidget {
 }
 
 class _AgreeMarketingButtonState extends State<_AgreeMarketingButton> {
+  bool? agreeMarketing;
+
+  @override
+  void initState() {
+    super.initState();
+    agreeMarketing = widget.agreeMarketing;
+  }
+
   @override
   Widget build(BuildContext context) {
+    debugPrint('button = ${widget.agreeMarketing}');
     return CupertinoSwitch(
       activeTrackColor: Color(0xFFFFC600), //on
       inactiveTrackColor: Color(0xFFD1D1D1), //off
@@ -469,6 +618,9 @@ class _AgreeMarketingButtonState extends State<_AgreeMarketingButton> {
                     onTap: () {
                       Navigator.pop(context);
                       setState(() {
+                        if (agreeMarketing != null) {
+                          agreeMarketing = !agreeMarketing!;
+                        }
                         UserDataSource()
                             .putAgreeMarketing(!widget.agreeMarketing!);
                       });
