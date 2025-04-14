@@ -8,6 +8,7 @@ import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/firebase_options.dart';
 import 'package:mayo_flutter/router/router.dart';
 import 'package:mayo_flutter/designSystem/themedata.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,15 @@ class MyApp extends StatelessWidget {
         builder: (_, child) {
           return MaterialApp.router(
             title: '마요',
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', ''),
+              Locale('ko', ''),
+            ],
             theme: customThemeData,
             routerConfig: router,
           );
