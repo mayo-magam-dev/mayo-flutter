@@ -12,6 +12,7 @@ class ReadSimpleStoreResponse with _$ReadSimpleStoreResponse {
     required int storeSellingType,
     required String address,
     required double maxSalePercent,
+    required String storeImage,
   }) = _ReadSimpleStoreResponse;
 
   factory ReadSimpleStoreResponse.fromJson(Map<String, dynamic> json) =>
