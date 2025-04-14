@@ -14,17 +14,15 @@ class _Scaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              topBar,
-              infoHeader,
-              infoMain,
-            ],
-          ),
-        ),
+        body: SafeArea(
+            child: SingleChildScrollView(
+      child: Column(
+        children: [
+          topBar,
+          infoHeader,
+          infoMain,
+        ],
       ),
-    );
+    )));
   }
 }

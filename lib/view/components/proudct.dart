@@ -23,109 +23,104 @@ class ProductComponents extends StatelessWidget {
         context.push(
             '/product/${itemData.itemId}/${storeData.id}/${storeData.storeName}');
       },
-      child: SizedBox(
-        width: double.infinity,
-        height: 125.h,
-        child: Row(
-          children: [
-            Container(
-              width: 84.w,
-              height: 84,
-              decoration: ShapeDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: itemData.itemImage != "."
-                      ? NetworkImage('${itemData.itemImage}')
-                      : NetworkImage(''),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+      child: Row(
+        children: [
+          Container(
+            width: 84.w,
+            height: 84,
+            decoration: ShapeDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: itemData.itemImage != "."
+                    ? NetworkImage('${itemData.itemImage}')
+                    : NetworkImage(''),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-            SizedBox(
-              width: 22.w,
+          ),
+          SizedBox(
+            width: 22.w,
+          ),
+          SizedBox(
+            width: 230.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  itemData.itemName,
+                  style: AppTextStyle.body1Bold,
+                ),
+                SizedBox(
+                  height: 7.h,
+                ),
+                itemData.itemDescription != null
+                    ? Column(
+                        children: [
+                          Text(
+                            itemData.itemDescription!,
+                            style: AppTextStyle.captionMedium,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
+                          SizedBox(
+                            height: 4.h,
+                          ),
+                        ],
+                      )
+                    : SizedBox(),
+                itemData.itemOnSale
+                    ? Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            itemData.salePercent != null
+                                ? "${itemData.salePercent?.toInt()}%"
+                                : "",
+                            style: AppTextStyle.body2Bold
+                                .copyWith(color: Colors.red),
+                          ),
+                          SizedBox(width: 5.w),
+                          Text(
+                            itemData.salePrice != null
+                                ? "${Formater.moneyFormat(itemData.salePrice)}원"
+                                : "0원",
+                            style: AppTextStyle.body2Bold,
+                          ),
+                          SizedBox(width: 5.w),
+                          Text(
+                            itemData.originalPrice != null
+                                ? "${Formater.moneyFormat(itemData.originalPrice)}원"
+                                : "0원",
+                            style: AppTextStyle.captionMedium
+                                .copyWith(color: Colors.grey),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          Text(
+                            itemData.originalPrice != null
+                                ? "${Formater.moneyFormat(itemData.originalPrice)}원"
+                                : "0원",
+                            style: AppTextStyle.body2Bold,
+                          ),
+                          SizedBox.shrink(),
+                        ],
+                      ),
+                SizedBox(
+                  height: 4.h,
+                ),
+                Text(
+                  "${itemData.itemQuantity}개 남음",
+                  style: AppTextStyle.captionMedium
+                      .copyWith(color: GlobalMainGrey.grey400),
+                ),
+              ],
             ),
-            SizedBox(
-              width: 230.w,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    itemData.itemName,
-                    style: AppTextStyle.body1Bold,
-                  ),
-                  SizedBox(
-                    height: 7.h,
-                  ),
-                  itemData.itemDescription != null
-                      ? Column(
-                          children: [
-                            Text(
-                              itemData.itemDescription!,
-                              style: AppTextStyle.captionMedium,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                            ),
-                            SizedBox(
-                              height: 4.h,
-                            ),
-                          ],
-                        )
-                      : SizedBox(),
-                  itemData.itemOnSale
-                      ? Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              itemData.salePercent != null
-                                  ? "${itemData.salePercent?.toInt()}%"
-                                  : "",
-                              style: AppTextStyle.body2Bold
-                                  .copyWith(color: Colors.red),
-                            ),
-                            SizedBox(width: 5.w),
-                            Text(
-                              itemData.salePrice != null
-                                  ? "${Formater.moneyFormat(itemData.salePrice)}원"
-                                  : "0원",
-                              style: AppTextStyle.body2Bold,
-                            ),
-                            SizedBox(width: 5.w),
-                            Text(
-                              itemData.originalPrice != null
-                                  ? "${Formater.moneyFormat(itemData.originalPrice)}원"
-                                  : "0원",
-                              style: AppTextStyle.captionMedium
-                                  .copyWith(color: Colors.grey),
-                            ),
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            Text(
-                              itemData.originalPrice != null
-                                  ? "${Formater.moneyFormat(itemData.originalPrice)}원"
-                                  : "0원",
-                              style: AppTextStyle.body2Bold,
-                            ),
-                            SizedBox.shrink(),
-                          ],
-                        ),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  Text(
-                    "${itemData.itemQuantity}개 남음",
-                    style: AppTextStyle.captionMedium
-                        .copyWith(color: GlobalMainGrey.grey400),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

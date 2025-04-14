@@ -78,22 +78,21 @@ class _StoreInfoSection extends StatelessWidget {
               ),
               itemDataNotEmpty
                   ? Column(
-                      children: List.generate(
-                      itemData.length,
-                      (index) {
-                        return Column(
-                          children: [
-                            ProductComponents(
-                                itemData: itemData[index],
-                                storeData: storeData),
-                            Divider(
-                              color: GlobalMainGrey.grey200,
-                              thickness: 2,
-                            ),
-                          ],
-                        );
-                      },
-                    ))
+                      children: [
+                        ProductComponents(
+                          itemData: itemData[0],
+                          storeData: storeData,
+                        ),
+                        Divider(
+                          color: GlobalMainGrey.grey200,
+                          thickness: 2,
+                        ),
+                        ProductComponents(
+                          itemData: itemData[1],
+                          storeData: storeData,
+                        ),
+                      ],
+                    )
                   : SizedBox(),
             ],
           ),
