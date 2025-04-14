@@ -51,8 +51,6 @@ class _CartContentState extends State<_CartContent> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('pickupTime = $pickupTime');
-    debugPrint('static pickupTime = ${_CartContent.pickupTime}');
     return Column(
       children: [
         Padding(
