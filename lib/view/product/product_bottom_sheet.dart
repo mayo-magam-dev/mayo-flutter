@@ -197,6 +197,9 @@ class _ItemQuantityCounterState extends State<ItemQuantityCounter> {
             ),
             Row(
               children: [
+                Text("${ItemQuantityCounter.itemCount}",
+                    style: AppTextStyle.body1Bold),
+                SizedBox(width: 15.w),
                 GestureDetector(
                   onTap: () {
                     if (ItemQuantityCounter.itemCount > 1) {
@@ -207,10 +210,7 @@ class _ItemQuantityCounterState extends State<ItemQuantityCounter> {
                   },
                   child: SvgPicture.asset("assets/icons/minus.svg"),
                 ),
-                SizedBox(width: 15.w),
-                Text("${ItemQuantityCounter.itemCount}개",
-                    style: AppTextStyle.body1Bold),
-                SizedBox(width: 15.w),
+                SizedBox(width: 20.w),
                 GestureDetector(
                     onTap: () {
                       if (widget.itemQuantity > ItemQuantityCounter.itemCount) {
