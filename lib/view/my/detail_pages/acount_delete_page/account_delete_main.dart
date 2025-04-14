@@ -41,37 +41,26 @@ class _MainState extends State<_Main> {
   }
 
   void _navigateToLogin() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LoginPage(),
-      ),
-    );
+    context.go('/login');
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Stack(
+      child: Column(
         children: [
-          Column(
-            children: [
-              Text(
-                '탈퇴를 위해 아래 문장을 따라 입력해주세요',
-                style: AppTextStyle.heading3Bold.copyWith(
-                  color: GlobalMainColor.globalPrimaryBlackColor,
-                  letterSpacing: -0.84,
-                ),
-              ),
-              SizedBox(height: 26.h),
-              _buildInputField(),
-            ],
+          Text(
+            '탈퇴를 위해 아래 문장을 따라 입력해주세요',
+            style: AppTextStyle.heading3Bold.copyWith(
+              color: GlobalMainColor.globalPrimaryBlackColor,
+              letterSpacing: -0.84,
+            ),
           ),
-          Positioned(
-            bottom: 0,
-            child: _buildNextButton(),
-          ),
+          SizedBox(height: 26.h),
+          _buildInputField(),
+          SizedBox(height: 559.h),
+          _buildNextButton(),
         ],
       ),
     );
@@ -100,6 +89,7 @@ class _MainState extends State<_Main> {
       hintStyle: AppTextStyle.body2Medium.copyWith(
         color: GlobalMainGrey.grey300,
         letterSpacing: -0.28,
+        height: 1.4,
       ),
     );
   }
@@ -200,7 +190,7 @@ class _DeleteConfirmDialog extends StatelessWidget {
           text: '아니오',
           backgroundColor: GlobalMainGrey.grey200,
           textColor: GlobalMainColor.globalPrimaryBlackColor,
-          onTap: () => Navigator.pop(context),
+          onTap: () => context.pop(),
         ),
       ],
     );
