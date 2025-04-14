@@ -11,11 +11,12 @@ _$ReadReservationResponseImpl _$$ReadReservationResponseImplFromJson(
     _$ReadReservationResponseImpl(
       reservationId: json['reservationId'] as String,
       storeName: json['storeName'] as String,
-      createdAt: const TimestampConverter()
-          .fromJson(json['createdAt'] as Map<String, dynamic>),
-      pickupTime: const TimestampConverter()
-          .fromJson(json['pickupTime'] as Map<String, dynamic>),
+      storeImage: json['storeImage'] as String,
+      firstItem:
+          ReadFirstItem.fromJson(json['firstItem'] as Map<String, dynamic>),
       totalPrice: (json['totalPrice'] as num).toDouble(),
+      createdAt: const CreatedAtTimestampConverter()
+          .fromJson(json['createdAt'] as List),
     );
 
 Map<String, dynamic> _$$ReadReservationResponseImplToJson(
@@ -23,7 +24,9 @@ Map<String, dynamic> _$$ReadReservationResponseImplToJson(
     <String, dynamic>{
       'reservationId': instance.reservationId,
       'storeName': instance.storeName,
-      'createdAt': const TimestampConverter().toJson(instance.createdAt),
-      'pickupTime': const TimestampConverter().toJson(instance.pickupTime),
+      'storeImage': instance.storeImage,
+      'firstItem': instance.firstItem,
       'totalPrice': instance.totalPrice,
+      'createdAt':
+          const CreatedAtTimestampConverter().toJson(instance.createdAt),
     };

@@ -209,6 +209,16 @@ class _InfoTable extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        TextButton(
+                            onPressed: () {
+                              UserDataSource().putAgreeMarketing(true);
+                            },
+                            child: Text('true')),
+                        TextButton(
+                            onPressed: () {
+                              UserDataSource().putAgreeMarketing(false);
+                            },
+                            child: Text('false')),
                         Text(
                           '약관 및 정책',
                           style: AppTextStyle.body1Medium.copyWith(
@@ -239,12 +249,22 @@ class _AgreeMarketingButton extends StatefulWidget {
 }
 
 class _AgreeMarketingButtonState extends State<_AgreeMarketingButton> {
+  bool? agreeMarketing;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      agreeMarketing = widget.agreeMarketing;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoSwitch(
       activeTrackColor: Color(0xFFFFC600), //on
       inactiveTrackColor: Color(0xFFD1D1D1), //off
-      value: widget.agreeMarketing ?? false,
+      value: agreeMarketing ?? true,
       onChanged: (value) {
         showGeneralDialog(
           context: context,
@@ -299,11 +319,12 @@ class _AgreeMarketingButtonState extends State<_AgreeMarketingButton> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
                       setState(() {
-                        UserDataSource()
-                            .putAgreeMarketing(!widget.agreeMarketing!);
+                        debugPrint('time = ${DateTime.now()}');
+                        debugPrint('agreeMarketing! = ${agreeMarketing!}');
+                        UserDataSource().putAgreeMarketing(!agreeMarketing!);
                       });
+                      Navigator.pop(context);
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 11.3),

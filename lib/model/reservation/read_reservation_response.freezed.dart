@@ -23,11 +23,11 @@ ReadReservationResponse _$ReadReservationResponseFromJson(
 mixin _$ReadReservationResponse {
   String get reservationId => throw _privateConstructorUsedError;
   String get storeName => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime get pickupTime => throw _privateConstructorUsedError;
+  String get storeImage => throw _privateConstructorUsedError;
+  ReadFirstItem get firstItem => throw _privateConstructorUsedError;
   double get totalPrice => throw _privateConstructorUsedError;
+  @CreatedAtTimestampConverter()
+  DateTime get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this ReadReservationResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,9 +48,12 @@ abstract class $ReadReservationResponseCopyWith<$Res> {
   $Res call(
       {String reservationId,
       String storeName,
-      @TimestampConverter() DateTime createdAt,
-      @TimestampConverter() DateTime pickupTime,
-      double totalPrice});
+      String storeImage,
+      ReadFirstItem firstItem,
+      double totalPrice,
+      @CreatedAtTimestampConverter() DateTime createdAt});
+
+  $ReadFirstItemCopyWith<$Res> get firstItem;
 }
 
 /// @nodoc
@@ -71,9 +74,10 @@ class _$ReadReservationResponseCopyWithImpl<$Res,
   $Res call({
     Object? reservationId = null,
     Object? storeName = null,
-    Object? createdAt = null,
-    Object? pickupTime = null,
+    Object? storeImage = null,
+    Object? firstItem = null,
     Object? totalPrice = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
       reservationId: null == reservationId
@@ -84,19 +88,33 @@ class _$ReadReservationResponseCopyWithImpl<$Res,
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      pickupTime: null == pickupTime
-          ? _value.pickupTime
-          : pickupTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      storeImage: null == storeImage
+          ? _value.storeImage
+          : storeImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      firstItem: null == firstItem
+          ? _value.firstItem
+          : firstItem // ignore: cast_nullable_to_non_nullable
+              as ReadFirstItem,
       totalPrice: null == totalPrice
           ? _value.totalPrice
           : totalPrice // ignore: cast_nullable_to_non_nullable
               as double,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
+  }
+
+  /// Create a copy of ReadReservationResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ReadFirstItemCopyWith<$Res> get firstItem {
+    return $ReadFirstItemCopyWith<$Res>(_value.firstItem, (value) {
+      return _then(_value.copyWith(firstItem: value) as $Val);
+    });
   }
 }
 
@@ -112,9 +130,13 @@ abstract class _$$ReadReservationResponseImplCopyWith<$Res>
   $Res call(
       {String reservationId,
       String storeName,
-      @TimestampConverter() DateTime createdAt,
-      @TimestampConverter() DateTime pickupTime,
-      double totalPrice});
+      String storeImage,
+      ReadFirstItem firstItem,
+      double totalPrice,
+      @CreatedAtTimestampConverter() DateTime createdAt});
+
+  @override
+  $ReadFirstItemCopyWith<$Res> get firstItem;
 }
 
 /// @nodoc
@@ -134,9 +156,10 @@ class __$$ReadReservationResponseImplCopyWithImpl<$Res>
   $Res call({
     Object? reservationId = null,
     Object? storeName = null,
-    Object? createdAt = null,
-    Object? pickupTime = null,
+    Object? storeImage = null,
+    Object? firstItem = null,
     Object? totalPrice = null,
+    Object? createdAt = null,
   }) {
     return _then(_$ReadReservationResponseImpl(
       reservationId: null == reservationId
@@ -147,18 +170,22 @@ class __$$ReadReservationResponseImplCopyWithImpl<$Res>
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      pickupTime: null == pickupTime
-          ? _value.pickupTime
-          : pickupTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      storeImage: null == storeImage
+          ? _value.storeImage
+          : storeImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      firstItem: null == firstItem
+          ? _value.firstItem
+          : firstItem // ignore: cast_nullable_to_non_nullable
+              as ReadFirstItem,
       totalPrice: null == totalPrice
           ? _value.totalPrice
           : totalPrice // ignore: cast_nullable_to_non_nullable
               as double,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -169,9 +196,10 @@ class _$ReadReservationResponseImpl implements _ReadReservationResponse {
   _$ReadReservationResponseImpl(
       {required this.reservationId,
       required this.storeName,
-      @TimestampConverter() required this.createdAt,
-      @TimestampConverter() required this.pickupTime,
-      required this.totalPrice});
+      required this.storeImage,
+      required this.firstItem,
+      required this.totalPrice,
+      @CreatedAtTimestampConverter() required this.createdAt});
 
   factory _$ReadReservationResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReadReservationResponseImplFromJson(json);
@@ -181,17 +209,18 @@ class _$ReadReservationResponseImpl implements _ReadReservationResponse {
   @override
   final String storeName;
   @override
-  @TimestampConverter()
-  final DateTime createdAt;
+  final String storeImage;
   @override
-  @TimestampConverter()
-  final DateTime pickupTime;
+  final ReadFirstItem firstItem;
   @override
   final double totalPrice;
+  @override
+  @CreatedAtTimestampConverter()
+  final DateTime createdAt;
 
   @override
   String toString() {
-    return 'ReadReservationResponse(reservationId: $reservationId, storeName: $storeName, createdAt: $createdAt, pickupTime: $pickupTime, totalPrice: $totalPrice)';
+    return 'ReadReservationResponse(reservationId: $reservationId, storeName: $storeName, storeImage: $storeImage, firstItem: $firstItem, totalPrice: $totalPrice, createdAt: $createdAt)';
   }
 
   @override
@@ -203,18 +232,20 @@ class _$ReadReservationResponseImpl implements _ReadReservationResponse {
                 other.reservationId == reservationId) &&
             (identical(other.storeName, storeName) ||
                 other.storeName == storeName) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.pickupTime, pickupTime) ||
-                other.pickupTime == pickupTime) &&
+            (identical(other.storeImage, storeImage) ||
+                other.storeImage == storeImage) &&
+            (identical(other.firstItem, firstItem) ||
+                other.firstItem == firstItem) &&
             (identical(other.totalPrice, totalPrice) ||
-                other.totalPrice == totalPrice));
+                other.totalPrice == totalPrice) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, reservationId, storeName, createdAt, pickupTime, totalPrice);
+  int get hashCode => Object.hash(runtimeType, reservationId, storeName,
+      storeImage, firstItem, totalPrice, createdAt);
 
   /// Create a copy of ReadReservationResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -235,11 +266,13 @@ class _$ReadReservationResponseImpl implements _ReadReservationResponse {
 
 abstract class _ReadReservationResponse implements ReadReservationResponse {
   factory _ReadReservationResponse(
-      {required final String reservationId,
-      required final String storeName,
-      @TimestampConverter() required final DateTime createdAt,
-      @TimestampConverter() required final DateTime pickupTime,
-      required final double totalPrice}) = _$ReadReservationResponseImpl;
+          {required final String reservationId,
+          required final String storeName,
+          required final String storeImage,
+          required final ReadFirstItem firstItem,
+          required final double totalPrice,
+          @CreatedAtTimestampConverter() required final DateTime createdAt}) =
+      _$ReadReservationResponseImpl;
 
   factory _ReadReservationResponse.fromJson(Map<String, dynamic> json) =
       _$ReadReservationResponseImpl.fromJson;
@@ -249,13 +282,14 @@ abstract class _ReadReservationResponse implements ReadReservationResponse {
   @override
   String get storeName;
   @override
-  @TimestampConverter()
-  DateTime get createdAt;
+  String get storeImage;
   @override
-  @TimestampConverter()
-  DateTime get pickupTime;
+  ReadFirstItem get firstItem;
   @override
   double get totalPrice;
+  @override
+  @CreatedAtTimestampConverter()
+  DateTime get createdAt;
 
   /// Create a copy of ReadReservationResponse
   /// with the given fields replaced by the non-null parameter values.

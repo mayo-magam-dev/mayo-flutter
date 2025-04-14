@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
+import 'package:mayo_flutter/model/reservation/read_reservation_detail_response.dart';
+import 'package:mayo_flutter/model/reservation/read_reservation_response.dart';
 import 'package:mayo_flutter/view/cart/cart_page.dart';
 import 'package:mayo_flutter/view/home/home_page.dart';
 import 'package:mayo_flutter/view/login/login_page.dart';
@@ -52,7 +54,7 @@ final router = GoRouter(
         case LocalLoginState.needRegister:
           return "/register";
         case LocalLoginState.login:
-          return state.matchedLocation == "/login" ? "/" : null;  
+          return state.matchedLocation == "/login" ? "/" : null;
         case LocalLoginState.notLogin:
           return "/login";
       }
@@ -95,11 +97,21 @@ final router = GoRouter(
       path: '/partner-store',
       builder: (context, state) => PartnerStorePage(),
     ),
+    // GoRoute(
+    //     path: '/order/:reservationId/:storeId',
+    //     builder: (context, state) {
+    //       return OrderDetailPage(
+    //         reservationId: state.pathParameters['reservationId']!,
+    //         storeId: state.pathParameters['storeId']!,
+    //       );
+    //     },
+    // ),
     GoRoute(
-        path: '/order/:id',
-        builder: (context, state) {
-          return OrderDetailPage(id: state.pathParameters['id']!);
-        }),
+      path: '/order-detail',
+      builder: (context, state) {
+        return OrderDetailPage();
+      },
+    ),
     GoRoute(
       path: '/signup',
       builder: (context, state) => BlocProvider.value(

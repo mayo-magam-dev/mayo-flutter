@@ -1,33 +1,88 @@
 part of 'order_page.dart';
 
-class _OrderContent extends StatelessWidget {
+class _OrderContent extends StatefulWidget {
   const _OrderContent();
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.all(24.w),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "최근 나의 주문 내역이에요.",
-              style: AppTextStyle.heading2Bold,
-            ),
-            SizedBox(height: 23.h),
-            _OrderItem()
-          ],
-        ));
-  }
+  State<_OrderContent> createState() => _OrderContentState();
 }
 
-class _OrderItem extends StatelessWidget {
-  const _OrderItem();
+class _OrderContentState extends State<_OrderContent> {
+  List<ReadReservationResponse>? reservationData;
+
+  featchReservationData() async {
+    final getReservationData = await ReservationDataSource().getReservations();
+    setState(() {
+      reservationData = getReservationData;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    featchReservationData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    if (reservationData == null) {
+      return SizedBox();
+    }
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "최근 나의 주문 내역이에요.",
+            style: AppTextStyle.heading2Bold,
+          ),
+          SizedBox(height: 23.h),
+          _OrderItem(reservationData![0])
+        ],
+      ),
+    );
+  }
+}
+
+class _OrderItem extends StatefulWidget {
+  const _OrderItem(
+    this.reservationData,
+  );
+
+  final ReadReservationResponse reservationData;
+
+  @override
+  State<_OrderItem> createState() => _OrderItemState();
+}
+
+class _OrderItemState extends State<_OrderItem> {
+  ReadReservationResponse? reservationData;
+
+  ReadReservationDetailResponse? reservationDetailData;
+
+  featchStoreData() async {
+    final ReadReservationDetailResponse getReservationDetail =
+        await ReservationDataSource()
+            .getReservationDetail(reservationData!.reservationId);
+    setState(() {
+      reservationDetailData = getReservationDetail;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    reservationData = widget.reservationData;
+    featchStoreData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (reservationDetailData == null) {
+      return SizedBox();
+    } else if (reservationDetailData != null) {
+      return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.r),
           border: Border.all(color: GlobalMainGrey.grey200),
@@ -55,20 +110,38 @@ class _OrderItem extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text("떡군이네떡볶이", style: AppTextStyle.body1Bold),
-                        SvgPicture.asset(
-                          "assets/icons/right_arrow.svg",
-                          width: 16.w,
-                          height: 16.h,
-                        )
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        // context.push(
+                        //     '/order/${reservationData!.reservationId}/${reservationDetailData!.cartList.first.storeId}');
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const OrderDetailPage(),
+                        //   ),
+                        // );
+                        context.push('/order-detail');
+                      },
+                      child: Row(
+                        children: [
+                          Text(reservationData!.storeName,
+                              style: AppTextStyle.body1Bold),
+                          SvgPicture.asset(
+                            "assets/icons/right_arrow.svg",
+                            width: 16.w,
+                            height: 16.h,
+                          )
+                        ],
+                      ),
                     ),
                     SizedBox(height: 4.h),
-                    Text("떡볶이 외 2개", style: AppTextStyle.body2Medium),
+                    Text(
+                        "${reservationData!.firstItem.itemName} (${reservationData!.firstItem.itemQuantity})개 외 @개",
+                        style: AppTextStyle.body2Medium),
                     SizedBox(height: 5.h),
-                    Text("12,500원", style: AppTextStyle.body2Bold),
+                    Text(
+                        "${Formater.moneyFormat(reservationData!.totalPrice.toInt())}원",
+                        style: AppTextStyle.body2Bold),
                   ],
                 ),
               ],
@@ -78,7 +151,7 @@ class _OrderItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "2024/04/02",
+                  "${reservationData!.createdAt.year}/${reservationData!.createdAt.month}/${reservationData!.createdAt.day}",
                   style: AppTextStyle.body2Medium
                       .copyWith(color: GlobalMainGrey.grey500),
                 ),
@@ -94,6 +167,9 @@ class _OrderItem extends StatelessWidget {
               ],
             )
           ],
-        ));
+        ),
+      );
+    }
+    return CircularProgressIndicator();
   }
 }
