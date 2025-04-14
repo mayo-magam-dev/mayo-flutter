@@ -131,10 +131,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/account-delete',
-      builder: (context, state) => BlocProvider.value(
-        value: _signUpBloc,
-        child: const AccountDeletePage(),
-      ),
+      builder: (context, state) => const AccountDeletePage(),
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
