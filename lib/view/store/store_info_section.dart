@@ -4,11 +4,10 @@ class _StoreInfoSection extends StatelessWidget {
   final ReadStore storeData;
   final List<ReadItem> itemData;
 
-  _StoreInfoSection({
+  const _StoreInfoSection({
     required this.storeData,
     required this.itemData,
   });
-  String a = 'asdf';
 
   @override
   Widget build(BuildContext context) {
