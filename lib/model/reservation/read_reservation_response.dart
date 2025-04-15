@@ -14,6 +14,7 @@ class ReadReservationResponse with _$ReadReservationResponse {
     required ReadFirstItem firstItem,
     required double totalPrice,
     @CreatedAtTimestampConverter() required DateTime createdAt,
+    required int reservationState,
   }) = _ReadReservationResponse;
 
   factory ReadReservationResponse.fromJson(Map<String, dynamic> json) =>

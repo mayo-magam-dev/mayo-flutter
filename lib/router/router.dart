@@ -97,20 +97,15 @@ final router = GoRouter(
       path: '/partner-store',
       builder: (context, state) => PartnerStorePage(),
     ),
-    // GoRoute(
-    //     path: '/order/:reservationId/:storeId',
-    //     builder: (context, state) {
-    //       return OrderDetailPage(
-    //         reservationId: state.pathParameters['reservationId']!,
-    //         storeId: state.pathParameters['storeId']!,
-    //       );
-    //     },
-    // ),
     GoRoute(
-      path: '/order-detail',
-      builder: (context, state) {
-        return OrderDetailPage();
-      },
+        path: '/order/:reservationId/:storeId/:reservationState',
+        builder: (context, state) {
+          return OrderDetailPage(
+            reservationId: state.pathParameters['reservationId']!,
+            storeId: state.pathParameters['storeId']!,
+            reservationState: state.pathParameters['reservationState']!,
+          );
+        },
     ),
     GoRoute(
       path: '/signup',

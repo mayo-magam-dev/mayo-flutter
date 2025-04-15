@@ -17,6 +17,7 @@ _$ReadReservationResponseImpl _$$ReadReservationResponseImplFromJson(
       totalPrice: (json['totalPrice'] as num).toDouble(),
       createdAt: const CreatedAtTimestampConverter()
           .fromJson(json['createdAt'] as List),
+      reservationState: (json['reservationState'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$ReadReservationResponseImplToJson(
@@ -29,4 +30,5 @@ Map<String, dynamic> _$$ReadReservationResponseImplToJson(
       'totalPrice': instance.totalPrice,
       'createdAt':
           const CreatedAtTimestampConverter().toJson(instance.createdAt),
+      'reservationState': instance.reservationState,
     };
