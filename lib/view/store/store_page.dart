@@ -7,6 +7,7 @@ import 'package:mayo_flutter/bloc/store/store_bloc.dart';
 import 'package:mayo_flutter/bloc/store/store_event.dart';
 import 'package:mayo_flutter/bloc/store/store_state.dart';
 import 'package:mayo_flutter/dataSource/item.dart';
+import 'package:mayo_flutter/dataSource/map.dart';
 import 'package:mayo_flutter/dataSource/store.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
@@ -53,7 +54,6 @@ class _StorePageState extends State<StorePage> {
       child: FutureBuilder(
         future: featchStoreData(),
         builder: (context, snapshot) {
-          // return Text('${snapshot.data}');
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
