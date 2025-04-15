@@ -9,8 +9,7 @@ part of 'create_reservation_request.dart';
 _$CreateReservationRequestImpl _$$CreateReservationRequestImplFromJson(
         Map<String, dynamic> json) =>
     _$CreateReservationRequestImpl(
-      pickupTime: const TimestampConverter()
-          .fromJson(json['pickupTime'] as Map<String, dynamic>),
+      pickupTime: DateTime.parse(json['pickupTime'] as String),
       reservationIsPlastic: json['reservationIsPlastic'] as bool,
       reservationRequest: json['reservationRequest'] as String,
     );
@@ -18,7 +17,7 @@ _$CreateReservationRequestImpl _$$CreateReservationRequestImplFromJson(
 Map<String, dynamic> _$$CreateReservationRequestImplToJson(
         _$CreateReservationRequestImpl instance) =>
     <String, dynamic>{
-      'pickupTime': const TimestampConverter().toJson(instance.pickupTime),
+      'pickupTime': instance.pickupTime.toIso8601String(),
       'reservationIsPlastic': instance.reservationIsPlastic,
       'reservationRequest': instance.reservationRequest,
     };

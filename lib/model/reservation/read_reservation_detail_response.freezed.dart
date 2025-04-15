@@ -23,11 +23,11 @@ ReadReservationDetailResponse _$ReadReservationDetailResponseFromJson(
 mixin _$ReadReservationDetailResponse {
   String get storeName => throw _privateConstructorUsedError;
   String get storeNumber => throw _privateConstructorUsedError;
-  @TimestampConverter()
+  @CreatedAtTimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
-  @TimestampConverter()
+  @PickUpTimestampConverter()
   DateTime get pickupTime => throw _privateConstructorUsedError;
-  String get reservationId => throw _privateConstructorUsedError;
+  String? get reservationId => throw _privateConstructorUsedError;
   List<ReadCartResponse> get cartList => throw _privateConstructorUsedError;
   double get totalPrice => throw _privateConstructorUsedError;
 
@@ -52,9 +52,9 @@ abstract class $ReadReservationDetailResponseCopyWith<$Res> {
   $Res call(
       {String storeName,
       String storeNumber,
-      @TimestampConverter() DateTime createdAt,
-      @TimestampConverter() DateTime pickupTime,
-      String reservationId,
+      @CreatedAtTimestampConverter() DateTime createdAt,
+      @PickUpTimestampConverter() DateTime pickupTime,
+      String? reservationId,
       List<ReadCartResponse> cartList,
       double totalPrice});
 }
@@ -79,7 +79,7 @@ class _$ReadReservationDetailResponseCopyWithImpl<$Res,
     Object? storeNumber = null,
     Object? createdAt = null,
     Object? pickupTime = null,
-    Object? reservationId = null,
+    Object? reservationId = freezed,
     Object? cartList = null,
     Object? totalPrice = null,
   }) {
@@ -100,10 +100,10 @@ class _$ReadReservationDetailResponseCopyWithImpl<$Res,
           ? _value.pickupTime
           : pickupTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      reservationId: null == reservationId
+      reservationId: freezed == reservationId
           ? _value.reservationId
           : reservationId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       cartList: null == cartList
           ? _value.cartList
           : cartList // ignore: cast_nullable_to_non_nullable
@@ -128,9 +128,9 @@ abstract class _$$ReadReservationDetailResponseImplCopyWith<$Res>
   $Res call(
       {String storeName,
       String storeNumber,
-      @TimestampConverter() DateTime createdAt,
-      @TimestampConverter() DateTime pickupTime,
-      String reservationId,
+      @CreatedAtTimestampConverter() DateTime createdAt,
+      @PickUpTimestampConverter() DateTime pickupTime,
+      String? reservationId,
       List<ReadCartResponse> cartList,
       double totalPrice});
 }
@@ -154,7 +154,7 @@ class __$$ReadReservationDetailResponseImplCopyWithImpl<$Res>
     Object? storeNumber = null,
     Object? createdAt = null,
     Object? pickupTime = null,
-    Object? reservationId = null,
+    Object? reservationId = freezed,
     Object? cartList = null,
     Object? totalPrice = null,
   }) {
@@ -175,10 +175,10 @@ class __$$ReadReservationDetailResponseImplCopyWithImpl<$Res>
           ? _value.pickupTime
           : pickupTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      reservationId: null == reservationId
+      reservationId: freezed == reservationId
           ? _value.reservationId
           : reservationId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       cartList: null == cartList
           ? _value._cartList
           : cartList // ignore: cast_nullable_to_non_nullable
@@ -198,9 +198,9 @@ class _$ReadReservationDetailResponseImpl
   _$ReadReservationDetailResponseImpl(
       {required this.storeName,
       required this.storeNumber,
-      @TimestampConverter() required this.createdAt,
-      @TimestampConverter() required this.pickupTime,
-      required this.reservationId,
+      @CreatedAtTimestampConverter() required this.createdAt,
+      @PickUpTimestampConverter() required this.pickupTime,
+      this.reservationId,
       required final List<ReadCartResponse> cartList,
       required this.totalPrice})
       : _cartList = cartList;
@@ -214,13 +214,13 @@ class _$ReadReservationDetailResponseImpl
   @override
   final String storeNumber;
   @override
-  @TimestampConverter()
+  @CreatedAtTimestampConverter()
   final DateTime createdAt;
   @override
-  @TimestampConverter()
+  @PickUpTimestampConverter()
   final DateTime pickupTime;
   @override
-  final String reservationId;
+  final String? reservationId;
   final List<ReadCartResponse> _cartList;
   @override
   List<ReadCartResponse> get cartList {
@@ -292,9 +292,9 @@ abstract class _ReadReservationDetailResponse
   factory _ReadReservationDetailResponse(
       {required final String storeName,
       required final String storeNumber,
-      @TimestampConverter() required final DateTime createdAt,
-      @TimestampConverter() required final DateTime pickupTime,
-      required final String reservationId,
+      @CreatedAtTimestampConverter() required final DateTime createdAt,
+      @PickUpTimestampConverter() required final DateTime pickupTime,
+      final String? reservationId,
       required final List<ReadCartResponse> cartList,
       required final double totalPrice}) = _$ReadReservationDetailResponseImpl;
 
@@ -306,13 +306,13 @@ abstract class _ReadReservationDetailResponse
   @override
   String get storeNumber;
   @override
-  @TimestampConverter()
+  @CreatedAtTimestampConverter()
   DateTime get createdAt;
   @override
-  @TimestampConverter()
+  @PickUpTimestampConverter()
   DateTime get pickupTime;
   @override
-  String get reservationId;
+  String? get reservationId;
   @override
   List<ReadCartResponse> get cartList;
   @override

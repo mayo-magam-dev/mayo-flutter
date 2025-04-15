@@ -21,7 +21,6 @@ CreateReservationRequest _$CreateReservationRequestFromJson(
 
 /// @nodoc
 mixin _$CreateReservationRequest {
-  @TimestampConverter()
   DateTime get pickupTime => throw _privateConstructorUsedError;
   bool get reservationIsPlastic => throw _privateConstructorUsedError;
   String get reservationRequest => throw _privateConstructorUsedError;
@@ -43,7 +42,7 @@ abstract class $CreateReservationRequestCopyWith<$Res> {
       _$CreateReservationRequestCopyWithImpl<$Res, CreateReservationRequest>;
   @useResult
   $Res call(
-      {@TimestampConverter() DateTime pickupTime,
+      {DateTime pickupTime,
       bool reservationIsPlastic,
       String reservationRequest});
 }
@@ -95,7 +94,7 @@ abstract class _$$CreateReservationRequestImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@TimestampConverter() DateTime pickupTime,
+      {DateTime pickupTime,
       bool reservationIsPlastic,
       String reservationRequest});
 }
@@ -140,7 +139,7 @@ class __$$CreateReservationRequestImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CreateReservationRequestImpl implements _CreateReservationRequest {
   _$CreateReservationRequestImpl(
-      {@TimestampConverter() required this.pickupTime,
+      {required this.pickupTime,
       required this.reservationIsPlastic,
       required this.reservationRequest});
 
@@ -148,7 +147,6 @@ class _$CreateReservationRequestImpl implements _CreateReservationRequest {
       _$$CreateReservationRequestImplFromJson(json);
 
   @override
-  @TimestampConverter()
   final DateTime pickupTime;
   @override
   final bool reservationIsPlastic;
@@ -197,7 +195,7 @@ class _$CreateReservationRequestImpl implements _CreateReservationRequest {
 
 abstract class _CreateReservationRequest implements CreateReservationRequest {
   factory _CreateReservationRequest(
-          {@TimestampConverter() required final DateTime pickupTime,
+          {required final DateTime pickupTime,
           required final bool reservationIsPlastic,
           required final String reservationRequest}) =
       _$CreateReservationRequestImpl;
@@ -206,7 +204,6 @@ abstract class _CreateReservationRequest implements CreateReservationRequest {
       _$CreateReservationRequestImpl.fromJson;
 
   @override
-  @TimestampConverter()
   DateTime get pickupTime;
   @override
   bool get reservationIsPlastic;
