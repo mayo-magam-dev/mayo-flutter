@@ -99,14 +99,14 @@ final router = GoRouter(
       builder: (context, state) => PartnerStorePage(),
     ),
     GoRoute(
-        path: '/order/:reservationId/:storeId/:reservationState',
-        builder: (context, state) {
-          return OrderDetailPage(
-            reservationId: state.pathParameters['reservationId']!,
-            storeId: state.pathParameters['storeId']!,
-            reservationState: state.pathParameters['reservationState']!,
-          );
-        },
+      path: '/order/:reservationId/:storeId/:reservationState',
+      builder: (context, state) {
+        return OrderDetailPage(
+          reservationId: state.pathParameters['reservationId']!,
+          storeId: state.pathParameters['storeId']!,
+          reservationState: state.pathParameters['reservationState']!,
+        );
+      },
     ),
     GoRoute(
       path: '/signup',
@@ -139,6 +139,10 @@ final router = GoRouter(
     GoRoute(
       path: '/account-delete',
       builder: (context, state) => const AccountDeletePage(),
+    ),
+    GoRoute(
+      path: '/announcement',
+      builder: (context, state) => AnnouncementPage(),
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
