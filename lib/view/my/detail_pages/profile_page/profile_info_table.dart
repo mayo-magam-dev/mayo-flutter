@@ -314,7 +314,7 @@ class _InfoTableState extends State<_InfoTable> {
                         ),
                       ),
                       Text(
-                        userData?.gender ?? 'null',
+                        '${userData?.gender}',
                         style: AppTextStyle.body1Medium.copyWith(
                           color: GlobalMainGrey.grey500,
                         ),
