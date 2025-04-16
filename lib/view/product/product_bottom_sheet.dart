@@ -169,6 +169,7 @@ class ItemQuantityCounter extends StatefulWidget {
     required this.salePrice,
     required this.itemQuantity,
   });
+  
   final double salePrice;
   final int itemQuantity;
 
