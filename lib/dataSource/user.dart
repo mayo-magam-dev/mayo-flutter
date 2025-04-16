@@ -8,10 +8,19 @@ import 'package:mayo_flutter/model/user/update_email_request.dart';
 import 'package:mayo_flutter/model/user/update_favorite_store_request.dart';
 import 'package:mayo_flutter/model/user/update_nickname_request.dart';
 import 'package:mayo_flutter/model/user/update_notice_store_request.dart';
+import 'package:mayo_flutter/model/user/update_user_image_request.dart';
 import 'package:mayo_flutter/network/dio.dart';
 
 class UserDataSource {
   final dio = AppDio.getInstance();
+
+  Future<void> putUserImage(String file) async {
+    final request = UpdateUserImageRequest(file: file);
+    await dio.put(
+      '${dotenv.env['API_URL']}/user/userImage',
+      data: request.toJson(),
+    );
+  }
 
   Future<void> putNoticeStore(String storeId) async {
     final request = UpdateNoticeStoreRequest(storeId: storeId);
