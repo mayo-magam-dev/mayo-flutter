@@ -43,33 +43,42 @@ class _StoreMapState extends State<_StoreMap> {
           return const Center(child: CircularProgressIndicator());
         }
 
-        return Column(
-          children: [
-            SizedBox(
-              width: 320.w,
-              height: 262.h,
-              child: KakaoMap(
-                onMapCreated: (controller) {
-                  mapController = controller;
-                  if (!isMapReady) {
-                    setState(() {
-                      isMapReady = true;
-                    });
-                  }
-                },
-                markers: markers.toList(),
-                center: markers.first.latLng,
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 35),
+          child: Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: 262.h,
+                child: KakaoMap(
+                  onMapCreated: (controller) {
+                    mapController = controller;
+                    if (!isMapReady) {
+                      setState(() {
+                        isMapReady = true;
+                      });
+                    }
+                  },
+                  markers: markers.toList(),
+                  center: markers.first.latLng,
+                ),
               ),
-            ),
-            SizedBox(height: 20.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.location_on, size: 20.sp),
-                Text(widget.storeData.address, style: AppTextStyle.body1Medium),
-              ],
-            ),
-          ],
+              SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    size: 20.sp,
+                  ),
+                  Text(
+                    widget.storeData.address,
+                    style: AppTextStyle.body1Medium,
+                  ),
+                ],
+              ),
+            ],
+          ),
         );
       },
     );
