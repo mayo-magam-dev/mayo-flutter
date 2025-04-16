@@ -20,3 +20,59 @@ class TimestampConverter
     return {'seconds': seconds, 'nanos': nanos};
   }
 }
+
+class CreatedAtTimestampConverter implements JsonConverter<DateTime, List<dynamic>> {
+  const CreatedAtTimestampConverter();
+
+  @override
+  DateTime fromJson(List<dynamic> json) {
+    return DateTime(
+      json[0] as int, // year
+      json[1] as int, // month
+      json[2] as int, // day
+      json[3] as int, // hour
+      json[4] as int, // minute
+      json[5] as int, // second
+      json[6] ~/ 1000000, // millisecond (나노초 → 밀리초)
+    );
+  }
+
+  @override
+  List<dynamic> toJson(DateTime object) {
+    return [
+      object.year,
+      object.month,
+      object.day,
+      object.hour,
+      object.minute,
+      object.second,
+      object.millisecond * 1000000, // 밀리초 → 나노초
+    ];
+  }
+}
+
+class PickUpTimestampConverter implements JsonConverter<DateTime, List<dynamic>> {
+  const PickUpTimestampConverter();
+
+  @override
+  DateTime fromJson(List<dynamic> json) {
+    return DateTime(
+      json[0] as int, // year
+      json[1] as int, // month
+      json[2] as int, // day
+      json[3] as int, // hour
+      json[4] as int, // minute
+    );
+  }
+
+  @override
+  List<dynamic> toJson(DateTime object) {
+    return [
+      object.year,
+      object.month,
+      object.day,
+      object.hour,
+      object.minute,
+    ];
+  }
+}

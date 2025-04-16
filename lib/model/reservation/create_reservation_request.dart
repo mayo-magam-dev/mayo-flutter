@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mayo_flutter/util/timestamp_converter.dart';
 
 part 'create_reservation_request.freezed.dart';
 part 'create_reservation_request.g.dart';
@@ -7,7 +6,7 @@ part 'create_reservation_request.g.dart';
 @freezed
 class CreateReservationRequest with _$CreateReservationRequest {
   factory CreateReservationRequest({
-    @TimestampConverter() required DateTime pickupTime,
+    required DateTime pickupTime,
     required bool reservationIsPlastic,
     required String reservationRequest,
   }) = _CreateReservationRequest;

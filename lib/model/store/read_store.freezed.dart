@@ -38,6 +38,7 @@ mixin _$ReadStore {
   int get storeSellingType =>
       throw _privateConstructorUsedError; // 1 : 포장, 2 : 매장, 3 : 포장·매장
   String? get mainImage => throw _privateConstructorUsedError;
+  String? get accountNumber => throw _privateConstructorUsedError;
 
   /// Serializes this ReadStore to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,7 +72,8 @@ abstract class $ReadStoreCopyWith<$Res> {
       String? additionalComment,
       int storeCategory,
       int storeSellingType,
-      String? mainImage});
+      String? mainImage,
+      String? accountNumber});
 }
 
 /// @nodoc
@@ -106,6 +108,7 @@ class _$ReadStoreCopyWithImpl<$Res, $Val extends ReadStore>
     Object? storeCategory = null,
     Object? storeSellingType = null,
     Object? mainImage = freezed,
+    Object? accountNumber = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -176,6 +179,10 @@ class _$ReadStoreCopyWithImpl<$Res, $Val extends ReadStore>
           ? _value.mainImage
           : mainImage // ignore: cast_nullable_to_non_nullable
               as String?,
+      accountNumber: freezed == accountNumber
+          ? _value.accountNumber
+          : accountNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -205,7 +212,8 @@ abstract class _$$ReadStoreImplCopyWith<$Res>
       String? additionalComment,
       int storeCategory,
       int storeSellingType,
-      String? mainImage});
+      String? mainImage,
+      String? accountNumber});
 }
 
 /// @nodoc
@@ -238,6 +246,7 @@ class __$$ReadStoreImplCopyWithImpl<$Res>
     Object? storeCategory = null,
     Object? storeSellingType = null,
     Object? mainImage = freezed,
+    Object? accountNumber = freezed,
   }) {
     return _then(_$ReadStoreImpl(
       id: null == id
@@ -308,6 +317,10 @@ class __$$ReadStoreImplCopyWithImpl<$Res>
           ? _value.mainImage
           : mainImage // ignore: cast_nullable_to_non_nullable
               as String?,
+      accountNumber: freezed == accountNumber
+          ? _value.accountNumber
+          : accountNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -332,7 +345,8 @@ class _$ReadStoreImpl implements _ReadStore {
       this.additionalComment,
       required this.storeCategory,
       required this.storeSellingType,
-      this.mainImage});
+      this.mainImage,
+      this.accountNumber});
 
   factory _$ReadStoreImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReadStoreImplFromJson(json);
@@ -372,10 +386,12 @@ class _$ReadStoreImpl implements _ReadStore {
 // 1 : 포장, 2 : 매장, 3 : 포장·매장
   @override
   final String? mainImage;
+  @override
+  final String? accountNumber;
 
   @override
   String toString() {
-    return 'ReadStore(id: $id, storeName: $storeName, openState: $openState, address: $address, storeImage: $storeImage, openTime: $openTime, closeTime: $closeTime, saleStart: $saleStart, saleEnd: $saleEnd, storeDescription: $storeDescription, storeNumber: $storeNumber, storeMapUrl: $storeMapUrl, originInfo: $originInfo, additionalComment: $additionalComment, storeCategory: $storeCategory, storeSellingType: $storeSellingType, mainImage: $mainImage)';
+    return 'ReadStore(id: $id, storeName: $storeName, openState: $openState, address: $address, storeImage: $storeImage, openTime: $openTime, closeTime: $closeTime, saleStart: $saleStart, saleEnd: $saleEnd, storeDescription: $storeDescription, storeNumber: $storeNumber, storeMapUrl: $storeMapUrl, originInfo: $originInfo, additionalComment: $additionalComment, storeCategory: $storeCategory, storeSellingType: $storeSellingType, mainImage: $mainImage, accountNumber: $accountNumber)';
   }
 
   @override
@@ -413,7 +429,9 @@ class _$ReadStoreImpl implements _ReadStore {
             (identical(other.storeSellingType, storeSellingType) ||
                 other.storeSellingType == storeSellingType) &&
             (identical(other.mainImage, mainImage) ||
-                other.mainImage == mainImage));
+                other.mainImage == mainImage) &&
+            (identical(other.accountNumber, accountNumber) ||
+                other.accountNumber == accountNumber));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -436,7 +454,8 @@ class _$ReadStoreImpl implements _ReadStore {
       additionalComment,
       storeCategory,
       storeSellingType,
-      mainImage);
+      mainImage,
+      accountNumber);
 
   /// Create a copy of ReadStore
   /// with the given fields replaced by the non-null parameter values.
@@ -472,7 +491,8 @@ abstract class _ReadStore implements ReadStore {
       final String? additionalComment,
       required final int storeCategory,
       required final int storeSellingType,
-      final String? mainImage}) = _$ReadStoreImpl;
+      final String? mainImage,
+      final String? accountNumber}) = _$ReadStoreImpl;
 
   factory _ReadStore.fromJson(Map<String, dynamic> json) =
       _$ReadStoreImpl.fromJson;
@@ -511,6 +531,8 @@ abstract class _ReadStore implements ReadStore {
   int get storeSellingType; // 1 : 포장, 2 : 매장, 3 : 포장·매장
   @override
   String? get mainImage;
+  @override
+  String? get accountNumber;
 
   /// Create a copy of ReadStore
   /// with the given fields replaced by the non-null parameter values.
