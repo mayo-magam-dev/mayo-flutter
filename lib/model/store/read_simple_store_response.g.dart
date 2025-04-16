@@ -15,6 +15,7 @@ _$ReadSimpleStoreResponseImpl _$$ReadSimpleStoreResponseImplFromJson(
       storeSellingType: (json['storeSellingType'] as num).toInt(),
       address: json['address'] as String,
       maxSalePercent: (json['maxSalePercent'] as num).toDouble(),
+      storeImage: json['storeImage'] as String,
     );
 
 Map<String, dynamic> _$$ReadSimpleStoreResponseImplToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$ReadSimpleStoreResponseImplToJson(
       'storeSellingType': instance.storeSellingType,
       'address': instance.address,
       'maxSalePercent': instance.maxSalePercent,
+      'storeImage': instance.storeImage,
     };

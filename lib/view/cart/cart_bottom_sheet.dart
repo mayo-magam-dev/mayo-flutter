@@ -1,7 +1,6 @@
 part of 'cart_page.dart';
 
 class _CartBottomSheet extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -81,7 +80,7 @@ class _CartBottomSheet extends StatelessWidget {
                   reservationRequest: _CartContent.reservationRequest,
                 );
                 ReservationDataSource().createReservation(request: request);
-                Navigator.pop(context);
+                context.pop();
               },
             )
           ],

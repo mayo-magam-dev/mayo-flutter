@@ -9,7 +9,8 @@ class _List extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 424.h,
-      padding: EdgeInsets.fromLTRB(24, 29, 24, 21),
+      // padding: EdgeInsets.fromLTRB(24, 29, 24, 21),
+      padding: EdgeInsets.fromLTRB(24, 19, 21, 0),
       child: Column(
         children: [
           Padding(
@@ -25,11 +26,10 @@ class _List extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.keyboard_arrow_right_rounded,
-                    size: 10.2,
-                  ),
+                  onPressed: () {
+                    context.push('/onsale');
+                  },
+                  icon: SvgPicture.asset('assets/icons/right_arrow2.svg'),
                 ),
               ],
             ),
@@ -41,43 +41,46 @@ class _List extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              return Column(
-                children: state.randomStores.map((store) {
-                  Future<ReadStore> data =
-                      StoreDataSource().getStoreDetail(store.id);
-                  return Column(
-                    children: [
-                      FutureBuilder(
-                          future: data,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData == false) {
-                              return SizedBox();
-                            }
-                            return StoreInfoBar(
-                              storeName: store.storeName,
-                              storeDescription:
-                                  '${store.address}\n최대 ${store.maxSalePercent.toStringAsFixed(0)}% 할인중',
-                              imageUrl: snapshot.data!.storeImage,
-                              onTap: () {
-                                context.push('/store/${store.id}');
-                              },
-                            );
-                          }),
-                      if (store != state.randomStores.last)
-                        Container(
-                          width: double.infinity,
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                width: 1,
-                                color: GlobalMainGrey.grey200,
+              return Padding(
+                padding: EdgeInsets.only(right: 3.w),
+                child: Column(
+                  children: state.randomStores.map((store) {
+                    Future<ReadStore> data =
+                        StoreDataSource().getStoreDetail(store.id);
+                    return Column(
+                      children: [
+                        FutureBuilder(
+                            future: data,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData == false) {
+                                return SizedBox();
+                              }
+                              return StoreInfoBar(
+                                storeName: store.storeName,
+                                storeDescription:
+                                    '${store.address}\n최대 ${store.maxSalePercent.toStringAsFixed(0)}% 할인중',
+                                imageUrl: snapshot.data!.storeImage,
+                                onTap: () {
+                                  context.push('/store/${store.id}');
+                                },
+                              );
+                            }),
+                        if (store != state.randomStores.last)
+                          Container(
+                            width: double.infinity,
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: GlobalMainGrey.grey200,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                    ],
-                  );
-                }).toList(),
+                      ],
+                    );
+                  }).toList(),
+                ),
               );
             },
           ),

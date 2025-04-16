@@ -33,14 +33,15 @@ class OneProductWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
+                width: double.infinity,
+                height: 123.h,
                 margin: EdgeInsets.symmetric(vertical: 21.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                ),
-                child: Image.asset(
-                  "assets/images/empty_cart.png",
-                  width: 342.w,
-                  height: 123.h,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(storeData![storeIndex].storeImage),
+                  ),
                 ),
               ),
               Row(

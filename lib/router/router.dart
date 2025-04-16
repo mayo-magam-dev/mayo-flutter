@@ -4,9 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
+import 'package:mayo_flutter/model/reservation/read_reservation_detail_response.dart';
+import 'package:mayo_flutter/model/reservation/read_reservation_response.dart';
 import 'package:mayo_flutter/view/cart/cart_page.dart';
 import 'package:mayo_flutter/view/home/home_page.dart';
 import 'package:mayo_flutter/view/login/login_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/acount_delete_page/account_delete_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/announcement_page/announcement_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/customer_center_page/costomer_center_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/event_page/event_page.dart';
@@ -52,7 +55,7 @@ final router = GoRouter(
         case LocalLoginState.needRegister:
           return "/register";
         case LocalLoginState.login:
-          return state.matchedLocation == "/login" ? "/" : null;  
+          return state.matchedLocation == "/login" ? "/" : null;
         case LocalLoginState.notLogin:
           return "/login";
       }
@@ -96,10 +99,15 @@ final router = GoRouter(
       builder: (context, state) => PartnerStorePage(),
     ),
     GoRoute(
-        path: '/order/:id',
+        path: '/order/:reservationId/:storeId/:reservationState',
         builder: (context, state) {
-          return OrderDetailPage(id: state.pathParameters['id']!);
-        }),
+          return OrderDetailPage(
+            reservationId: state.pathParameters['reservationId']!,
+            storeId: state.pathParameters['storeId']!,
+            reservationState: state.pathParameters['reservationState']!,
+          );
+        },
+    ),
     GoRoute(
       path: '/signup',
       builder: (context, state) => BlocProvider.value(
@@ -128,6 +136,10 @@ final router = GoRouter(
         child: SignUpStep5Page(),
       ),
     ),
+    GoRoute(
+      path: '/account-delete',
+      builder: (context, state) => const AccountDeletePage(),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
@@ -149,10 +161,6 @@ final router = GoRouter(
         GoRoute(
           path: '/my',
           builder: (context, state) => const MyPage(),
-        ),
-        GoRoute(
-          path: '/announcement',
-          builder: (context, state) => const AnnouncementPage(),
         ),
         GoRoute(
           path: '/terms-list',

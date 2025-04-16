@@ -10,9 +10,9 @@ class ReadReservationDetailResponse with _$ReadReservationDetailResponse {
   factory ReadReservationDetailResponse({
     required String storeName,
     required String storeNumber,
-    @TimestampConverter() required DateTime createdAt,
-    @TimestampConverter() required DateTime pickupTime,
-    required String reservationId,
+    @CreatedAtTimestampConverter() required DateTime createdAt,
+    @PickUpTimestampConverter() required DateTime pickupTime,
+    String? reservationId,
     required List<ReadCartResponse> cartList,
     required double totalPrice,
   }) = _ReadReservationDetailResponse;
