@@ -21,8 +21,10 @@ class ProductComponents extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push(
-            '/product/${itemData.itemId}/${storeData.id}/${storeData.storeName}');
+        if (itemData.itemOnSale != true) {
+          context.push(
+              '/product/${itemData.itemId}/${storeData.id}/${storeData.storeName}');
+        }
       },
       child: SizedBox(
         width: double.infinity,
