@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
@@ -28,20 +29,41 @@ class ProductComponents extends StatelessWidget {
         height: 125.h,
         child: Row(
           children: [
-            Container(
-              width: 84.w,
-              height: 84,
-              decoration: ShapeDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: itemData.itemImage != "."
-                      ? NetworkImage('${itemData.itemImage}')
-                      : NetworkImage(''),
+            Stack(
+              children: [
+                Container(
+                  width: 84.w,
+                  height: 84.h,
+                  decoration: ShapeDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: itemData.itemImage != "."
+                          ? NetworkImage('${itemData.itemImage}')
+                          : NetworkImage(''),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+                (itemData.itemOnSale == true)
+                    ? SizedBox.shrink()
+                    : Container(
+                        width: 84.w,
+                        height: 84.h,
+                        decoration: BoxDecoration(
+                          color: Colors.black.withAlpha(210),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            'assets/icons/vector.svg',
+                            width: 34.w,
+                            height: 33.h,
+                          ),
+                        ),
+                      ),
+              ],
             ),
             SizedBox(
               width: 22.w,
