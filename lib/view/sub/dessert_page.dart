@@ -18,7 +18,11 @@ class DessertPage extends StatelessWidget {
       future: dessertData,
       builder: (context, snapshot) {
         if (snapshot.hasData == false) {
-          return SizedBox();
+          return Container(
+            alignment: Alignment.center,
+            child: CircularProgressIndicator(
+                color: GlobalMainColor.globalMainColor),
+          );
         }
         return Expanded(
           child: ListView.builder(
@@ -42,7 +46,7 @@ class DessertPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Topbar(title: "가벼운 식사", showCarts: true),
+            Topbar(title: "가벼운 간식", showCarts: true),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
