@@ -1,9 +1,5 @@
-import 'dart:io';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
-import 'package:mayo_flutter/model/user/create_fcm_token.dart';
 import 'package:mayo_flutter/model/user/create_user.dart';
 import 'package:mayo_flutter/util/formater.dart';
 
@@ -117,11 +113,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
           await _userDataSource.createUser(createUser: newUserInfo);
           emit(state.copyWith(userInfo: newUserInfo, isSuccess: true));
-          String? fcmToken = await FirebaseMessaging.instance.getToken();
-          await _userDataSource.createFcmToken(
-              createFcmToken: CreateFcmToken(
-                  deviceType: Platform.isAndroid ? "Android" : "iOS",
-                  fcmToken: fcmToken!));
         } else {
           throw Exception(
               '사용자 정보가 불완전합니다: email=${state.email}, name=${state.name}, displayName=${state.displayName}, phoneNumber=${state.phoneNumber}, gender=${state.gender}');
