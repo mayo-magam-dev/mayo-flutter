@@ -99,7 +99,6 @@ class _BottomSheetState extends State<_BottomSheet> {
                       );
                     } else if (cartData!.isNotEmpty) {
                       //장바구니에 아이템이 있다면
-                      if (cartData!.length < 2) {
                         try {
                           ReadCartResponse targetStore = cartData!.firstWhere(
                               (item) =>
@@ -135,7 +134,7 @@ class _BottomSheetState extends State<_BottomSheet> {
                           } else {
                             //장바구니의 아이템과 저장할 아이템의 가게가 다르다면
                           }
-                        }
+                        
                       }
                     }
                   },
