@@ -27,6 +27,7 @@ mixin _$ReadSimpleStoreResponse {
   int get storeSellingType => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   double get maxSalePercent => throw _privateConstructorUsedError;
+  String get storeImage => throw _privateConstructorUsedError;
 
   /// Serializes this ReadSimpleStoreResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,7 +51,8 @@ abstract class $ReadSimpleStoreResponseCopyWith<$Res> {
       bool openState,
       int storeSellingType,
       String address,
-      double maxSalePercent});
+      double maxSalePercent,
+      String storeImage});
 }
 
 /// @nodoc
@@ -75,6 +77,7 @@ class _$ReadSimpleStoreResponseCopyWithImpl<$Res,
     Object? storeSellingType = null,
     Object? address = null,
     Object? maxSalePercent = null,
+    Object? storeImage = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -101,6 +104,10 @@ class _$ReadSimpleStoreResponseCopyWithImpl<$Res,
           ? _value.maxSalePercent
           : maxSalePercent // ignore: cast_nullable_to_non_nullable
               as double,
+      storeImage: null == storeImage
+          ? _value.storeImage
+          : storeImage // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -120,7 +127,8 @@ abstract class _$$ReadSimpleStoreResponseImplCopyWith<$Res>
       bool openState,
       int storeSellingType,
       String address,
-      double maxSalePercent});
+      double maxSalePercent,
+      String storeImage});
 }
 
 /// @nodoc
@@ -144,6 +152,7 @@ class __$$ReadSimpleStoreResponseImplCopyWithImpl<$Res>
     Object? storeSellingType = null,
     Object? address = null,
     Object? maxSalePercent = null,
+    Object? storeImage = null,
   }) {
     return _then(_$ReadSimpleStoreResponseImpl(
       id: null == id
@@ -170,6 +179,10 @@ class __$$ReadSimpleStoreResponseImplCopyWithImpl<$Res>
           ? _value.maxSalePercent
           : maxSalePercent // ignore: cast_nullable_to_non_nullable
               as double,
+      storeImage: null == storeImage
+          ? _value.storeImage
+          : storeImage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -183,7 +196,8 @@ class _$ReadSimpleStoreResponseImpl implements _ReadSimpleStoreResponse {
       required this.openState,
       required this.storeSellingType,
       required this.address,
-      required this.maxSalePercent});
+      required this.maxSalePercent,
+      required this.storeImage});
 
   factory _$ReadSimpleStoreResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReadSimpleStoreResponseImplFromJson(json);
@@ -200,10 +214,12 @@ class _$ReadSimpleStoreResponseImpl implements _ReadSimpleStoreResponse {
   final String address;
   @override
   final double maxSalePercent;
+  @override
+  final String storeImage;
 
   @override
   String toString() {
-    return 'ReadSimpleStoreResponse(id: $id, storeName: $storeName, openState: $openState, storeSellingType: $storeSellingType, address: $address, maxSalePercent: $maxSalePercent)';
+    return 'ReadSimpleStoreResponse(id: $id, storeName: $storeName, openState: $openState, storeSellingType: $storeSellingType, address: $address, maxSalePercent: $maxSalePercent, storeImage: $storeImage)';
   }
 
   @override
@@ -220,13 +236,15 @@ class _$ReadSimpleStoreResponseImpl implements _ReadSimpleStoreResponse {
                 other.storeSellingType == storeSellingType) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.maxSalePercent, maxSalePercent) ||
-                other.maxSalePercent == maxSalePercent));
+                other.maxSalePercent == maxSalePercent) &&
+            (identical(other.storeImage, storeImage) ||
+                other.storeImage == storeImage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, storeName, openState,
-      storeSellingType, address, maxSalePercent);
+      storeSellingType, address, maxSalePercent, storeImage);
 
   /// Create a copy of ReadSimpleStoreResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -252,7 +270,8 @@ abstract class _ReadSimpleStoreResponse implements ReadSimpleStoreResponse {
       required final bool openState,
       required final int storeSellingType,
       required final String address,
-      required final double maxSalePercent}) = _$ReadSimpleStoreResponseImpl;
+      required final double maxSalePercent,
+      required final String storeImage}) = _$ReadSimpleStoreResponseImpl;
 
   factory _ReadSimpleStoreResponse.fromJson(Map<String, dynamic> json) =
       _$ReadSimpleStoreResponseImpl.fromJson;
@@ -269,6 +288,8 @@ abstract class _ReadSimpleStoreResponse implements ReadSimpleStoreResponse {
   String get address;
   @override
   double get maxSalePercent;
+  @override
+  String get storeImage;
 
   /// Create a copy of ReadSimpleStoreResponse
   /// with the given fields replaced by the non-null parameter values.

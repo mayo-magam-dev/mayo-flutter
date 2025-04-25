@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,8 +7,8 @@ import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:mayo_flutter/bloc/store/store_bloc.dart';
 import 'package:mayo_flutter/bloc/store/store_event.dart';
 import 'package:mayo_flutter/bloc/store/store_state.dart';
-import 'package:mayo_flutter/dataSource/cart.dart';
 import 'package:mayo_flutter/dataSource/item.dart';
+import 'package:mayo_flutter/dataSource/map.dart';
 import 'package:mayo_flutter/dataSource/store.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
@@ -17,6 +18,7 @@ import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/view/components/proudct.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 
 part 'store_scaffold.dart';
 part 'store_info_header.dart';
@@ -35,19 +37,16 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
-  late Future<ReadStore?> store;
-  late Future<List<ReadItem?>> storeItems;
-
   @override
   void initState() {
     super.initState();
-    store = StoreDataSource().getStoreDetail(widget.id);
-    storeItems = ItemDataSource().getItemsByStoreId(widget.id);
   }
 
   Future<(ReadStore, List<ReadItem>)> featchStoreData() async {
-    final results = await Future.wait([store, storeItems]);
-    return (results[0] as ReadStore, results[1] as List<ReadItem>);
+    final storeDetail = await StoreDataSource().getStoreDetail(widget.id);
+    await Future.delayed(const Duration(seconds: 1));
+    final storeItems = await ItemDataSource().getItemsByStoreId(widget.id);
+    return (storeDetail, storeItems);
   }
 
   @override
@@ -58,7 +57,7 @@ class _StorePageState extends State<StorePage> {
         future: featchStoreData(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return SizedBox();
+            return Center(child: CircularProgressIndicator());
           }
 
           return _Scaffold(

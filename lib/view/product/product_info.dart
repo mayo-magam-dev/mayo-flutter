@@ -25,14 +25,14 @@ class _ProductInfo extends StatelessWidget {
               SizedBox(height: 8.h),
               Row(
                 children: [
-                  Text("${itemData!.salePercent}%",
+                  Text("${itemData!.salePercent?.toInt()}%",
                       style: AppTextStyle.body2Bold.copyWith(
                           color: GlobalMainColor.globalPrimaryRedColor)),
                   SizedBox(width: 5.w),
-                  Text(numberFormat.format(itemData!.salePrice),
+                  Text(Formater.moneyFormat(itemData!.salePrice),
                       style: AppTextStyle.body2Bold),
                   SizedBox(width: 5.w),
-                  Text(numberFormat.format(itemData!.originalPrice),
+                  Text(Formater.moneyFormat(itemData!.originalPrice),
                       style: AppTextStyle.body2Medium.copyWith(
                           color: GlobalMainGrey.grey300,
                           decoration: TextDecoration.lineThrough)),
@@ -53,7 +53,7 @@ class _ProductInfo extends StatelessWidget {
                   SvgPicture.asset("assets/icons/pizza.svg",
                       height: 20.h, width: 20.w),
                   SizedBox(width: 2.w),
-                  Text("${itemData!.itemQuantity}",
+                  Text("${itemData!.itemQuantity}개 남음",
                       style: AppTextStyle.body2Medium),
                 ],
               ),
@@ -77,7 +77,7 @@ class _ProductInfo extends StatelessWidget {
               SizedBox(height: 15.h),
               Text("평균 조리 시간", style: AppTextStyle.body1Bold),
               SizedBox(height: 4.h),
-              Text("${itemData!.cookingTime ?? ''}",
+              Text("${itemData!.cookingTime ?? ''}분",
                   style: AppTextStyle.body2Medium),
             ],
           ),

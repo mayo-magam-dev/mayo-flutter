@@ -77,7 +77,7 @@ class _MyHeader extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            inLogged ? '${snapshot.data?.name}' : '로그인/회원가입',
+                            inLogged ? snapshot.data?.name ?? '' : '로그인/회원가입',
                             style: TextStyle(
                               color: GlobalMainColor.globalPrimaryBlackColor,
                               fontSize: 18.sp,

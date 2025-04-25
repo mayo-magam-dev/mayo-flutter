@@ -10,12 +10,12 @@ import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/view/components/category_buttons.dart';
 import 'package:mayo_flutter/view/components/store_info_bar.dart';
+import 'package:mayo_flutter/view/components/top_bar.dart';
 
 part 'home_scaffold.dart';
 part 'home_banner.dart';
 part 'home_category.dart';
 part 'home_list.dart';
-part 'home_top_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -25,7 +25,11 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (_) => HomeBloc()..add(LoadHomeData()),
       child: _Scaffold(
-        topBar: _TopBar(),
+        topBar: Topbar(
+          title: '',
+          showCarts: true,
+          homeTapBar: true,
+        ),
         banner: _Banner(),
         category: _Category(),
         storeList: _List(),

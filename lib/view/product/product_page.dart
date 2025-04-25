@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,9 +10,7 @@ import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/cart/create_cart_request.dart';
 import 'package:mayo_flutter/model/cart/read_cart_response.dart';
 import 'package:mayo_flutter/model/item/read_item.dart';
-import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/util/formater.dart';
-import 'package:mayo_flutter/view/cart/cart_page.dart';
 import 'package:mayo_flutter/view/components/press_button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 
@@ -54,14 +50,17 @@ class _ProductPageState extends State<ProductPage> {
         future: itemData,
         builder: (context, snapshot) {
           if (snapshot.hasData == false) {
-            return CircularProgressIndicator();
+            return Center(
+              child: const CircularProgressIndicator(),
+            );
           }
           return _Scaffold(
             topBar: Topbar(
               title: "상품 정보",
               showCarts: true,
             ),
-            infoImage: snapshot.data!.itemImage!.isNotEmpty &&
+            infoImage: snapshot.data?.itemImage != null &&
+                    snapshot.data!.itemImage!.isNotEmpty &&
                     snapshot.data!.itemImage != "."
                 ? Image.network(
                     snapshot.data!.itemImage!,
@@ -69,7 +68,8 @@ class _ProductPageState extends State<ProductPage> {
                     height: 245.h,
                     fit: BoxFit.cover,
                   )
-                : SizedBox(height: 245.h),
+                : Image.asset('assets/images/empty_cart.png',
+                    width: double.infinity, height: 245.h),
             infoText: _ProductInfo(
               itemData: snapshot.data,
               storeName: widget.storeName,

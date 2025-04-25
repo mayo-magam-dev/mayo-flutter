@@ -1,17 +1,54 @@
 part of 'login_page.dart';
 
-class _LoginSocialLogin extends StatelessWidget {
-  //ignore: unused_element
-  const _LoginSocialLogin({super.key});
+class _LoginSocialLogin extends StatefulWidget {
+  const _LoginSocialLogin();
+
+  @override
+  State<_LoginSocialLogin> createState() => _LoginSocialLoginState();
+}
+
+class _LoginSocialLoginState extends State<_LoginSocialLogin> {
+  Future<void> _loginWithGoogle() async {
+    try {
+      await GoogleLogin().login();
+      setState(() {
+        context.read<LoginBloc>().add(UserLoginEvent());
+        context.go("/");
+      });
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Google 로그인 실패: $e')),
+      );
+    }
+  }
+
+  Future<void> _loginWithApple() async {
+    final UserDataSource dataSource = UserDataSource();
+
+    try {
+      await AppleLogin().login();
+      final result = await dataSource.getUser();
+
+      if (!mounted) return;
+
+      result.uid.isNotEmpty ? context.go("/") : context.go("/register");
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Apple 로그인 실패: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         InkWell(
-          onTap: () async {
-            await GoogleLogin().login();
-          },
+          onTap: _loginWithGoogle,
           borderRadius: BorderRadius.circular(50),
           child: Container(
             width: 281.w,
@@ -37,9 +74,7 @@ class _LoginSocialLogin extends StatelessWidget {
         ),
         SizedBox(height: 24.h),
         InkWell(
-          onTap: () async {
-            await AppleLogin().login();
-          },
+          onTap: _loginWithApple,
           borderRadius: BorderRadius.circular(50),
           child: Container(
             width: 281.w,

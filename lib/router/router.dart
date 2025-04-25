@@ -1,18 +1,22 @@
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
+import 'package:mayo_flutter/model/reservation/read_reservation_detail_response.dart';
+import 'package:mayo_flutter/model/reservation/read_reservation_response.dart';
 import 'package:mayo_flutter/view/cart/cart_page.dart';
 import 'package:mayo_flutter/view/home/home_page.dart';
 import 'package:mayo_flutter/view/login/login_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/acount_delete_page/account_delete_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/announcement_page/announcement_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/customer_center_page/costomer_center_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/event_page/event_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/faq_page/faq_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/profile_page/profile_page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/terms_list_page/terms_detail.page.dart';
+import 'package:mayo_flutter/view/my/detail_pages/terms_list_page/terms_page.dart';
 import 'package:mayo_flutter/view/my/details/favorite_store_page/favorite_store_page.dart';
 import 'package:mayo_flutter/view/my/my_page.dart';
 import 'package:mayo_flutter/view/on_discount/on_discount_page.dart';
@@ -22,6 +26,7 @@ import 'package:mayo_flutter/view/product/product_page.dart';
 import 'package:mayo_flutter/view/signUp/step1/sign_up_step1_page.dart';
 import 'package:mayo_flutter/view/signUp/step2/sign_up_step2_page.dart';
 import 'package:mayo_flutter/view/signUp/step3/sign_up_step3_page.dart';
+import 'package:mayo_flutter/view/signUp/step5/sign_up_step5_page.dart';
 import 'package:mayo_flutter/view/store/store_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
@@ -29,12 +34,12 @@ import 'package:mayo_flutter/view/sub/meal_page.dart';
 import 'package:mayo_flutter/view/sub/dessert_page.dart';
 import 'package:mayo_flutter/view/sub/onsale_page.dart';
 import 'package:mayo_flutter/view/sub/partner_store_page.dart';
+import 'package:mayo_flutter/model/user/local_login_state.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>();
 
-// 회원가입에 사용할 BloC을 미리 생성 (Singleton처럼 사용)
 final _signUpBloc = SignUpBloc(userDataSource: UserDataSource());
 
 int count = 0;
@@ -42,43 +47,20 @@ int count = 0;
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
-  redirect: (context, state) async {
-    final auth = FirebaseAuth.instance;
-    final userDataSource = UserDataSource();
-    debugPrint('리다이렉트: ${state.uri}');
-    debugPrint('유저: ${auth.currentUser}');
+  redirect: (context, state) {
+    final loginState = context.read<LoginBloc>().state;
 
-    // 로그인 되어있지 않으면 로그인 페이지로
-    if (auth.currentUser == null) {
-      return '/login';
-    }
-
-    // 회원가입 페이지에 이미 있으면 그대로 유지
-    if (state.uri.path.startsWith('/signup')) {
-      debugPrint('이미 회원가입 페이지에 있음: 리다이렉트 없음');
-      return null; // 리다이렉트 하지 않음
-    }
-    try {
-      final user = await userDataSource.getUser();
-      debugPrint('사용자 정보 있음: 홈으로 리다이렉트');
-
-      // if (user.uid.isNotEmpty) {
-      //   debugPrint('path = ${state.uri.path}');
-      //     return '/'; // 홈으로 이동
-
-      if (user.uid.isNotEmpty) {
-        if (state.uri.path == '/') {
-          return '/'; // 홈으로 이동
-        }
-        return null; // 이미 홈이면 리다이렉트 안 함
-      } else {
-        debugPrint('사용자 정보 불완전: /signup으로 리다이렉트');
-        return '/signup';
+    if (loginState is LoginStateChanged) {
+      switch (loginState.loginState) {
+        case LocalLoginState.needRegister:
+          return "/register";
+        case LocalLoginState.login:
+          return state.matchedLocation == "/login" ? "/" : null;
+        case LocalLoginState.notLogin:
+          return "/login";
       }
-    } on DioException catch (e) {
-      debugPrint('사용자 정보 요청 실패: ${e.toString()}');
-      return '/signup';
     }
+    return null;
   },
   routes: [
     GoRoute(
@@ -117,10 +99,15 @@ final router = GoRouter(
       builder: (context, state) => PartnerStorePage(),
     ),
     GoRoute(
-        path: '/order/:id',
-        builder: (context, state) {
-          return OrderDetailPage(id: state.pathParameters['id']!);
-        }),
+      path: '/order/:reservationId/:storeId/:reservationState',
+      builder: (context, state) {
+        return OrderDetailPage(
+          reservationId: state.pathParameters['reservationId']!,
+          storeId: state.pathParameters['storeId']!,
+          reservationState: state.pathParameters['reservationState']!,
+        );
+      },
+    ),
     GoRoute(
       path: '/signup',
       builder: (context, state) => BlocProvider.value(
@@ -142,6 +129,21 @@ final router = GoRouter(
         child: SignUpStep3Page(),
       ),
     ),
+    GoRoute(
+      path: '/signup/step5',
+      builder: (context, state) => BlocProvider.value(
+        value: _signUpBloc,
+        child: SignUpStep5Page(),
+      ),
+    ),
+    GoRoute(
+      path: '/account-delete',
+      builder: (context, state) => const AccountDeletePage(),
+    ),
+    GoRoute(
+      path: '/announcement',
+      builder: (context, state) => AnnouncementPage(),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
@@ -154,7 +156,7 @@ final router = GoRouter(
         ),
         GoRoute(
           path: '/on-discount',
-          builder: (context, state) => const OnDiscountPage(),
+          builder: (context, state) => OnDiscountPage(),
         ),
         GoRoute(
           path: '/orders',
@@ -165,8 +167,14 @@ final router = GoRouter(
           builder: (context, state) => const MyPage(),
         ),
         GoRoute(
-          path: '/announcement',
-          builder: (context, state) => const AnnouncementPage(),
+          path: '/terms-list',
+          builder: (context, state) => const TermsListPage(),
+        ),
+        GoRoute(
+          path: '/terms-detail/:boardId',
+          builder: (context, state) {
+            return TermsDetailPage(boardId: state.pathParameters['boardId']);
+          },
         ),
         GoRoute(
           path: '/profile',
@@ -174,11 +182,11 @@ final router = GoRouter(
         ),
         GoRoute(
           path: '/event',
-          builder: (context, state) => EventPage(),
+          builder: (context, state) => const EventPage(),
         ),
         GoRoute(
           path: '/favorite-store',
-          builder: (context, state) => FavoriteStorePage(),
+          builder: (context, state) => const FavoriteStorePage(),
         ),
         GoRoute(
           path: '/costomer-center',
@@ -250,10 +258,10 @@ class ScaffoldWithBottomNavBar extends StatelessWidget {
   int _calculateSelectedIndex(BuildContext context) {
     final GoRouterState state = GoRouterState.of(context);
     final String path = state.uri.path;
-    if (path.startsWith('/')) return 0;
-    if (path.startsWith('/on-discount')) return 1;
-    if (path.startsWith('/orders')) return 2;
-    if (path.startsWith('/my')) return 3;
+    if (path == '/') return 0;
+    if (path == '/on-discount') return 1;
+    if (path == '/orders') return 2;
+    if (path == '/my') return 3;
     return 0;
   }
 

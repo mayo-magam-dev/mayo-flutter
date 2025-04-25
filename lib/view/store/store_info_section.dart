@@ -37,19 +37,52 @@ class _StoreInfoSection extends StatelessWidget {
           ),
         ),
         Container(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("가게 공지사항", style: AppTextStyle.subheadingBold),
-                SizedBox(
-                  height: 10.h,
-                ),
-                AdditionalComment(
-                    additionalComment: storeData.additionalComment),
-              ],
-            )),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("가게 공지사항", style: AppTextStyle.subheadingBold),
+              SizedBox(
+                height: 10.h,
+              ),
+              AdditionalComment(additionalComment: storeData.additionalComment),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Container(
+            height: 1.h,
+            color: GlobalMainGrey.grey200,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("계좌번호", style: AppTextStyle.subheadingBold),
+              SizedBox(height: 10.h),
+              if (storeData.accountNumber != null)
+                Row(
+                  children: [
+                    Text('${storeData.accountNumber}'),
+                    IconButton(
+                      onPressed: () {
+                        Clipboard.setData(
+                            ClipboardData(text: storeData.accountNumber!));
+                      },
+                      icon: SvgPicture.asset('assets/icons/copy.svg'),
+                    ),
+                  ],
+                )
+              else
+                SizedBox.shrink(),
+            ],
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Container(
@@ -78,20 +111,24 @@ class _StoreInfoSection extends StatelessWidget {
               ),
               itemDataNotEmpty
                   ? Column(
-                      children: [
-                        ProductComponents(
-                          itemData: itemData[0],
-                          storeData: storeData,
-                        ),
-                        Divider(
-                          color: GlobalMainGrey.grey200,
-                          thickness: 2,
-                        ),
-                        ProductComponents(
-                          itemData: itemData[1],
-                          storeData: storeData,
-                        ),
-                      ],
+                      children: List.generate(
+                        itemData.length,
+                        (index) {
+                          return Column(
+                            children: [
+                              ProductComponents(
+                                itemData: itemData[index],
+                                storeData: storeData,
+                              ),
+                              if (index != itemData.length - 1)
+                                Divider(
+                                  color: GlobalMainGrey.grey200,
+                                  thickness: 2,
+                                ),
+                            ],
+                          );
+                        },
+                      ),
                     )
                   : SizedBox(),
             ],

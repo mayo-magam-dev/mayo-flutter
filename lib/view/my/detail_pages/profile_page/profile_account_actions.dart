@@ -1,8 +1,12 @@
 part of 'profile_page.dart';
 
-class _AccountActions extends StatelessWidget {
-  //ignore: unused_element
-  const _AccountActions({super.key});
+class _AccountActions extends StatefulWidget {
+
+  @override
+  State<_AccountActions> createState() => _AccountActionsState();
+}
+
+class _AccountActionsState extends State<_AccountActions> {
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +14,11 @@ class _AccountActions extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextButton(
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
-            context.go("/login");
+          onPressed: () async {
+            await FirebaseAuth.instance.signOut();
+            setState(() {
+              context.read<LoginBloc>().add(UserLogoutEvent());
+            });
           },
           style: TextButton.styleFrom(
             minimumSize: Size.zero,
@@ -37,12 +43,7 @@ class _AccountActions extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AccountDeletePage(),
-              ),
-            );
+            context.push('/account-delete');
           },
           style: TextButton.styleFrom(
             minimumSize: Size.zero,

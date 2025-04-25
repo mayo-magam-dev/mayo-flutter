@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 abstract class AppDio {
@@ -32,7 +31,6 @@ class _AppDio with DioMixin implements Dio {
           final user = FirebaseAuth.instance.currentUser;
           if (user != null) {
             final token = await user.getIdToken();
-            print(token);
             options.headers['Authorization'] = 'Bearer $token';
           }
           return handler.next(options);

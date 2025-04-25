@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mayo_flutter/dataSource/store.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
@@ -11,7 +12,7 @@ class OnsalePage extends StatelessWidget {
   OnsalePage({super.key});
 
   final Future<List<ReadSimpleStoreResponse>> onSaleData =
-      StoreDataSource().getOnSaleStores();
+      StoreDataSource().getAllStores();
 
   Widget storeList() {
     return FutureBuilder(
