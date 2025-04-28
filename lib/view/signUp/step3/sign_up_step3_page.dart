@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,11 +31,11 @@ class SignUpStep3Page extends StatelessWidget {
             onTap: state.isStep3Valid
                 ? () {
                     context.read<SignUpBloc>().add(SubmitSignUp());
-                    if (state.isSuccess &&
+                    if (
+                      // state.isSuccess &&
                         !state.isLoading &&
                         state.error == null) {
-                          
-                      context.go('/');
+                      context.go('/signup/step5');
                     } else if (state.error != null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

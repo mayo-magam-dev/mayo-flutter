@@ -29,6 +29,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SetName>(_onSetName);
     on<SetBirthDate>(_onSetBirthDate);
     on<SubmitSignUp>(_onSubmitSignUp);
+    on<DeleteData>(_onDeleteData);
   }
 
   void _onSetTermsAgreement(
@@ -87,6 +88,28 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emit(state.copyWith(birthDate: event.birthDate));
   }
 
+  void _onDeleteData(DeleteData event, Emitter<SignUpState> emit) {
+    emit(
+      state.copyWith(
+        agreeMarketing: null,
+        agreeTerms1: null,
+        agreeTerms2: null,
+        birthDate: null,
+        displayName: null,
+        email: null,
+        error: null,
+        gender: null,
+        isLoading: null,
+        isSuccess: null,
+        name: null,
+        password: null,
+        passwordConfirmed: null,
+        phoneNumber: null,
+        userInfo: null,
+      ),
+    );
+  }
+
   Future<void> _onSubmitSignUp(
       SubmitSignUp event, Emitter<SignUpState> emit) async {
     if (!state.isStep1Valid || !state.isStep2Valid || !state.isStep3Valid) {
@@ -107,7 +130,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             email: state.email!,
             displayName: state.displayName!,
             phoneNumber: state.phoneNumber!,
-            gender: '남자',
+            gender: state.gender!,
             name: state.name!,
             agreeTerms1: state.agreeTerms1,
             agreeTerms2: state.agreeTerms2,

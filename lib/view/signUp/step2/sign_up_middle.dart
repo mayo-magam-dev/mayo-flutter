@@ -2,7 +2,7 @@ part of 'sign_up_step2_page.dart';
 
 class _SignUpMiddle extends StatefulWidget {
   const _SignUpMiddle();
-
+  
   @override
   State<_SignUpMiddle> createState() => _SignUpMiddleState();
 }
@@ -103,11 +103,8 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                           color: GlobalMainColor.globalPrimaryRedColor,
                         )),
                     hintText: '이메일을 입력해주세요.',
-                    hintStyle: TextStyle(
+                    hintStyle: AppTextStyle.body2Medium.copyWith(
                       color: GlobalMainGrey.grey300,
-                      fontSize: 14.sp,
-                      fontFamily: 'Pretendard',
-                      fontWeight: FontWeight.w500,
                       letterSpacing: -0.28,
                     ),
                   ),
@@ -152,11 +149,8 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                           color: GlobalMainColor.globalPrimaryRedColor,
                         )),
                     hintText: '비밀번호 (8자 이상)',
-                    hintStyle: TextStyle(
+                    hintStyle: AppTextStyle.body2Medium.copyWith(
                       color: GlobalMainGrey.grey300,
-                      fontSize: 14.sp,
-                      fontFamily: 'Pretendard',
-                      fontWeight: FontWeight.w500,
                       letterSpacing: -0.28,
                     ),
                     suffixIcon: IconButton(
@@ -210,11 +204,8 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                           color: GlobalMainColor.globalPrimaryRedColor,
                         )),
                     hintText: '비밀번호 확인',
-                    hintStyle: TextStyle(
+                    hintStyle: AppTextStyle.body2Medium.copyWith(
                       color: GlobalMainGrey.grey300,
-                      fontSize: 14.sp,
-                      fontFamily: 'Pretendard',
-                      fontWeight: FontWeight.w500,
                       letterSpacing: -0.28,
                     ),
                     suffixIcon: IconButton(

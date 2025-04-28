@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
-import 'package:mayo_flutter/model/reservation/read_reservation_detail_response.dart';
-import 'package:mayo_flutter/model/reservation/read_reservation_response.dart';
 import 'package:mayo_flutter/view/cart/cart_page.dart';
 import 'package:mayo_flutter/view/home/home_page.dart';
 import 'package:mayo_flutter/view/login/login_page.dart';
@@ -46,18 +44,21 @@ int count = 0;
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/',
-  redirect: (context, state) {
+  initialLocation: '/signup',
+  redirect: (context, state) async {
     final loginState = context.read<LoginBloc>().state;
 
     if (loginState is LoginStateChanged) {
+      debugPrint('loginState = ${loginState.loginState}');
       switch (loginState.loginState) {
         case LocalLoginState.needRegister:
-          return "/register";
+          return "/signup";
         case LocalLoginState.login:
           return state.matchedLocation == "/login" ? "/" : null;
         case LocalLoginState.notLogin:
-          return "/login";
+          // return "/login";
+        case LocalLoginState.needJoin:
+          return null;
       }
     }
     return null;
@@ -138,7 +139,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/account-delete',
-      builder: (context, state) => const AccountDeletePage(),
+      builder: (context, state) => AccountDeletePage(),
     ),
     GoRoute(
       path: '/announcement',

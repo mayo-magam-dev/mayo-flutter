@@ -15,6 +15,8 @@ class UserLoginEvent extends LoginEvent {}
 
 class UserLogoutEvent extends LoginEvent {}
 
+class UserAccountDelete extends LoginEvent {}
+
 // 상태 정의
 abstract class LoginState {}
 
@@ -34,6 +36,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<CheckLoginStatusEvent>(_onCheckLoginStatus);
     on<UserLoginEvent>(_onUserLogin);
     on<UserLogoutEvent>(_onUserLogout);
+    on<UserAccountDelete>(_onAccountDelete);
   }
 
   void _onCheckLoginStatus(
@@ -54,5 +57,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   void _onUserLogout(UserLogoutEvent event, Emitter<LoginState> emit) {
     emit(LoginStateChanged(LocalLoginState.notLogin));
+  }
+
+  void _onAccountDelete(UserAccountDelete event, Emitter<LoginState> emit) {
+    emit(LoginStateChanged(LocalLoginState.needJoin));
   }
 }
