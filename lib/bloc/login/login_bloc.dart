@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/model/user/local_login_state.dart';

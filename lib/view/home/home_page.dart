@@ -4,16 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mayo_flutter/bloc/home/home_bloc.dart';
-import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/dataSource/store.dart';
-import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/view/components/category_buttons.dart';
 import 'package:mayo_flutter/view/components/store_info_bar.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
-import 'package:mayo_flutter/view/signUp/step2/sign_up_step2_page.dart';
 
 part 'home_scaffold.dart';
 part 'home_banner.dart';
