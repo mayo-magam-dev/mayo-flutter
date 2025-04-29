@@ -11,10 +11,11 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
   Future<void> _loginWithGoogle() async {
     try {
       await GoogleLogin().login();
-      setState(() {
-        context.read<LoginBloc>().add(UserLoginEvent());
-        context.go("/");
-      });
+      if (!mounted) return;
+      context.read<LoginBloc>().add(UserLoginEvent());
+      await Future.delayed(const Duration(milliseconds: 100));
+      if (!mounted) return;
+      context.go("/");
     } catch (e) {
       if (!mounted) return;
 

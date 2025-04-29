@@ -71,7 +71,6 @@ class SignUpState {
     final phoneNumberValid = phoneNumber != null && phoneNumber!.isNotEmpty;
     final genderValid = gender != null && gender!.isNotEmpty;
     final nameValid = name != null && name!.isNotEmpty;
-
     return displayNameValid && phoneNumberValid && genderValid && nameValid;
   }
 

@@ -64,3 +64,5 @@ class SetBirthDate extends SignUpEvent {
 }
 
 class SubmitSignUp extends SignUpEvent {} 
+
+class DeleteData extends SignUpEvent {}

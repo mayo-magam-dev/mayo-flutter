@@ -20,7 +20,9 @@ class Button extends StatelessWidget {
         width: double.infinity,
         height: 46,
         decoration: ShapeDecoration(
-          color: onTap != null ? GlobalMainYellow.yellow200 : GlobalMainGrey.grey200,
+          color: onTap != null
+              ? GlobalMainYellow.yellow200
+              : GlobalMainGrey.grey200,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -29,9 +31,7 @@ class Button extends StatelessWidget {
           child: Text(
             text,
             style: AppTextStyle.subheadingBold.copyWith(
-              color: onTap != null 
-                ? GlobalMainColor.globalPrimaryBlackColor 
-                : GlobalMainGrey.grey300,
+              color: Colors.white,
             ),
           ),
         ),
