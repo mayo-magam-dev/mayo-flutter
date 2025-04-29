@@ -156,29 +156,22 @@ class _DeleteConfirmDialog extends StatelessWidget {
                     text: '예',
                     backgroundColor: GlobalMainColor.globalPrimaryRedColor,
                     textColor: Colors.white,
-                    onTap: () {
-                      // context.pop();
+                    onTap: () async {
+                      context.pop();
                       try {
                         UserDataSource().deleteUser();
+                        FirebaseAuth.instance.currentUser!.delete();
                         context.read<LoginBloc>().add(UserAccountDelete());
-                        FirebaseAuth.instance.signOut();
-                        context.read<SignUpBloc>().add(DeleteData());
-                        context.go('/login');
-                        
-                      } catch (e) {
-                        // throw Exception(e);
+                      } on FirebaseAuthException catch (e) {
+                        throw Exception(e);
                       }
-                      // showGeneralDialog(
-                      //   context: context,
-                      //   barrierDismissible: true,
-                      //   barrierLabel: '',
-                      //   pageBuilder: (context, _, __) =>
-                      //       const _DeleteCompleteDialog(),
-                      // ).then(
-                      //   (_) {
-                      //     currentContext.go('/');
-                      //   },
-                      // );
+                      showGeneralDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        barrierLabel: '',
+                        pageBuilder: (context, _, __) =>
+                            const _DeleteCompleteDialog(),
+                      );
                     },
                     margin: const EdgeInsets.only(right: 11.3),
                   ),
@@ -203,43 +196,47 @@ class _DeleteCompleteDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.only(top: 28, bottom: 16.8),
-        width: 313.w,
-        height: 163.h,
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => context.go('/login'),
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.only(top: 28, bottom: 16.8),
+          width: 313.w,
+          height: 163.h,
+          decoration: ShapeDecoration(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
           ),
-        ),
-        child: Material(
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 27),
-                child: Text(
-                  '탈퇴가 완료되었습니다.',
-                  style: AppTextStyle.heading2Bold.copyWith(
-                    color: GlobalMainColor.globalPrimaryBlackColor,
-                    letterSpacing: -0.48,
+          child: Material(
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 27),
+                  child: Text(
+                    '탈퇴가 완료되었습니다.',
+                    style: AppTextStyle.heading2Bold.copyWith(
+                      color: GlobalMainColor.globalPrimaryBlackColor,
+                      letterSpacing: -0.48,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 19.h),
-              Padding(
-                padding: const EdgeInsets.only(left: 27),
-                child: Text(
-                  '이용해 주셔서 감사합니다!',
-                  style: AppTextStyle.subheadingBold.copyWith(
-                    color: GlobalMainGrey.grey300,
+                SizedBox(height: 19.h),
+                Padding(
+                  padding: const EdgeInsets.only(left: 27),
+                  child: Text(
+                    '이용해 주셔서 감사합니다!',
+                    style: AppTextStyle.subheadingBold.copyWith(
+                      color: GlobalMainGrey.grey300,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -22,6 +22,7 @@ class _LoginFormState extends State<_LoginForm> {
           password: _passwordController.text,
         );
         if (context.mounted) {
+          context.read<LoginBloc>().add(UserLoginEvent());
           context.go('/');
         }
       } on FirebaseAuthException catch (e) {

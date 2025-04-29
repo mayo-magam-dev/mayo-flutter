@@ -30,9 +30,11 @@ class SignUpStep3Page extends StatelessWidget {
             text: '가입하기',
             onTap: state.isStep3Valid
                 ? () {
+                    String email = context.read<SignUpBloc>().state.email!;
+                    String password = context.read<SignUpBloc>().state.password!;
+                    FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
                     context.read<SignUpBloc>().add(SubmitSignUp());
                     if (
-                      // state.isSuccess &&
                         !state.isLoading &&
                         state.error == null) {
                       context.go('/signup/step5');
