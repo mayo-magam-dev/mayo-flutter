@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/model/user/local_login_state.dart';
@@ -14,6 +11,8 @@ class CheckLoginStatusEvent extends LoginEvent {}
 class UserLoginEvent extends LoginEvent {}
 
 class UserLogoutEvent extends LoginEvent {}
+
+class UserAccountDelete extends LoginEvent {}
 
 // 상태 정의
 abstract class LoginState {}
@@ -34,6 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<CheckLoginStatusEvent>(_onCheckLoginStatus);
     on<UserLoginEvent>(_onUserLogin);
     on<UserLogoutEvent>(_onUserLogout);
+    on<UserAccountDelete>(_onAccountDelete);
   }
 
   void _onCheckLoginStatus(
@@ -54,5 +54,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   void _onUserLogout(UserLogoutEvent event, Emitter<LoginState> emit) {
     emit(LoginStateChanged(LocalLoginState.notLogin));
+  }
+
+  void _onAccountDelete(UserAccountDelete event, Emitter<LoginState> emit) {
+    emit(LoginStateChanged(LocalLoginState.needJoin));
   }
 }

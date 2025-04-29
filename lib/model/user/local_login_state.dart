@@ -1,1 +1,1 @@
-enum LocalLoginState { needRegister, notLogin, login }
+enum LocalLoginState { needRegister, notLogin, login, needJoin}

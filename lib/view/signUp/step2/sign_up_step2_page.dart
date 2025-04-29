@@ -21,7 +21,7 @@ class SignUpStep2Page extends StatelessWidget {
     return BlocBuilder<SignUpBloc, SignUpState>(
       builder: (context, state) {
         final isValid = state.isStep2Valid;
-        
+
         return _Scaffold(
           topBar: Topbar(title: '회원가입2', showCarts: false),
           header: _SignUpHeader(),
@@ -33,10 +33,10 @@ class SignUpStep2Page extends StatelessWidget {
           nextButton: Button(
             text: '다음',
             onTap: isValid
-              ? () {
-                  context.push('/signup/step3');
-                }
-              : null,
+                ? () {
+                    context.push('/signup/step3');
+                  }
+                : null,
           ),
         );
       },
