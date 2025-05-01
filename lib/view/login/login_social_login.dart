@@ -11,6 +11,17 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
   Future<void> _loginWithGoogle() async {
     try {
       await GoogleLogin().login();
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+        if (fcmToken == null) {
+          debugPrint("FCM 토큰을 가져오지 못했습니다.");
+          return;
+        }
+
+        await UserDataSource().createFcmToken(
+          createFcmToken: CreateFcmToken(
+              deviceType: Platform.isAndroid ? "Android" : "iOS",
+              fcmToken: fcmToken),
+        );
       if (!mounted) return;
       context.read<LoginBloc>().add(UserLoginEvent());
       await Future.delayed(const Duration(milliseconds: 100));

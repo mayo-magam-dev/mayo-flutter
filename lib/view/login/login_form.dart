@@ -21,6 +21,17 @@ class _LoginFormState extends State<_LoginForm> {
           email: _emailController.text,
           password: _passwordController.text,
         );
+        String? fcmToken = await FirebaseMessaging.instance.getToken();
+        if (fcmToken == null) {
+          debugPrint("FCM 토큰을 가져오지 못했습니다.");
+          return;
+        }
+
+        await UserDataSource().createFcmToken(
+          createFcmToken: CreateFcmToken(
+              deviceType: Platform.isAndroid ? "Android" : "iOS",
+              fcmToken: fcmToken),
+        );
         if (context.mounted) {
           context.read<LoginBloc>().add(UserLoginEvent());
           context.go('/');
