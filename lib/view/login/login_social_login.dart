@@ -7,6 +7,8 @@ class _LoginSocialLogin extends StatefulWidget {
   State<_LoginSocialLogin> createState() => _LoginSocialLoginState();
 }
 
+
+    
 class _LoginSocialLoginState extends State<_LoginSocialLogin> {
   Future<void> _loginWithGoogle() async {
     try {
@@ -22,6 +24,7 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
               deviceType: Platform.isAndroid ? "Android" : "iOS",
               fcmToken: fcmToken),
         );
+
       if (!mounted) return;
       context.read<LoginBloc>().add(UserLoginEvent());
       await Future.delayed(const Duration(milliseconds: 100));
