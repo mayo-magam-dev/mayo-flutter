@@ -44,3 +44,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/keystore.jks
+/andorid/mayo_keystore.pem
+/android/mayo-flutter.pem
+/
