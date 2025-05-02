@@ -31,6 +31,11 @@ class _BottomSheetState extends State<_BottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final loginBlocState = context.read<LoginBloc>().state;
+    LocalLoginState? loginState;
+    if (loginBlocState is LoginStateChanged) {
+      loginState = loginBlocState.loginState;
+    }
     return Container(
       height: 221.h,
       width: double.infinity,
@@ -83,57 +88,67 @@ class _BottomSheetState extends State<_BottomSheet> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (cartData!.isEmpty) {
-                      //장바구니가 비어있으면
-                      final itemInfo = CreateCartRequest(
-                        itemId: widget.itemData!.itemId,
-                        itemCount: ItemQuantityCounter.itemCount,
-                        storeId: widget.storeId,
-                      );
-                      CartDataSource().createCart(request: itemInfo);
+                    if (loginState == LocalLoginState.notLogin) {
+                      //로그인되지 않은 상태면
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return _OnCart();
+                          return _BeforeLoginOnCart();
                         },
                       );
-                    } else if (cartData!.isNotEmpty) {
-                      //장바구니에 아이템이 있다면
-                      if (cartData!.length < 2) {
-                        try {
-                          ReadCartResponse targetStore = cartData!.firstWhere(
-                              (item) =>
-                                  item.itemName == widget.itemData?.itemName);
-                          //장바구니 아이템과 저장할 아이템이 같다면
-                          CartDataSource().putQuantity(
-                            targetStore.cartId,
-                            ItemQuantityCounter.itemCount +
-                                targetStore.cartItemCount,
-                          );
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return _OnCart();
-                            },
-                          );
-                        } catch (e) {
-                          //장바구니 아이템과 저장할 아이템이 같지 않다면
-                          if (cartData!.first.storeId == widget.storeId) {
-                            //장바구니의 아이템과 저장할 아이템의 가게가 같다면
-                            final itemInfo = CreateCartRequest(
-                              itemId: widget.itemData!.itemId,
-                              itemCount: ItemQuantityCounter.itemCount,
-                              storeId: widget.storeId,
+                    } else {
+                      if (cartData!.isEmpty) {
+                        //장바구니가 비어있으면
+                        final itemInfo = CreateCartRequest(
+                          itemId: widget.itemData!.itemId,
+                          itemCount: ItemQuantityCounter.itemCount,
+                          storeId: widget.storeId,
+                        );
+                        CartDataSource().createCart(request: itemInfo);
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return _OnCart();
+                          },
+                        );
+                      } else if (cartData!.isNotEmpty) {
+                        //장바구니에 아이템이 있다면
+                        if (cartData!.length < 2) {
+                          try {
+                            ReadCartResponse targetStore = cartData!.firstWhere(
+                                (item) =>
+                                    item.itemName == widget.itemData?.itemName);
+                            //장바구니 아이템과 저장할 아이템이 같다면
+                            CartDataSource().putQuantity(
+                              targetStore.cartId,
+                              ItemQuantityCounter.itemCount +
+                                  targetStore.cartItemCount,
                             );
-                            CartDataSource().createCart(request: itemInfo);
                             showDialog(
                               context: context,
                               builder: (context) {
                                 return _OnCart();
                               },
                             );
-                          } else {
-                            //장바구니의 아이템과 저장할 아이템의 가게가 다르다면
+                          } catch (e) {
+                            //장바구니 아이템과 저장할 아이템이 같지 않다면
+                            if (cartData!.first.storeId == widget.storeId) {
+                              //장바구니의 아이템과 저장할 아이템의 가게가 같다면
+                              final itemInfo = CreateCartRequest(
+                                itemId: widget.itemData!.itemId,
+                                itemCount: ItemQuantityCounter.itemCount,
+                                storeId: widget.storeId,
+                              );
+                              CartDataSource().createCart(request: itemInfo);
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return _OnCart();
+                                },
+                              );
+                            } else {
+                              //장바구니의 아이템과 저장할 아이템의 가게가 다르다면
+                            }
                           }
                         }
                       }
@@ -169,7 +184,7 @@ class ItemQuantityCounter extends StatefulWidget {
     required this.salePrice,
     required this.itemQuantity,
   });
-  
+
   final double salePrice;
   final int itemQuantity;
 

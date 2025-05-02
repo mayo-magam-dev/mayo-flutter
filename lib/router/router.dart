@@ -45,24 +45,6 @@ int count = 0;
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
-  redirect: (context, state) async {
-    final loginState = context.read<LoginBloc>().state;
-
-    if (loginState is LoginStateChanged) {
-      debugPrint('loginState = ${loginState.loginState}');
-      switch (loginState.loginState) {
-        case LocalLoginState.needRegister:
-          return "/signup";
-        case LocalLoginState.login:
-          return state.matchedLocation == "/login" ? "/" : null;
-        case LocalLoginState.notLogin:
-          return state.matchedLocation == "/login" ? "/" : "login";
-        case LocalLoginState.needJoin:
-          return null;
-      }
-    }
-    return null;
-  },
   routes: [
     GoRoute(
       path: '/product/:data/:storeId/:storeName',

@@ -198,7 +198,9 @@ class _DeleteCompleteDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => context.go('/login'),
+      onTap: () {
+        context.go('/login');
+      },
       child: Center(
         child: Container(
           padding: const EdgeInsets.only(top: 28, bottom: 16.8),
