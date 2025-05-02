@@ -121,13 +121,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     debugPrint("FCM 토큰을 가져오지 못했습니다.");
     return;
   }
-  
-  await _userDataSource.createFcmToken(
-    createFcmToken: CreateFcmToken(
-      deviceType: Platform.isAndroid ? "Android" : "iOS",
-      fcmToken: fcmToken
-    )
-  );
 }
 
 }
