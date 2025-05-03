@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mayo_flutter/bloc/home/home_bloc.dart';
+import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
+import 'package:mayo_flutter/model/user/local_login_state.dart';
 
 class Topbar extends StatelessWidget {
   const Topbar({
@@ -22,6 +24,11 @@ class Topbar extends StatelessWidget {
       create: (context) => HomeBloc()..add(LoadCartItems()),
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
+          final loginBlocState = context.read<LoginBloc>().state;
+          LocalLoginState? loginState;
+          if (loginBlocState is LoginStateChanged) {
+            loginState = loginBlocState.loginState;
+          }
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Row(
@@ -44,7 +51,12 @@ class Topbar extends StatelessWidget {
                       ),
                 GestureDetector(
                   onTap: () {
-                    context.push('/cart');
+                    if (loginState == LocalLoginState.notLogin ||
+                        loginState == LocalLoginState.needJoin) {
+                      context.go('/login');
+                    } else {
+                      context.push('/cart');
+                    }
                   },
                   child: Stack(
                     alignment: AlignmentDirectional.topEnd,
