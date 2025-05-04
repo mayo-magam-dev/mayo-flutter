@@ -11,8 +11,10 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
   bool _obscurePassword = true;
   bool _obscurePasswordConfirm = true;
   bool _passwordsMatch = false;
+  bool _isRegistering = false;
   
   // 비밀번호 입력 컨트롤러 추가
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   
@@ -22,10 +24,19 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
     // 컨트롤러 리스너 설정
     _passwordController.addListener(_checkPasswordMatch);
     _confirmPasswordController.addListener(_checkPasswordMatch);
+    
+    // BlocBuilder에서 받은 이메일 값을 컨트롤러에 설정
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final state = context.read<SignUpBloc>().state;
+      if (state.email != null && state.email!.isNotEmpty) {
+        _emailController.text = state.email!;
+      }
+    });
   }
   
   @override
   void dispose() {
+    _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
@@ -49,6 +60,77 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
       context.read<SignUpBloc>().add(SetPasswordConfirmation(match));
     }
   }
+  
+  // 파이어베이스 계정 생성 함수
+  Future<void> _createFirebaseAccount() async {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      return;
+    }
+    
+    if (!_passwordsMatch) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('비밀번호가 일치하지 않습니다.'),
+          backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+        ),
+      );
+      return;
+    }
+    
+    try {
+      setState(() {
+        _isRegistering = true;
+      });
+      
+      // 파이어베이스에 계정 생성
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      // 블록에 이메일, 비밀번호 상태 업데이트
+      context.read<SignUpBloc>().add(SetEmail(_emailController.text));
+      context.read<SignUpBloc>().add(SetPassword(_passwordController.text));
+      context.read<SignUpBloc>().add(SetPasswordConfirmation(true));
+      
+      
+      context.push('/signup/step3');
+      
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = '계정 생성에 실패했습니다.';
+      
+      if (e.code == 'weak-password') {
+        errorMessage = '비밀번호가 너무 약합니다.';
+      } else if (e.code == 'email-already-in-use') {
+        errorMessage = '이미 사용 중인 이메일입니다.';
+      } else if (e.code == 'invalid-email') {
+        errorMessage = '유효하지 않은 이메일 형식입니다.';
+      }
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('계정 생성 중 오류가 발생했습니다: $e'),
+          backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+        ),
+      );
+    } finally {
+      setState(() {
+        _isRegistering = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +151,7 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                 width: double.infinity,
                 height: 45.h,
                 child: TextFormField(
+                  controller: _emailController,
                   onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   textInputAction: TextInputAction.next,
                   onChanged: (value) {
@@ -251,10 +334,43 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                           : _confirmPasswordController.text.isEmpty
                             ? Colors.transparent
                             : GlobalMainColor.globalPrimaryRedColor,
-                        fontSize: 12.sp,
+                        fontSize: 12,
                       ),
                     ),
                   ],
+                ),
+              ),
+              
+              SizedBox(height: 30.h),
+              
+              // 회원가입 버튼 추가
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _isRegistering ? null : _createFirebaseAccount,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: GlobalMainYellow.yellow200,
+                    disabledBackgroundColor: GlobalMainGrey.grey300,
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: _isRegistering
+                    ? SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : Text(
+                        '계정 생성하기',
+                        style: AppTextStyle.body1Bold.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
                 ),
               ),
             ],

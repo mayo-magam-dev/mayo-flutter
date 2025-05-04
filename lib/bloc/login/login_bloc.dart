@@ -14,6 +14,13 @@ class UserLogoutEvent extends LoginEvent {}
 
 class UserAccountDelete extends LoginEvent {}
 
+class SocialLoginEvent extends LoginEvent {
+  final String email;
+  final String provider;
+  
+  SocialLoginEvent({required this.email, required this.provider});
+}
+
 // 상태 정의
 abstract class LoginState {}
 
@@ -21,8 +28,10 @@ class LoginInitial extends LoginState {}
 
 class LoginStateChanged extends LoginState {
   final LocalLoginState loginState;
+  final String? email;
+  final String? provider;
 
-  LoginStateChanged(this.loginState);
+  LoginStateChanged(this.loginState, {this.email, this.provider});
 }
 
 // BLoC 클래스 정의
@@ -34,16 +43,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<UserLoginEvent>(_onUserLogin);
     on<UserLogoutEvent>(_onUserLogout);
     on<UserAccountDelete>(_onAccountDelete);
+    on<SocialLoginEvent>(_onSocialLogin);
   }
 
   void _onCheckLoginStatus(
       CheckLoginStatusEvent event, Emitter<LoginState> emit) async {
     try {
       final result = await dataSource.getUser();
-      emit(LoginStateChanged(result.uid.isNotEmpty
-          ? LocalLoginState.login
-          : LocalLoginState.needRegister));
-    } on DioException {
+      emit(LoginStateChanged(LocalLoginState.login));
+    } on DioException catch (e) {
+      // 응답 코드가 200이 아닌 경우 회원가입 필요
+      if (e.response?.statusCode != 200) {
+        emit(LoginStateChanged(LocalLoginState.needRegister));
+      } else {
+        emit(LoginStateChanged(LocalLoginState.notLogin));
+      }
+    } catch (e) {
       emit(LoginStateChanged(LocalLoginState.notLogin));
     }
   }
@@ -58,5 +73,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   void _onAccountDelete(UserAccountDelete event, Emitter<LoginState> emit) {
     emit(LoginStateChanged(LocalLoginState.needJoin));
+  }
+  
+  void _onSocialLogin(SocialLoginEvent event, Emitter<LoginState> emit) {
+    emit(LoginStateChanged(
+      LocalLoginState.needRegister, 
+      email: event.email,
+      provider: event.provider
+    ));
   }
 }

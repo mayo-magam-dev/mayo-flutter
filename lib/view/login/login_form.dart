@@ -21,20 +21,42 @@ class _LoginFormState extends State<_LoginForm> {
           email: _emailController.text,
           password: _passwordController.text,
         );
+        
         String? fcmToken = await FirebaseMessaging.instance.getToken();
         if (fcmToken == null) {
           debugPrint("FCM 토큰을 가져오지 못했습니다.");
           return;
         }
 
-        await UserDataSource().createFcmToken(
-          createFcmToken: CreateFcmToken(
+        try {
+          // 사용자 정보 조회 시도
+          final userData = await UserDataSource().getUser();
+          
+          // 사용자 정보가 있으면 FCM 토큰 등록 후 홈으로 이동
+          await UserDataSource().createFcmToken(
+            createFcmToken: CreateFcmToken(
               deviceType: Platform.isAndroid ? "Android" : "iOS",
               fcmToken: fcmToken),
-        );
-        if (context.mounted) {
-          context.read<LoginBloc>().add(UserLoginEvent());
-          context.go('/');
+          );
+          
+          if (context.mounted) {
+            context.read<LoginBloc>().add(UserLoginEvent());
+            context.go('/');
+          }
+        } on DioException catch (e) {
+          // 사용자 정보가 없으면 회원가입 페이지로 이동
+          if (context.mounted) {
+            // 이메일을 회원가입 블록에 전달
+            // BlocProvider.of를 사용하여 SignUpBloc에 접근
+            final signUpBloc = BlocProvider.of<SignUpBloc>(context);
+            signUpBloc.add(SetEmail(_emailController.text));
+            
+            context.read<LoginBloc>().add(SocialLoginEvent(
+              email: _emailController.text,
+              provider: 'email'
+            ));
+            context.go('/signup');
+          }
         }
       } on FirebaseAuthException catch (e) {
         if (context.mounted) {

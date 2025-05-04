@@ -38,7 +38,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>();
 
-final _signUpBloc = SignUpBloc(userDataSource: UserDataSource());
+final SignUpBloc signUpBloc = SignUpBloc(userDataSource: UserDataSource());
 
 int count = 0;
 
@@ -94,28 +94,28 @@ final router = GoRouter(
     GoRoute(
       path: '/signup',
       builder: (context, state) => BlocProvider.value(
-        value: _signUpBloc,
+        value: signUpBloc,
         child: SignUpStep1Page(),
       ),
     ),
     GoRoute(
       path: '/signup/step2',
       builder: (context, state) => BlocProvider.value(
-        value: _signUpBloc,
+        value: signUpBloc,
         child: SignUpStep2Page(),
       ),
     ),
     GoRoute(
       path: '/signup/step3',
       builder: (context, state) => BlocProvider.value(
-        value: _signUpBloc,
+        value: signUpBloc,
         child: SignUpStep3Page(),
       ),
     ),
     GoRoute(
       path: '/signup/step5',
       builder: (context, state) => BlocProvider.value(
-        value: _signUpBloc,
+        value: signUpBloc,
         child: SignUpStep5Page(),
       ),
     ),
