@@ -13,7 +13,7 @@ class _Scaffold extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 70.w, horizontal: 24.h),
+          padding: EdgeInsets.symmetric(vertical: 60.w, horizontal: 24.h),
           child: Column(
             children: [
               logo,
