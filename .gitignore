@@ -46,5 +46,5 @@ app.*.map.json
 /android/app/release
 /android/keystore.jks
 /andorid/mayo_keystore.pem
-/android/mayo-flutter.pem
+/android/mayo.pem
 /
