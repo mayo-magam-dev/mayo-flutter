@@ -32,8 +32,7 @@ class _List extends StatelessWidget {
           BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               if (state.isLoading) {
-                return const CircularProgressIndicator(
-                    color: GlobalMainColor.globalMainColor);
+                return const CircularProgressIndicator();
               }
 
               return Padding(
