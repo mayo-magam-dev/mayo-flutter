@@ -40,7 +40,7 @@ class _Scaffold extends StatelessWidget {
             ),
             Column(
               children: [
-                SizedBox(height: 650.h),
+                SizedBox(height: 720.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
                   child: submitButton,

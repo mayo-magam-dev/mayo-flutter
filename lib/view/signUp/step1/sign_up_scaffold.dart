@@ -17,6 +17,7 @@ class _Scaffold extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           topBar,
           Container(
