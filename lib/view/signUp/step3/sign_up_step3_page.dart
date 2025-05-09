@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/view/components/button.dart';
@@ -31,12 +32,25 @@ class SignUpStep3Page extends StatelessWidget {
             onTap: state.isStep3Valid
                 ? () {
                     String email = context.read<SignUpBloc>().state.email!;
-                    String password = context.read<SignUpBloc>().state.password!;
-                    FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+                    String password =
+                        context.read<SignUpBloc>().state.password!;
+                    try {
+                      //firebase authentication에 추가
+                      FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: email, password: password)
+                          .then((_) => FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: email, password: password));
+                    } catch (e) {
+                      throw Exception(e);
+                    }
+                    final signUpState = context.read<SignUpBloc>().state;
+                    debugPrint(
+                        '${signUpState.userInfo}');
                     context.read<SignUpBloc>().add(SubmitSignUp());
-                    if (
-                        !state.isLoading &&
-                        state.error == null) {
+                    context.read<LoginBloc>().add(UserLoginEvent());
+                    if (!state.isLoading && state.error == null) {
                       context.go('/signup/step5');
                     } else if (state.error != null) {
                       ScaffoldMessenger.of(context).showSnackBar(

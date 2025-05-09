@@ -14,6 +14,7 @@ class _AccountActionsState extends State<_AccountActions> {
         TextButton(
           onPressed: () async {
             await FirebaseAuth.instance.signOut();
+            GoogleLogin().logout();
             setState(() {
               context.read<LoginBloc>().add(UserLogoutEvent());
             });
