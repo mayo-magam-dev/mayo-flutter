@@ -49,10 +49,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   void _onCheckLoginStatus(
       CheckLoginStatusEvent event, Emitter<LoginState> emit) async {
     try {
-      final result = await dataSource.getUser();
+      await dataSource.getUser();
       emit(LoginStateChanged(LocalLoginState.login));
     } on DioException catch (e) {
-      // 응답 코드가 200이 아닌 경우 회원가입 필요
       if (e.response?.statusCode != 200) {
         emit(LoginStateChanged(LocalLoginState.needRegister));
       } else {

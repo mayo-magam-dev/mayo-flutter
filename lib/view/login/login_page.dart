@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,9 +10,9 @@ import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
-import 'package:mayo_flutter/model/user/create_fcm_token.dart';
 import 'package:mayo_flutter/model/user/local_login_state.dart';
 import 'package:mayo_flutter/router/router.dart' as app_router;
+import 'package:mayo_flutter/util/fcm.dart';
 import 'package:mayo_flutter/view/login/google_login.dart';
 
 part 'login_scaffold.dart';

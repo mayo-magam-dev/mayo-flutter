@@ -5,11 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mayo_flutter/dataSource/banner.dart';
 import 'package:mayo_flutter/dataSource/cart.dart';
 import 'package:mayo_flutter/dataSource/store.dart';
-import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/model/banner/banner.dart' as mayo_banner;
 import 'package:mayo_flutter/model/cart/read_cart_response.dart';
 import 'package:mayo_flutter/model/store/read_simple_store_response.dart';
-import 'package:mayo_flutter/model/user/create_fcm_token.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -18,7 +16,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final BannerDataSource _bannerDataSource = BannerDataSource();
   final CartDataSource _cartDataSource = CartDataSource();
   final StoreDataSource _storeDataSource = StoreDataSource();
-  final UserDataSource _userDataSource = UserDataSource();
 
   HomeBloc() : super(const HomeState()) {
     on<LoadHomeData>(_onLoadHomeData);
