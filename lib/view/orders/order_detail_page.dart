@@ -21,9 +21,7 @@ class OrderDetailPage extends StatefulWidget {
   });
 
   final String reservationId;
-
   final String storeId;
-
   final String reservationState;
 
   @override
@@ -37,12 +35,9 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   ReadReservationDetailResponse? reservationDeatilData;
   ReadStore? storeDeatilData;
 
-  bool? orderSuccess;
-
   featchReservationDeatilData() async {
     final ReadReservationDetailResponse getReservationDetail =
-        await ReservationDataSource()
-            .getReservationDetail(widget.reservationId);
+        await ReservationDataSource().getReservationDetail(widget.reservationId);
     final ReadStore getStore =
         await StoreDataSource().getStoreDetail(widget.storeId);
     setState(() {
@@ -55,7 +50,36 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   void initState() {
     super.initState();
     featchReservationDeatilData();
-    orderSuccess = widget.reservationState == '2' ? true : false;
+  }
+
+  String getStatusText(String state) {
+    switch (state) {
+      case '0':
+        return '예약 대기 중입니다!';
+      case '1':
+        return '주문이 진행 중입니다!';
+      case '2':
+        return '완료된 주문입니다!';
+      case '3':
+        return '주문이 실패했습니다!';
+      default:
+        return '알 수 없는 상태입니다';
+    }
+  }
+
+  Color getStatusColor(String state) {
+    switch (state) {
+      case '0':
+        return Colors.orange;
+      case '1':
+        return Colors.blue;
+      case '2':
+        return Colors.green;
+      case '3':
+        return Colors.red;
+      default:
+        return Colors.grey;
+    }
   }
 
   @override
@@ -69,7 +93,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
         reservationDeatilData!.pickupTime.toString().split(RegExp(r'[ :-]'));
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: SingleChildScrollView(child:  Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Topbar(title: "전체", showCarts: true),
@@ -78,11 +102,9 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(orderSuccess! ? '완료된 주문입니다!' : '예약이 거절되었습니다!',
+                  Text(getStatusText(widget.reservationState),
                       style: AppTextStyle.heading3Bold.copyWith(
-                        color: orderSuccess!
-                            ? GlobalMainColor.globalMainColor
-                            : GlobalMainColor.globalPrimaryRedColor,
+                        color: getStatusColor(widget.reservationState),
                       )),
                   SizedBox(height: 11.h),
                   Text(reservationDeatilData!.storeName,
@@ -183,6 +205,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           ],
         ),
       ),
+    )
     );
   }
 }

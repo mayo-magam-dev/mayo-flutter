@@ -80,7 +80,7 @@ class _CartBottomSheet extends StatelessWidget {
                   reservationRequest: _CartContent.reservationRequest,
                 );
                 ReservationDataSource().createReservation(request: request);
-                context.pop();
+                context.go("/");
               },
             )
           ],
