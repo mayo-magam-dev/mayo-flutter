@@ -10,7 +10,7 @@ import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/view/components/button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
-import 'package:mayo_flutter/model/user/local_login_state.dart';
+
 
 part 'sign_up_scaffold.dart';
 part 'sign_up_header.dart';
@@ -18,6 +18,55 @@ part 'sign_up_middle.dart';
 
 class SignUpStep2Page extends StatelessWidget {
   const SignUpStep2Page({super.key});
+
+  Future<void> _handleNextButton(BuildContext context, LoginState loginState, SignUpState state) async {
+    final isSocialLogin = loginState is LoginStateChanged &&
+        loginState.provider != null &&
+        loginState.provider != 'email';
+
+    if (isSocialLogin) {
+      context.push('/signup/step3');
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: state.email!,
+        password: state.password!,
+      );
+
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: state.email!,
+        password: state.password!,
+      );
+
+      context.push('/signup/step3');
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = '계정 생성에 실패했습니다.';
+
+      if (e.code == 'weak-password') {
+        errorMessage = '비밀번호가 너무 약합니다.';
+      } else if (e.code == 'email-already-in-use') {
+        errorMessage = '이미 사용 중인 이메일입니다.';
+      } else if (e.code == 'invalid-email') {
+        errorMessage = '유효하지 않은 이메일 형식입니다.';
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('계정 생성 중 오류가 발생했습니다: $e'),
+          backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,19 +79,7 @@ class SignUpStep2Page extends StatelessWidget {
 
         return BlocBuilder<SignUpBloc, SignUpState>(
           builder: (context, state) {
-            // 소셜 로그인인 경우 이메일과 비밀번호 자동 유효
             final isValid = isSocialLogin || state.isStep2Valid;
-
-            // 소셜 로그인인 경우 비밀번호를 자동으로 생성하고 설정
-            if (isSocialLogin && loginState.email != null) {
-              // 회원가입 블록에 이메일 설정 (이미 설정되어 있을 수 있지만 확인차 설정)
-              context.read<SignUpBloc>().add(SetEmail(loginState.email!));
-
-              // 랜덤 비밀번호를 생성해서 설정 (실제 소셜 로그인에서는 사용되지 않음)
-              final randomPassword = '${DateTime.now().millisecondsSinceEpoch}';
-              context.read<SignUpBloc>().add(SetPassword(randomPassword));
-              context.read<SignUpBloc>().add(SetPasswordConfirmation(true));
-            }
 
             return _Scaffold(
               topBar: Topbar(title: '회원가입2', showCarts: false),
@@ -51,9 +88,7 @@ class SignUpStep2Page extends StatelessWidget {
               nextButton: Button(
                 text: '다음',
                 onTap: isValid
-                    ? () {
-                        context.push('/signup/step3');
-                      }
+                    ? () => _handleNextButton(context, loginState, state)
                     : null,
               ),
             );

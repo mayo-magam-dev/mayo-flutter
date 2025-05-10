@@ -7,48 +7,37 @@ class _LoginSocialLogin extends StatefulWidget {
   State<_LoginSocialLogin> createState() => _LoginSocialLoginState();
 }
 
-
-    
 class _LoginSocialLoginState extends State<_LoginSocialLogin> {
+  Future<void> _handleLoginSuccess() async {
+    try {
+      final userData = await UserDataSource().getUser();
+      
+      if (!mounted) return;
+      context.read<LoginBloc>().add(UserLoginEvent());
+      await FcmUtils.registerFcmToken();
+      context.go("/");
+    } on DioException catch (e) {
+      if (!mounted) return;
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        context.read<LoginBloc>().add(SocialLoginEvent(
+          email: user.email ?? '',
+          provider: 'google'
+        ));
+        
+        final signUpBloc = BlocProvider.of<SignUpBloc>(context);
+        signUpBloc.add(SetEmail(user.email ?? ''));
+        signUpBloc.add(SetPassword("12345678"));
+        signUpBloc.add(SetPasswordConfirmation(true));
+        context.go("/signup");
+      }
+    }
+  }
+
   Future<void> _loginWithGoogle() async {
     try {
-      final userCredential = await GoogleLogin().login();
-      String? fcmToken = await FirebaseMessaging.instance.getToken();
-      if (fcmToken == null) {
-        debugPrint("FCM 토큰을 가져오지 못했습니다.");
-        return;
-      }
-
-      try {
-        // 사용자 정보 조회 시도
-        final userData = await UserDataSource().getUser();
-        
-        // 사용자 정보가 있으면 FCM 토큰 등록 후 홈으로 이동
-        await UserDataSource().createFcmToken(
-          createFcmToken: CreateFcmToken(
-              deviceType: Platform.isAndroid ? "Android" : "iOS",
-              fcmToken: fcmToken),
-        );
-
-        if (!mounted) return;
-        context.read<LoginBloc>().add(UserLoginEvent());
-        context.go("/");
-      } on DioException catch (e) {
-        // 사용자 정보가 없으면 회원가입 페이지로 이동
-        if (!mounted) return;
-        final user = FirebaseAuth.instance.currentUser;
-        if (user != null) {
-          context.read<LoginBloc>().add(SocialLoginEvent(
-            email: user.email ?? '',
-            provider: 'google'
-          ));
-          
-          // 회원가입 블록에 이메일 설정
-          final signUpBloc = BlocProvider.of<SignUpBloc>(context);
-          signUpBloc.add(SetEmail(user.email ?? ''));
-          context.go("/signup");
-        }
-      }
+      await GoogleLogin().login();
+      await _handleLoginSuccess();
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -59,43 +48,8 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
 
   Future<void> _loginWithApple() async {
     try {
-      final userCredential = await AppleLogin().login();
-      // String? fcmToken = await FirebaseMessaging.instance.getToken();
-      // if (fcmToken == null) {
-      //   debugPrint("FCM 토큰을 가져오지 못했습니다.");
-      //   return;
-      // }
-
-      try {
-        // 사용자 정보 조회 시도
-        final userData = await UserDataSource().getUser();
-        
-        // 사용자 정보가 있으면 FCM 토큰 등록 후 홈으로 이동
-        // await UserDataSource().createFcmToken(
-        //   createFcmToken: CreateFcmToken(
-        //       deviceType: Platform.isAndroid ? "Android" : "iOS",
-        //       fcmToken: fcmToken),
-        // );
-
-        if (!mounted) return;
-        context.read<LoginBloc>().add(UserLoginEvent());
-        context.go("/");
-      } on DioException catch (e) {
-        // 사용자 정보가 없으면 회원가입 페이지로 이동
-        if (!mounted) return;
-        final user = FirebaseAuth.instance.currentUser;
-        if (user != null) {
-          context.read<LoginBloc>().add(SocialLoginEvent(
-            email: user.email ?? '',
-            provider: 'apple'
-          ));
-          
-          // 회원가입 블록에 이메일 설정
-          final signUpBloc = BlocProvider.of<SignUpBloc>(context);
-          signUpBloc.add(SetEmail(user.email ?? ''));
-          context.go("/signup");
-        }
-      }
+      await AppleLogin().login();
+      await _handleLoginSuccess();
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

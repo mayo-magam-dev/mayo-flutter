@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,49 +20,35 @@ class SignUpStep3Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpBloc, SignUpState>(
-      builder: (context, state) {
-        return _Scaffold(
-          topBar: Topbar(title: '회원가입3', showCarts: false),
-          header: _SignUpHeader(),
-          middle: _SignUpForm(),
-          nextButton: Button(
-            text: '가입하기',
-            onTap: state.isStep3Valid
-                ? () {
-                    String email = context.read<SignUpBloc>().state.email!;
-                    String password =
-                        context.read<SignUpBloc>().state.password!;
-                    try {
-                      //firebase authentication에 추가
-                      FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                              email: email, password: password)
-                          .then((_) => FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                                  email: email, password: password));
-                    } catch (e) {
-                      throw Exception(e);
-                    }
-                    final signUpState = context.read<SignUpBloc>().state;
-                    debugPrint(
-                        '${signUpState.userInfo}');
-                    context.read<SignUpBloc>().add(SubmitSignUp());
-                    context.read<LoginBloc>().add(UserLoginEvent());
-                    if (!state.isLoading && state.error == null) {
-                      context.go('/signup/step5');
-                    } else if (state.error != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(state.error!),
-                          backgroundColor:
-                              GlobalMainColor.globalPrimaryRedColor,
-                        ),
-                      );
-                    }
-                  }
-                : null,
-          ),
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, loginState) {
+        return BlocBuilder<SignUpBloc, SignUpState>(
+          builder: (context, state) {
+            return _Scaffold(
+              topBar: Topbar(title: '회원가입3', showCarts: false),
+              header: _SignUpHeader(),
+              middle: _SignUpForm(),
+              nextButton: Button(
+                text: '가입하기',
+                onTap: state.isStep3Valid
+                    ? () async {
+                        context.read<SignUpBloc>().add(SubmitSignUp());
+                        context.read<LoginBloc>().add(UserLoginEvent());
+                        if (!state.isLoading && state.error == null) {
+                          context.go('/signup/step5');
+                        } else if (state.error != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(state.error!),
+                              backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+                            ),
+                          );
+                        }
+                      }
+                    : null,
+              ),
+            );
+          },
         );
       },
     );

@@ -11,9 +11,7 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
   bool _obscurePassword = true;
   bool _obscurePasswordConfirm = true;
   bool _passwordsMatch = false;
-  bool _isRegistering = false;
 
-  // 비밀번호 입력 컨트롤러 추가
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -21,11 +19,10 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
   @override
   void initState() {
     super.initState();
-    // 컨트롤러 리스너 설정
+
     _passwordController.addListener(_checkPasswordMatch);
     _confirmPasswordController.addListener(_checkPasswordMatch);
 
-    // BlocBuilder에서 받은 이메일 값을 컨트롤러에 설정
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final state = context.read<SignUpBloc>().state;
       if (state.email != null && state.email!.isNotEmpty) {
@@ -42,7 +39,6 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
     super.dispose();
   }
 
-  // 비밀번호 일치 확인 함수
   void _checkPasswordMatch() {
     final password = _passwordController.text;
     final confirmPassword = _confirmPasswordController.text;
@@ -56,77 +52,7 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
         _passwordsMatch = match;
       });
 
-      // BLoC에 비밀번호 일치 상태 업데이트
       context.read<SignUpBloc>().add(SetPasswordConfirmation(match));
-    }
-  }
-
-  // 파이어베이스 계정 생성 함수
-  Future<void> _createFirebaseAccount() async {
-    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      return;
-    }
-
-    if (!_passwordsMatch) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('비밀번호가 일치하지 않습니다.'),
-          backgroundColor: GlobalMainColor.globalPrimaryRedColor,
-        ),
-      );
-      return;
-    }
-
-    try {
-      setState(() {
-        _isRegistering = true;
-      });
-
-      // 파이어베이스에 계정 생성
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      // 블록에 이메일, 비밀번호 상태 업데이트
-      context.read<SignUpBloc>().add(SetEmail(_emailController.text));
-      context.read<SignUpBloc>().add(SetPassword(_passwordController.text));
-      context.read<SignUpBloc>().add(SetPasswordConfirmation(true));
-
-      context.push('/signup/step3');
-    } on FirebaseAuthException catch (e) {
-      String errorMessage = '계정 생성에 실패했습니다.';
-
-      if (e.code == 'weak-password') {
-        errorMessage = '비밀번호가 너무 약합니다.';
-      } else if (e.code == 'email-already-in-use') {
-        errorMessage = '이미 사용 중인 이메일입니다.';
-      } else if (e.code == 'invalid-email') {
-        errorMessage = '유효하지 않은 이메일 형식입니다.';
-      }
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(errorMessage),
-          backgroundColor: GlobalMainColor.globalPrimaryRedColor,
-        ),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('계정 생성 중 오류가 발생했습니다: $e'),
-          backgroundColor: GlobalMainColor.globalPrimaryRedColor,
-        ),
-      );
-    } finally {
-      setState(() {
-        _isRegistering = false;
-      });
     }
   }
 
