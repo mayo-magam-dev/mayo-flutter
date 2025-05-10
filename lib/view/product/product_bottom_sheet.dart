@@ -15,27 +15,88 @@ class _BottomSheet extends StatefulWidget {
 
 class _BottomSheetState extends State<_BottomSheet> {
   List<ReadCartResponse>? cartData;
+  bool isLoading = false;
 
-  featchCartData() async {
+  Future<void> fetchCartData() async {
     final cartDataSource = await CartDataSource().getCarts();
     setState(() {
       cartData = cartDataSource;
     });
   }
 
+  Future<void> handleAddToCart() async {
+    if (isLoading) return;
+    
+    setState(() => isLoading = true);
+    try {
+      final loginState = context.read<LoginBloc>().state;
+      if (loginState is! LoginStateChanged || 
+          loginState.loginState == LocalLoginState.notLogin) {
+        showDialog(
+          context: context,
+          builder: (context) => const _BeforeLoginOnCart(),
+        );
+        return;
+      }
+
+      if (cartData == null || cartData!.isEmpty) {
+        await _createNewCart();
+      } else {
+        await _handleExistingCart();
+      }
+    } catch (e) {
+      debugPrint('장바구니 추가 실패: $e');
+    } finally {
+      setState(() => isLoading = false);
+    }
+  }
+
+  Future<void> _createNewCart() async {
+    final itemInfo = CreateCartRequest(
+      itemId: widget.itemData!.itemId,
+      itemCount: ItemQuantityCounter.itemCount,
+      storeId: widget.storeId,
+    );
+    await CartDataSource().createCart(request: itemInfo);
+    _showSuccessDialog();
+  }
+
+  Future<void> _handleExistingCart() async {
+    try {
+      final existingItem = cartData!.firstWhere(
+        (item) => item.itemName == widget.itemData?.itemName,
+      );
+      await CartDataSource().putQuantity(
+        existingItem.cartId,
+        ItemQuantityCounter.itemCount + existingItem.cartItemCount,
+      );
+      _showSuccessDialog();
+    } catch (e) {
+      if (cartData!.first.storeId == widget.storeId) {
+        await _createNewCart();
+      } else {
+        debugPrint('다른 가게의 상품이 장바구니에 있습니다.');
+        await CartDataSource().deleteCart(cartData!.first.cartId);
+        await _createNewCart();
+      }
+    }
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => const _OnCart(),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    featchCartData();
+    fetchCartData();
   }
 
   @override
   Widget build(BuildContext context) {
-    final loginBlocState = context.read<LoginBloc>().state;
-    LocalLoginState? loginState;
-    if (loginBlocState is LoginStateChanged) {
-      loginState = loginBlocState.loginState;
-    }
     return Container(
       height: 221.h,
       width: double.infinity,
@@ -46,7 +107,7 @@ class _BottomSheetState extends State<_BottomSheet> {
             color: Colors.grey,
             spreadRadius: 1,
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
         borderRadius: BorderRadius.only(
@@ -71,106 +132,49 @@ class _BottomSheetState extends State<_BottomSheet> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 159.w,
-                  height: 50.h,
-                  decoration: BoxDecoration(
-                    color: GlobalMainGrey.grey200,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                    onTap: () => context.pop(),
-                    child: Text("가게 둘러보기",
-                        style: AppTextStyle.body1Bold
-                            .copyWith(color: GlobalMainGrey.grey400)),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    if (loginState == LocalLoginState.notLogin) {
-                      //로그인되지 않은 상태면
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return _BeforeLoginOnCart();
-                        },
-                      );
-                    } else if (cartData!.isNotEmpty) {
-                      //장바구니에 아이템이 있다면
-                        try {
-                          ReadCartResponse targetStore = cartData!.firstWhere(
-                              (item) =>
-                                  item.itemName == widget.itemData?.itemName);
-                          //장바구니 아이템과 저장할 아이템이 같다면
-                          CartDataSource().putQuantity(
-                            targetStore.cartId,
-                            ItemQuantityCounter.itemCount +
-                                targetStore.cartItemCount,
-                          );
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return _OnCart();
-                            },
-                          );
-                        } catch (e) {
-                          //장바구니 아이템과 저장할 아이템이 같지 않다면
-                          if (cartData!.first.storeId == widget.storeId) {
-                            //장바구니의 아이템과 저장할 아이템의 가게가 같다면
-                            final itemInfo = CreateCartRequest(
-                              itemId: widget.itemData!.itemId,
-                              itemCount: ItemQuantityCounter.itemCount,
-                              storeId: widget.storeId,
-                            );
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return _OnCart();
-                              },
-                            );
-                          } catch (e) {
-                            //장바구니 아이템과 저장할 아이템이 같지 않다면
-                            if (cartData!.first.storeId == widget.storeId) {
-                              //장바구니의 아이템과 저장할 아이템의 가게가 같다면
-                              final itemInfo = CreateCartRequest(
-                                itemId: widget.itemData!.itemId,
-                                itemCount: ItemQuantityCounter.itemCount,
-                                storeId: widget.storeId,
-                              );
-                              CartDataSource().createCart(request: itemInfo);
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return _OnCart();
-                                },
-                              );
-                            } else {
-                              //장바구니의 아이템과 저장할 아이템의 가게가 다르다면
-                            }
-                          }
-                        
-                      }
-                    }
-                  },
-                  child: Container(
-                    width: 159.w,
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                      color: GlobalMainColor.globalButtonColor,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "장바구니 담기",
-                      style:
-                          AppTextStyle.body1Bold.copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
+                _buildBrowseStoreButton(),
+                _buildAddToCartButton(),
               ],
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBrowseStoreButton() {
+    return Container(
+      width: 159.w,
+      height: 50.h,
+      decoration: BoxDecoration(
+        color: GlobalMainGrey.grey200,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      alignment: Alignment.center,
+      child: GestureDetector(
+        onTap: () => context.pop(),
+        child: Text(
+          "가게 둘러보기",
+          style: AppTextStyle.body1Bold.copyWith(color: GlobalMainGrey.grey400),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAddToCartButton() {
+    return GestureDetector(
+      onTap: handleAddToCart,
+      child: Container(
+        width: 159.w,
+        height: 50.h,
+        decoration: BoxDecoration(
+          color: GlobalMainColor.globalButtonColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          "장바구니 담기",
+          style: AppTextStyle.body1Bold.copyWith(color: Colors.white),
         ),
       ),
     );
