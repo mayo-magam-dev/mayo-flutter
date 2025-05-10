@@ -32,7 +32,7 @@ class _Scaffold extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 123.h),
+                SizedBox(height: 100.h),
                 header,
                 SizedBox(height: 70.h),
                 decoration,
@@ -40,8 +40,11 @@ class _Scaffold extends StatelessWidget {
             ),
             Column(
               children: [
-                SizedBox(height: 741.h),
-                submitButton,
+                SizedBox(height: 650.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: submitButton,
+                ),
               ],
             ),
           ],

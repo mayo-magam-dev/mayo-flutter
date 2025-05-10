@@ -1,9 +1,43 @@
 part of 'login_page.dart';
 
-class _LoginForm extends StatelessWidget {
+class _LoginForm extends StatefulWidget {
+  @override
+  State<_LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<_LoginForm> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
+  bool obscureText = true;
+
+  Future<void> _handleLoginSuccess() async {
+    try {
+      await UserDataSource().getUser();
+      
+      if (context.mounted) {
+        context.read<LoginBloc>().add(UserLoginEvent());
+        await FcmUtils.registerFcmToken();
+        context.go('/');
+      }
+    } on DioException catch (e) {
+      if (context.mounted) {
+        final signUpBloc = BlocProvider.of<SignUpBloc>(context);
+        signUpBloc.add(SetEmail(_emailController.text));
+        signUpBloc.add(SetPassword(_passwordController.text));
+        signUpBloc.add(SetPasswordConfirmation(true));
+
+        context.read<LoginBloc>().add(SocialLoginEvent(
+          email: _emailController.text,
+          provider: 'email'
+        ));
+        context.go('/signup/step3');
+      }
+    }
+  }
 
   Future<void> _loginWithEmailAndPassword(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
@@ -12,9 +46,7 @@ class _LoginForm extends StatelessWidget {
           email: _emailController.text,
           password: _passwordController.text,
         );
-        if (context.mounted) {
-          context.go('/');
-        }
+        await _handleLoginSuccess();
       } on FirebaseAuthException catch (e) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -26,6 +58,13 @@ class _LoginForm extends StatelessWidget {
         }
       }
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 
   @override
@@ -60,11 +99,8 @@ class _LoginForm extends StatelessWidget {
                 ),
               ),
               hintText: '이메일을 입력해주세요.',
-              hintStyle: TextStyle(
+              hintStyle: AppTextStyle.body2Medium.copyWith(
                 color: GlobalMainGrey.grey300,
-                fontSize: 14.sp,
-                fontFamily: 'Pretendard',
-                fontWeight: FontWeight.w500,
                 letterSpacing: -0.28,
               ),
             ),
@@ -78,7 +114,7 @@ class _LoginForm extends StatelessWidget {
               }
               return null;
             },
-            obscureText: true,
+            obscureText: obscureText,
             onTapOutside: (event) => FocusScope.of(context).unfocus(),
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
@@ -97,16 +133,60 @@ class _LoginForm extends StatelessWidget {
                 ),
               ),
               hintText: '비밀번호를 입력해주세요.',
-              hintStyle: TextStyle(
+              hintStyle: AppTextStyle.body2Medium.copyWith(
                 color: GlobalMainGrey.grey300,
-                fontSize: 14.sp,
-                fontFamily: 'Pretendard',
-                fontWeight: FontWeight.w500,
                 letterSpacing: -0.28,
+              ),
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
+                },
+                icon: obscureText
+                    ? SvgPicture.asset('assets/icons/eye_off.svg')
+                    : SvgPicture.asset('assets/icons/eye.svg'),
               ),
             ),
           ),
-          SizedBox(height: 25.h),
+          SizedBox(height: 24.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  context.push('/signup');
+                },
+                child: Text(
+                  '회원가입',
+                  style: AppTextStyle.captionMedium.copyWith(
+                    color: GlobalMainGrey.grey300,
+                    letterSpacing: -0.24,
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 12.w),
+                child: Text(
+                  '|',
+                  style: AppTextStyle.captionMedium.copyWith(
+                    color: GlobalMainGrey.grey300,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  '비밀번호 찾기',
+                  style: AppTextStyle.captionMedium.copyWith(
+                    color: GlobalMainGrey.grey300,
+                    letterSpacing: -0.24,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 40.h),
           ElevatedButton(
             onPressed: () => _loginWithEmailAndPassword(context),
             style: ElevatedButton.styleFrom(
@@ -118,11 +198,8 @@ class _LoginForm extends StatelessWidget {
             ),
             child: Text(
               '로그인',
-              style: TextStyle(
+              style: AppTextStyle.body1Bold.copyWith(
                 color: Colors.white,
-                fontSize: 16.sp,
-                fontFamily: 'Pretendard',
-                fontWeight: FontWeight.w600,
                 letterSpacing: -0.32,
               ),
             ),

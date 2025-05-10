@@ -8,16 +8,38 @@ class _LoginSocialLogin extends StatefulWidget {
 }
 
 class _LoginSocialLoginState extends State<_LoginSocialLogin> {
+  Future<void> _handleLoginSuccess() async {
+    try {
+      final userData = await UserDataSource().getUser();
+      
+      if (!mounted) return;
+      context.read<LoginBloc>().add(UserLoginEvent());
+      await FcmUtils.registerFcmToken();
+      context.go("/");
+    } on DioException catch (e) {
+      if (!mounted) return;
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        context.read<LoginBloc>().add(SocialLoginEvent(
+          email: user.email ?? '',
+          provider: 'google'
+        ));
+        
+        final signUpBloc = BlocProvider.of<SignUpBloc>(context);
+        signUpBloc.add(SetEmail(user.email ?? ''));
+        signUpBloc.add(SetPassword("12345678"));
+        signUpBloc.add(SetPasswordConfirmation(true));
+        context.go("/signup");
+      }
+    }
+  }
+
   Future<void> _loginWithGoogle() async {
     try {
       await GoogleLogin().login();
-      setState(() {
-        context.read<LoginBloc>().add(UserLoginEvent());
-        context.go("/");
-      });
+      await _handleLoginSuccess();
     } catch (e) {
       if (!mounted) return;
-
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Google 로그인 실패: $e')),
       );
@@ -25,18 +47,11 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
   }
 
   Future<void> _loginWithApple() async {
-    final UserDataSource dataSource = UserDataSource();
-
     try {
       await AppleLogin().login();
-      final result = await dataSource.getUser();
-
-      if (!mounted) return;
-
-      result.uid.isNotEmpty ? context.go("/") : context.go("/register");
+      await _handleLoginSuccess();
     } catch (e) {
       if (!mounted) return;
-
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Apple 로그인 실패: $e')),
       );

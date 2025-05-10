@@ -10,7 +10,7 @@ class _SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<_SignUpForm> {
   Map<String, bool> list = {'man': false, 'woman': false, 'notSelect': false};
-  
+
   // 컨트롤러 추가
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _displayNameController = TextEditingController();
@@ -23,7 +23,7 @@ class _SignUpFormState extends State<_SignUpForm> {
     _phoneNumberController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -148,7 +148,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     final year = int.parse(value.substring(0, 4));
                     final month = int.parse(value.substring(4, 6));
                     final day = int.parse(value.substring(6, 8));
-                    
+
                     final birthDate = DateTime(year, month, day);
                     context.read<SignUpBloc>().add(SetBirthDate(birthDate));
                   } catch (e) {
@@ -256,7 +256,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     list['woman'] = false;
                     list['notSelect'] = false;
                   });
-                  context.read<SignUpBloc>().add(SetGender('male'));
+                  context.read<SignUpBloc>().add(SetGender('남자'));
                 },
                 child: Container(
                   width: 102.w,
@@ -288,7 +288,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     list['woman'] = true;
                     list['notSelect'] = false;
                   });
-                  context.read<SignUpBloc>().add(SetGender('female'));
+                  context.read<SignUpBloc>().add(SetGender('여자'));
                 },
                 child: Container(
                   width: 102.w,
@@ -320,7 +320,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     list['woman'] = false;
                     list['notSelect'] = true;
                   });
-                  context.read<SignUpBloc>().add(SetGender('other'));
+                  context.read<SignUpBloc>().add(SetGender('미선택'));
                 },
                 child: Container(
                   width: 102.w,
@@ -338,7 +338,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                     ),
                   ),
                   child: Text(
-                    '선택안함',
+                    '미선택',
                     style: AppTextStyle.body1Medium.copyWith(
                       color: GlobalMainColor.globalPrimaryBlackColor,
                     ),

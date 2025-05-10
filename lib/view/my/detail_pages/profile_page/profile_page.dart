@@ -13,6 +13,7 @@ import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/user/read_user.dart';
 
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:mayo_flutter/view/login/google_login.dart';
 
 part 'profile_scaffold.dart';
 part 'profile_header.dart';

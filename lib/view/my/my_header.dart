@@ -1,14 +1,15 @@
 part of 'my_page.dart';
 
 class _MyHeader extends StatelessWidget {
-  _MyHeader({required this.inLogged});
-
-  final bool inLogged;
-
   final userDataSource = UserDataSource().getUser();
 
   @override
   Widget build(BuildContext context) {
+    final loginBlocState = context.read<LoginBloc>().state;
+    LocalLoginState? loginState;
+    if (loginBlocState is LoginStateChanged) {
+      loginState = loginBlocState.loginState;
+    }
     return FutureBuilder(
         future: userDataSource,
         builder: (context, snapshot) {
@@ -70,14 +71,19 @@ class _MyHeader extends StatelessWidget {
                     SizedBox(width: 16.w),
                     GestureDetector(
                       onTap: () {
-                        inLogged
-                            ? context.push('/profile')
-                            : context.push('/login');
+                        switch (loginState) {
+                          case LocalLoginState.login:
+                            context.push('/profile');
+                          default:
+                            context.push('/login');
+                        }
                       },
                       child: Row(
                         children: [
                           Text(
-                            inLogged ? snapshot.data?.name ?? '' : '로그인/회원가입',
+                            loginState == LocalLoginState.login
+                                ? snapshot.data?.name ?? ''
+                                : '로그인/회원가입',
                             style: TextStyle(
                               color: GlobalMainColor.globalPrimaryBlackColor,
                               fontSize: 18.sp,

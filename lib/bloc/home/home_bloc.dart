@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mayo_flutter/dataSource/banner.dart';
 import 'package:mayo_flutter/dataSource/cart.dart';
@@ -26,12 +29,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(state.copyWith(isLoading: true));
 
     try {
-      // 병렬로 데이터 로드
       await Future.wait([
         _loadBanners(emit),
         _loadCartItems(emit),
         _loadRandomStores(emit),
       ]);
+      _submitFirebaseToken();
     } catch (e) {
       emit(state.copyWith(error: e.toString()));
     } finally {
@@ -82,4 +85,39 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(error: '랜덤 상점 로딩 오류: $e'));
     }
   }
+
+  void _submitFirebaseToken() async {
+  await FirebaseMessaging.instance.requestPermission(
+    badge: true,
+    alert: true,
+    sound: true,
+  );
+  
+  // iOS 기기인 경우에만 APNS 토큰 처리
+  if (Platform.isIOS) {
+    String? apnsToken;
+    int attempts = 0;
+    
+    while (apnsToken == null && attempts < 5) {
+      apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+      if (apnsToken == null) {
+        attempts++;
+        await Future.delayed(const Duration(seconds: 2));
+      }
+    }
+    
+    if (apnsToken == null) {
+      debugPrint("APNS 토큰을 가져오지 못했습니다.");
+      return;
+    }
+  }
+  
+  // FCM 토큰 가져오기
+  String? fcmToken = await FirebaseMessaging.instance.getToken();
+  if (fcmToken == null) {
+    debugPrint("FCM 토큰을 가져오지 못했습니다.");
+    return;
+  }
+}
+
 }

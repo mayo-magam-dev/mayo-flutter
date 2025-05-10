@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
-import 'package:mayo_flutter/model/reservation/read_reservation_detail_response.dart';
-import 'package:mayo_flutter/model/reservation/read_reservation_response.dart';
 import 'package:mayo_flutter/view/cart/cart_page.dart';
 import 'package:mayo_flutter/view/home/home_page.dart';
 import 'package:mayo_flutter/view/login/login_page.dart';
@@ -40,28 +38,13 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>();
 
-final _signUpBloc = SignUpBloc(userDataSource: UserDataSource());
+final SignUpBloc signUpBloc = SignUpBloc(userDataSource: UserDataSource());
 
 int count = 0;
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
-  redirect: (context, state) {
-    final loginState = context.read<LoginBloc>().state;
-
-    if (loginState is LoginStateChanged) {
-      switch (loginState.loginState) {
-        case LocalLoginState.needRegister:
-          return "/register";
-        case LocalLoginState.login:
-          return state.matchedLocation == "/login" ? "/" : null;
-        case LocalLoginState.notLogin:
-          return "/login";
-      }
-    }
-    return null;
-  },
   routes: [
     GoRoute(
       path: '/product/:data/:storeId/:storeName',
@@ -111,34 +94,34 @@ final router = GoRouter(
     GoRoute(
       path: '/signup',
       builder: (context, state) => BlocProvider.value(
-        value: _signUpBloc,
+        value: signUpBloc,
         child: SignUpStep1Page(),
       ),
     ),
     GoRoute(
       path: '/signup/step2',
       builder: (context, state) => BlocProvider.value(
-        value: _signUpBloc,
+        value: signUpBloc,
         child: SignUpStep2Page(),
       ),
     ),
     GoRoute(
       path: '/signup/step3',
       builder: (context, state) => BlocProvider.value(
-        value: _signUpBloc,
+        value: signUpBloc,
         child: SignUpStep3Page(),
       ),
     ),
     GoRoute(
       path: '/signup/step5',
       builder: (context, state) => BlocProvider.value(
-        value: _signUpBloc,
+        value: signUpBloc,
         child: SignUpStep5Page(),
       ),
     ),
     GoRoute(
       path: '/account-delete',
-      builder: (context, state) => const AccountDeletePage(),
+      builder: (context, state) => AccountDeletePage(),
     ),
     GoRoute(
       path: '/announcement',

@@ -1,8 +1,6 @@
 part of 'account_delete_page.dart';
 
 class _Main extends StatefulWidget {
-  const _Main();
-
   @override
   State<_Main> createState() => _MainState();
 }
@@ -18,30 +16,6 @@ class _MainState extends State<_Main> {
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  void _showDeleteConfirmDialog() {
-    showGeneralDialog(
-      context: context,
-      pageBuilder: (context, _, __) => _DeleteConfirmDialog(
-        onConfirm: _showDeleteCompleteDialog,
-      ),
-    );
-  }
-
-  void _showDeleteCompleteDialog() {
-    UserDataSource().deleteUser();
-    FirebaseAuth.instance.currentUser!.delete();
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: true,
-      barrierLabel: '',
-      pageBuilder: (context, _, __) => const _DeleteCompleteDialog(),
-    ).then((_) => _navigateToLogin());
-  }
-
-  void _navigateToLogin() {
-    context.go('/login');
   }
 
   @override
@@ -75,31 +49,35 @@ class _MainState extends State<_Main> {
         onChanged: (value) => setState(() => _inputText = value),
         onTapOutside: (_) => FocusScope.of(context).unfocus(),
         textInputAction: TextInputAction.next,
-        decoration: _buildInputDecoration(),
-      ),
-    );
-  }
-
-  InputDecoration _buildInputDecoration() {
-    return InputDecoration(
-      focusedBorder: _buildBorder(GlobalMainYellow.yellow200),
-      enabledBorder: _buildBorder(GlobalMainYellow.yellow200),
-      errorBorder: _buildBorder(GlobalMainColor.globalPrimaryRedColor),
-      hintText: _deleteConfirmText,
-      hintStyle: AppTextStyle.body2Medium.copyWith(
-        color: GlobalMainGrey.grey300,
-        letterSpacing: -0.28,
-        height: 1.4,
-      ),
-    );
-  }
-
-  OutlineInputBorder _buildBorder(Color color) {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-      borderSide: BorderSide(
-        width: 2,
-        color: color,
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 2,
+              color: GlobalMainYellow.yellow200,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 2,
+              color: GlobalMainYellow.yellow200,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 2,
+              color: GlobalMainColor.globalPrimaryRedColor,
+            ),
+          ),
+          hintText: _deleteConfirmText,
+          hintStyle: AppTextStyle.body2Medium.copyWith(
+            color: GlobalMainGrey.grey300,
+            letterSpacing: -0.28,
+            height: 1.4,
+          ),
+        ),
       ),
     );
   }
@@ -108,7 +86,15 @@ class _MainState extends State<_Main> {
     final bool isEnabled = _inputText == _deleteConfirmText;
 
     return GestureDetector(
-      onTap: isEnabled ? _showDeleteConfirmDialog : null,
+      onTap: isEnabled
+          ? () {
+              showGeneralDialog(
+                context: context,
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    _DeleteConfirmDialog(),
+              );
+            }
+          : null,
       child: Container(
         width: 342.w,
         height: 46.h,
@@ -134,12 +120,6 @@ class _MainState extends State<_Main> {
 }
 
 class _DeleteConfirmDialog extends StatelessWidget {
-  const _DeleteConfirmDialog({
-    required this.onConfirm,
-  });
-
-  final VoidCallback onConfirm;
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -147,7 +127,12 @@ class _DeleteConfirmDialog extends StatelessWidget {
         padding: const EdgeInsets.only(top: 43, bottom: 18.4),
         width: 313.w,
         height: 181.h,
-        decoration: _buildDialogDecoration(),
+        decoration: ShapeDecoration(
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
         child: Material(
           color: Colors.white,
           child: Column(
@@ -164,43 +149,43 @@ class _DeleteConfirmDialog extends StatelessWidget {
                   ),
                 ),
               ),
-              _buildActionButtons(context),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _DialogButton(
+                    text: '예',
+                    backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+                    textColor: Colors.white,
+                    onTap: () async {
+                      context.pop();
+                      try {
+                        UserDataSource().deleteUser();
+                        FirebaseAuth.instance.currentUser!.delete();
+                        context.read<LoginBloc>().add(UserAccountDelete());
+                      } on FirebaseAuthException catch (e) {
+                        throw Exception(e);
+                      }
+                      showGeneralDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        barrierLabel: '',
+                        pageBuilder: (context, _, __) =>
+                            const _DeleteCompleteDialog(),
+                      );
+                    },
+                    margin: const EdgeInsets.only(right: 11.3),
+                  ),
+                  _DialogButton(
+                    text: '아니오',
+                    backgroundColor: GlobalMainGrey.grey200,
+                    textColor: GlobalMainColor.globalPrimaryBlackColor,
+                    onTap: () => context.pop(),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildActionButtons(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _DialogButton(
-          text: '예',
-          backgroundColor: GlobalMainColor.globalPrimaryRedColor,
-          textColor: Colors.white,
-          onTap: () {
-            Navigator.of(context).pop();
-            onConfirm();
-          },
-          margin: const EdgeInsets.only(right: 11.3),
-        ),
-        _DialogButton(
-          text: '아니오',
-          backgroundColor: GlobalMainGrey.grey200,
-          textColor: GlobalMainColor.globalPrimaryBlackColor,
-          onTap: () => context.pop(),
-        ),
-      ],
-    );
-  }
-
-  ShapeDecoration _buildDialogDecoration() {
-    return ShapeDecoration(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
       ),
     );
   }
@@ -211,43 +196,49 @@ class _DeleteCompleteDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.only(top: 28, bottom: 16.8),
-        width: 313.w,
-        height: 163.h,
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        context.go('/login');
+      },
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.only(top: 28, bottom: 16.8),
+          width: 313.w,
+          height: 163.h,
+          decoration: ShapeDecoration(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
           ),
-        ),
-        child: Material(
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 27),
-                child: Text(
-                  '탈퇴가 완료되었습니다.',
-                  style: AppTextStyle.heading2Bold.copyWith(
-                    color: GlobalMainColor.globalPrimaryBlackColor,
-                    letterSpacing: -0.48,
+          child: Material(
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 27),
+                  child: Text(
+                    '탈퇴가 완료되었습니다.',
+                    style: AppTextStyle.heading2Bold.copyWith(
+                      color: GlobalMainColor.globalPrimaryBlackColor,
+                      letterSpacing: -0.48,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 19.h),
-              Padding(
-                padding: const EdgeInsets.only(left: 27),
-                child: Text(
-                  '이용해 주셔서 감사합니다!',
-                  style: AppTextStyle.subheadingBold.copyWith(
-                    color: GlobalMainGrey.grey300,
+                SizedBox(height: 19.h),
+                Padding(
+                  padding: const EdgeInsets.only(left: 27),
+                  child: Text(
+                    '이용해 주셔서 감사합니다!',
+                    style: AppTextStyle.subheadingBold.copyWith(
+                      color: GlobalMainGrey.grey300,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

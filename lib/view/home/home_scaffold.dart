@@ -1,6 +1,5 @@
 part of 'home_page.dart';
 
-// ignore: unused_element
 class _Scaffold extends StatelessWidget {
   const _Scaffold({
     required this.topBar,

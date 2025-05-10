@@ -1,6 +1,5 @@
 part of 'product_page.dart';
 
-// ignore: unused_element
 class _BeforeLoginOnCart extends StatelessWidget {
   const _BeforeLoginOnCart();
 
@@ -45,7 +44,9 @@ class _BeforeLoginOnCart extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      context.go('/login');
+                    },
                     child: Container(
                       width: 129.w,
                       height: 56.h,
