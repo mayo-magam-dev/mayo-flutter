@@ -13,4 +13,4 @@ class CreateReservationRequest with _$CreateReservationRequest {
 
   factory CreateReservationRequest.fromJson(Map<String, dynamic> json) =>
       _$CreateReservationRequestFromJson(json);
-} 
+}

@@ -21,7 +21,8 @@ class TimestampConverter
   }
 }
 
-class CreatedAtTimestampConverter implements JsonConverter<DateTime, List<dynamic>> {
+class CreatedAtTimestampConverter
+    implements JsonConverter<DateTime, List<dynamic>> {
   const CreatedAtTimestampConverter();
 
   @override
@@ -51,7 +52,8 @@ class CreatedAtTimestampConverter implements JsonConverter<DateTime, List<dynami
   }
 }
 
-class PickUpTimestampConverter implements JsonConverter<DateTime, List<dynamic>> {
+class PickUpTimestampConverter
+    implements JsonConverter<DateTime, List<dynamic>> {
   const PickUpTimestampConverter();
 
   @override

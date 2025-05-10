@@ -17,7 +17,7 @@ class UserAccountDelete extends LoginEvent {}
 class SocialLoginEvent extends LoginEvent {
   final String email;
   final String provider;
-  
+
   SocialLoginEvent({required this.email, required this.provider});
 }
 
@@ -73,12 +73,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   void _onAccountDelete(UserAccountDelete event, Emitter<LoginState> emit) {
     emit(LoginStateChanged(LocalLoginState.needJoin));
   }
-  
+
   void _onSocialLogin(SocialLoginEvent event, Emitter<LoginState> emit) {
-    emit(LoginStateChanged(
-      LocalLoginState.needRegister, 
-      email: event.email,
-      provider: event.provider
-    ));
+    emit(LoginStateChanged(LocalLoginState.needRegister,
+        email: event.email, provider: event.provider));
   }
 }

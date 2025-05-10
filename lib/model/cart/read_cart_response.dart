@@ -17,4 +17,4 @@ class ReadCartResponse with _$ReadCartResponse {
 
   factory ReadCartResponse.fromJson(Map<String, dynamic> json) =>
       _$ReadCartResponseFromJson(json);
-} 
+}

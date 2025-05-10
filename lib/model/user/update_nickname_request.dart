@@ -11,4 +11,4 @@ class UpdateNickNameRequest with _$UpdateNickNameRequest {
 
   factory UpdateNickNameRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateNickNameRequestFromJson(json);
-} 
+}

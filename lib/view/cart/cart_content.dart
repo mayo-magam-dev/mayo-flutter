@@ -58,7 +58,8 @@ class _CartContentState extends State<_CartContent> {
 
     final item = widget.cartData[index];
     final countSafe = itemCounts.length > index ? itemCounts[index] : 0;
-    final subtotalSafe = itemSubtotals.length > index ? itemSubtotals[index] : 0;
+    final subtotalSafe =
+        itemSubtotals.length > index ? itemSubtotals[index] : 0;
 
     return Container(
       decoration: BoxDecoration(
@@ -169,14 +170,16 @@ class _CartContentState extends State<_CartContent> {
           padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 16.w),
           child: Row(
             children: [
-              SvgPicture.asset("assets/icons/pin.svg", height: 30.h, width: 30.w),
+              SvgPicture.asset("assets/icons/pin.svg",
+                  height: 30.h, width: 30.w),
               SizedBox(width: 6.w),
               Text('$storeName', style: AppTextStyle.heading3Bold),
             ],
           ),
         ),
         Container(height: 1.h, color: GlobalMainGrey.grey200),
-        ...List.generate(widget.cartData.length, (index) => buildCartItem(index)),
+        ...List.generate(
+            widget.cartData.length, (index) => buildCartItem(index)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 25.w),
           child: Align(
@@ -210,17 +213,22 @@ class _CartContentState extends State<_CartContent> {
                               children: [
                                 TextButton(
                                   onPressed: () => context.pop(),
-                                  child: Text('취소', style: AppTextStyle.body1Medium),
+                                  child: Text('취소',
+                                      style: AppTextStyle.body1Medium),
                                 ),
                                 TextButton(
                                   onPressed: () {
                                     context.pop();
                                     setState(() {
                                       _CartContent.pickupTime = pickupTime;
-                                      period = _CartContent.pickupTime!.hour < 12 ? '오전' : '오후';
+                                      period =
+                                          _CartContent.pickupTime!.hour < 12
+                                              ? '오전'
+                                              : '오후';
                                     });
                                   },
-                                  child: Text('완료', style: AppTextStyle.body1Medium),
+                                  child: Text('완료',
+                                      style: AppTextStyle.body1Medium),
                                 ),
                               ],
                             ),
@@ -282,7 +290,8 @@ class _CartContentState extends State<_CartContent> {
                   CupertinoSwitch(
                     value: _CartContent.disposable,
                     activeTrackColor: GlobalMainColor.globalButtonColor,
-                    onChanged: (value) => setState(() => _CartContent.disposable = value),
+                    onChanged: (value) =>
+                        setState(() => _CartContent.disposable = value),
                   ),
                 ],
               ),

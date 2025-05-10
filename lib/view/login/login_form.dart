@@ -17,7 +17,7 @@ class _LoginFormState extends State<_LoginForm> {
   Future<void> _handleLoginSuccess() async {
     try {
       await UserDataSource().getUser();
-      
+
       if (context.mounted) {
         context.read<LoginBloc>().add(UserLoginEvent());
         await FcmUtils.registerFcmToken();
@@ -30,10 +30,8 @@ class _LoginFormState extends State<_LoginForm> {
         signUpBloc.add(SetPassword(_passwordController.text));
         signUpBloc.add(SetPasswordConfirmation(true));
 
-        context.read<LoginBloc>().add(SocialLoginEvent(
-          email: _emailController.text,
-          provider: 'email'
-        ));
+        context.read<LoginBloc>().add(
+            SocialLoginEvent(email: _emailController.text, provider: 'email'));
         context.go('/signup/step3');
       }
     }

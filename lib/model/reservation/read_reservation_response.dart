@@ -19,4 +19,4 @@ class ReadReservationResponse with _$ReadReservationResponse {
 
   factory ReadReservationResponse.fromJson(Map<String, dynamic> json) =>
       _$ReadReservationResponseFromJson(json);
-} 
+}

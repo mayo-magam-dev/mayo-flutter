@@ -5,7 +5,8 @@ class Formater {
     var f = NumberFormat('###,###,###,###');
     return f.format(value);
   }
-  static dateFormat(dynamic value){
+
+  static dateFormat(dynamic value) {
     var f = DateFormat('yyyymmdd');
     return f.format(value);
   }

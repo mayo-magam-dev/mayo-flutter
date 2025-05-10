@@ -23,43 +23,50 @@ class BoardDataSource {
   }
 
   Future<List<Board>> getFaqUpdateInfo() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/board/faq-update-info');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/board/faq-update-info');
     var result = response.data as List;
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
   Future<List<Board>> getFaqStorePickup() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/board/faq-store-pickup');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/board/faq-store-pickup');
     var result = response.data as List;
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
   Future<List<Board>> getFaqPayment() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/board/faq-payment');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/board/faq-payment');
     var result = response.data as List;
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
   Future<List<Board>> getFaqOrderNotification() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/board/faq-order-notification');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/board/faq-order-notification');
     var result = response.data as List;
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
   Future<List<Board>> getFaqOrderHistory() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/board/faq-order-history');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/board/faq-order-history');
     var result = response.data as List;
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
   Future<List<Board>> getFaqMainFeature() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/board/faq-main-feature');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/board/faq-main-feature');
     var result = response.data as List;
     return result.map((v) => Board.fromJson(v)).toList();
   }
 
   Future<List<Board>> getFaqHowToUse() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/board/faq-how-to-use');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/board/faq-how-to-use');
     var result = response.data as List;
     return result.map((v) => Board.fromJson(v)).toList();
   }
@@ -77,7 +84,8 @@ class BoardDataSource {
   }
 
   Future<List<Board>> getFaqDeleteAccount() async {
-    final response = await dio.get('${dotenv.env['API_URL']}/board/faq-delete-account');
+    final response =
+        await dio.get('${dotenv.env['API_URL']}/board/faq-delete-account');
     var result = response.data as List;
     return result.map((v) => Board.fromJson(v)).toList();
   }

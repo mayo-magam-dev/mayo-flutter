@@ -11,4 +11,4 @@ class UpdateUserImageRequest with _$UpdateUserImageRequest {
 
   factory UpdateUserImageRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateUserImageRequestFromJson(json);
-} 
+}

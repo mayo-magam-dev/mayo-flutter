@@ -13,7 +13,6 @@ class _Scaffold extends StatelessWidget {
   final Widget category;
   final Widget storeList;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -26,11 +26,11 @@ class _BottomSheetState extends State<_BottomSheet> {
 
   Future<void> handleAddToCart() async {
     if (isLoading) return;
-    
+
     setState(() => isLoading = true);
     try {
       final loginState = context.read<LoginBloc>().state;
-      if (loginState is! LoginStateChanged || 
+      if (loginState is! LoginStateChanged ||
           loginState.loginState == LocalLoginState.notLogin) {
         showDialog(
           context: context,

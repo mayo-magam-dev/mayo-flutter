@@ -105,7 +105,8 @@ class _OrderItemState extends State<_OrderItem> {
   }
 
   Future<void> fetchStoreData() async {
-    final getReservationDetail = await ReservationDataSource().getReservationDetail(reservationData!.reservationId);
+    final getReservationDetail = await ReservationDataSource()
+        .getReservationDetail(reservationData!.reservationId);
     setState(() {
       reservationDetailData = getReservationDetail;
     });
@@ -117,7 +118,8 @@ class _OrderItemState extends State<_OrderItem> {
       return Center(child: CircularProgressIndicator());
     }
 
-    final reservationStateDetails = ReservationState.stateDetails[reservationData!.reservationState]!;
+    final reservationStateDetails =
+        ReservationState.stateDetails[reservationData!.reservationState]!;
     final containerColor = reservationStateDetails['color'];
     final reservationStateText = reservationStateDetails['text'];
 
@@ -156,7 +158,7 @@ class _OrderItemState extends State<_OrderItem> {
 
 class _StoreImage extends StatelessWidget {
   final String imageUrl;
-  
+
   const _StoreImage({required this.imageUrl});
 
   @override
@@ -240,7 +242,8 @@ class _ReservationFooter extends StatelessWidget {
       children: [
         Text(
           "${createdAt.year}/${createdAt.month}/${createdAt.day}",
-          style: AppTextStyle.body2Medium.copyWith(color: GlobalMainGrey.grey500),
+          style:
+              AppTextStyle.body2Medium.copyWith(color: GlobalMainGrey.grey500),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 4.h),

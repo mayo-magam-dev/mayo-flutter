@@ -37,7 +37,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
 
   featchReservationDeatilData() async {
     final ReadReservationDetailResponse getReservationDetail =
-        await ReservationDataSource().getReservationDetail(widget.reservationId);
+        await ReservationDataSource()
+            .getReservationDetail(widget.reservationId);
     final ReadStore getStore =
         await StoreDataSource().getStoreDetail(widget.storeId);
     setState(() {
@@ -92,8 +93,9 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     List<String> pickupTime =
         reservationDeatilData!.pickupTime.toString().split(RegExp(r'[ :-]'));
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(child:  Column(
+        body: SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Topbar(title: "전체", showCarts: true),
@@ -205,8 +207,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           ],
         ),
       ),
-    )
-    );
+    ));
   }
 }
 

@@ -40,7 +40,8 @@ class SignUpStep3Page extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(state.error!),
-                              backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+                              backgroundColor:
+                                  GlobalMainColor.globalPrimaryRedColor,
                             ),
                           );
                         }

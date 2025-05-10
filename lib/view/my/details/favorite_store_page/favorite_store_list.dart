@@ -1,7 +1,6 @@
 part of 'favorite_store_page.dart';
 
 class _FavoriteStoreList extends StatefulWidget {
-
   @override
   State<_FavoriteStoreList> createState() => _FavoriteStoreListState();
 }

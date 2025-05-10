@@ -42,7 +42,8 @@ class _SignUpStep1View extends StatelessWidget {
                 text: '다음',
                 onTap: state.isStep1Valid
                     ? () {
-                        context.push(isSocialLogin ? '/signup/step3' : '/signup/step2');
+                        context.push(
+                            isSocialLogin ? '/signup/step3' : '/signup/step2');
                       }
                     : null,
               ),

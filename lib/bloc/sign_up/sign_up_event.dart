@@ -63,6 +63,6 @@ class SetBirthDate extends SignUpEvent {
   SetBirthDate(this.birthDate);
 }
 
-class SubmitSignUp extends SignUpEvent {} 
+class SubmitSignUp extends SignUpEvent {}
 
 class DeleteData extends SignUpEvent {}

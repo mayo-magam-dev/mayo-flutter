@@ -16,24 +16,25 @@ class _Scaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                topBar,
-                SizedBox(height: 32.h),
-                header,
-                SizedBox(height: 40.h),
-                middle,
-                SizedBox(height: 70.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: nextButton,
-                ),
-              ],
-            ),
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              topBar,
+              SizedBox(height: 32.h),
+              header,
+              SizedBox(height: 40.h),
+              middle,
+              SizedBox(height: 70.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: nextButton,
+              ),
+            ],
           ),
-        ),);
+        ),
+      ),
+    );
   }
 }

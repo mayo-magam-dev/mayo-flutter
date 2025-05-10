@@ -236,4 +236,4 @@ class _SignUpMiddle extends StatelessWidget {
       },
     );
   }
-} 
+}

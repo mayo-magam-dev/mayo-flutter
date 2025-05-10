@@ -10,7 +10,8 @@ class GoogleLogin {
         throw Exception('Google 로그인 취소');
       }
 
-      final GoogleSignInAuthentication userAuthentication = await user.authentication;
+      final GoogleSignInAuthentication userAuthentication =
+          await user.authentication;
 
       final OAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: userAuthentication.accessToken,

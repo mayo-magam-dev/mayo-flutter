@@ -11,7 +11,6 @@ import 'package:mayo_flutter/view/components/button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 
-
 part 'sign_up_scaffold.dart';
 part 'sign_up_header.dart';
 part 'sign_up_middle.dart';
@@ -19,7 +18,8 @@ part 'sign_up_middle.dart';
 class SignUpStep2Page extends StatelessWidget {
   const SignUpStep2Page({super.key});
 
-  Future<void> _handleNextButton(BuildContext context, LoginState loginState, SignUpState state) async {
+  Future<void> _handleNextButton(
+      BuildContext context, LoginState loginState, SignUpState state) async {
     final isSocialLogin = loginState is LoginStateChanged &&
         loginState.provider != null &&
         loginState.provider != 'email';

@@ -1,7 +1,6 @@
 part of 'cart_page.dart';
 
 class _CartEmpty extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +30,7 @@ class _CartEmpty extends StatelessWidget {
                   ),
                   Text(
                     '상품을 담으러 가볼까요?',
-                    style: AppTextStyle.body1Medium, 
+                    style: AppTextStyle.body1Medium,
                   ),
                 ],
               ),

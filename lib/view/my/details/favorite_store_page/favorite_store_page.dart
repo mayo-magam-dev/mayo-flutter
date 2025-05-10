@@ -14,14 +14,11 @@ part 'favorite_store_list.dart';
 class FavoriteStorePage extends StatelessWidget {
   const FavoriteStorePage({super.key});
 
-  
-
   @override
   Widget build(BuildContext context) {
     return _Scaffold(
-      topBar: Topbar(title: '찜한 가게', showCarts: true),
-      header: _Header(),
-      favoriteStoreList: _FavoriteStoreList()
-    );
+        topBar: Topbar(title: '찜한 가게', showCarts: true),
+        header: _Header(),
+        favoriteStoreList: _FavoriteStoreList());
   }
 }

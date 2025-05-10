@@ -13,7 +13,7 @@ class TermsDetailPage extends StatelessWidget {
   });
   final String? boardId;
 
-  Future<Board> featchData() async{
+  Future<Board> featchData() async {
     return await BoardDataSource().getBoard(boardId!);
   }
 

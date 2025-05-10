@@ -11,7 +11,7 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
   Future<void> _handleLoginSuccess() async {
     try {
       final userData = await UserDataSource().getUser();
-      
+
       if (!mounted) return;
       context.read<LoginBloc>().add(UserLoginEvent());
       await FcmUtils.registerFcmToken();
@@ -20,11 +20,10 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
       if (!mounted) return;
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        context.read<LoginBloc>().add(SocialLoginEvent(
-          email: user.email ?? '',
-          provider: 'google'
-        ));
-        
+        context
+            .read<LoginBloc>()
+            .add(SocialLoginEvent(email: user.email ?? '', provider: 'google'));
+
         final signUpBloc = BlocProvider.of<SignUpBloc>(context);
         signUpBloc.add(SetEmail(user.email ?? ''));
         signUpBloc.add(SetPassword("12345678"));

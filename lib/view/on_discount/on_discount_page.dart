@@ -29,7 +29,11 @@ class OnDiscountPage extends StatelessWidget {
           return Column(
             children: [
               SizedBox(height: 161.h),
-              SvgPicture.asset('assets/icons/bread.svg', width: 150.w, height: 150.h,),
+              SvgPicture.asset(
+                'assets/icons/bread.svg',
+                width: 150.w,
+                height: 150.h,
+              ),
               SizedBox(height: 17.h),
               Text(
                 '지금 할인 중 빵 개',
@@ -52,11 +56,12 @@ class OnDiscountPage extends StatelessWidget {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () => context.push("/store/${snapshot.data![index].id}"),
-                child: OneProductWidget(
-                storeIndex: index,
-                storeData: snapshot.data,
-              ));
+                  onTap: () =>
+                      context.push("/store/${snapshot.data![index].id}"),
+                  child: OneProductWidget(
+                    storeIndex: index,
+                    storeData: snapshot.data,
+                  ));
             },
           ),
         );

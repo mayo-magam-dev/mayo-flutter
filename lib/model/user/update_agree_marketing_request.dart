@@ -11,4 +11,4 @@ class UpdateAgreeMarketingRequest with _$UpdateAgreeMarketingRequest {
 
   factory UpdateAgreeMarketingRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateAgreeMarketingRequestFromJson(json);
-} 
+}

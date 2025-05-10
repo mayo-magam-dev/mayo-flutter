@@ -1,7 +1,6 @@
 part of 'login_page.dart';
 
 class _LoginLogo extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Column(

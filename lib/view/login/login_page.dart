@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       context.read<LoginBloc>().add(CheckLoginStatusEvent());
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(

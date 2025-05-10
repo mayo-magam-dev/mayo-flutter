@@ -1,23 +1,22 @@
 part of 'announcement_page.dart';
 
 class _Lists extends StatelessWidget {
-  const _Lists(
-    {required this.boards}
-  );
+  const _Lists({required this.boards});
 
   final List<Board> boards;
-
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: boards.map((board) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _AnnouncementListItem(item: board),
-          _AnnouncementContent(item: board),
-        ],
-      )).toList(),
+      children: boards
+          .map((board) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _AnnouncementListItem(item: board),
+                  _AnnouncementContent(item: board),
+                ],
+              ))
+          .toList(),
     );
   }
 }
