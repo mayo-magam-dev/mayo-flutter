@@ -35,12 +35,7 @@ import 'package:mayo_flutter/view/sub/partner_store_page.dart';
 import 'package:mayo_flutter/model/user/local_login_state.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<NavigatorState> _shellNavigatorKey =
-    GlobalKey<NavigatorState>();
-
 final SignUpBloc signUpBloc = SignUpBloc(userDataSource: UserDataSource());
-
-int count = 0;
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
@@ -48,23 +43,18 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/product/:data/:storeId/:storeName',
-      builder: (context, state) {
-        return ProductPage(
-          id: state.pathParameters['data']!,
-          storeId: state.pathParameters['storeId']!,
-          storeName: state.pathParameters['storeName']!,
-        );
-      },
+      builder: (context, state) => ProductPage(
+        id: state.pathParameters['data']!,
+        storeId: state.pathParameters['storeId']!,
+        storeName: state.pathParameters['storeName']!,
+      ),
     ),
     GoRoute(
         path: '/store/:id',
-        builder: (context, state) {
-          return StorePage(id: state.pathParameters['id']!);
-        }),
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginPage(),
-    ),
+        builder: (context, state) =>
+            StorePage(id: state.pathParameters['id']!)),
+    GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
+    GoRoute(path: '/cart', builder: (context, state) => const CartPage()),
     GoRoute(
       path: '/onsale',
       builder: (context, state) => OnsalePage(),
@@ -92,143 +82,106 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/signup',
-      builder: (context, state) => BlocProvider.value(
-        value: signUpBloc,
-        child: SignUpStep1Page(),
-      ),
-    ),
+        path: '/signup',
+        builder: (context, state) =>
+            BlocProvider.value(value: signUpBloc, child: SignUpStep1Page())),
     GoRoute(
-      path: '/signup/step2',
-      builder: (context, state) => BlocProvider.value(
-        value: signUpBloc,
-        child: SignUpStep2Page(),
-      ),
-    ),
+        path: '/signup/step2',
+        builder: (context, state) =>
+            BlocProvider.value(value: signUpBloc, child: SignUpStep2Page())),
+
     GoRoute(
-      path: '/signup/step3',
-      builder: (context, state) => BlocProvider.value(
-        value: signUpBloc,
-        child: SignUpStep3Page(),
-      ),
-    ),
+        path: '/signup/step3',
+        builder: (context, state) =>
+            BlocProvider.value(value: signUpBloc, child: SignUpStep3Page())),
     GoRoute(
-      path: '/signup/step5',
-      builder: (context, state) => BlocProvider.value(
-        value: signUpBloc,
-        child: SignUpStep5Page(),
-      ),
-    ),
+        path: '/signup/step5',
+        builder: (context, state) =>
+            BlocProvider.value(value: signUpBloc, child: SignUpStep5Page())),
     GoRoute(
-      path: '/account-delete',
-      builder: (context, state) => AccountDeletePage(),
-    ),
+        path: '/account-delete',
+        builder: (context, state) => AccountDeletePage()),
     GoRoute(
-      path: '/announcement',
-      builder: (context, state) => AnnouncementPage(),
-    ),
-    ShellRoute(
-      navigatorKey: _shellNavigatorKey,
-      builder: (context, state, child) {
-        return ScaffoldWithBottomNavBar(child: child);
-      },
-      routes: [
-        GoRoute(
-          path: '/',
-          builder: (context, state) => const HomePage(),
-        ),
-        GoRoute(
-          path: '/on-discount',
-          builder: (context, state) => OnDiscountPage(),
-        ),
-        GoRoute(
-          path: '/orders',
-          builder: (context, state) => const OrderPage(),
-        ),
-        GoRoute(
-          path: '/my',
-          builder: (context, state) => const MyPage(),
-        ),
-        GoRoute(
-          path: '/terms-list',
-          builder: (context, state) => const TermsListPage(),
-        ),
-        GoRoute(
-          path: '/terms-detail/:boardId',
-          builder: (context, state) {
-            return TermsDetailPage(boardId: state.pathParameters['boardId']);
-          },
-        ),
-        GoRoute(
-          path: '/profile',
-          builder: (context, state) => ProfilePage(),
-        ),
-        GoRoute(
-          path: '/event',
-          builder: (context, state) => const EventPage(),
-        ),
-        GoRoute(
-          path: '/favorite-store',
-          builder: (context, state) => const FavoriteStorePage(),
-        ),
-        GoRoute(
-          path: '/costomer-center',
-          builder: (context, state) => const CostomerCenterPage(),
-        ),
-        GoRoute(
-          path: '/faq',
-          builder: (context, state) => const FaqPage(),
-        ),
+        path: '/announcement', builder: (context, state) => AnnouncementPage()),
+
+    // ✅ 탭 라우트들
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, shell) =>
+          ScaffoldWithBottomNavBar(shell: shell),
+      branches: [
+        StatefulShellBranch(routes: [
+          GoRoute(path: '/', builder: (context, state) => const HomePage())
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+              path: '/on-discount',
+              builder: (context, state) => OnDiscountPage())
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+              path: '/orders', builder: (context, state) => const OrderPage())
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(path: '/my', builder: (context, state) => const MyPage()),
+          GoRoute(
+              path: '/terms-list',
+              builder: (context, state) => const TermsListPage()),
+          GoRoute(
+              path: '/terms-detail/:boardId',
+              builder: (context, state) =>
+                  TermsDetailPage(boardId: state.pathParameters['boardId'])),
+          GoRoute(path: '/profile', builder: (context, state) => ProfilePage()),
+          GoRoute(
+              path: '/event', builder: (context, state) => const EventPage()),
+          GoRoute(
+              path: '/favorite-store',
+              builder: (context, state) => const FavoriteStorePage()),
+          GoRoute(
+              path: '/costomer-center',
+              builder: (context, state) => const CostomerCenterPage()),
+          GoRoute(path: '/faq', builder: (context, state) => const FaqPage()),
+        ]),
       ],
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
-      path: '/cart',
-      builder: (context, state) => const CartPage(),
     ),
   ],
 );
 
 class ScaffoldWithBottomNavBar extends StatelessWidget {
-  const ScaffoldWithBottomNavBar({
-    required this.child,
-    super.key,
-  });
-
-  final Widget child;
+  const ScaffoldWithBottomNavBar({required this.shell, super.key});
+  final StatefulNavigationShell shell;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: child,
+      body: shell,
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _calculateSelectedIndex(context),
-        onTap: (index) => _onItemTapped(index, context),
+        currentIndex: shell.currentIndex,
+        onTap: shell.goBranch,
         selectedItemColor: GlobalMainYellow.yellow200,
         unselectedItemColor: GlobalMainGrey.grey300,
         showSelectedLabels: true,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            icon: (_calculateSelectedIndex(context) == 0)
+            icon: shell.currentIndex == 0
                 ? SvgPicture.asset('assets/icons/selected_home.svg')
                 : SvgPicture.asset('assets/icons/home.svg'),
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: (_calculateSelectedIndex(context) == 1)
+            icon: shell.currentIndex == 1
                 ? SvgPicture.asset('assets/icons/selected_discount.svg')
                 : SvgPicture.asset('assets/icons/discount.svg'),
             label: '지금 할인 중',
           ),
           BottomNavigationBarItem(
-            icon: (_calculateSelectedIndex(context) == 2)
+            icon: shell.currentIndex == 2
                 ? SvgPicture.asset('assets/icons/selected_order_history.svg')
                 : SvgPicture.asset('assets/icons/order_history.svg'),
             label: '주문내역',
           ),
           BottomNavigationBarItem(
-            icon: (_calculateSelectedIndex(context) == 3)
+            icon: shell.currentIndex == 3
                 ? SvgPicture.asset('assets/icons/selected_user_profile.svg')
                 : SvgPicture.asset('assets/icons/user_profile.svg'),
             label: 'MY',
@@ -236,32 +189,5 @@ class ScaffoldWithBottomNavBar extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  int _calculateSelectedIndex(BuildContext context) {
-    final GoRouterState state = GoRouterState.of(context);
-    final String path = state.uri.path;
-    if (path == '/') return 0;
-    if (path == '/on-discount') return 1;
-    if (path == '/orders') return 2;
-    if (path == '/my') return 3;
-    return 0;
-  }
-
-  void _onItemTapped(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        context.go('/');
-        break;
-      case 1:
-        context.go('/on-discount');
-        break;
-      case 2:
-        context.go('/orders');
-        break;
-      case 3:
-        context.go('/my');
-        break;
-    }
   }
 }
