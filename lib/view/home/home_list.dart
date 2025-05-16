@@ -34,6 +34,23 @@ class _List extends StatelessWidget {
               if (state.isLoading) {
                 return const CircularProgressIndicator();
               }
+              if (state.randomStores.isEmpty) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 90.h),
+                    Center(
+                      child: Text(
+                        '현재 마감할인 상품이 없습니다! ⏰',
+                        style: AppTextStyle.body1Bold.copyWith(
+                          color: Color(0xFF161616),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                );
+              }
 
               return Padding(
                 padding: EdgeInsets.only(right: 3.w),

@@ -32,15 +32,13 @@ class StoreInfoBar extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Row(
           children: [
-            Container(
-              width: 80.w,
-              height: 80.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(imageUrl),
-                ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                imageUrl,
+                width: 80.w,
+                height: 80.h,
+                fit: BoxFit.cover,
               ),
             ),
             SizedBox(width: 15.w),
