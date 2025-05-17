@@ -53,7 +53,7 @@ class Topbar extends StatelessWidget {
                   onTap: () {
                     if (loginState == LocalLoginState.notLogin ||
                         loginState == LocalLoginState.needJoin) {
-                      context.go('/login');
+                      context.push('/login');
                     } else {
                       context.push('/cart');
                     }

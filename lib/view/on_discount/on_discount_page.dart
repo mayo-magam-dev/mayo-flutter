@@ -26,31 +26,36 @@ class OnDiscountPage extends StatelessWidget {
           return SizedBox();
         }
         if (snapshot.data!.isEmpty) {
-          return Column(
-            children: [
-              SizedBox(height: 161.h),
-              SvgPicture.asset(
-                'assets/icons/bread.svg',
-                width: 150.w,
-                height: 150.h,
-              ),
-              SizedBox(height: 17.h),
-              Text(
-                '지금 할인 중 빵 개',
-                style: AppTextStyle.heading2Bold.copyWith(
-                  color: GlobalMainColor.globalPrimaryBlackColor,
-                  letterSpacing: -0.48,
+          return Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center, // Y축 중앙
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/bread.svg',
+                  width: 150.w,
+                  height: 150.h,
                 ),
-              ),
-              SizedBox(height: 22.h),
-              Text(
-                '현재 마감할인 중인 상품이 없습니다.',
-                style: AppTextStyle.body1Medium
-                    .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
-              ),
-            ],
+                SizedBox(height: 17.h),
+                Text(
+                  '지금 할인 중 빵 개',
+                  style: AppTextStyle.heading2Bold.copyWith(
+                    color: GlobalMainColor.globalPrimaryBlackColor,
+                    letterSpacing: -0.48,
+                  ),
+                ),
+                SizedBox(height: 22.h),
+                Text(
+                  '현재 마감할인 중인 상품이 없습니다.',
+                  style: AppTextStyle.body1Medium.copyWith(
+                    color: GlobalMainColor.globalPrimaryBlackColor,
+                  ),
+                ),
+              ],
+            ),
           );
         }
+
         return Expanded(
           child: ListView.builder(
             itemCount: snapshot.data!.length,
