@@ -36,39 +36,48 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
+  late final Future<(ReadStore, List<ReadItem>)> _storeDataFuture;
+
   @override
   void initState() {
     super.initState();
+    _storeDataFuture = fetchStoreData();
   }
 
-  Future<(ReadStore, List<ReadItem>)> featchStoreData() async {
-    final storeDetail = await StoreDataSource().getStoreDetail(widget.id);
-    await Future.delayed(const Duration(seconds: 1));
-    final storeItems = await ItemDataSource().getItemsByStoreId(widget.id);
-    return (storeDetail, storeItems);
+  Future<(ReadStore, List<ReadItem>)> fetchStoreData() async {
+    final results = await Future.wait([
+      StoreDataSource().getStoreDetail(widget.id),
+      ItemDataSource().getItemsByStoreId(widget.id),
+    ]);
+    return (results[0] as ReadStore, results[1] as List<ReadItem>);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => StoreBloc()..add(ChangeViewEvent(0)),
-      child: FutureBuilder(
-        future: featchStoreData(),
+      create: (_) => StoreBloc()..add(ChangeViewEvent(0)),
+      child: FutureBuilder<(ReadStore, List<ReadItem>)>(
+        future: _storeDataFuture,
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
           }
 
+          if (!snapshot.hasData || snapshot.hasError) {
+            return const Scaffold(
+              body: Center(child: Text("데이터를 불러올 수 없습니다.")),
+            );
+          }
+
+          final store = snapshot.data!.$1;
+          final items = snapshot.data!.$2;
+
           return _Scaffold(
-            topBar: Topbar(
-              title: snapshot.data!.$1.storeName,
-              showCarts: false,
-            ),
-            infoHeader: _StoreInfoHeader(storeData: snapshot.data!.$1),
-            infoMain: _StoreInfoMain(
-              storeData: snapshot.data!.$1,
-              itemData: snapshot.data!.$2,
-            ),
+            topBar: Topbar(title: store.storeName, showCarts: false),
+            infoHeader: _StoreInfoHeader(storeData: store),
+            infoMain: _StoreInfoMain(storeData: store, itemData: items),
           );
         },
       ),

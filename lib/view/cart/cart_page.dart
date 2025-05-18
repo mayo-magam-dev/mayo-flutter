@@ -30,11 +30,19 @@ class _CartPageState extends State<CartPage> {
   List<ReadCartResponse>? futureCart;
 
   featchCartData() async {
+  try {
     final cartDataSource = await CartDataSource().getCarts();
     setState(() {
       futureCart = cartDataSource;
     });
+  } catch (e) {
+    debugPrint("장바구니 데이터 불러오기 실패: $e");
+    setState(() {
+      futureCart = []; 
+    });
   }
+}
+
 
   @override
   void initState() {

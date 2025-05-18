@@ -16,27 +16,22 @@ class OneProductWidget extends StatelessWidget {
   final int storeIndex;
   final List<ReadSimpleStoreResponse>? storeData;
 
-  void sort() {
-    storeData!.sort(
-      (a, b) => a.storeName.compareTo(b.storeName),
-    );
-  }
+  ReadSimpleStoreResponse get store => storeData![storeIndex];
 
   @override
   Widget build(BuildContext context) {
-    sort();
     return Stack(
       children: [
         Column(
           children: [
             Container(
-              padding: EdgeInsets.only(
-                  left: 24.w, right: 24.w, top: 21.h, bottom: 15.h),
+              padding: EdgeInsets.fromLTRB(24.w, 21.h, 24.w, 15.h),
               width: double.infinity,
               height: 238.h,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // 🍞 이미지 영역
                   Container(
                     width: double.infinity,
                     height: 123.h,
@@ -45,113 +40,39 @@ class OneProductWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(storeData![storeIndex].storeImage),
+                        image: NetworkImage(store.storeImage),
                       ),
                     ),
                   ),
+                  // 🧾 텍스트 정보 + 버튼
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      // 왼쪽 정보
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            storeData![storeIndex].storeName,
-                            style: AppTextStyle.body1Bold,
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/icons/location-with-ground.svg",
-                                width: 18,
-                                height: 18,
-                              ),
-                              SizedBox(
-                                width: 3.w,
-                              ),
-                              Text(
-                                storeData![storeIndex].address,
-                                style: AppTextStyle.body2Medium,
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                            ],
-                          ),
+                          Text(store.storeName, style: AppTextStyle.body1Bold),
                           SizedBox(height: 5.h),
                           Row(
                             children: [
-                              (storeData![storeIndex].storeSellingType == 3)
-                                  ? Row(
-                                      children: [
-                                        Container(
-                                            width: 36.w,
-                                            height: 18.h,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: GlobalMainColor
-                                                  .globalButtonColor,
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: Text("포장",
-                                                style: AppTextStyle
-                                                    .captionMedium)),
-                                        SizedBox(width: 5.w),
-                                        Container(
-                                          width: 36.w,
-                                          height: 18.h,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: GlobalMainColor
-                                                    .globalButtonColor),
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Text("매장",
-                                              style:
-                                                  AppTextStyle.captionMedium),
-                                        ),
-                                      ],
-                                    )
-                                  : (storeData![storeIndex].storeSellingType ==
-                                          1)
-                                      ? Container(
-                                          width: 36.w,
-                                          height: 18.h,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: GlobalMainColor
-                                                .globalButtonColor,
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Text("포장",
-                                              style:
-                                                  AppTextStyle.captionMedium))
-                                      : Container(
-                                          width: 36.w,
-                                          height: 18.h,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: GlobalMainColor
-                                                    .globalButtonColor),
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Text("매장",
-                                              style:
-                                                  AppTextStyle.captionMedium),
-                                        ),
+                              SvgPicture.asset(
+                                  "assets/icons/location-with-ground.svg",
+                                  width: 18,
+                                  height: 18),
+                              SizedBox(width: 3.w),
+                              Text(store.address,
+                                  style: AppTextStyle.body2Medium),
                             ],
                           ),
+                          SizedBox(height: 5.h),
+                          _buildTags(),
                         ],
                       ),
+                      // 오른쪽 예약 버튼
                       GestureDetector(
                         onTap: () {
-                          context.push('/store/${storeData![storeIndex].id}');
+                          context.push('/store/${store.id}');
                         },
                         child: Container(
                           width: 67.w,
@@ -165,7 +86,7 @@ class OneProductWidget extends StatelessWidget {
                             children: [
                               SvgPicture.asset(
                                 "assets/icons/time.svg",
-                                colorFilter: ColorFilter.mode(
+                                colorFilter: const ColorFilter.mode(
                                     Colors.white, BlendMode.srcIn),
                                 width: 33.w,
                                 height: 33.h,
@@ -184,35 +105,64 @@ class OneProductWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(
-              color: GlobalMainGrey.grey200,
-              thickness: 2,
-            ),
+            Divider(color: GlobalMainGrey.grey200, thickness: 2),
           ],
         ),
-        (storeData![storeIndex].openState == true)
-            ? SizedBox.shrink()
-            : Container(
-                width: double.infinity,
-                height: 238.h,
-                decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 50),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/icons/vector.svg'),
-                    Text(
-                      '오픈 준비중',
-                      style: AppTextStyle.heading2Bold.copyWith(
-                        color: Colors.white,
-                        letterSpacing: -0.48,
-                      ),
+
+        // ⏰ 오픈 준비중 오버레이
+        if (!store.openState)
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.6),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/icons/vector.svg'),
+                  SizedBox(height: 10.h),
+                  Text(
+                    '오픈 준비중',
+                    style: AppTextStyle.heading2Bold.copyWith(
+                      color: Colors.white,
+                      letterSpacing: -0.48,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+            ),
+          ),
       ],
+    );
+  }
+
+  Widget _buildTags() {
+    final type = store.storeSellingType;
+
+    if (type == 3) {
+      return Row(
+        children: [
+          _tag("포장", filled: true),
+          SizedBox(width: 5.w),
+          _tag("매장", filled: false),
+        ],
+      );
+    }
+
+    return _tag(type == 1 ? "포장" : "매장", filled: type == 1);
+  }
+
+  Widget _tag(String text, {required bool filled}) {
+    return Container(
+      width: 36.w,
+      height: 18.h,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: filled ? GlobalMainColor.globalButtonColor : Colors.transparent,
+        border: filled
+            ? null
+            : Border.all(color: GlobalMainColor.globalButtonColor),
+      ),
+      child: Text(text, style: AppTextStyle.captionMedium),
     );
   }
 }

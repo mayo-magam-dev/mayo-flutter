@@ -19,12 +19,11 @@ class _BannerState extends State<_Banner> {
         if (state.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-
         return Stack(
           children: [
             SizedBox(
               width: double.infinity,
-              height: 213.h,
+              height: 212.h,
               child: PageView.builder(
                 onPageChanged: (value) {
                   setState(() {
