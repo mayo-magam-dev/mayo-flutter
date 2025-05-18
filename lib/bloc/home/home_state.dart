@@ -29,7 +29,16 @@ class HomeState {
       cartItems: cartItems ?? this.cartItems,
       randomStores: randomStores ?? this.randomStores,
       isLoading: isLoading ?? this.isLoading,
-      error: error,
+      error: error ?? this.error,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        banners,
+        cartItems,
+        randomStores,
+        isLoading,
+        error,
+      ]; // ✅ 상태 비교용 props 반드시 정의
 }

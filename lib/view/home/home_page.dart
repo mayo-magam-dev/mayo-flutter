@@ -22,18 +22,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => HomeBloc()..add(LoadHomeData()),
-      child: _Scaffold(
-        topBar: Topbar(
-          title: '',
-          showCarts: true,
-          homeTapBar: true,
-        ),
-        banner: _Banner(),
-        category: _Category(),
-        storeList: _List(),
+    return _Scaffold(
+      topBar: Topbar(
+        title: '',
+        showCarts: true,
+        homeTapBar: true,
       ),
+      banner: _Banner(),
+      category: _Category(),
+      storeList: _List(),
     );
   }
 }

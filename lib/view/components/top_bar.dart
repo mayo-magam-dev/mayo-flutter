@@ -26,94 +26,85 @@ class Topbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final bool canPop = Navigator.of(context).canPop();
 
-    return BlocProvider(
-      create: (context) => HomeBloc()..add(LoadCartItems()),
-      child: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          final loginBlocState = context.read<LoginBloc>().state;
-          LocalLoginState? loginState;
-          if (loginBlocState is LoginStateChanged) {
-            loginState = loginBlocState.loginState;
-          }
+    // ✅ BlocProvider 제거 → BlocBuilder만 사용
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        final loginBlocState = context.read<LoginBloc>().state;
+        LocalLoginState? loginState;
+        if (loginBlocState is LoginStateChanged) {
+          loginState = loginBlocState.loginState;
+        }
 
-          return Material(
-            color: Colors.white,
-            elevation: 0,
-            child: SafeArea(
-              bottom: false,
-              child: Container(
-                height: preferredSize.height,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // ✅ leading
-                    if (homeTapBar)
-                      Image.asset('assets/icons/mayo_logo_80x27.png')
-                    else if (canPop)
-                      GestureDetector(
-                        onTap: () => context.pop(),
-                        child: SvgPicture.asset('assets/icons/arrow.svg'),
-                      )
-                    else
-                      const SizedBox(width: 24), // placeholder
-
-                    // ✅ title (항상 표시)
-                    Text(
-                      title,
-                      style: AppTextStyle.body1Medium,
-                    ),
-
-                    // ✅ cart
-                    showCarts
-                        ? GestureDetector(
-                            onTap: () {
-                              if (loginState == LocalLoginState.notLogin ||
-                                  loginState == LocalLoginState.needJoin) {
-                                context.push('/login');
-                              } else {
-                                context.push('/cart');
-                              }
-                            },
-                            child: Stack(
-                              alignment: AlignmentDirectional.topEnd,
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 5, 5, 0),
-                                  child:
-                                      SvgPicture.asset('assets/icons/cart.svg'),
-                                ),
-                                Container(
-                                  width: 15,
-                                  height: 15,
-                                  decoration: ShapeDecoration(
-                                    color: Colors.amber,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
+        return Material(
+          color: Colors.white,
+          elevation: 0,
+          child: SafeArea(
+            bottom: false,
+            child: Container(
+              height: preferredSize.height,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (homeTapBar)
+                    Image.asset('assets/icons/mayo_logo_80x27.png')
+                  else if (canPop)
+                    GestureDetector(
+                      onTap: () => context.pop(),
+                      child: SvgPicture.asset('assets/icons/arrow.svg'),
+                    )
+                  else
+                    const SizedBox(width: 24),
+                  Text(
+                    title,
+                    style: AppTextStyle.body1Medium,
+                  ),
+                  showCarts
+                      ? GestureDetector(
+                          onTap: () {
+                            if (loginState == LocalLoginState.notLogin ||
+                                loginState == LocalLoginState.needJoin) {
+                              context.push('/login');
+                            } else {
+                              context.push('/cart');
+                            }
+                          },
+                          child: Stack(
+                            alignment: AlignmentDirectional.topEnd,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 5, 5, 0),
+                                child:
+                                    SvgPicture.asset('assets/icons/cart.svg'),
+                              ),
+                              Container(
+                                width: 15,
+                                height: 15,
+                                decoration: ShapeDecoration(
+                                  color: Colors.amber,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      state.cartItemCount.toString(),
-                                      style:
-                                          AppTextStyle.captionMedium.copyWith(
-                                        color: Colors.white,
-                                      ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    state.cartItemCount.toString(),
+                                    style: AppTextStyle.captionMedium.copyWith(
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          )
-                        : const SizedBox(width: 24), // placeholder
-                  ],
-                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : const SizedBox(width: 24),
+                ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

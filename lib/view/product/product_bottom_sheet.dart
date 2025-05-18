@@ -34,7 +34,7 @@ class _BottomSheetState extends State<_BottomSheet> {
       } else {
         await _handleExistingCart();
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         debugPrint('🟥 비회원 상태로 감지됨 → 로그인 유도 팝업');
         _showLoginPopup();
@@ -63,6 +63,9 @@ class _BottomSheetState extends State<_BottomSheet> {
       storeId: widget.storeId,
     );
     await CartDataSource().createCart(request: itemInfo);
+
+    context.read<HomeBloc>().add(LoadCartItems());
+
     _showSuccessDialog();
   }
 
@@ -75,6 +78,9 @@ class _BottomSheetState extends State<_BottomSheet> {
         existingItem.cartId,
         ItemQuantityCounter.itemCount + existingItem.cartItemCount,
       );
+
+      context.read<HomeBloc>().add(LoadCartItems());
+
       _showSuccessDialog();
     } catch (e) {
       if (cartData!.first.storeId == widget.storeId) {

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mayo_flutter/bloc/home/home_bloc.dart';
 import 'package:mayo_flutter/dataSource/cart.dart';
 import 'package:mayo_flutter/dataSource/reservation.dart';
 import 'package:mayo_flutter/dataSource/store.dart';
@@ -13,6 +15,7 @@ import 'package:mayo_flutter/model/reservation/create_reservation_request.dart';
 import 'package:mayo_flutter/util/formater.dart';
 import 'package:mayo_flutter/view/components/press_button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart'; // ✅ 이거 꼭 필요!
 
 part 'cart_scaffold.dart';
 part 'cart_content.dart';
@@ -58,7 +61,7 @@ class _CartPageState extends State<CartPage> {
       content = const Center(child: CircularProgressIndicator());
       requestButton = const SizedBox.shrink();
     } else if (futureCart!.isEmpty) {
-      content = _CartEmpty(); // ✅ 이제도 Scaffold 안에서 보여짐
+      content = _CartEmpty();
       requestButton = const SizedBox.shrink();
     } else {
       content = _CartContent(futureCart!);

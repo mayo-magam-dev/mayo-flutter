@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:mayo_flutter/bloc/home/home_bloc.dart';
 import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/dataSource/cart.dart';
 import 'package:mayo_flutter/dataSource/item.dart';
@@ -18,6 +19,7 @@ import 'package:mayo_flutter/util/formater.dart';
 import 'package:mayo_flutter/view/components/press_button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:dio/dio.dart';
+import 'package:mayo_flutter/bloc/home/home_bloc.dart';
 
 part 'prouduct_scaffold.dart';
 part 'product_info.dart';

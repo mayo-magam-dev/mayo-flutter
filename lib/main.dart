@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:mayo_flutter/bloc/home/home_bloc.dart';
 import 'package:mayo_flutter/bloc/login/login_bloc.dart';
 import 'package:mayo_flutter/firebase_options.dart';
 import 'package:mayo_flutter/router/router.dart';
@@ -41,28 +42,32 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => LoginBloc()..add(CheckLoginStatusEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          // 🔽 LoadCartItems() → LoadHomeData() 로 변경
+          create: (_) => HomeBloc()..add(LoadHomeData()),
+        ),
+        BlocProvider(
+          create: (_) => LoginBloc()..add(CheckLoginStatusEvent()),
+        ),
+      ],
       child: ScreenUtilInit(
         designSize: const Size(390, 844),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (_, child) {
-          return MaterialApp.router(
-            title: '마요',
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en', ''),
-              Locale('ko', ''),
-            ],
-            theme: customThemeData,
-            routerConfig: router,
-          );
-        },
+        builder: (_, __) => MaterialApp.router(
+          title: '마요',
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', ''),
+            Locale('ko', ''),
+          ],
+          theme: customThemeData,
+          routerConfig: router,
+        ),
       ),
     );
   }
