@@ -111,6 +111,8 @@ class _CartContentState extends State<_CartContent> {
               GestureDetector(
                 onTap: () async {
                   await CartDataSource().deleteCart(item.cartId);
+                  context.read<HomeBloc>().add(LoadCartItems());
+                  await fetchCartData();
                   context.pushReplacement('/cart');
                 },
                 child: SvgPicture.asset("assets/icons/x.svg"),

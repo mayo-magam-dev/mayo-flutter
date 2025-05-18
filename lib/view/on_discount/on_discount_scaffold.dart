@@ -7,28 +7,32 @@ class _Scaffold extends StatelessWidget {
     required this.storeList,
   });
 
-  final PreferredSizeWidget topBar;
+  final PreferredSizeWidget topBar; // ✅ 수정: 정확한 타입 명시
   final Widget header;
   final Widget storeList;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: topBar, // ✅ AppBar 영역으로 이동
+      appBar: topBar, // ✅ appBar에 이동
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 25.h),
-                header,
-                SizedBox(height: 10.h),
-                storeList,
-              ],
+        child: Column(
+          children: [
+            Container(
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: 1,
+                    color: GlobalMainGrey.grey200,
+                  ),
+                ),
+              ),
             ),
-          ),
+            SizedBox(height: 25.h),
+            header,
+            SizedBox(height: 10.h),
+            storeList,
+          ],
         ),
       ),
     );
