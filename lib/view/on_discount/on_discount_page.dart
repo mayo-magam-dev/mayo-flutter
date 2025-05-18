@@ -77,7 +77,7 @@ class OnDiscountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _Scaffold(
-      topBar: Topbar(title: '지금 할인 중', showCarts: false),
+      topBar: Topbar(title: '지금 할인 중', showCarts: true),
       header: _OnDiscountHeader(),
       storeList: storeList(),
     );

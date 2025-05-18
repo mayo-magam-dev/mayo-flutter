@@ -8,7 +8,7 @@ class _Scaffold extends StatelessWidget {
     required this.middle,
   });
 
-  final Widget topBar;
+  final PreferredSizeWidget topBar;
   final Widget header;
   final Widget middle;
 
@@ -16,10 +16,10 @@ class _Scaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: topBar,
       body: SafeArea(
         child: Column(
           children: [
-            topBar,
             header,
             middle,
           ],

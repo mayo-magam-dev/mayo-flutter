@@ -6,17 +6,20 @@ class _Scaffold extends StatelessWidget {
     required this.header,
     required this.storeList,
   });
-  final Widget topBar;
+
+  final PreferredSizeWidget topBar; // ✅ 변경됨
   final Widget header;
   final Widget storeList;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: topBar, // ✅ AppBar 영역으로 이동
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            topBar,
+            // ✅ topBar 이후부터 실제 본문 시작
             Container(
               decoration: ShapeDecoration(
                 shape: RoundedRectangleBorder(
