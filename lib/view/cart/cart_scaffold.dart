@@ -7,23 +7,23 @@ class _Scaffold extends StatelessWidget {
     required this.content,
     required this.requestButton,
   });
-  final Widget topBar;
+  final PreferredSizeWidget topBar;
   final Widget content;
   final Widget requestButton;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: topBar,
         body: SafeArea(
             child: SingleChildScrollView(
-      child: Column(
-        children: [
-          topBar,
-          content,
-          SizedBox(height: 30.h),
-          requestButton,
-        ],
-      ),
-    )));
+          child: Column(
+            children: [
+              content,
+              SizedBox(height: 20.h),
+              requestButton,
+            ],
+          ),
+        )));
   }
 }

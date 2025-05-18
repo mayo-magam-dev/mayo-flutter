@@ -8,7 +8,7 @@ class _Scaffold extends StatelessWidget {
     required this.storeList,
   });
 
-  final PreferredSizeWidget topBar; // ✅ 수정됨
+  final PreferredSizeWidget topBar;
   final Widget banner;
   final Widget category;
   final Widget storeList;
@@ -16,12 +16,11 @@ class _Scaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: topBar, // ✅ 이제 문제 없음
+      appBar: topBar,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // 필요 시 다른 위젯 추가 가능
               Stack(
                 children: [
                   banner,

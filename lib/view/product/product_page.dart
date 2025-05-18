@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,7 @@ import 'package:mayo_flutter/model/user/local_login_state.dart';
 import 'package:mayo_flutter/util/formater.dart';
 import 'package:mayo_flutter/view/components/press_button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:dio/dio.dart';
 
 part 'prouduct_scaffold.dart';
 part 'product_info.dart';

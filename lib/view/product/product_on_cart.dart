@@ -76,14 +76,16 @@ class _OnCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Container(
-        width: 314.w,
-        height: 346.h,
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(20.r)),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 20.h),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.r),
+      ),
+      backgroundColor: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 20.h),
+        child: SingleChildScrollView(
+          // ✅ 오버플로우 방지
           child: Column(
+            mainAxisSize: MainAxisSize.min, 
             children: [
               SizedBox(height: 10.h),
               Text(
@@ -91,8 +93,12 @@ class _OnCart extends StatelessWidget {
                 style: AppTextStyle.heading3Bold,
               ),
               SizedBox(height: 8.h),
-              Image.asset("assets/icons/cart_image.png",
-                  height: 135.h, width: 135.w),
+              Image.asset(
+                "assets/icons/cart_image.png",
+                height: 135.h,
+                width: 135.w,
+                fit: BoxFit.contain,
+              ),
               SizedBox(height: 29.h),
               Text(
                 "같은 가게의 다른 메뉴도 보러 갈까요?",
@@ -102,38 +108,49 @@ class _OnCart extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Container(
-                      width: 129.w,
-                      height: 56.h,
-                      decoration: BoxDecoration(
-                        color: GlobalMainGrey.grey200,
-                        borderRadius: BorderRadius.circular(20),
+                  // 가게 둘러보기
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        height: 56.h,
+                        decoration: BoxDecoration(
+                          color: GlobalMainGrey.grey200,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "가게 둘러보기",
+                          style: AppTextStyle.body1Bold.copyWith(
+                            color: GlobalMainGrey.grey400,
+                          ),
+                        ),
                       ),
-                      alignment: Alignment.center,
-                      child: Text("가게 둘러보기",
-                          style: AppTextStyle.body1Bold
-                              .copyWith(color: GlobalMainGrey.grey400)),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => context.push('/cart'),
-                    child: Container(
-                      width: 129.w,
-                      height: 56.h,
-                      decoration: BoxDecoration(
-                        color: GlobalMainColor.globalButtonColor,
-                        borderRadius: BorderRadius.circular(20),
+                  SizedBox(width: 12.w),
+                  // 장바구니 이동
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => context.push('/cart'),
+                      child: Container(
+                        height: 56.h,
+                        decoration: BoxDecoration(
+                          color: GlobalMainColor.globalButtonColor,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "장바구니",
+                          style: AppTextStyle.body1Bold.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                      alignment: Alignment.center,
-                      child: Text("장바구니",
-                          style: AppTextStyle.body1Bold
-                              .copyWith(color: Colors.white)),
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

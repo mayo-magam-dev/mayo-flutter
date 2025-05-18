@@ -12,11 +12,27 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // ✅ Firebase 초기화
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await dotenv.load(fileName: './.env');
-  AuthRepository.initialize(appKey: dotenv.env['MAP_API_KEY']!);
+
+  // ✅ .env 로딩
+  try {
+    await dotenv.load(fileName: './.env');
+  } catch (e) {
+    debugPrint("❗ .env 파일 로드 실패: $e");
+  }
+
+  // ✅ API 키 가져오기
+  final apiKey = dotenv.env['MAP_API_KEY'];
+  if (apiKey == null || apiKey.isEmpty) {
+    debugPrint("❗ MAP_API_KEY가 .env에 존재하지 않거나 비어 있음");
+  } else {
+    AuthRepository.initialize(appKey: apiKey);
+  }
+
   runApp(const MyApp());
 }
 

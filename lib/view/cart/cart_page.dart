@@ -29,50 +29,55 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   List<ReadCartResponse>? futureCart;
 
-  featchCartData() async {
-  try {
-    final cartDataSource = await CartDataSource().getCarts();
-    setState(() {
-      futureCart = cartDataSource;
-    });
-  } catch (e) {
-    debugPrint("장바구니 데이터 불러오기 실패: $e");
-    setState(() {
-      futureCart = []; 
-    });
+  Future<void> fetchCartData() async {
+    try {
+      final cartDataSource = await CartDataSource().getCarts();
+      setState(() {
+        futureCart = cartDataSource;
+      });
+    } catch (e) {
+      debugPrint("장바구니 데이터 불러오기 실패: $e");
+      setState(() {
+        futureCart = []; // 실패 시 빈 리스트
+      });
+    }
   }
-}
-
 
   @override
   void initState() {
     super.initState();
-    featchCartData();
+    fetchCartData();
   }
 
   @override
   Widget build(BuildContext context) {
+    final Widget content;
+    final Widget requestButton;
+
     if (futureCart == null) {
-      return Center(child: const CircularProgressIndicator());
-    } else if (futureCart!.isNotEmpty) {
-      return _Scaffold(
-        topBar: Topbar(
-          title: '장바구니',
-          showCarts: true,
-        ),
-        content: _CartContent(futureCart!),
-        requestButton: PressButton(
-          text: "예약하기",
-          onPressed: () => showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return _CartBottomSheet();
-            },
-          ),
+      content = const Center(child: CircularProgressIndicator());
+      requestButton = const SizedBox.shrink();
+    } else if (futureCart!.isEmpty) {
+      content = _CartEmpty(); // ✅ 이제도 Scaffold 안에서 보여짐
+      requestButton = const SizedBox.shrink();
+    } else {
+      content = _CartContent(futureCart!);
+      requestButton = PressButton(
+        text: "예약하기",
+        onPressed: () => showModalBottomSheet(
+          context: context,
+          builder: (context) => _CartBottomSheet(),
         ),
       );
-    } else {
-      return _CartEmpty();
     }
+
+    return _Scaffold(
+      topBar: const Topbar(
+        title: '장바구니',
+        showCarts: true,
+      ),
+      content: content,
+      requestButton: requestButton,
+    );
   }
 }

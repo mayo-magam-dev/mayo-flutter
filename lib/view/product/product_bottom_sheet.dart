@@ -29,26 +29,31 @@ class _BottomSheetState extends State<_BottomSheet> {
 
     setState(() => isLoading = true);
     try {
-      final loginState = context.read<LoginBloc>().state;
-      if (loginState is! LoginStateChanged ||
-          loginState.loginState == LocalLoginState.notLogin) {
-        showDialog(
-          context: context,
-          builder: (context) => const _BeforeLoginOnCart(),
-        );
-        return;
-      }
-
       if (cartData == null || cartData!.isEmpty) {
         await _createNewCart();
       } else {
         await _handleExistingCart();
       }
-    } catch (e) {
-      debugPrint('장바구니 추가 실패: $e');
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 401) {
+        debugPrint('🟥 비회원 상태로 감지됨 → 로그인 유도 팝업');
+        _showLoginPopup();
+      } else {
+        debugPrint('🟥 장바구니 추가 실패: ${e.message}');
+      }
     } finally {
       setState(() => isLoading = false);
     }
+  }
+
+  void _showLoginPopup() {
+    Navigator.pop(context);
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.5),
+      builder: (_) => const _BeforeLoginOnCart(),
+    );
   }
 
   Future<void> _createNewCart() async {
@@ -83,6 +88,7 @@ class _BottomSheetState extends State<_BottomSheet> {
   }
 
   void _showSuccessDialog() {
+    Navigator.pop(context);
     showDialog(
       context: context,
       builder: (context) => const _OnCart(),
@@ -92,6 +98,8 @@ class _BottomSheetState extends State<_BottomSheet> {
   @override
   void initState() {
     super.initState();
+    debugPrint("🟨 로그인 상태 체크 이벤트 실행");
+    context.read<LoginBloc>().add(CheckLoginStatusEvent());
     fetchCartData();
   }
 
