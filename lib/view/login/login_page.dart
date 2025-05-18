@@ -20,41 +20,22 @@ part 'login_logo.dart';
 part 'login_form.dart';
 part 'login_social_login.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  @override
-  void initState() {
-    super.initState();
-    // 로그인 상태 확인
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<LoginBloc>().add(CheckLoginStatusEvent());
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: app_router.signUpBloc,
-      child: BlocListener<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state is LoginStateChanged) {
-            if (state.loginState == LocalLoginState.login) {
-              // 이미 로그인되어 있으면 홈페이지로 이동
-              context.go('/');
-            }
-          }
-        },
-        child: _Scaffold(
-          logo: _LoginLogo(),
-          form: _LoginForm(),
-          socialLogin: _LoginSocialLogin(),
-        ),
+    return BlocListener<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state is LoginStateChanged &&
+            state.loginState == LocalLoginState.login) {
+          context.go('/');
+        }
+      },
+      child: _Scaffold(
+        logo: _LoginLogo(),
+        form: _LoginForm(),
+        socialLogin: _LoginSocialLogin(),
       ),
     );
   }

@@ -7,7 +7,7 @@ class _Scaffold extends StatelessWidget {
     required this.storeList,
   });
 
-  final PreferredSizeWidget topBar; 
+  final PreferredSizeWidget topBar;
   final Widget header;
   final Widget storeList;
 

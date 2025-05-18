@@ -28,7 +28,7 @@ class OnDiscountPage extends StatelessWidget {
         if (snapshot.data!.isEmpty) {
           return Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center, // Y축 중앙
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(
