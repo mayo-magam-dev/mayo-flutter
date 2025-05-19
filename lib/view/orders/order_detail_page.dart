@@ -85,8 +85,11 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (reservationDeatilData == null) {
-      return SizedBox();
+    if (reservationDeatilData == null || storeDeatilData == null) {
+      return const Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(child: CircularProgressIndicator()),
+      );
     }
     List<String> createdAt =
         reservationDeatilData!.createdAt.toString().split(RegExp(r'[ :-]'));

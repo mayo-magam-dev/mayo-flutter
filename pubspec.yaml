@@ -1,7 +1,7 @@
 name: mayo_flutter
 description: "official mayo flutter app"
 publish_to: "none"
-version: 2.0.6+4
+version: 2.0.6+6
 
 environment:
   sdk: ^3.6.0
@@ -30,6 +30,7 @@ dependencies:
   url_launcher: ^6.3.1
   firebase_messaging: ^15.2.4
   sign_in_with_apple: ^6.1.4
+  equatable: ^2.0.5
   flutter_localizations:
     sdk: flutter
 

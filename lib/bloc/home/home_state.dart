@@ -40,5 +40,5 @@ class HomeState {
         randomStores,
         isLoading,
         error,
-      ]; // ✅ 상태 비교용 props 반드시 정의
+      ]; 
 }

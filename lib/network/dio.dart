@@ -14,6 +14,7 @@ abstract class AppDio {
 class _AppDio with DioMixin implements Dio {
   _AppDio() {
     httpClientAdapter = IOHttpClientAdapter();
+
     options = BaseOptions(
       baseUrl: _baseUrl,
       headers: {

@@ -14,19 +14,18 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ✅ Firebase 초기화
+  
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // ✅ .env 로딩
+  
   try {
     await dotenv.load(fileName: './.env');
   } catch (e) {
     debugPrint("❗ .env 파일 로드 실패: $e");
   }
 
-  // ✅ API 키 가져오기
   final apiKey = dotenv.env['MAP_API_KEY'];
   if (apiKey == null || apiKey.isEmpty) {
     debugPrint("❗ MAP_API_KEY가 .env에 존재하지 않거나 비어 있음");
@@ -45,7 +44,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          // 🔽 LoadCartItems() → LoadHomeData() 로 변경
           create: (_) => HomeBloc()..add(LoadHomeData()),
         ),
         BlocProvider(
