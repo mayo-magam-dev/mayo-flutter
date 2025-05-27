@@ -30,16 +30,21 @@ class _Scaffold extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 84.h),
+              SizedBox(height: 60.h),
               header,
               SizedBox(height: 117.h),
               middle,
-              SizedBox(height: 160.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                child: nextButton,
-              ),
             ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        minimum: EdgeInsets.fromLTRB(24.w, 0, 24.w, 57.h), // 좌우 마진 & 아래 패딩
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0), // 버튼 위쪽 간격 추가
+          child: SizedBox(
+            height: 46.h, // 원하는 버튼 높이 (혹은 Button 내부에 고정 높이)
+            child: nextButton,
           ),
         ),
       ),
