@@ -5,7 +5,7 @@ class _List extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 424.h,
+      //height: 424.h,
       padding: EdgeInsets.fromLTRB(24, 19, 21, 0),
       child: Column(
         children: [
@@ -22,6 +22,8 @@ class _List extends StatelessWidget {
                       color: GlobalMainColor.globalPrimaryBlackColor,
                       letterSpacing: -0.84,
                     ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                   SvgPicture.asset('assets/icons/right_arrow2.svg'),
                 ],
@@ -76,18 +78,6 @@ class _List extends StatelessWidget {
                                 },
                               );
                             }),
-                        if (store != state.randomStores.last)
-                          Container(
-                            width: double.infinity,
-                            decoration: ShapeDecoration(
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                  width: 1,
-                                  color: GlobalMainGrey.grey200,
-                                ),
-                              ),
-                            ),
-                          ),
                       ],
                     );
                   }).toList(),

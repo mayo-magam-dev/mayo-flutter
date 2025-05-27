@@ -27,11 +27,10 @@ class OneProductWidget extends StatelessWidget {
             Container(
               padding: EdgeInsets.fromLTRB(24.w, 21.h, 24.w, 15.h),
               width: double.infinity,
-              height: 238.h,
+              //height: 238.h,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 🍞 이미지 영역
                   Container(
                     width: double.infinity,
                     height: 123.h,
@@ -44,32 +43,49 @@ class OneProductWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // 🧾 텍스트 정보 + 버튼
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // 왼쪽 정보
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(store.storeName, style: AppTextStyle.body1Bold),
-                          SizedBox(height: 5.h),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
+                      // 왼쪽 텍스트 정보 (Expandable)
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              store.storeName,
+                              style: AppTextStyle.body1Bold,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 5.h),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
                                   "assets/icons/location-with-ground.svg",
                                   width: 18,
-                                  height: 18),
-                              SizedBox(width: 3.w),
-                              Text(store.address,
-                                  style: AppTextStyle.body2Medium),
-                            ],
-                          ),
-                          SizedBox(height: 5.h),
-                          _buildTags(),
-                        ],
+                                  height: 18,
+                                ),
+                                SizedBox(width: 3.w),
+                                Expanded(
+                                  child: Text(
+                                    store.address,
+                                    style: AppTextStyle.body2Medium,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 4.5.h),
+                            _buildTags(),
+                            SizedBox(height: 12.h),
+                          ],
+                        ),
                       ),
-                      // 오른쪽 예약 버튼
+
+                      SizedBox(width: 8.w),
+
                       GestureDetector(
                         onTap: () {
                           context.push('/store/${store.id}');
@@ -87,14 +103,17 @@ class OneProductWidget extends StatelessWidget {
                               SvgPicture.asset(
                                 "assets/icons/time.svg",
                                 colorFilter: const ColorFilter.mode(
-                                    Colors.white, BlendMode.srcIn),
+                                  Colors.white,
+                                  BlendMode.srcIn,
+                                ),
                                 width: 33.w,
                                 height: 33.h,
                               ),
                               Text(
                                 "예약하기",
-                                style: AppTextStyle.captionMedium
-                                    .copyWith(color: Colors.white),
+                                style: AppTextStyle.captionMedium.copyWith(
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           ),
@@ -108,8 +127,6 @@ class OneProductWidget extends StatelessWidget {
             Divider(color: GlobalMainGrey.grey200, thickness: 2),
           ],
         ),
-
-        // ⏰ 오픈 준비중 오버레이
         if (!store.openState)
           Positioned.fill(
             child: Container(

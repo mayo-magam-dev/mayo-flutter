@@ -53,6 +53,9 @@ class OnDiscountPage extends StatelessWidget {
         }
         return Expanded(
           child: ListView.builder(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).padding.bottom + 100.h,
+            ),
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               return GestureDetector(

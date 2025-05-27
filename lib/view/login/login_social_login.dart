@@ -8,7 +8,7 @@ class _LoginSocialLogin extends StatefulWidget {
 }
 
 class _LoginSocialLoginState extends State<_LoginSocialLogin> {
-  Future<void> _handleLoginSuccess() async {
+  Future<void> _handleLoginSuccess({required String provider}) async {
     try {
       final userData = await UserDataSource().getUser();
 
@@ -16,18 +16,15 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
       context.read<LoginBloc>().add(UserLoginEvent());
       await FcmUtils.registerFcmToken();
       context.go("/");
-    } on DioException catch (e) {
+    } on DioException catch (_) {
       if (!mounted) return;
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        context
-            .read<LoginBloc>()
-            .add(SocialLoginEvent(email: user.email ?? '', provider: 'google'));
+        context.read<LoginBloc>().add(SocialLoginEvent(
+              email: user.email ?? '',
+              provider: provider,
+            ));
 
-        final signUpBloc = BlocProvider.of<SignUpBloc>(context);
-        signUpBloc.add(SetEmail(user.email ?? ''));
-        signUpBloc.add(SetPassword("12345678"));
-        signUpBloc.add(SetPasswordConfirmation(true));
         context.go("/signup");
       }
     }
@@ -36,7 +33,7 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
   Future<void> _loginWithGoogle() async {
     try {
       await GoogleLogin().login();
-      await _handleLoginSuccess();
+      await _handleLoginSuccess(provider: 'google');
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -48,7 +45,7 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
   Future<void> _loginWithApple() async {
     try {
       await AppleLogin().login();
-      await _handleLoginSuccess();
+      await _handleLoginSuccess(provider: 'apple');
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -69,10 +66,7 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
             height: 48.h,
             decoration: ShapeDecoration(
               shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 1,
-                  color: Color(0xFF888888),
-                ),
+                side: BorderSide(width: 1, color: Color(0xFF888888)),
                 borderRadius: BorderRadius.circular(50),
               ),
             ),
@@ -95,10 +89,7 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
             height: 48.h,
             decoration: ShapeDecoration(
               shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 1,
-                  color: Color(0xFF888888),
-                ),
+                side: BorderSide(width: 1, color: Color(0xFF888888)),
                 borderRadius: BorderRadius.circular(50),
               ),
             ),

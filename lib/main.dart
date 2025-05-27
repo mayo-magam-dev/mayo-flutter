@@ -14,12 +14,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  
   try {
     await dotenv.load(fileName: './.env');
   } catch (e) {
@@ -43,29 +41,30 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => HomeBloc()..add(LoadHomeData()),
-        ),
-        BlocProvider(
-          create: (_) => LoginBloc()..add(CheckLoginStatusEvent()),
-        ),
+        BlocProvider(create: (_) => HomeBloc()..add(LoadHomeData())),
+        BlocProvider(create: (_) => LoginBloc()..add(CheckLoginStatusEvent())),
       ],
       child: ScreenUtilInit(
         designSize: const Size(390, 844),
-        builder: (_, __) => MaterialApp.router(
-          title: '마요',
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en', ''),
-            Locale('ko', ''),
-          ],
-          theme: customThemeData,
-          routerConfig: router,
-        ),
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: MaterialApp.router(
+              title: '마요',
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('en', ''),
+                Locale('ko', ''),
+              ],
+              theme: customThemeData,
+              routerConfig: router,
+            ),
+          );
+        },
       ),
     );
   }

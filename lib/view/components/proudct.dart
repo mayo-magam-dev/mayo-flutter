@@ -54,7 +54,7 @@ class ProductComponents extends StatelessWidget {
                         width: 84.w,
                         height: 84.h,
                         decoration: BoxDecoration(
-                          color: Colors.black.withAlpha(210),
+                          color: Colors.black.withAlpha((255 * 0.6).round()),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
