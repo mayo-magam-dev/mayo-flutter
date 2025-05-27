@@ -40,10 +40,6 @@ class _Header extends StatelessWidget {
                     shape: OvalBorder(),
                     color: Color(0xFFEEEEEE),
                   ),
-                  child: Icon(
-                    Icons.camera_alt,
-                    size: 16,
-                  ),
                 ),
               ),
             ),
