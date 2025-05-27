@@ -19,11 +19,6 @@ class _Scaffold extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(
-            left: 24.w,
-            right: 24.w,
-            bottom: MediaQuery.of(context).padding.bottom + 100.h, // ✅ 핵심
-          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
