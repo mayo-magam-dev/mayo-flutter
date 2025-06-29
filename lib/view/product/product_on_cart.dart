@@ -29,7 +29,7 @@ class _BeforeLoginOnCart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => context.pop(),
                     child: Container(
                       width: 129.w,
                       height: 56.h,
@@ -111,7 +111,7 @@ class _OnCart extends StatelessWidget {
                   // 가게 둘러보기
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => context.pop(),
                       child: Container(
                         height: 56.h,
                         decoration: BoxDecoration(

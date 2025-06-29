@@ -5,6 +5,7 @@ final customThemeData = ThemeData(
   appBarTheme: const AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle.light,
   ),
+  splashFactory: NoSplash.splashFactory,
   useMaterial3: true,
   scaffoldBackgroundColor: Colors.white,
   fontFamily: 'Pretendard',

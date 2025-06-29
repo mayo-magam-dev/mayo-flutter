@@ -1,5 +1,43 @@
 part of 'store_page.dart';
 
+// 영업 요일 리스트를 "월~금" 또는 "월,수,금" 형태로 포맷해 주는 헬퍼 함수
+
+String formatOpenDays(List<int> days) {
+  if (days.isEmpty) return '';
+
+  // 1:월, 2:화, … 7:일
+  const names = {
+    1: '월',
+    2: '화',
+    3: '수',
+    4: '목',
+    5: '금',
+    6: '토',
+    7: '일',
+  };
+
+  final sorted = [...days]..sort();
+  final ranges = <String>[];
+  int start = sorted.first, end = start;
+
+  for (var d in sorted.skip(1)) {
+    if (d == end + 1) {
+      end = d;
+    } else {
+      ranges.add(_rangeToString(start, end, names));
+      start = end = d;
+    }
+  }
+  ranges.add(_rangeToString(start, end, names));
+
+  return ranges.join(', ');
+}
+
+String _rangeToString(int start, int end, Map<int, String> names) {
+  if (start == end) return names[start]!;
+  return '${names[start]}~${names[end]}';
+}
+
 class _StoreInfoSection extends StatelessWidget {
   final ReadStore storeData;
   final List<ReadItem> itemData;

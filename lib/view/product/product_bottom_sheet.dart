@@ -47,7 +47,7 @@ class _BottomSheetState extends State<_BottomSheet> {
   }
 
   void _showLoginPopup() {
-    Navigator.pop(context);
+    context.pop();
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -94,7 +94,7 @@ class _BottomSheetState extends State<_BottomSheet> {
   }
 
   void _showSuccessDialog() {
-    Navigator.pop(context);
+    context.pop();
     showDialog(
       context: context,
       builder: (context) => const _OnCart(),

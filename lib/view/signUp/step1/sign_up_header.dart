@@ -20,7 +20,7 @@ class _SignUpHeader extends StatelessWidget {
               text: '마요 이용을 위한\n약관 동의가 필요합니다.',
               style: AppTextStyle.heading3Medium.copyWith(
                 letterSpacing: -0.42,
-                height: 1.2, // ✅ 동일하게 설정
+                height: 1.2, 
               ),
             ),
           ],

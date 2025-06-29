@@ -52,32 +52,79 @@ class _OrderPageState extends State<OrderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Topbar(title: '주문내역', showCarts: true),
-              SizedBox(height: 25.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Topbar(title: '주문내역', showCarts: true),
+            SizedBox(height: 25.h),
+            Padding(
+              padding: EdgeInsets.only(left: 24.w),
+              child: Text(
+                "최근 나의 주문 내역이에요.",
+                style: AppTextStyle.heading2Bold,
+              ),
+            ),
+            SizedBox(height: 20.h),
+            if (reservationData == null)
+              Expanded(child: Center(child: CircularProgressIndicator()))
+            else if (reservationData!.isEmpty)
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        'assets/images/empty_cart.png', // 실제 경로에 맞게 수정
+                        width: 120,
+                      ),
+                      SizedBox(height: 24),
+                      Text(
+                        '주문 내역이 없어요!',
+                        style: AppTextStyle.heading3Bold,
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        '원하는 메뉴나 상품을 찾아볼까요?',
+                        style: AppTextStyle.body1Medium.copyWith(color: Colors.black),
+                      ),
+                      SizedBox(height: 32),
+                      SizedBox(
+                        width: 153,
+                        height: 34,
+                        child: ElevatedButton(
+                          onPressed: () => context.push('/onsale'),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            backgroundColor: Colors.white,
+                            side: BorderSide(color: Colors.black),
+                            elevation: 0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('가게 둘러보기', style: TextStyle(color: Colors.black)),
+                              SizedBox(width: 10),
+                              Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            else
               Padding(
-                padding: EdgeInsets.only(left: 24.w),
-                child: Text(
-                  "최근 나의 주문 내역이에요.",
-                  style: AppTextStyle.heading2Bold,
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Column(
+                  children: reservationData!
+                      .map((data) => _OrderItem(reservationData: data))
+                      .toList(),
                 ),
               ),
-              SizedBox(height: 23.h),
-              reservationData == null
-                  ? Center(child: CircularProgressIndicator())
-                  : Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24.w),
-                      child: Column(
-                        children: reservationData!
-                            .map((data) => _OrderItem(reservationData: data))
-                            .toList(),
-                      ),
-                    ),
-            ],
-          ),
+          ],
         ),
       ),
     );

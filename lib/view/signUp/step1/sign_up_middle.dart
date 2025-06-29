@@ -97,7 +97,7 @@ class _SignUpMiddle extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       IconButton(
-                                        onPressed: () => Navigator.pop(context),
+                                        onPressed: () => context.pop(),
                                         icon: Icon(
                                           Icons.close_outlined,
                                           size: 30,

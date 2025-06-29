@@ -165,7 +165,7 @@ class _InfoTableState extends State<_InfoTable> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.pop(context);
+                                          context.pop();
                                         },
                                         child: Container(
                                           width: 128.9,
@@ -417,7 +417,7 @@ class _InfoTableState extends State<_InfoTable> {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.pop(context);
+                                                  context.pop();
                                                   setState(() {
                                                     agreeMarketing =
                                                         !agreeMarketing;
@@ -454,7 +454,7 @@ class _InfoTableState extends State<_InfoTable> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.pop(context);
+                                                  context.pop();
                                                 },
                                                 child: Container(
                                                   width: 128.9,

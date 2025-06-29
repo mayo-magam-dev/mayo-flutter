@@ -9,6 +9,7 @@ import 'package:mayo_flutter/view/home/home_page.dart';
 import 'package:mayo_flutter/view/login/login_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/acount_delete_page/account_delete_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/announcement_page/announcement_page.dart';
+import 'package:mayo_flutter/view/my/details/announcement_page/announcement_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/customer_center_page/costomer_center_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/event_page/event_page.dart';
 import 'package:mayo_flutter/view/my/detail_pages/faq_page/faq_page.dart';
@@ -33,6 +34,7 @@ import 'package:mayo_flutter/view/sub/dessert_page.dart';
 import 'package:mayo_flutter/view/sub/onsale_page.dart';
 import 'package:mayo_flutter/view/sub/partner_store_page.dart';
 import 'package:mayo_flutter/model/user/local_login_state.dart';
+import 'package:mayo_flutter/model/board/board.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final SignUpBloc signUpBloc = SignUpBloc(userDataSource: UserDataSource());
@@ -103,6 +105,12 @@ final router = GoRouter(
         builder: (context, state) => AccountDeletePage()),
     GoRoute(
         path: '/announcement', builder: (context, state) => AnnouncementPage()),
+    GoRoute(
+        path: '/announcement-detail',
+        builder: (context, state) {
+          final board = state.extra as Board;
+          return AnnouncementDetailPage(board: board);
+        }),
 
     // ✅ 탭 라우트들
     StatefulShellRoute.indexedStack(

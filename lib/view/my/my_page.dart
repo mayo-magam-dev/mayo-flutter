@@ -7,6 +7,7 @@ import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/user/local_login_state.dart';
+import 'package:mayo_flutter/model/user/read_user.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 
 part 'my_scaffold.dart';

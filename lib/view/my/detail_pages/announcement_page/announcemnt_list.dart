@@ -89,12 +89,7 @@ class _ListsState extends State<_Lists> {
             final item = announcements[index];
             return InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AnnouncementDetailPage(board: item),
-                  ),
-                );
+                context.push('/announcement-detail', extra: item);
               },
               child: _AnnouncementListItem(item: item),
             );

@@ -137,7 +137,7 @@ class OneProductWidget extends StatelessWidget {
                   SvgPicture.asset('assets/icons/vector.svg'),
                   SizedBox(height: 10.h),
                   Text(
-                    '오픈 준비중',
+                    '오픈 준비 중',
                     style: AppTextStyle.heading2Bold.copyWith(
                       color: Colors.white,
                       letterSpacing: -0.48,

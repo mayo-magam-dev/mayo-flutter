@@ -7,14 +7,14 @@ class _Scaffold extends StatelessWidget {
     required this.storeList,
   });
 
-  final PreferredSizeWidget topBar; // ✅ 수정: 정확한 타입 명시
+  final PreferredSizeWidget topBar; 
   final Widget header;
   final Widget storeList;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: topBar, // ✅ appBar에 이동
+      appBar: topBar,
       body: SafeArea(
         child: Column(
           children: [
