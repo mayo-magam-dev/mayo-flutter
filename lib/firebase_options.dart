@@ -49,24 +49,5 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBLaZwZ9Bm3J3Zr7cwOoY7UOy6F1xCXpAk',
-    appId: '1:292349774898:android:227686fe24ecb2a7fbc02b',
-    messagingSenderId: '292349774898',
-    projectId: 'mayo-app-280d4',
-    storageBucket: 'mayo-app-280d4.appspot.com',
-  );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCRtqcvOjs7bfttAy6h0QMB0AkhXfu7r7A',
-    appId: '1:292349774898:ios:8665d768d9818f19fbc02b',
-    messagingSenderId: '292349774898',
-    projectId: 'mayo-app-280d4',
-    storageBucket: 'mayo-app-280d4.appspot.com',
-    androidClientId:
-        '292349774898-21rdegphp613mokklskps4o538jnq4cu.apps.googleusercontent.com',
-    iosClientId:
-        '292349774898-14kug5hr8fr84kt44e36b61q4ddvlkv6.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mayoFlutter',
-  );
 }
