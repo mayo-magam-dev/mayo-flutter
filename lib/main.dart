@@ -14,15 +14,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // dotenv를 가장 먼저 로드
+  await dotenv.load(fileName: './.env');
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  try {
-    await dotenv.load(fileName: './.env');
-  } catch (e) {
-    debugPrint("❗ .env 파일 로드 실패: $e");
-  }
 
   final apiKey = dotenv.env['MAP_API_KEY'];
   if (apiKey == null || apiKey.isEmpty) {
