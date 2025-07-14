@@ -51,10 +51,23 @@ class PartnerStorePage extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Image.asset(
-                  "assets/images/empty_cart.png",
-                  width: 342.w,
-                  height: 123.h,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: GlobalMainGrey.grey200,
+                      width: 1,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      storeData![storeIndex].storeImage,
+                      width: 342.w,
+                      height: 123.h,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
               Row(

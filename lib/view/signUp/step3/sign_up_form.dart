@@ -47,6 +47,13 @@ class _SignUpFormState extends State<_SignUpForm> {
               onChanged: (value) {
                 context.read<SignUpBloc>().add(SetName(value));
               },
+              validator: (value) {
+                if (value == null || value.isEmpty) return '이름을 입력해주세요.';
+                if (!RegExp(r'^[가-힣]{2,10} 0- $').hasMatch(value)) {
+                  return '이름은 한글 2~10자(완성형)만 입력 가능합니다.';
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -96,6 +103,13 @@ class _SignUpFormState extends State<_SignUpForm> {
               onChanged: (value) {
                 context.read<SignUpBloc>().add(SetDisplayName(value));
               },
+              validator: (value) {
+                if (value == null || value.isEmpty) return '닉네임을 입력해주세요.';
+                if (!RegExp(r'^[가-힣a-zA-Z0-9]{2,10}$').hasMatch(value)) {
+                  return '닉네임은 한글/영문/숫자 2~10자만 입력 가능합니다.';
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -139,23 +153,39 @@ class _SignUpFormState extends State<_SignUpForm> {
             width: double.infinity,
             height: 45.h,
             child: TextFormField(
+              keyboardType: TextInputType.number, // 넘버패드 적용
               onTapOutside: (event) => FocusScope.of(context).unfocus(),
               textInputAction: TextInputAction.next,
               onChanged: (value) {
                 if (value.length == 8) {
                   try {
-                    // YYYYMMDD 형식의 문자열을 DateTime으로 변환
                     final year = int.parse(value.substring(0, 4));
                     final month = int.parse(value.substring(4, 6));
                     final day = int.parse(value.substring(6, 8));
-
                     final birthDate = DateTime(year, month, day);
                     context.read<SignUpBloc>().add(SetBirthDate(birthDate));
                   } catch (e) {
-                    // 날짜 변환 오류 처리
-                    // 입력 값이 유효하지 않은 경우 무시
+                    // 무시
                   }
                 }
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) return '생년월일을 입력해주세요.';
+                if (!RegExp(r'^\d{8} -$').hasMatch(value)) {
+                  return '생년월일은 8자리(YYYYMMDD)로 입력해주세요.';
+                }
+                try {
+                  final year = int.parse(value.substring(0, 4));
+                  final month = int.parse(value.substring(4, 6));
+                  final day = int.parse(value.substring(6, 8));
+                  final date = DateTime(year, month, day);
+                  if (date.year != year || date.month != month || date.day != day) {
+                    return '올바른 날짜를 입력해주세요.';
+                  }
+                } catch (_) {
+                  return '올바른 날짜를 입력해주세요.';
+                }
+                return null;
               },
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
@@ -352,3 +382,4 @@ class _SignUpFormState extends State<_SignUpForm> {
     );
   }
 }
+

@@ -9,7 +9,7 @@ class ReadItem with _$ReadItem {
     required String itemId,
     required String itemName,
     String? itemDescription,
-    int? originalPrice,
+    required int originalPrice,
     double? salePercent,
     required int itemQuantity,
     required bool itemOnSale,

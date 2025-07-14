@@ -54,8 +54,11 @@ class _ProfilePageState extends State<ProfilePage> {
         topBar: Topbar(title: '내정보', showCarts: false),
         header: _Header(
           photoUrl: userData!.photoUrl ?? '',
+          displayName: userData!.displayName,
         ),
-        infoTables: _InfoTable(),
+        infoTables: _InfoTable(
+          onUserDataChanged: featchUserData,
+        ),
         accountActions: _AccountActions(),
       );
     }

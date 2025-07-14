@@ -23,7 +23,7 @@ mixin _$ReadItem {
   String get itemId => throw _privateConstructorUsedError;
   String get itemName => throw _privateConstructorUsedError;
   String? get itemDescription => throw _privateConstructorUsedError;
-  int? get originalPrice => throw _privateConstructorUsedError;
+  int get originalPrice => throw _privateConstructorUsedError;
   double? get salePercent => throw _privateConstructorUsedError;
   int get itemQuantity => throw _privateConstructorUsedError;
   bool get itemOnSale => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $ReadItemCopyWith<$Res> {
       {String itemId,
       String itemName,
       String? itemDescription,
-      int? originalPrice,
+      int originalPrice,
       double? salePercent,
       int itemQuantity,
       bool itemOnSale,
@@ -79,7 +79,7 @@ class _$ReadItemCopyWithImpl<$Res, $Val extends ReadItem>
     Object? itemId = null,
     Object? itemName = null,
     Object? itemDescription = freezed,
-    Object? originalPrice = freezed,
+    Object? originalPrice = null,
     Object? salePercent = freezed,
     Object? itemQuantity = null,
     Object? itemOnSale = null,
@@ -101,10 +101,10 @@ class _$ReadItemCopyWithImpl<$Res, $Val extends ReadItem>
           ? _value.itemDescription
           : itemDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalPrice: freezed == originalPrice
+      originalPrice: null == originalPrice
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       salePercent: freezed == salePercent
           ? _value.salePercent
           : salePercent // ignore: cast_nullable_to_non_nullable
@@ -149,7 +149,7 @@ abstract class _$$ReadItemImplCopyWith<$Res>
       {String itemId,
       String itemName,
       String? itemDescription,
-      int? originalPrice,
+      int originalPrice,
       double? salePercent,
       int itemQuantity,
       bool itemOnSale,
@@ -175,7 +175,7 @@ class __$$ReadItemImplCopyWithImpl<$Res>
     Object? itemId = null,
     Object? itemName = null,
     Object? itemDescription = freezed,
-    Object? originalPrice = freezed,
+    Object? originalPrice = null,
     Object? salePercent = freezed,
     Object? itemQuantity = null,
     Object? itemOnSale = null,
@@ -197,10 +197,10 @@ class __$$ReadItemImplCopyWithImpl<$Res>
           ? _value.itemDescription
           : itemDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      originalPrice: freezed == originalPrice
+      originalPrice: null == originalPrice
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       salePercent: freezed == salePercent
           ? _value.salePercent
           : salePercent // ignore: cast_nullable_to_non_nullable
@@ -240,7 +240,7 @@ class _$ReadItemImpl implements _ReadItem {
       {required this.itemId,
       required this.itemName,
       this.itemDescription,
-      this.originalPrice,
+      required this.originalPrice,
       this.salePercent,
       required this.itemQuantity,
       required this.itemOnSale,
@@ -259,7 +259,7 @@ class _$ReadItemImpl implements _ReadItem {
   @override
   final String? itemDescription;
   @override
-  final int? originalPrice;
+  final int originalPrice;
   @override
   final double? salePercent;
   @override
@@ -345,7 +345,7 @@ abstract class _ReadItem implements ReadItem {
       {required final String itemId,
       required final String itemName,
       final String? itemDescription,
-      final int? originalPrice,
+      required final int originalPrice,
       final double? salePercent,
       required final int itemQuantity,
       required final bool itemOnSale,
@@ -364,7 +364,7 @@ abstract class _ReadItem implements ReadItem {
   @override
   String? get itemDescription;
   @override
-  int? get originalPrice;
+  int get originalPrice;
   @override
   double? get salePercent;
   @override

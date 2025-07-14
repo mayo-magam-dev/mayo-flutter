@@ -136,7 +136,7 @@ class _BottomSheetState extends State<_BottomSheet> {
           children: [
             ItemQuantityCounter(
               salePrice: widget.itemData!.salePrice!,
-              itemQuantity: widget.itemData!.itemQuantity,
+              itemQuantity: widget.itemData!.itemQuantity ?? 0,
             ),
             Container(
               height: 1.h,

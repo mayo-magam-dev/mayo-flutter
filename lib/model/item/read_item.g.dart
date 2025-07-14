@@ -11,7 +11,7 @@ _$ReadItemImpl _$$ReadItemImplFromJson(Map<String, dynamic> json) =>
       itemId: json['itemId'] as String,
       itemName: json['itemName'] as String,
       itemDescription: json['itemDescription'] as String?,
-      originalPrice: (json['originalPrice'] as num?)?.toInt(),
+      originalPrice: (json['originalPrice'] as num).toInt(),
       salePercent: (json['salePercent'] as num?)?.toDouble(),
       itemQuantity: (json['itemQuantity'] as num).toInt(),
       itemOnSale: json['itemOnSale'] as bool,

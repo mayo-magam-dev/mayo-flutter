@@ -10,9 +10,9 @@ import 'package:mayo_flutter/model/user/local_login_state.dart';
 import 'package:mayo_flutter/model/user/read_user.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 
-part 'my_scaffold.dart';
 part 'my_header.dart';
 part 'my_middle.dart';
+part 'my_scaffold.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({super.key});

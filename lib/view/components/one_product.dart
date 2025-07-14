@@ -25,7 +25,7 @@ class OneProductWidget extends StatelessWidget {
         Column(
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(24.w, 21.h, 24.w, 15.h),
+              padding: EdgeInsets.fromLTRB(16.w, 21.h, 16.w, 15.h),
               width: double.infinity,
               //height: 238.h,
               child: Column(
@@ -129,21 +129,27 @@ class OneProductWidget extends StatelessWidget {
         ),
         if (!store.openState)
           Positioned.fill(
-            child: Container(
-              color: Colors.black.withOpacity(0.6),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset('assets/icons/vector.svg'),
-                  SizedBox(height: 10.h),
-                  Text(
-                    '오픈 준비 중',
-                    style: AppTextStyle.heading2Bold.copyWith(
-                      color: Colors.white,
-                      letterSpacing: -0.48,
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                context.push('/store/${store.id}');
+              },
+              child: Container(
+                color: Colors.black.withOpacity(0.6),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset('assets/icons/vector.svg'),
+                    SizedBox(height: 10.h),
+                    Text(
+                      '오픈 준비 중',
+                      style: AppTextStyle.heading2Bold.copyWith(
+                        color: Colors.white,
+                        letterSpacing: -0.48,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -38,6 +38,35 @@ String _rangeToString(int start, int end, Map<int, String> names) {
   return '${names[start]}~${names[end]}';
 }
 
+String getKoreanDays(List<int> days) {
+  const dayNames = ['월', '화', '수', '목', '금', '토', '일'];
+  if (days.isEmpty) return '';
+  days.sort();
+  if (days.length == 1) return dayNames[days.first - 1];
+  // 연속 구간 처리
+  int start = days.first;
+  int end = days.first;
+  List<String> ranges = [];
+  for (int i = 1; i < days.length; i++) {
+    if (days[i] == end + 1) {
+      end = days[i];
+    } else {
+      if (start == end) {
+        ranges.add(dayNames[start - 1]);
+      } else {
+        ranges.add('${dayNames[start - 1]} ~ ${dayNames[end - 1]}');
+      }
+      start = end = days[i];
+    }
+  }
+  if (start == end) {
+    ranges.add(dayNames[start - 1]);
+  } else {
+    ranges.add('${dayNames[start - 1]} ~ ${dayNames[end - 1]}');
+  }
+  return ranges.join(', ');
+}
+
 class _StoreInfoSection extends StatelessWidget {
   final ReadStore storeData;
   final List<ReadItem> itemData;
@@ -111,6 +140,28 @@ class _StoreInfoSection extends StatelessWidget {
                       onPressed: () {
                         Clipboard.setData(
                             ClipboardData(text: storeData.accountNumber!));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Center(
+                              child: Text(
+                                '계좌번호가 복사되었습니다.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            backgroundColor: GlobalMainYellow.yellow200,
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            margin: EdgeInsets.only(
+                              bottom: 40,
+                              left: 24,
+                              right: 24,
+                            ),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
                       },
                       icon: SvgPicture.asset('assets/icons/copy.svg'),
                     ),
@@ -206,6 +257,88 @@ class _AdditionalCommentState extends State<AdditionalComment> {
         overflow: TextOverflow.ellipsis,
         maxLines: isExpanded ? 13 : 2,
         softWrap: false,
+      ),
+    );
+  }
+}
+
+void showSpringToast(BuildContext context, String message, {Color? color}) {
+  final overlay = Overlay.of(context);
+  final overlayEntry = OverlayEntry(
+    builder: (context) => _SpringToastWidget(
+      message: message,
+      color: color ?? Colors.amber,
+    ),
+  );
+  overlay.insert(overlayEntry);
+  Future.delayed(const Duration(seconds: 2), () {
+    overlayEntry.remove();
+  });
+}
+
+class _SpringToastWidget extends StatefulWidget {
+  final String message;
+  final Color color;
+  const _SpringToastWidget({required this.message, required this.color});
+
+  @override
+  State<_SpringToastWidget> createState() => _SpringToastWidgetState();
+}
+
+class _SpringToastWidgetState extends State<_SpringToastWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _scale = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.elasticOut, // 스프링 효과
+    );
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 40,
+      left: 24,
+      right: 24,
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: _scale,
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+            decoration: BoxDecoration(
+              color: widget.color,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Center(
+              child: Text(
+                widget.message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

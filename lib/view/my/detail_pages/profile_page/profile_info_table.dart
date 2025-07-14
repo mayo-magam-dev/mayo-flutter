@@ -1,6 +1,10 @@
 part of 'profile_page.dart';
 
 class _InfoTable extends StatefulWidget {
+  const _InfoTable({Key? key, required this.onUserDataChanged}) : super(key: key);
+
+  final VoidCallback onUserDataChanged;
+
   @override
   State<_InfoTable> createState() => _InfoTableState();
 }
@@ -137,6 +141,7 @@ class _InfoTableState extends State<_InfoTable> {
                                           await userDataSource.putUserNickname(
                                               nickName); //바뀌는데 시간 걸림
                                           featchUserData();
+                                          widget.onUserDataChanged();
                                           if (context.mounted) {
                                             context.pop();
                                           }

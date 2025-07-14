@@ -6,7 +6,7 @@ class _List extends StatelessWidget {
     return Container(
       width: double.infinity,
       //height: 424.h,
-      padding: EdgeInsets.fromLTRB(24, 19, 21, 0),
+      padding: EdgeInsets.fromLTRB(16, 19, 16, 0),
       child: Column(
         children: [
           Padding(
@@ -57,11 +57,12 @@ class _List extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.only(right: 3.w),
                 child: Column(
-                  children: state.randomStores.map((store) {
-                    Future<ReadStore> data =
-                        StoreDataSource().getStoreDetail(store.id);
+                  children: List.generate(state.randomStores.length, (index) {
+                    final store = state.randomStores[index];
+                    Future<ReadStore> data = StoreDataSource().getStoreDetail(store.id);
                     return Column(
                       children: [
+                        if (index != 0) SizedBox(height: 21), // 두 번째 셀부터 간격 추가
                         FutureBuilder(
                             future: data,
                             builder: (context, snapshot) {
@@ -70,8 +71,7 @@ class _List extends StatelessWidget {
                               }
                               return StoreInfoBar(
                                 storeName: store.storeName,
-                                storeDescription:
-                                    '${store.address}\n최대 ${store.maxSalePercent.toStringAsFixed(0)}% 할인중',
+                                storeDescription: '${store.address}\n최대 ${store.maxSalePercent.toStringAsFixed(0)}% 할인중',
                                 imageUrl: snapshot.data!.storeImage,
                                 onTap: () {
                                   context.push('/store/${store.id}');
@@ -80,7 +80,7 @@ class _List extends StatelessWidget {
                             }),
                       ],
                     );
-                  }).toList(),
+                  }),
                 ),
               );
             },
