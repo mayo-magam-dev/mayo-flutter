@@ -3,6 +3,109 @@ part of 'sign_up_step1_page.dart';
 class _SignUpMiddle extends StatelessWidget {
   const _SignUpMiddle();
 
+  Future<void> _showTermsBottomSheet(BuildContext context, int index) async {
+    final List<String> titles = [
+      '이용약관',
+      '개인정보처리방침',
+      '마케팅 정보 수신 동의',
+    ];
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return FutureBuilder<List<Board>>(
+          future: BoardDataSource().getTermsBoard(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SizedBox(
+                height: MediaQuery.of(context).size.height * 0.9,
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+            if (snapshot.hasError || !snapshot.hasData || snapshot.data!.length <= index) {
+              return SizedBox(
+                height: MediaQuery.of(context).size.height * 0.9,
+                child: Center(child: Text('약관을 불러오지 못했습니다')),
+              );
+            }
+            // index 1과 2의 내용을 서로 바꿔서 보여줌
+            List<Board> boards = List.from(snapshot.data!);
+            if (boards.length > 2) {
+              final temp = boards[1];
+              boards[1] = boards[2];
+              boards[2] = temp;
+            }
+            final Board board = boards[index];
+            final List<String> contentSplited = board.content.split('\n');
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.9,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: GlobalMainGrey.grey50,
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          icon: Icon(Icons.close_outlined, size: 30),
+                        ),
+                        Expanded(
+                          child: Text(
+                            titles[index],
+                            textAlign: TextAlign.center,
+                            style: AppTextStyle.subheadingMedium.copyWith(
+                              color: GlobalMainColor.globalPrimaryBlackColor,
+                              letterSpacing: -0.36,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 48),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            contentSplited.isNotEmpty ? contentSplited.first : '',
+                            style: AppTextStyle.heading2Bold.copyWith(
+                              color: GlobalMainColor.globalPrimaryBlackColor,
+                              letterSpacing: -0.48,
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            contentSplited.length > 1 ? contentSplited.sublist(1).join('\n') : '',
+                            style: AppTextStyle.body2Medium.copyWith(
+                              color: GlobalMainColor.globalPrimaryBlackColor,
+                              letterSpacing: -0.28,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpBloc, SignUpState>(
@@ -75,86 +178,7 @@ class _SignUpMiddle extends StatelessWidget {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (context) {
-                          return SizedBox(
-                            height: 751.h,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 60.h,
-                                  decoration: BoxDecoration(
-                                    color: GlobalMainGrey.grey50,
-                                    borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20),
-                                    ),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () => context.pop(),
-                                        icon: Icon(
-                                          Icons.close_outlined,
-                                          size: 30,
-                                        ),
-                                      ),
-                                      Text(
-                                        'mayo 서비스 이용 약관',
-                                        style: AppTextStyle.subheadingMedium
-                                            .copyWith(
-                                          color: GlobalMainColor
-                                              .globalPrimaryBlackColor,
-                                          letterSpacing: -0.36,
-                                        ),
-                                      ),
-                                      SizedBox(width: 48),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  color: Colors.white,
-                                  height: 691.h,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 18,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'mayo(마감해요) 이용 약관',
-                                        style:
-                                            AppTextStyle.heading2Bold.copyWith(
-                                          color: GlobalMainColor
-                                              .globalPrimaryBlackColor,
-                                          letterSpacing: -0.48,
-                                        ),
-                                      ),
-                                      SizedBox(height: 16.h),
-                                      Text(
-                                        "제 1조(목적)\n\n\n본 약관은 본 약관은 'mayo(마감해요)'(이하 '회사'라 함)가 운영하는 'mayo(마감해요) 서비스'(이하 '서비스'라 함)와 관련하여 '회사'와 '이용자'간에 서비스의 이용조건 및 절차, '회사'와 '회원'간의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.",
-                                        style:
-                                            AppTextStyle.body2Medium.copyWith(
-                                          color: GlobalMainColor
-                                              .globalPrimaryBlackColor,
-                                          letterSpacing: -0.28,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
+                    onTap: () => _showTermsBottomSheet(context, 0),
                     child: Text(
                       '보기',
                       style: AppTextStyle.captionMedium.copyWith(
@@ -197,7 +221,7 @@ class _SignUpMiddle extends StatelessWidget {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => _showTermsBottomSheet(context, 1),
                     child: Text(
                       '보기',
                       style: AppTextStyle.captionMedium.copyWith(
@@ -239,7 +263,7 @@ class _SignUpMiddle extends StatelessWidget {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => _showTermsBottomSheet(context, 2),
                     child: Text(
                       '보기',
                       style: AppTextStyle.captionMedium.copyWith(

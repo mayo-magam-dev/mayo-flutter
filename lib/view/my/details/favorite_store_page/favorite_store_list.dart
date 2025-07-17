@@ -64,7 +64,28 @@ class _FavoriteStoreListState extends State<_FavoriteStoreList> {
         ),
       );
     } else {
-      return SizedBox();
+      return Expanded(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/empty_cart.png',
+                width: 180,
+                height: 180,
+                fit: BoxFit.contain,
+              ),
+              SizedBox(height: 24),
+              Text(
+                '찜한 가게가 없어요',
+                style: AppTextStyle.body1Bold.copyWith(
+                  color: GlobalMainColor.globalPrimaryBlackColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     }
   }
 }

@@ -9,6 +9,8 @@ import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/view/components/button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:mayo_flutter/dataSource/board.dart';
+import 'package:mayo_flutter/model/board/board.dart';
 
 part 'sign_up_scaffold.dart';
 part 'sign_up_header.dart';

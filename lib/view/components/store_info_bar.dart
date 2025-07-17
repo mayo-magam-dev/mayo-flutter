@@ -23,87 +23,81 @@ class StoreInfoBar extends StatelessWidget {
     final String discount =
         descriptionParts.length > 1 ? descriptionParts[1] : '';
 
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            // border: Border.all(
-            //   color: GlobalMainGrey.grey200,
-            //   width: 1,
-            // ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: GestureDetector(
-            onTap: onTap,
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      imageUrl,
-                      width: 80,
-                      height: 80,
-                      fit: BoxFit.cover,
-                    ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    imageUrl,
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text.rich(
-                          TextSpan(
-                            text: storeName,
-                            style: AppTextStyle.body1Bold.copyWith(
-                              color: GlobalMainColor.globalPrimaryBlackColor,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: ' 포장·매장',
-                                style: AppTextStyle.captionMedium.copyWith(
-                                  color: GlobalMainGrey.grey300,
-                                ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text.rich(
+                        TextSpan(
+                          text: storeName,
+                          style: AppTextStyle.body1Bold.copyWith(
+                            color: GlobalMainColor.globalPrimaryBlackColor,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: ' 포장·매장',
+                              style: AppTextStyle.captionMedium.copyWith(
+                                color: GlobalMainGrey.grey300,
                               ),
-                            ],
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          address,
-                          style: AppTextStyle.captionMedium.copyWith(
-                            color: GlobalMainGrey.grey300,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        address,
+                        style: AppTextStyle.captionMedium.copyWith(
+                          color: GlobalMainGrey.grey300,
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          discount,
-                          style: AppTextStyle.captionBold.copyWith(
-                            color: GlobalMainColor.globalPrimaryRedColor,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        discount,
+                        style: AppTextStyle.captionBold.copyWith(
+                          color: GlobalMainColor.globalPrimaryRedColor,
                         ),
-                      ],
-                    ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ),
-        const Divider(
-          // ✅ 내부 포함
-          height: 1,
-          color: GlobalMainGrey.grey200,
-          thickness: 1,
-        ),
-      ],
+          const Divider(
+            height: 1,
+            color: GlobalMainGrey.grey200,
+            thickness: 1,
+          ),
+        ],
+      ),
     );
   }
 }
