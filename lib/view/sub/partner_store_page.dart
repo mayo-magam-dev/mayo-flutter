@@ -63,8 +63,8 @@ class PartnerStorePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
                       storeData![storeIndex].storeImage,
-                      width: 342.w,
-                      height: 123.h,
+                  width: 342.w,
+                  height: 123.h,
                       fit: BoxFit.cover,
                     ),
                   ),

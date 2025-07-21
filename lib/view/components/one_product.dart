@@ -134,21 +134,21 @@ class OneProductWidget extends StatelessWidget {
               onTap: () {
                 context.push('/store/${store.id}');
               },
-              child: Container(
-                color: Colors.black.withOpacity(0.6),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/icons/vector.svg'),
-                    SizedBox(height: 10.h),
-                    Text(
-                      '오픈 준비 중',
-                      style: AppTextStyle.heading2Bold.copyWith(
-                        color: Colors.white,
-                        letterSpacing: -0.48,
-                      ),
+            child: Container(
+              color: Colors.black.withOpacity(0.6),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/icons/vector.svg'),
+                  SizedBox(height: 10.h),
+                  Text(
+                    '오픈 준비 중',
+                    style: AppTextStyle.heading2Bold.copyWith(
+                      color: Colors.white,
+                      letterSpacing: -0.48,
                     ),
-                  ],
+                  ),
+                ],
                 ),
               ),
             ),

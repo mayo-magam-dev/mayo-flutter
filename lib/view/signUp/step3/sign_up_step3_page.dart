@@ -30,7 +30,7 @@ class SignUpStep3Page extends StatelessWidget {
               middle: _SignUpForm(),
               nextButton: Button(
                 text: '가입하기',
-                onTap: state.isStep3Valid
+                onTap: (_SignUpFormState.globalFormKey.currentState?.validate() ?? false)
                     ? () async {
                         context.read<SignUpBloc>().add(SubmitSignUp());
                         context.read<LoginBloc>().add(UserLoginEvent());
@@ -40,8 +40,7 @@ class SignUpStep3Page extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(state.error!),
-                              backgroundColor:
-                                  GlobalMainColor.globalPrimaryRedColor,
+                              backgroundColor: GlobalMainColor.globalPrimaryRedColor,
                             ),
                           );
                         }

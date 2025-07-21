@@ -33,16 +33,16 @@ class StoreList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Container(
-                  padding: EdgeInsets.only(
-                    left: 24,
-                    right: 24,
-                    top: 21,
-                    bottom: 15,
-                  ),
-                  width: double.infinity,
-                  height: 250.h,
-                  child: Column(
-                    children: [
+                padding: EdgeInsets.only(
+                  left: 24,
+                  right: 24,
+                  top: 21,
+                  bottom: 15,
+                ),
+                width: double.infinity,
+                height: 250.h,
+                child: Column(
+                  children: [
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -59,129 +59,129 @@ class StoreList extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 13.5.h),
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '힘쎈드위치',
-                                style: AppTextStyle.body1Bold.copyWith(
-                                  color: GlobalMainColor.globalPrimaryBlackColor,
-                                  letterSpacing: -0.32,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(4.58),
-                                    width: 22,
-                                    height: 22,
-                                    child: SvgPicture.asset(
-                                        'assets/icons/navigation.svg'),
-                                  ),
-                                  Text(
-                                    '광주광역시 동구 필문대로273번길 4',
-                                    style: AppTextStyle.body2Medium,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 5.h),
-                              Row(
-                                children: [
-                                  showPackagingBox
-                                      ? Container(
-                                          margin: EdgeInsets.only(right: 5),
-                                          width: 36.w,
-                                          height: 18.h,
-                                          alignment: Alignment.center,
-                                          decoration: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30)),
-                                            color: Color(0xFFFFC600),
-                                          ),
-                                          child: Text(
-                                            '포장',
-                                            style: AppTextStyle.captionMedium
-                                                .copyWith(
-                                              color: GlobalMainColor
-                                                  .globalPrimaryBlackColor,
-                                              letterSpacing: -0.24,
-                                            ),
-                                          ),
-                                        )
-                                      : SizedBox(),
-                                  showStoreBox
-                                      ? Container(
-                                          margin: EdgeInsets.only(right: 5),
-                                          width: 36.w,
-                                          height: 18.h,
-                                          alignment: Alignment.center,
-                                          decoration: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              side: BorderSide(
-                                                width: 1,
-                                                color: Color(0xFFFFC600),
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            '매장',
-                                            style: AppTextStyle.captionMedium
-                                                .copyWith(
-                                              color: GlobalMainColor
-                                                  .globalPrimaryBlackColor,
-                                              letterSpacing: -0.24,
-                                            ),
-                                          ),
-                                        )
-                                      : SizedBox(),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 30.w),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              width: 67,
-                              height: 67,
-                              decoration: ShapeDecoration(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                  side: BorderSide(
-                                    width: 1,
-                                    color: GlobalMainGrey.grey200,
-                                  ),
-                                ),
-                                color: GlobalMainYellow.yellow200,
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(6.88),
-                                    child:
-                                        SvgPicture.asset('assets/icons/bell.svg'),
-                                  ),
-                                  Text(
-                                    '예약하기',
-                                    style: AppTextStyle.captionMedium.copyWith(
-                                      color: Colors.white,
-                                      letterSpacing: -0.24,
-                                    ),
-                                  ),
-                                ],
+                    SizedBox(height: 13.5.h),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '힘쎈드위치',
+                              style: AppTextStyle.body1Bold.copyWith(
+                                color: GlobalMainColor.globalPrimaryBlackColor,
+                                letterSpacing: -0.32,
                               ),
                             ),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(4.58),
+                                  width: 22,
+                                  height: 22,
+                                  child: SvgPicture.asset(
+                                      'assets/icons/navigation.svg'),
+                                ),
+                                Text(
+                                  '광주광역시 동구 필문대로273번길 4',
+                                  style: AppTextStyle.body2Medium,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5.h),
+                            Row(
+                              children: [
+                                showPackagingBox
+                                    ? Container(
+                                        margin: EdgeInsets.only(right: 5),
+                                        width: 36.w,
+                                        height: 18.h,
+                                        alignment: Alignment.center,
+                                        decoration: ShapeDecoration(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                          color: Color(0xFFFFC600),
+                                        ),
+                                        child: Text(
+                                          '포장',
+                                          style: AppTextStyle.captionMedium
+                                              .copyWith(
+                                            color: GlobalMainColor
+                                                .globalPrimaryBlackColor,
+                                            letterSpacing: -0.24,
+                                          ),
+                                        ),
+                                      )
+                                    : SizedBox(),
+                                showStoreBox
+                                    ? Container(
+                                        margin: EdgeInsets.only(right: 5),
+                                        width: 36.w,
+                                        height: 18.h,
+                                        alignment: Alignment.center,
+                                        decoration: ShapeDecoration(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            side: BorderSide(
+                                              width: 1,
+                                              color: Color(0xFFFFC600),
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          '매장',
+                                          style: AppTextStyle.captionMedium
+                                              .copyWith(
+                                            color: GlobalMainColor
+                                                .globalPrimaryBlackColor,
+                                            letterSpacing: -0.24,
+                                          ),
+                                        ),
+                                      )
+                                    : SizedBox(),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 30.w),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 67,
+                            height: 67,
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                side: BorderSide(
+                                  width: 1,
+                                  color: GlobalMainGrey.grey200,
+                                ),
+                              ),
+                              color: GlobalMainYellow.yellow200,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(6.88),
+                                  child:
+                                      SvgPicture.asset('assets/icons/bell.svg'),
+                                ),
+                                Text(
+                                  '예약하기',
+                                  style: AppTextStyle.captionMedium.copyWith(
+                                    color: Colors.white,
+                                    letterSpacing: -0.24,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
+                  ],
                   ),
                 ),
               ),

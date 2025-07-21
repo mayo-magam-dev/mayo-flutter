@@ -68,25 +68,25 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Form(
             key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '이메일',
-                  style: AppTextStyle.subheadingBold
-                      .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
-                ),
-                SizedBox(height: 5.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '이메일',
+                style: AppTextStyle.subheadingBold
+                    .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
+              ),
+              SizedBox(height: 5.h),
                 // 이메일 입력란
                 TextFormField(
-                    controller: _emailController,
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    textInputAction: TextInputAction.next,
-                    onChanged: (value) {
+                  controller: _emailController,
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                  textInputAction: TextInputAction.next,
+                  onChanged: (value) {
                       context.read<SignUpBloc>().add(SetEmail(value));
                       _formKey.currentState?.validate();
-                    },
-                    onFieldSubmitted: (value) {
+                  },
+                  onFieldSubmitted: (value) {
                       context.read<SignUpBloc>().add(SetEmail(value));
                       _formKey.currentState?.validate();
                     },
@@ -101,34 +101,34 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                         if (mounted) setState(() { _emailError = error; });
                       });
                       return null;
-                    },
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: GlobalMainYellow.yellow200,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: GlobalMainGrey.grey200,
-                        ),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            width: 2,
-                            color: GlobalMainColor.globalPrimaryRedColor,
-                          )),
-                      hintText: '이메일을 입력해주세요.',
-                      hintStyle: AppTextStyle.body2Medium.copyWith(
-                        color: GlobalMainGrey.grey300,
-                        letterSpacing: -0.28,
+                  },
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: GlobalMainYellow.yellow200,
                       ),
                     ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: GlobalMainGrey.grey200,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: GlobalMainColor.globalPrimaryRedColor,
+                        )),
+                    hintText: '이메일을 입력해주세요.',
+                    hintStyle: AppTextStyle.body2Medium.copyWith(
+                      color: GlobalMainGrey.grey300,
+                      letterSpacing: -0.28,
+                    ),
+                  ),
                 ),
                 if (_emailError != null)
                   Padding(
@@ -145,22 +145,22 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                SizedBox(height: 26.h),
-                Text(
-                  '비밀번호',
-                  style: AppTextStyle.subheadingBold
-                      .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
                 ),
-                SizedBox(height: 5.h),
+              ),
+              SizedBox(height: 26.h),
+              Text(
+                '비밀번호',
+                style: AppTextStyle.subheadingBold
+                    .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
+              ),
+              SizedBox(height: 5.h),
                 // 비밀번호 입력란
                 TextFormField(
-                    controller: _passwordController,
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    obscureText: _obscurePassword,
-                    onChanged: (value) {
-                      context.read<SignUpBloc>().add(SetPassword(value));
+                  controller: _passwordController,
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                  obscureText: _obscurePassword,
+                  onChanged: (value) {
+                    context.read<SignUpBloc>().add(SetPassword(value));
                       _formKey.currentState?.validate();
                     },
                     validator: (value) {
@@ -174,46 +174,46 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                         if (mounted) setState(() { _passwordError = error; });
                       });
                       return null;
-                    },
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: GlobalMainYellow.yellow200,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: GlobalMainGrey.grey200,
-                        ),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            width: 2,
-                            color: GlobalMainColor.globalPrimaryRedColor,
-                          )),
-                      hintText: '비밀번호 (8자 이상)',
-                      hintStyle: AppTextStyle.body2Medium.copyWith(
-                        color: GlobalMainGrey.grey300,
-                        letterSpacing: -0.28,
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          });
-                        },
-                        icon: SvgPicture.asset(
-                          _obscurePassword
-                              ? 'assets/icons/eye_off.svg'
-                              : 'assets/icons/eye_on.svg',
-                        ),
+                  },
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: GlobalMainYellow.yellow200,
                       ),
                     ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: GlobalMainGrey.grey200,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: GlobalMainColor.globalPrimaryRedColor,
+                        )),
+                    hintText: '비밀번호 (8자 이상)',
+                    hintStyle: AppTextStyle.body2Medium.copyWith(
+                      color: GlobalMainGrey.grey300,
+                      letterSpacing: -0.28,
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                      icon: SvgPicture.asset(
+                        _obscurePassword
+                            ? 'assets/icons/eye_off.svg'
+                            : 'assets/icons/eye_on.svg',
+                      ),
+                    ),
+                  ),
                 ),
                 if (_passwordError != null)
                   Padding(
@@ -230,89 +230,89 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                SizedBox(height: 26.h),
-                Text(
-                  '비밀번호 확인',
-                  style: AppTextStyle.subheadingBold
-                      .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
                 ),
-                SizedBox(height: 5.h),
+              ),
+              SizedBox(height: 26.h),
+              Text(
+                '비밀번호 확인',
+                style: AppTextStyle.subheadingBold
+                    .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
+              ),
+              SizedBox(height: 5.h),
                 // 비밀번호 확인 입력란
                 TextFormField(
-                    controller: _confirmPasswordController,
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    obscureText: _obscurePasswordConfirm,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: GlobalMainYellow.yellow200,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: GlobalMainGrey.grey200,
-                        ),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            width: 2,
-                            color: GlobalMainColor.globalPrimaryRedColor,
-                          )),
-                      hintText: '비밀번호 확인',
-                      hintStyle: AppTextStyle.body2Medium.copyWith(
-                        color: GlobalMainGrey.grey300,
-                        letterSpacing: -0.28,
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _obscurePasswordConfirm = !_obscurePasswordConfirm;
-                          });
-                        },
-                        icon: SvgPicture.asset(
-                          _obscurePasswordConfirm
-                              ? 'assets/icons/eye_off.svg'
-                              : 'assets/icons/eye_on.svg',
-                        ),
+                  controller: _confirmPasswordController,
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                  obscureText: _obscurePasswordConfirm,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: GlobalMainYellow.yellow200,
                       ),
                     ),
-                ),
-
-                // 비밀번호 일치 여부 메시지 표시
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Row(
-                    children: [
-                      Icon(
-                        _passwordsMatch ? Icons.check_circle : Icons.warning,
-                        color: _passwordsMatch
-                            ? Colors.green
-                            : GlobalMainColor.globalPrimaryRedColor,
-                        size: 16,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: GlobalMainGrey.grey200,
                       ),
-                      SizedBox(width: 4),
-                      Text(
-                        _passwordsMatch
-                            ? '비밀번호가 일치합니다.'
-                            : '비밀번호가 일치하지 않습니다.',
-                        style: TextStyle(
-                          color: _passwordsMatch
-                              ? Colors.green
-                              : GlobalMainColor.globalPrimaryRedColor,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: GlobalMainColor.globalPrimaryRedColor,
+                        )),
+                    hintText: '비밀번호 확인',
+                    hintStyle: AppTextStyle.body2Medium.copyWith(
+                      color: GlobalMainGrey.grey300,
+                      letterSpacing: -0.28,
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscurePasswordConfirm = !_obscurePasswordConfirm;
+                        });
+                      },
+                      icon: SvgPicture.asset(
+                        _obscurePasswordConfirm
+                            ? 'assets/icons/eye_off.svg'
+                            : 'assets/icons/eye_on.svg',
+                    ),
                   ),
                 ),
-              ],
+              ),
+
+              // 비밀번호 일치 여부 메시지 표시
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      _passwordsMatch ? Icons.check_circle : Icons.warning,
+                      color: _passwordsMatch
+                          ? Colors.green
+                              : GlobalMainColor.globalPrimaryRedColor,
+                      size: 16,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      _passwordsMatch
+                          ? '비밀번호가 일치합니다.'
+                              : '비밀번호가 일치하지 않습니다.',
+                      style: TextStyle(
+                        color: _passwordsMatch
+                            ? Colors.green
+                                : GlobalMainColor.globalPrimaryRedColor,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
             ),
           ),
         );

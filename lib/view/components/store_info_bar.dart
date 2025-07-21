@@ -26,7 +26,7 @@ class StoreInfoBar extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Column(
-        children: [
+      children: [
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -89,14 +89,14 @@ class StoreInfoBar extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
           ),
-          const Divider(
-            height: 1,
-            color: GlobalMainGrey.grey200,
-            thickness: 1,
-          ),
-        ],
+        ),
+        const Divider(
+          height: 1,
+          color: GlobalMainGrey.grey200,
+          thickness: 1,
+        ),
+      ],
       ),
     );
   }

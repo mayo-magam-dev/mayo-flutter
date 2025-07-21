@@ -39,6 +39,7 @@ mixin _$ReadStore {
       throw _privateConstructorUsedError; // 1 : 포장, 2 : 매장, 3 : 포장·매장
   String? get mainImage => throw _privateConstructorUsedError;
   String? get accountNumber => throw _privateConstructorUsedError;
+  List<String>? get openDayOfWeek => throw _privateConstructorUsedError;
 
   /// Serializes this ReadStore to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -73,7 +74,8 @@ abstract class $ReadStoreCopyWith<$Res> {
       int storeCategory,
       int storeSellingType,
       String? mainImage,
-      String? accountNumber});
+      String? accountNumber,
+      List<String>? openDayOfWeek});
 }
 
 /// @nodoc
@@ -109,6 +111,7 @@ class _$ReadStoreCopyWithImpl<$Res, $Val extends ReadStore>
     Object? storeSellingType = null,
     Object? mainImage = freezed,
     Object? accountNumber = freezed,
+    Object? openDayOfWeek = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -183,6 +186,10 @@ class _$ReadStoreCopyWithImpl<$Res, $Val extends ReadStore>
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      openDayOfWeek: freezed == openDayOfWeek
+          ? _value.openDayOfWeek
+          : openDayOfWeek // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -213,7 +220,8 @@ abstract class _$$ReadStoreImplCopyWith<$Res>
       int storeCategory,
       int storeSellingType,
       String? mainImage,
-      String? accountNumber});
+      String? accountNumber,
+      List<String>? openDayOfWeek});
 }
 
 /// @nodoc
@@ -247,6 +255,7 @@ class __$$ReadStoreImplCopyWithImpl<$Res>
     Object? storeSellingType = null,
     Object? mainImage = freezed,
     Object? accountNumber = freezed,
+    Object? openDayOfWeek = freezed,
   }) {
     return _then(_$ReadStoreImpl(
       id: null == id
@@ -321,6 +330,10 @@ class __$$ReadStoreImplCopyWithImpl<$Res>
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      openDayOfWeek: freezed == openDayOfWeek
+          ? _value._openDayOfWeek
+          : openDayOfWeek // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -346,7 +359,9 @@ class _$ReadStoreImpl implements _ReadStore {
       required this.storeCategory,
       required this.storeSellingType,
       this.mainImage,
-      this.accountNumber});
+      this.accountNumber,
+      final List<String>? openDayOfWeek})
+      : _openDayOfWeek = openDayOfWeek;
 
   factory _$ReadStoreImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReadStoreImplFromJson(json);
@@ -388,10 +403,19 @@ class _$ReadStoreImpl implements _ReadStore {
   final String? mainImage;
   @override
   final String? accountNumber;
+  final List<String>? _openDayOfWeek;
+  @override
+  List<String>? get openDayOfWeek {
+    final value = _openDayOfWeek;
+    if (value == null) return null;
+    if (_openDayOfWeek is EqualUnmodifiableListView) return _openDayOfWeek;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'ReadStore(id: $id, storeName: $storeName, openState: $openState, address: $address, storeImage: $storeImage, openTime: $openTime, closeTime: $closeTime, saleStart: $saleStart, saleEnd: $saleEnd, storeDescription: $storeDescription, storeNumber: $storeNumber, storeMapUrl: $storeMapUrl, originInfo: $originInfo, additionalComment: $additionalComment, storeCategory: $storeCategory, storeSellingType: $storeSellingType, mainImage: $mainImage, accountNumber: $accountNumber)';
+    return 'ReadStore(id: $id, storeName: $storeName, openState: $openState, address: $address, storeImage: $storeImage, openTime: $openTime, closeTime: $closeTime, saleStart: $saleStart, saleEnd: $saleEnd, storeDescription: $storeDescription, storeNumber: $storeNumber, storeMapUrl: $storeMapUrl, originInfo: $originInfo, additionalComment: $additionalComment, storeCategory: $storeCategory, storeSellingType: $storeSellingType, mainImage: $mainImage, accountNumber: $accountNumber, openDayOfWeek: $openDayOfWeek)';
   }
 
   @override
@@ -431,31 +455,35 @@ class _$ReadStoreImpl implements _ReadStore {
             (identical(other.mainImage, mainImage) ||
                 other.mainImage == mainImage) &&
             (identical(other.accountNumber, accountNumber) ||
-                other.accountNumber == accountNumber));
+                other.accountNumber == accountNumber) &&
+            const DeepCollectionEquality()
+                .equals(other._openDayOfWeek, _openDayOfWeek));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      storeName,
-      openState,
-      address,
-      storeImage,
-      openTime,
-      closeTime,
-      saleStart,
-      saleEnd,
-      storeDescription,
-      storeNumber,
-      storeMapUrl,
-      originInfo,
-      additionalComment,
-      storeCategory,
-      storeSellingType,
-      mainImage,
-      accountNumber);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        storeName,
+        openState,
+        address,
+        storeImage,
+        openTime,
+        closeTime,
+        saleStart,
+        saleEnd,
+        storeDescription,
+        storeNumber,
+        storeMapUrl,
+        originInfo,
+        additionalComment,
+        storeCategory,
+        storeSellingType,
+        mainImage,
+        accountNumber,
+        const DeepCollectionEquality().hash(_openDayOfWeek)
+      ]);
 
   /// Create a copy of ReadStore
   /// with the given fields replaced by the non-null parameter values.
@@ -492,7 +520,8 @@ abstract class _ReadStore implements ReadStore {
       required final int storeCategory,
       required final int storeSellingType,
       final String? mainImage,
-      final String? accountNumber}) = _$ReadStoreImpl;
+      final String? accountNumber,
+      final List<String>? openDayOfWeek}) = _$ReadStoreImpl;
 
   factory _ReadStore.fromJson(Map<String, dynamic> json) =
       _$ReadStoreImpl.fromJson;
@@ -533,6 +562,8 @@ abstract class _ReadStore implements ReadStore {
   String? get mainImage;
   @override
   String? get accountNumber;
+  @override
+  List<String>? get openDayOfWeek;
 
   /// Create a copy of ReadStore
   /// with the given fields replaced by the non-null parameter values.

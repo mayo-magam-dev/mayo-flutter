@@ -19,27 +19,27 @@ class _Scaffold extends StatelessWidget {
           ? topBar as PreferredSizeWidget
           : PreferredSize(child: topBar, preferredSize: Size.fromHeight(56)),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 0.3,
-                      color: GlobalMainGrey.grey200,
-                    ),
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: 0.3,
+                    color: GlobalMainGrey.grey200,
                   ),
                 ),
               ),
-              SizedBox(height: 35.h),
-              header,
-              SizedBox(height: 41.h),
-              infoTables,
-              SizedBox(height: 70.h),
-              accountActions,
-            ],
-          ),
+            ),
+            SizedBox(height: 35.h),
+            header,
+            SizedBox(height: 41.h),
+            infoTables,
+            SizedBox(height: 70.h),
+            accountActions,
+          ],
+        ),
         ),
       ),
     );

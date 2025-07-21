@@ -23,7 +23,8 @@ class ReadStore with _$ReadStore {
       required int storeCategory,
       required int storeSellingType, // 1 : 포장, 2 : 매장, 3 : 포장·매장
       String? mainImage,
-      String? accountNumber}) = _ReadStore;
+      String? accountNumber,
+      List<String>? openDayOfWeek}) = _ReadStore;
 
   factory ReadStore.fromJson(Map<String, dynamic> json) =>
       _$ReadStoreFromJson(json);

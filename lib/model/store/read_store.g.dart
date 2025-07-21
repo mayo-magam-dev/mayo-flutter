@@ -26,6 +26,9 @@ _$ReadStoreImpl _$$ReadStoreImplFromJson(Map<String, dynamic> json) =>
       storeSellingType: (json['storeSellingType'] as num).toInt(),
       mainImage: json['mainImage'] as String?,
       accountNumber: json['accountNumber'] as String?,
+      openDayOfWeek: (json['openDayOfWeek'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$$ReadStoreImplToJson(_$ReadStoreImpl instance) =>
@@ -48,4 +51,5 @@ Map<String, dynamic> _$$ReadStoreImplToJson(_$ReadStoreImpl instance) =>
       'storeSellingType': instance.storeSellingType,
       'mainImage': instance.mainImage,
       'accountNumber': instance.accountNumber,
+      'openDayOfWeek': instance.openDayOfWeek,
     };
