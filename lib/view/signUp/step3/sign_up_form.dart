@@ -2,7 +2,9 @@ part of 'sign_up_step3_page.dart';
 
 class _SignUpForm extends StatefulWidget {
   //ignore: unused_element
-  const _SignUpForm({super.key});
+  const _SignUpForm({super.key, required this.onValidationChanged});
+  
+  final void Function(bool isValid) onValidationChanged;
 
   @override
   State<_SignUpForm> createState() => _SignUpFormState();
@@ -16,18 +18,41 @@ class _SignUpFormState extends State<_SignUpForm> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _displayNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _birthController = TextEditingController();
   final _formKey = globalFormKey;
 
   String? _nameError;
   String? _displayNameError;
   String? _birthError;
   String? _phoneError;
+  
+  // 각 필드의 유효성 상태 추적
+  bool _isNameValid = false;
+  bool _isDisplayNameValid = false;
+  bool _isBirthValid = false;
+  bool _isPhoneValid = false;
+  bool _isGenderSelected = false;
+  
+  // 전체 폼이 유효한지 확인하는 static 변수
+  static bool _isFormValid = false;
+  
+  // 전체 폼 유효성을 외부에서 접근할 수 있는 static getter
+  static bool get isFormValid => _isFormValid;
+  
+  // validation 상태를 업데이트하는 메서드
+  void _updateFormValidation() {
+    final isFormValid = _isNameValid && _isDisplayNameValid && _isBirthValid && _isPhoneValid && _isGenderSelected;
+    
+    // 부모 위젯에게 validation 상태 전달
+    widget.onValidationChanged(isFormValid);
+  }
 
   @override
   void dispose() {
     _nameController.dispose();
     _displayNameController.dispose();
     _phoneNumberController.dispose();
+    _birthController.dispose();
     super.dispose();
   }
 
@@ -54,22 +79,24 @@ class _SignUpFormState extends State<_SignUpForm> {
                 setState(() {
                   if (value.isEmpty) {
                     _nameError = '이름을 입력해주세요.';
+                    _isNameValid = false;
                   } else if (!RegExp(r'^[가-힣]{2,10}$').hasMatch(value)) {
                     _nameError = '이름은 완성형 한글 2~10자만 입력 가능합니다.';
+                    _isNameValid = false;
                   } else {
                     _nameError = null;
+                    _isNameValid = true;
                   }
                 });
+                _updateFormValidation();
                 context.read<SignUpBloc>().add(SetName(value));
               },
               validator: (value) {
-                if (value == null || value.isEmpty) return '이름을 입력해주세요.';
-                if (!RegExp(r'^[가-힣]{2,10}$').hasMatch(value)) return '이름은 완성형 한글 2~10자만 입력 가능합니다.';
                 return null;
               },
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                errorStyle: TextStyle(height: 1, fontSize: 12, color: GlobalMainColor.globalPrimaryRedColor),
+                errorStyle: TextStyle(height: 0.5, fontSize: 0),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(
@@ -136,14 +163,23 @@ class _SignUpFormState extends State<_SignUpForm> {
               onTapOutside: (event) => FocusScope.of(context).unfocus(),
               textInputAction: TextInputAction.next,
               onChanged: (value) {
+                setState(() {
+                  if (value.isEmpty) {
+                    _displayNameError = null;
+                    _isDisplayNameValid = false;
+                  } else if (!RegExp(r'^[가-힣a-zA-Z0-9]{2,10}$').hasMatch(value)) {
+                    _displayNameError = '닉네임은 한글/영문/숫자 2~10자만 입력 가능합니다.';
+                    _isDisplayNameValid = false;
+                  } else {
+                    _displayNameError = null;
+                    _isDisplayNameValid = true;
+                  }
+                });
+                _updateFormValidation();
                 context.read<SignUpBloc>().add(SetDisplayName(value));
               },
               // 닉네임 validator
               validator: (value) {
-                if (value == null || value.isEmpty) return null;
-                if (!RegExp(r'^[가-힣a-zA-Z0-9]{2,10}$').hasMatch(value)) {
-                  return '닉네임은 한글/영문/숫자 2~10자만 입력 가능합니다.';
-                }
                 return null;
               },
               decoration: InputDecoration(
@@ -215,6 +251,34 @@ class _SignUpFormState extends State<_SignUpForm> {
               onTapOutside: (event) => FocusScope.of(context).unfocus(),
               textInputAction: TextInputAction.next,
               onChanged: (value) {
+                setState(() {
+                  if (value.isEmpty) {
+                    _birthError = null;
+                    _isBirthValid = false;
+                  } else if (!RegExp(r'^\d{8}$').hasMatch(value)) {
+                    _birthError = '생년월일은 8자리(YYYYMMDD)로 입력해주세요.';
+                    _isBirthValid = false;
+                  } else {
+                    try {
+                      final year = int.parse(value.substring(0, 4));
+                      final month = int.parse(value.substring(4, 6));
+                      final day = int.parse(value.substring(6, 8));
+                      final date = DateTime(year, month, day);
+                      if (date.year != year || date.month != month || date.day != day) {
+                        _birthError = '올바른 날짜를 입력해주세요.';
+                        _isBirthValid = false;
+                      } else {
+                        _birthError = null;
+                        _isBirthValid = true;
+                      }
+                    } catch (_) {
+                      _birthError = '올바른 날짜를 입력해주세요.';
+                      _isBirthValid = false;
+                    }
+                  }
+                });
+                _updateFormValidation();
+                
                 if (value.length == 8) {
                   try {
                     final year = int.parse(value.substring(0, 4));
@@ -229,21 +293,6 @@ class _SignUpFormState extends State<_SignUpForm> {
               },
               // 생년월일 validator
               validator: (value) {
-                if (value == null || value.isEmpty) return null;
-                if (!RegExp(r'^\d{8}$').hasMatch(value)) {
-                  return '생년월일은 8자리(YYYYMMDD)로 입력해주세요.';
-                }
-                try {
-                  final year = int.parse(value.substring(0, 4));
-                  final month = int.parse(value.substring(4, 6));
-                  final day = int.parse(value.substring(6, 8));
-                  final date = DateTime(year, month, day);
-                  if (date.year != year || date.month != month || date.day != day) {
-                    return '올바른 날짜를 입력해주세요.';
-                  }
-                } catch (_) {
-                  return '올바른 날짜를 입력해주세요.';
-                }
                 return null;
               },
               decoration: InputDecoration(
@@ -316,14 +365,23 @@ class _SignUpFormState extends State<_SignUpForm> {
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.phone,
               onChanged: (value) {
+                setState(() {
+                  if (value.isEmpty) {
+                    _phoneError = null;
+                    _isPhoneValid = false;
+                  } else if (!RegExp(r'^\d{11}$').hasMatch(value)) {
+                    _phoneError = '전화번호는 11자리 숫자로 입력해주세요.';
+                    _isPhoneValid = false;
+                  } else {
+                    _phoneError = null;
+                    _isPhoneValid = true;
+                  }
+                });
+                _updateFormValidation();
                 context.read<SignUpBloc>().add(SetPhoneNumber(value));
               },
               // 전화번호 validator
               validator: (value) {
-                if (value == null || value.isEmpty) return null;
-                if (!RegExp(r'^\d{11}$').hasMatch(value)) {
-                  return '전화번호는 11자리 숫자로 입력해주세요.';
-                }
                 return null;
               },
               decoration: InputDecoration(
@@ -400,7 +458,9 @@ class _SignUpFormState extends State<_SignUpForm> {
                     list['man'] = true;
                     list['woman'] = false;
                     list['notSelect'] = false;
+                    _isGenderSelected = true;
                   });
+                  _updateFormValidation();
                   context.read<SignUpBloc>().add(SetGender('남자'));
                 },
                 child: Container(
@@ -432,7 +492,9 @@ class _SignUpFormState extends State<_SignUpForm> {
                     list['man'] = false;
                     list['woman'] = true;
                     list['notSelect'] = false;
+                    _isGenderSelected = true;
                   });
+                  _updateFormValidation();
                   context.read<SignUpBloc>().add(SetGender('여자'));
                 },
                 child: Container(
@@ -464,7 +526,9 @@ class _SignUpFormState extends State<_SignUpForm> {
                     list['man'] = false;
                     list['woman'] = false;
                     list['notSelect'] = true;
+                    _isGenderSelected = true;
                   });
+                  _updateFormValidation();
                   context.read<SignUpBloc>().add(SetGender('미선택'));
                 },
                 child: Container(

@@ -15,8 +15,23 @@ part 'sign_up_header.dart';
 part 'sign_up_middle.dart';
 part 'sign_up_form.dart';
 
-class SignUpStep3Page extends StatelessWidget {
+class SignUpStep3Page extends StatefulWidget {
   const SignUpStep3Page({super.key});
+
+  @override
+  State<SignUpStep3Page> createState() => _SignUpStep3PageState();
+}
+
+class _SignUpStep3PageState extends State<SignUpStep3Page> {
+  bool _isFormValid = false;
+  
+  void _onFormValidationChanged(bool isValid) {
+    if (_isFormValid != isValid) {
+      setState(() {
+        _isFormValid = isValid;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +42,10 @@ class SignUpStep3Page extends StatelessWidget {
             return _Scaffold(
               topBar: Topbar(title: '회원가입3', showCarts: false),
               header: _SignUpHeader(),
-              middle: _SignUpForm(),
+              middle: _SignUpForm(onValidationChanged: _onFormValidationChanged),
               nextButton: Button(
                 text: '가입하기',
-                onTap: (_SignUpFormState.globalFormKey.currentState?.validate() ?? false)
+                onTap: _isFormValid
                     ? () async {
                         context.read<SignUpBloc>().add(SubmitSignUp());
                         context.read<LoginBloc>().add(UserLoginEvent());
