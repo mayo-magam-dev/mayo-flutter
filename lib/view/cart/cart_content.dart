@@ -113,7 +113,7 @@ class _CartContentState extends State<_CartContent> {
                   await CartDataSource().deleteCart(item.cartId);
                   context.read<HomeBloc>().add(LoadCartItems());
                   await fetchCartData();
-                  context.go('/cart');
+                  context.go(AppRoutes.cart);
                 },
                 child: SvgPicture.asset("assets/icons/x.svg"),
               ),

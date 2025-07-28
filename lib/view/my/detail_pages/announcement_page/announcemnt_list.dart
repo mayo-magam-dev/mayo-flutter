@@ -89,7 +89,7 @@ class _ListsState extends State<_Lists> {
             final item = announcements[index];
             return InkWell(
               onTap: () {
-                context.push('/announcement-detail', extra: item);
+                context.push(AppRoutes.announcementDetail, extra: item);
               },
               child: _AnnouncementListItem(item: item),
             );

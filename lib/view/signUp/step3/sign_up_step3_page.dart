@@ -9,6 +9,7 @@ import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/view/components/button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 part 'sign_up_scaffold.dart';
 part 'sign_up_header.dart';
@@ -24,7 +25,7 @@ class SignUpStep3Page extends StatefulWidget {
 
 class _SignUpStep3PageState extends State<SignUpStep3Page> {
   bool _isFormValid = false;
-  
+
   void _onFormValidationChanged(bool isValid) {
     if (_isFormValid != isValid) {
       setState(() {
@@ -42,7 +43,8 @@ class _SignUpStep3PageState extends State<SignUpStep3Page> {
             return _Scaffold(
               topBar: Topbar(title: '회원가입3', showCarts: false),
               header: _SignUpHeader(),
-              middle: _SignUpForm(onValidationChanged: _onFormValidationChanged),
+              middle:
+                  _SignUpForm(onValidationChanged: _onFormValidationChanged),
               nextButton: Button(
                 text: '가입하기',
                 onTap: _isFormValid
@@ -50,12 +52,13 @@ class _SignUpStep3PageState extends State<SignUpStep3Page> {
                         context.read<SignUpBloc>().add(SubmitSignUp());
                         context.read<LoginBloc>().add(UserLoginEvent());
                         if (!state.isLoading && state.error == null) {
-                          context.go('/signup/step5');
+                          context.go(AppRoutes.signupStep5);
                         } else if (state.error != null) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(state.error!),
-                              backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+                              backgroundColor:
+                                  GlobalMainColor.globalPrimaryRedColor,
                             ),
                           );
                         }

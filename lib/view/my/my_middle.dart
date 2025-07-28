@@ -11,7 +11,7 @@ class _MyMiddle extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => context.push('/announcement'),
+            onTap: () => context.push(AppRoutes.announcement),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -25,7 +25,7 @@ class _MyMiddle extends StatelessWidget {
           ),
           SizedBox(height: 41.h),
           GestureDetector(
-            onTap: () => context.push('/event'),
+            onTap: () => context.push(AppRoutes.event),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -39,7 +39,7 @@ class _MyMiddle extends StatelessWidget {
           ),
           SizedBox(height: 41.h),
           GestureDetector(
-            onTap: () => context.push('/favorite-store'),
+            onTap: () => context.push(AppRoutes.favoriteStore),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -53,7 +53,7 @@ class _MyMiddle extends StatelessWidget {
           ),
           SizedBox(height: 41.h),
           GestureDetector(
-            onTap: () => context.push('/costomer-center'),
+            onTap: () => context.push(AppRoutes.customerCenter),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -67,7 +67,7 @@ class _MyMiddle extends StatelessWidget {
           ),
           SizedBox(height: 41.h),
           GestureDetector(
-            onTap: () => context.push('/faq'),
+            onTap: () => context.push(AppRoutes.faq),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

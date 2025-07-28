@@ -1,7 +1,5 @@
 part of 'my_page.dart';
 
-final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
-
 class _MyHeader extends StatefulWidget {
   const _MyHeader();
 
@@ -9,42 +7,45 @@ class _MyHeader extends StatefulWidget {
   State<_MyHeader> createState() => _MyHeaderState();
 }
 
-class _MyHeaderState extends State<_MyHeader> with RouteAware {
+class _MyHeaderState extends State<_MyHeader> {
   ReadUser? user;
   LocalLoginState? loginState;
   bool isLoading = true;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  void initState() {
+    super.initState();
     _fetchUser();
   }
 
   @override
-  void dispose() {
-    routeObserver.unsubscribe(this);
-    super.dispose();
-  }
-
-  @override
-  void didPopNext() {
+  void didUpdateWidget(_MyHeader oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // 부모 위젯이 새로고침될 때 사용자 정보도 새로고침
     _fetchUser();
   }
 
   void _fetchUser() async {
     final blocState = context.read<LoginBloc>().state;
-    final currentLoginState = blocState is LoginStateChanged ? blocState.loginState : null;
+    final currentLoginState =
+        blocState is LoginStateChanged ? blocState.loginState : null;
     setState(() {
       loginState = currentLoginState;
       isLoading = true;
     });
     if (currentLoginState == LocalLoginState.login) {
-      final fetchedUser = await UserDataSource().getUser();
-      setState(() {
-        user = fetchedUser;
-        isLoading = false;
-      });
+      try {
+        final fetchedUser = await UserDataSource().getUser();
+        setState(() {
+          user = fetchedUser;
+          isLoading = false;
+        });
+      } catch (e) {
+        setState(() {
+          user = null;
+          isLoading = false;
+        });
+      }
     } else {
       setState(() {
         user = null;
@@ -85,9 +86,9 @@ class _MyHeaderState extends State<_MyHeader> with RouteAware {
               GestureDetector(
                 onTap: () {
                   if (loginState == LocalLoginState.login) {
-                    context.push('/profile');
+                    context.push(AppRoutes.profile);
                   } else {
-                    context.push('/login');
+                    context.push(AppRoutes.login);
                   }
                 },
                 child: Row(

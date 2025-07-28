@@ -5,6 +5,7 @@ import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/board/board.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 part 'terms_scaffold.dart';
 part 'terms_ist.dart';

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 class CategoryButton extends StatelessWidget {
   const CategoryButton({super.key});
@@ -15,7 +16,7 @@ class CategoryButton extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            context.push('/onsale');
+            context.push(AppRoutes.onsale);
           },
           child: Column(
             children: [
@@ -33,7 +34,7 @@ class CategoryButton extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            context.push('/meal');
+            context.push(AppRoutes.meal);
           },
           child: Column(
             children: [
@@ -51,7 +52,7 @@ class CategoryButton extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            context.push('/dessert');
+            context.push(AppRoutes.dessert);
           },
           child: Column(
             children: [
@@ -69,7 +70,7 @@ class CategoryButton extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            context.push('/partner-store');
+            context.push(AppRoutes.partnerStore);
           },
           child: Column(
             children: [

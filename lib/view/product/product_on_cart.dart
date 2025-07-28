@@ -45,7 +45,7 @@ class _BeforeLoginOnCart extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.go('/login');
+                      context.go(AppRoutes.login);
                     },
                     child: Container(
                       width: 129.w,
@@ -85,7 +85,7 @@ class _OnCart extends StatelessWidget {
         child: SingleChildScrollView(
           // ✅ 오버플로우 방지
           child: Column(
-            mainAxisSize: MainAxisSize.min, 
+            mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(height: 10.h),
               Text(
@@ -132,7 +132,7 @@ class _OnCart extends StatelessWidget {
                   // 장바구니 이동
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => context.push('/cart'),
+                      onTap: () => context.push(AppRoutes.cart),
                       child: Container(
                         height: 56.h,
                         decoration: BoxDecoration(

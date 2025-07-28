@@ -11,6 +11,7 @@ import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/view/components/category_buttons.dart';
 import 'package:mayo_flutter/view/components/store_info_bar.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 part 'home_scaffold.dart';
 part 'home_banner.dart';

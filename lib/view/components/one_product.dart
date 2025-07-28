@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/store/read_simple_store_response.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 class OneProductWidget extends StatelessWidget {
   const OneProductWidget({
@@ -88,7 +89,7 @@ class OneProductWidget extends StatelessWidget {
 
                       GestureDetector(
                         onTap: () {
-                          context.push('/store/${store.id}');
+                          context.push(AppRoutes.storeDetail(store.id));
                         },
                         child: Container(
                           width: 67.w,
@@ -132,23 +133,23 @@ class OneProductWidget extends StatelessWidget {
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {
-                context.push('/store/${store.id}');
+                context.push(AppRoutes.storeDetail(store.id));
               },
-            child: Container(
-              color: Colors.black.withOpacity(0.6),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset('assets/icons/vector.svg'),
-                  SizedBox(height: 10.h),
-                  Text(
-                    '오픈 준비 중',
-                    style: AppTextStyle.heading2Bold.copyWith(
-                      color: Colors.white,
-                      letterSpacing: -0.48,
+              child: Container(
+                color: Colors.black.withOpacity(0.6),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset('assets/icons/vector.svg'),
+                    SizedBox(height: 10.h),
+                    Text(
+                      '오픈 준비 중',
+                      style: AppTextStyle.heading2Bold.copyWith(
+                        color: Colors.white,
+                        letterSpacing: -0.48,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
                 ),
               ),
             ),

@@ -14,6 +14,7 @@ import 'package:mayo_flutter/model/user/local_login_state.dart';
 import 'package:mayo_flutter/router/router.dart' as app_router;
 import 'package:mayo_flutter/util/fcm.dart';
 import 'package:mayo_flutter/view/login/google_login.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 part 'login_scaffold.dart';
 part 'login_logo.dart';
@@ -29,7 +30,7 @@ class LoginPage extends StatelessWidget {
       listener: (context, state) {
         if (state is LoginStateChanged &&
             state.loginState == LocalLoginState.login) {
-          context.go('/');
+          context.go(AppRoutes.home);
         }
       },
       child: _Scaffold(

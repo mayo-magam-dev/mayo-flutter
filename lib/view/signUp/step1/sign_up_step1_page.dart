@@ -9,6 +9,7 @@ import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/view/components/button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 import 'package:mayo_flutter/dataSource/board.dart';
 import 'package:mayo_flutter/model/board/board.dart';
 
@@ -44,8 +45,9 @@ class _SignUpStep1View extends StatelessWidget {
                 text: '다음',
                 onTap: state.isStep1Valid
                     ? () {
-                        context.push(
-                            isSocialLogin ? '/signup/step3' : '/signup/step2');
+                        context.push(isSocialLogin
+                            ? AppRoutes.signupStep3
+                            : AppRoutes.signupStep2);
                       }
                     : null,
               ),

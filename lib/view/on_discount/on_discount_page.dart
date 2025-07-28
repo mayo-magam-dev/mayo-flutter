@@ -8,6 +8,7 @@ import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/store/read_simple_store_response.dart';
 import 'package:mayo_flutter/view/components/one_product.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 part 'on_discount_scaffold.dart';
 part 'on_discount_header.dart';
@@ -59,8 +60,8 @@ class OnDiscountPage extends StatelessWidget {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                  onTap: () =>
-                      context.push("/store/${snapshot.data![index].id}"),
+                  onTap: () => context
+                      .push(AppRoutes.storeDetail(snapshot.data![index].id)),
                   child: OneProductWidget(
                     storeIndex: index,
                     storeData: snapshot.data,

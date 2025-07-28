@@ -7,6 +7,7 @@ import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/store/read_simple_store_response.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 class PartnerStorePage extends StatelessWidget {
   PartnerStorePage({super.key});
@@ -63,8 +64,8 @@ class PartnerStorePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
                       storeData![storeIndex].storeImage,
-                  width: 342.w,
-                  height: 123.h,
+                      width: 342.w,
+                      height: 123.h,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -91,7 +92,8 @@ class PartnerStorePage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.push('/store/${storeData[storeIndex].id}');
+                      context.push(
+                          AppRoutes.storeDetail(storeData[storeIndex].id));
                     },
                     child: Container(
                       width: 67.w,

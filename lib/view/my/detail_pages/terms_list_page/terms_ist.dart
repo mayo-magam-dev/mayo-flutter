@@ -118,7 +118,7 @@ class _TermsList extends StatelessWidget {
     titleSet();
     return InkWell(
       onTap: () {
-        context.push('/terms-detail/${item.boardId}');
+        context.push(AppRoutes.termsDetailPage(item.boardId));
       },
       child: Column(
         children: [

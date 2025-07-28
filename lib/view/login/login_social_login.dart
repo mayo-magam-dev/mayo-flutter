@@ -15,7 +15,7 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
       if (!mounted) return;
       context.read<LoginBloc>().add(UserLoginEvent());
       await FcmUtils.registerFcmToken();
-      context.go("/");
+      context.go(AppRoutes.home);
     } on DioException catch (_) {
       if (!mounted) return;
       final user = FirebaseAuth.instance.currentUser;
@@ -25,7 +25,7 @@ class _LoginSocialLoginState extends State<_LoginSocialLogin> {
               provider: provider,
             ));
 
-        context.go("/signup");
+        context.go(AppRoutes.signupStep1);
       }
     }
   }

@@ -1,20 +1,19 @@
 part of 'store_page.dart';
 
-// 영업 요일 리스트를 "월~금" 또는 "월,수,금" 형태로 포맷해 주는 헬퍼 함수
+
 String formatOpenDaysFromStringList(List<String>? days) {
   if (days == null || days.isEmpty) return '';
   
   if (days.length == 1) return days.first;
   
-  // 연속된 요일인지 확인하기 위해 요일 순서 매핑
   const dayOrder = {'월': 1, '화': 2, '수': 3, '목': 4, '금': 5, '토': 6, '일': 7};
   
-  // 요일을 숫자로 변환하고 정렬
+  
   final dayNumbers = days.map((day) => dayOrder[day] ?? 0).where((num) => num > 0).toList()..sort();
   
   if (dayNumbers.isEmpty) return days.join(', ');
   
-  // 연속된 요일인지 확인
+ 
   bool isConsecutive = true;
   for (int i = 1; i < dayNumbers.length; i++) {
     if (dayNumbers[i] != dayNumbers[i-1] + 1) {
@@ -24,12 +23,12 @@ String formatOpenDaysFromStringList(List<String>? days) {
   }
   
   if (isConsecutive && dayNumbers.length > 2) {
-    // 연속된 요일이면 "월~금" 형태로 표시
+    
     final firstDay = dayOrder.entries.firstWhere((entry) => entry.value == dayNumbers.first).key;
     final lastDay = dayOrder.entries.firstWhere((entry) => entry.value == dayNumbers.last).key;
     return '$firstDay ~ $lastDay';
   } else {
-    // 연속되지 않으면 "월, 수, 금" 형태로 표시
+    
     return days.join(', ');
   }
 }

@@ -9,6 +9,7 @@ import 'package:mayo_flutter/model/reservation/read_reservation_detail_response.
 import 'package:mayo_flutter/model/reservation/read_reservation_response.dart';
 import 'package:mayo_flutter/util/formater.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 // 예약 상태에 따른 색상 및 텍스트 상수
 class ReservationState {
@@ -42,10 +43,18 @@ class _OrderPageState extends State<OrderPage> {
   }
 
   Future<void> fetchReservationData() async {
-    final getReservationData = await ReservationDataSource().getReservations();
-    setState(() {
-      reservationData = getReservationData;
-    });
+    try {
+      final getReservationData =
+          await ReservationDataSource().getReservations();
+      setState(() {
+        reservationData = getReservationData;
+      });
+    } catch (e) {
+      // 비회원이거나 에러 발생 시 빈 배열로 설정하여 빈 주문내역 뷰 표시
+      setState(() {
+        reservationData = [];
+      });
+    }
   }
 
   @override
@@ -85,14 +94,15 @@ class _OrderPageState extends State<OrderPage> {
                       SizedBox(height: 8),
                       Text(
                         '원하는 메뉴나 상품을 찾아볼까요?',
-                        style: AppTextStyle.body1Medium.copyWith(color: Colors.black),
+                        style: AppTextStyle.body1Medium
+                            .copyWith(color: Colors.black),
                       ),
                       SizedBox(height: 32),
                       SizedBox(
                         width: 153,
                         height: 34,
                         child: ElevatedButton(
-                          onPressed: () => context.push('/onsale'),
+                          onPressed: () => context.push(AppRoutes.onsale),
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(24),
@@ -104,9 +114,11 @@ class _OrderPageState extends State<OrderPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('가게 둘러보기', style: TextStyle(color: Colors.black)),
+                              Text('가게 둘러보기',
+                                  style: TextStyle(color: Colors.black)),
                               SizedBox(width: 10),
-                              Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
+                              Icon(Icons.arrow_forward_ios,
+                                  size: 16, color: Colors.black),
                             ],
                           ),
                         ),
@@ -240,8 +252,10 @@ class _OrderDetails extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            context.push(
-                '/order/${reservationData.reservationId}/${reservationDetailData.cartList.first.storeId}/${reservationData.reservationState}');
+            context.push(AppRoutes.orderDetailPage(
+                reservationData.reservationId,
+                reservationDetailData.cartList.first.storeId,
+                reservationData.reservationState.toString()));
           },
           child: Row(
             children: [

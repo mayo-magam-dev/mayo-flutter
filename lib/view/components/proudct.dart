@@ -7,6 +7,7 @@ import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/model/item/read_item.dart';
 import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/util/formater.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 class ProductComponents extends StatelessWidget {
   const ProductComponents({
@@ -22,8 +23,8 @@ class ProductComponents extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (itemData.itemOnSale == true) {
-          context.push(
-              '/product/${itemData.itemId}/${storeData.id}/${storeData.storeName}');
+          context.push(AppRoutes.productDetail(
+              itemData.itemId, storeData.id, storeData.storeName));
         }
       },
       child: SizedBox(

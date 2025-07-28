@@ -33,12 +33,6 @@ class _SignUpFormState extends State<_SignUpForm> {
   bool _isPhoneValid = false;
   bool _isGenderSelected = false;
   
-  // 전체 폼이 유효한지 확인하는 static 변수
-  static bool _isFormValid = false;
-  
-  // 전체 폼 유효성을 외부에서 접근할 수 있는 static getter
-  static bool get isFormValid => _isFormValid;
-  
   // validation 상태를 업데이트하는 메서드
   void _updateFormValidation() {
     final isFormValid = _isNameValid && _isDisplayNameValid && _isBirthValid && _isPhoneValid && _isGenderSelected;

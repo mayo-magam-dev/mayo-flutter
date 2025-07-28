@@ -21,7 +21,7 @@ class _LoginFormState extends State<_LoginForm> {
       if (context.mounted) {
         context.read<LoginBloc>().add(UserLoginEvent());
         await FcmUtils.registerFcmToken();
-        context.go('/');
+        context.go(AppRoutes.home);
       }
     } on DioException catch (e) {
       if (context.mounted) {
@@ -32,7 +32,7 @@ class _LoginFormState extends State<_LoginForm> {
 
         context.read<LoginBloc>().add(
             SocialLoginEvent(email: _emailController.text, provider: 'email'));
-        context.go('/signup/step3');
+        context.go(AppRoutes.signupStep3);
       }
     }
   }
@@ -153,7 +153,7 @@ class _LoginFormState extends State<_LoginForm> {
             children: [
               GestureDetector(
                 onTap: () {
-                  context.push('/signup');
+                  context.push(AppRoutes.signupStep1);
                 },
                 child: Text(
                   '회원가입',

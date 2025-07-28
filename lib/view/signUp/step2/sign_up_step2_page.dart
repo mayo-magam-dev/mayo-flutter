@@ -10,6 +10,7 @@ import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/view/components/button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 part 'sign_up_scaffold.dart';
 part 'sign_up_header.dart';
@@ -25,7 +26,7 @@ class SignUpStep2Page extends StatelessWidget {
         loginState.provider != 'email';
 
     if (isSocialLogin) {
-      context.push('/signup/step3');
+      context.push(AppRoutes.signupStep3);
       return;
     }
 
@@ -40,7 +41,7 @@ class SignUpStep2Page extends StatelessWidget {
         password: state.password!,
       );
 
-      context.push('/signup/step3');
+      context.push(AppRoutes.signupStep3);
     } on FirebaseAuthException catch (e) {
       String errorMessage = '계정 생성에 실패했습니다.';
 

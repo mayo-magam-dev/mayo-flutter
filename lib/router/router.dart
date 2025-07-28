@@ -35,78 +35,84 @@ import 'package:mayo_flutter/view/sub/onsale_page.dart';
 import 'package:mayo_flutter/view/sub/partner_store_page.dart';
 import 'package:mayo_flutter/model/user/local_login_state.dart';
 import 'package:mayo_flutter/model/board/board.dart';
+import 'package:mayo_flutter/router/app_routes.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final SignUpBloc signUpBloc = SignUpBloc(userDataSource: UserDataSource());
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/',
+  initialLocation: AppRoutes.home,
   routes: [
     GoRoute(
-      path: '/product/:data/:storeId/:storeName',
+      path:
+          '/product/:${RouteParams.productData}/:${RouteParams.productStoreId}/:${RouteParams.productStoreName}',
       builder: (context, state) => ProductPage(
-        id: state.pathParameters['data']!,
-        storeId: state.pathParameters['storeId']!,
-        storeName: state.pathParameters['storeName']!,
+        id: state.pathParameters[RouteParams.productData]!,
+        storeId: state.pathParameters[RouteParams.productStoreId]!,
+        storeName: state.pathParameters[RouteParams.productStoreName]!,
       ),
     ),
     GoRoute(
-        path: '/store/:id',
+        path: '/store/:${RouteParams.storeId}',
         builder: (context, state) =>
-            StorePage(id: state.pathParameters['id']!)),
-    GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
-    GoRoute(path: '/cart', builder: (context, state) => const CartPage()),
+            StorePage(id: state.pathParameters[RouteParams.storeId]!)),
     GoRoute(
-      path: '/onsale',
+        path: AppRoutes.login, builder: (context, state) => const LoginPage()),
+    GoRoute(
+        path: AppRoutes.cart, builder: (context, state) => const CartPage()),
+    GoRoute(
+      path: AppRoutes.onsale,
       builder: (context, state) => OnsalePage(),
     ),
     GoRoute(
-      path: '/meal',
+      path: AppRoutes.meal,
       builder: (context, state) => MealPage(),
     ),
     GoRoute(
-      path: '/dessert',
+      path: AppRoutes.dessert,
       builder: (context, state) => DessertPage(),
     ),
     GoRoute(
-      path: '/partner-store',
+      path: AppRoutes.partnerStore,
       builder: (context, state) => PartnerStorePage(),
     ),
     GoRoute(
-      path: '/order/:reservationId/:storeId/:reservationState',
+      path:
+          '/order/:${RouteParams.reservationId}/:${RouteParams.orderStoreId}/:${RouteParams.reservationState}',
       builder: (context, state) {
         return OrderDetailPage(
-          reservationId: state.pathParameters['reservationId']!,
-          storeId: state.pathParameters['storeId']!,
-          reservationState: state.pathParameters['reservationState']!,
+          reservationId: state.pathParameters[RouteParams.reservationId]!,
+          storeId: state.pathParameters[RouteParams.orderStoreId]!,
+          reservationState: state.pathParameters[RouteParams.reservationState]!,
         );
       },
     ),
     GoRoute(
-        path: '/signup',
+        path: AppRoutes.signupStep1,
         builder: (context, state) =>
             BlocProvider.value(value: signUpBloc, child: SignUpStep1Page())),
     GoRoute(
-        path: '/signup/step2',
+        path: AppRoutes.signupStep2,
         builder: (context, state) =>
             BlocProvider.value(value: signUpBloc, child: SignUpStep2Page())),
 
     GoRoute(
-        path: '/signup/step3',
+        path: AppRoutes.signupStep3,
         builder: (context, state) =>
             BlocProvider.value(value: signUpBloc, child: SignUpStep3Page())),
     GoRoute(
-        path: '/signup/step5',
+        path: AppRoutes.signupStep5,
         builder: (context, state) =>
             BlocProvider.value(value: signUpBloc, child: SignUpStep5Page())),
     GoRoute(
-        path: '/account-delete',
+        path: AppRoutes.accountDelete,
         builder: (context, state) => AccountDeletePage()),
     GoRoute(
-        path: '/announcement', builder: (context, state) => AnnouncementPage()),
+        path: AppRoutes.announcement,
+        builder: (context, state) => AnnouncementPage()),
     GoRoute(
-        path: '/announcement-detail',
+        path: AppRoutes.announcementDetail,
         builder: (context, state) {
           final board = state.extra as Board;
           return AnnouncementDetailPage(board: board);
@@ -118,36 +124,45 @@ final router = GoRouter(
           ScaffoldWithBottomNavBar(shell: shell),
       branches: [
         StatefulShellBranch(routes: [
-          GoRoute(path: '/', builder: (context, state) => const HomePage())
+          GoRoute(
+              path: AppRoutes.home,
+              builder: (context, state) => const HomePage())
         ]),
         StatefulShellBranch(routes: [
           GoRoute(
-              path: '/on-discount',
+              path: AppRoutes.onDiscount,
               builder: (context, state) => OnDiscountPage())
         ]),
         StatefulShellBranch(routes: [
           GoRoute(
-              path: '/orders', builder: (context, state) => const OrderPage())
+              path: AppRoutes.orders,
+              builder: (context, state) => const OrderPage())
         ]),
         StatefulShellBranch(routes: [
-          GoRoute(path: '/my', builder: (context, state) => const MyPage()),
           GoRoute(
-              path: '/terms-list',
+              path: AppRoutes.my, builder: (context, state) => const MyPage()),
+          GoRoute(
+              path: AppRoutes.termsList,
               builder: (context, state) => const TermsListPage()),
           GoRoute(
-              path: '/terms-detail/:boardId',
-              builder: (context, state) =>
-                  TermsDetailPage(boardId: state.pathParameters['boardId'])),
-          GoRoute(path: '/profile', builder: (context, state) => ProfilePage()),
+              path: '/terms-detail/:${RouteParams.boardId}',
+              builder: (context, state) => TermsDetailPage(
+                  boardId: state.pathParameters[RouteParams.boardId])),
           GoRoute(
-              path: '/event', builder: (context, state) => const EventPage()),
+              path: AppRoutes.profile,
+              builder: (context, state) => ProfilePage()),
           GoRoute(
-              path: '/favorite-store',
+              path: AppRoutes.event,
+              builder: (context, state) => const EventPage()),
+          GoRoute(
+              path: AppRoutes.favoriteStore,
               builder: (context, state) => const FavoriteStorePage()),
           GoRoute(
-              path: '/costomer-center',
+              path: AppRoutes.customerCenter,
               builder: (context, state) => const CostomerCenterPage()),
-          GoRoute(path: '/faq', builder: (context, state) => const FaqPage()),
+          GoRoute(
+              path: AppRoutes.faq,
+              builder: (context, state) => const FaqPage()),
         ]),
       ],
     ),
