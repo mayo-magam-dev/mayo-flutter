@@ -22,7 +22,9 @@ class _SignUpMiddle extends StatelessWidget {
                 child: Center(child: CircularProgressIndicator()),
               );
             }
-            if (snapshot.hasError || !snapshot.hasData || snapshot.data!.length <= index) {
+            if (snapshot.hasError ||
+                !snapshot.hasData ||
+                snapshot.data!.length <= index) {
               return SizedBox(
                 height: MediaQuery.of(context).size.height * 0.9,
                 child: Center(child: Text('약관을 불러오지 못했습니다')),
@@ -49,7 +51,8 @@ class _SignUpMiddle extends StatelessWidget {
                     height: 60,
                     decoration: BoxDecoration(
                       color: GlobalMainGrey.grey50,
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20)),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,12 +77,15 @@ class _SignUpMiddle extends StatelessWidget {
                   ),
                   Expanded(
                     child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 24, vertical: 18),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            contentSplited.isNotEmpty ? contentSplited.first : '',
+                            contentSplited.isNotEmpty
+                                ? contentSplited.first
+                                : '',
                             style: AppTextStyle.heading2Bold.copyWith(
                               color: GlobalMainColor.globalPrimaryBlackColor,
                               letterSpacing: -0.48,
@@ -87,7 +93,9 @@ class _SignUpMiddle extends StatelessWidget {
                           ),
                           SizedBox(height: 16),
                           Text(
-                            contentSplited.length > 1 ? contentSplited.sublist(1).join('\n') : '',
+                            contentSplited.length > 1
+                                ? contentSplited.sublist(1).join('\n')
+                                : '',
                             style: AppTextStyle.body2Medium.copyWith(
                               color: GlobalMainColor.globalPrimaryBlackColor,
                               letterSpacing: -0.28,
@@ -108,8 +116,9 @@ class _SignUpMiddle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpBloc, SignUpState>(
-      builder: (context, state) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final state = ref.watch(signUpNotifierProvider);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -119,8 +128,10 @@ class _SignUpMiddle extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context.read<SignUpBloc>().add(SetAllAgreements(
-                          !state.agreeTerms1 || !state.agreeTerms2));
+                      ref
+                          .read(signUpNotifierProvider.notifier)
+                          .updateAllAgreements(
+                              !state.agreeTerms1 || !state.agreeTerms2);
                     },
                     child: SvgPicture.asset(state.agreeTerms1 &&
                             state.agreeTerms2 &&
@@ -159,9 +170,9 @@ class _SignUpMiddle extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context
-                              .read<SignUpBloc>()
-                              .add(SetTermsAgreement(!state.agreeTerms1));
+                          ref
+                              .read(signUpNotifierProvider.notifier)
+                              .updateAgreeTerms1(!state.agreeTerms1);
                         },
                         child: SvgPicture.asset(state.agreeTerms1
                             ? 'assets/icons/checked.svg'
@@ -202,9 +213,9 @@ class _SignUpMiddle extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context
-                              .read<SignUpBloc>()
-                              .add(SetPrivacyAgreement(!state.agreeTerms2));
+                          ref
+                              .read(signUpNotifierProvider.notifier)
+                              .updateAgreeTerms2(!state.agreeTerms2);
                         },
                         child: SvgPicture.asset(state.agreeTerms2
                             ? 'assets/icons/checked.svg'
@@ -245,8 +256,9 @@ class _SignUpMiddle extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context.read<SignUpBloc>().add(
-                              SetMarketingAgreement(!state.agreeMarketing));
+                          ref
+                              .read(signUpNotifierProvider.notifier)
+                              .updateAgreeMarketing(!state.agreeMarketing);
                         },
                         child: SvgPicture.asset(state.agreeMarketing
                             ? 'assets/icons/checked.svg'

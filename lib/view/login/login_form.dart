@@ -1,11 +1,11 @@
 part of 'login_page.dart';
 
-class _LoginForm extends StatefulWidget {
+class _LoginForm extends ConsumerStatefulWidget {
   @override
-  State<_LoginForm> createState() => _LoginFormState();
+  ConsumerState<_LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<_LoginForm> {
+class _LoginFormState extends ConsumerState<_LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
@@ -19,19 +19,20 @@ class _LoginFormState extends State<_LoginForm> {
       await UserDataSource().getUser();
 
       if (context.mounted) {
-        context.read<LoginBloc>().add(UserLoginEvent());
+        ref.read(loginNotifierProvider.notifier).userLogin();
         await FcmUtils.registerFcmToken();
         context.go(AppRoutes.home);
       }
     } on DioException catch (e) {
       if (context.mounted) {
-        final signUpBloc = BlocProvider.of<SignUpBloc>(context);
-        signUpBloc.add(SetEmail(_emailController.text));
-        signUpBloc.add(SetPassword(_passwordController.text));
-        signUpBloc.add(SetPasswordConfirmation(true));
+        ref
+            .read(signUpNotifierProvider.notifier)
+            .updateEmail(_emailController.text);
+        ref.read(signUpNotifierProvider.notifier).updateStep(3);
 
-        context.read<LoginBloc>().add(
-            SocialLoginEvent(email: _emailController.text, provider: 'email'));
+        ref
+            .read(loginNotifierProvider.notifier)
+            .socialLogin(_emailController.text, 'email');
         context.go(AppRoutes.signupStep3);
       }
     }

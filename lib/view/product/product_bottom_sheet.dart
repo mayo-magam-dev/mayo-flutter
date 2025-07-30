@@ -1,6 +1,6 @@
 part of 'product_page.dart';
 
-class _BottomSheet extends StatefulWidget {
+class _BottomSheet extends ConsumerStatefulWidget {
   const _BottomSheet({
     required this.itemData,
     required this.storeId,
@@ -10,10 +10,10 @@ class _BottomSheet extends StatefulWidget {
   final String storeId;
 
   @override
-  State<_BottomSheet> createState() => _BottomSheetState();
+  ConsumerState<_BottomSheet> createState() => _BottomSheetState();
 }
 
-class _BottomSheetState extends State<_BottomSheet> {
+class _BottomSheetState extends ConsumerState<_BottomSheet> {
   List<ReadCartResponse>? cartData;
   bool isLoading = false;
 
@@ -64,7 +64,7 @@ class _BottomSheetState extends State<_BottomSheet> {
     );
     await CartDataSource().createCart(request: itemInfo);
 
-    context.read<HomeBloc>().add(LoadCartItems());
+    ref.read(homeNotifierProvider.notifier).loadCartItems();
 
     _showSuccessDialog();
   }
@@ -79,7 +79,7 @@ class _BottomSheetState extends State<_BottomSheet> {
         ItemQuantityCounter.itemCount + existingItem.cartItemCount,
       );
 
-      context.read<HomeBloc>().add(LoadCartItems());
+      ref.read(homeNotifierProvider.notifier).loadCartItems();
 
       _showSuccessDialog();
     } catch (e) {
@@ -105,7 +105,7 @@ class _BottomSheetState extends State<_BottomSheet> {
   void initState() {
     super.initState();
     debugPrint("🟨 로그인 상태 체크 이벤트 실행");
-    context.read<LoginBloc>().add(CheckLoginStatusEvent());
+    ref.read(loginNotifierProvider.notifier).checkLoginStatus();
     fetchCartData();
   }
 

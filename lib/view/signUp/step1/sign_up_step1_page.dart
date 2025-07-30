@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mayo_flutter/bloc/login/login_bloc.dart';
-import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
+import 'package:mayo_flutter/providers/login_provider.dart';
+import 'package:mayo_flutter/providers/sign_up_provider.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
 import 'package:mayo_flutter/view/components/button.dart';
@@ -26,35 +26,29 @@ class SignUpStep1Page extends StatelessWidget {
   }
 }
 
-class _SignUpStep1View extends StatelessWidget {
+class _SignUpStep1View extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
-      builder: (context, loginState) {
-        final isSocialLogin = loginState is LoginStateChanged &&
-            loginState.provider != null &&
-            loginState.provider != 'email';
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginState = ref.watch(loginNotifierProvider);
+    final isSocialLogin = loginState is LoginStateChanged &&
+        loginState.provider != null &&
+        loginState.provider != 'email';
 
-        return BlocBuilder<SignUpBloc, SignUpState>(
-          builder: (context, state) {
-            return _Scaffold(
-              topBar: Topbar(title: '회원가입', showCarts: false),
-              header: _SignUpHeader(),
-              middle: _SignUpMiddle(),
-              nextButton: Button(
-                text: '다음',
-                onTap: state.isStep1Valid
-                    ? () {
-                        context.push(isSocialLogin
-                            ? AppRoutes.signupStep3
-                            : AppRoutes.signupStep2);
-                      }
-                    : null,
-              ),
-            );
-          },
-        );
-      },
+    final state = ref.watch(signUpNotifierProvider);
+    return _Scaffold(
+      topBar: Topbar(title: '회원가입', showCarts: false),
+      header: _SignUpHeader(),
+      middle: _SignUpMiddle(),
+      nextButton: Button(
+        text: '다음',
+        onTap: state.currentStep == 1
+            ? () {
+                context.push(isSocialLogin
+                    ? AppRoutes.signupStep3
+                    : AppRoutes.signupStep2);
+              }
+            : null,
+      ),
     );
   }
 }

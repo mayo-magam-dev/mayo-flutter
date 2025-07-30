@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mayo_flutter/bloc/login/login_bloc.dart';
-import 'package:mayo_flutter/bloc/sign_up/sign_up_bloc.dart';
+import 'package:mayo_flutter/providers/login_provider.dart';
+import 'package:mayo_flutter/providers/sign_up_provider.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/view/components/button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
@@ -16,11 +16,11 @@ part 'sign_up_scaffold.dart';
 part 'sign_up_header.dart';
 part 'sign_up_middle.dart';
 
-class SignUpStep2Page extends StatelessWidget {
+class SignUpStep2Page extends ConsumerWidget {
   const SignUpStep2Page({super.key});
 
-  Future<void> _handleNextButton(
-      BuildContext context, LoginState loginState, SignUpState state) async {
+  Future<void> _handleNextButton(BuildContext context, WidgetRef ref,
+      LoginState loginState, SignUpState state) async {
     final isSocialLogin = loginState is LoginStateChanged &&
         loginState.provider != null &&
         loginState.provider != 'email';
@@ -32,13 +32,13 @@ class SignUpStep2Page extends StatelessWidget {
 
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: state.email!,
-        password: state.password!,
+        email: state.email ?? '',
+        password: state.password ?? '',
       );
 
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: state.email!,
-        password: state.password!,
+        email: state.email ?? '',
+        password: state.password ?? '',
       );
 
       context.push(AppRoutes.signupStep3);
@@ -70,32 +70,25 @@ class SignUpStep2Page extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
-      builder: (context, loginState) {
-        // 소셜 로그인 여부 확인
-        final isSocialLogin = loginState is LoginStateChanged &&
-            loginState.provider != null &&
-            loginState.provider != 'email';
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginState = ref.watch(loginNotifierProvider);
+    final isSocialLogin = loginState is LoginStateChanged &&
+        loginState.provider != null &&
+        loginState.provider != 'email';
 
-        return BlocBuilder<SignUpBloc, SignUpState>(
-          builder: (context, state) {
-            final isValid = isSocialLogin || state.isStep2Valid;
+    final state = ref.watch(signUpNotifierProvider);
+    final isValid = isSocialLogin || state.currentStep == 2;
 
-            return _Scaffold(
-              topBar: Topbar(title: '회원가입2', showCarts: false),
-              header: _SignUpHeader(),
-              middle: _SignUpMiddle(),
-              nextButton: Button(
-                text: '다음',
-                onTap: isValid
-                    ? () => _handleNextButton(context, loginState, state)
-                    : null,
-              ),
-            );
-          },
-        );
-      },
+    return _Scaffold(
+      topBar: Topbar(title: '회원가입2', showCarts: false),
+      header: _SignUpHeader(),
+      middle: _SignUpMiddle(),
+      nextButton: Button(
+        text: '다음',
+        onTap: isValid
+            ? () => _handleNextButton(context, ref, loginState, state)
+            : null,
+      ),
     );
   }
 }

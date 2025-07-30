@@ -59,7 +59,8 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<StoreBloc, StoreState>(builder: (context, state) {
+    return Consumer(builder: (context, ref, child) {
+      final state = ref.watch(storeNotifierProvider);
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -193,14 +194,14 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                       menuName: "가게 정보",
                       menuIcon: "calendar.svg",
                       onTap: () {
-                        context.read<StoreBloc>().add(ChangeViewEvent(0));
+                        ref.read(storeNotifierProvider.notifier).changeView(0);
                       },
                     ),
                     SelectableMenu(
                       menuName: "가게 위치",
                       menuIcon: "location-with-ground.svg",
                       onTap: () {
-                        context.read<StoreBloc>().add(ChangeViewEvent(1));
+                        ref.read(storeNotifierProvider.notifier).changeView(1);
                       },
                     ),
                     SelectableMenu(
@@ -217,7 +218,7 @@ class _StoreInfoHeaderState extends State<_StoreInfoHeader> {
                       menuName: "원산지 정보",
                       menuIcon: "info.svg",
                       onTap: () {
-                        context.read<StoreBloc>().add(ChangeViewEvent(2));
+                        ref.read(storeNotifierProvider.notifier).changeView(2);
                       },
                     ),
                   ],

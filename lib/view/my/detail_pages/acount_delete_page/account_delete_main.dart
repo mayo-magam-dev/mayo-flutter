@@ -119,9 +119,9 @@ class _MainState extends State<_Main> {
   }
 }
 
-class _DeleteConfirmDialog extends StatelessWidget {
+class _DeleteConfirmDialog extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: Container(
         padding: const EdgeInsets.only(top: 43, bottom: 18.4),
@@ -161,7 +161,9 @@ class _DeleteConfirmDialog extends StatelessWidget {
                       try {
                         UserDataSource().deleteUser();
                         FirebaseAuth.instance.currentUser!.delete();
-                        context.read<LoginBloc>().add(UserAccountDelete());
+                        ref
+                            .read(loginNotifierProvider.notifier)
+                            .userAccountDelete();
                       } on FirebaseAuthException catch (e) {
                         throw Exception(e);
                       }

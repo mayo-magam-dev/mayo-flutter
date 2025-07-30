@@ -1,11 +1,11 @@
 part of 'profile_page.dart';
 
-class _AccountActions extends StatefulWidget {
+class _AccountActions extends ConsumerStatefulWidget {
   @override
-  State<_AccountActions> createState() => _AccountActionsState();
+  ConsumerState<_AccountActions> createState() => _AccountActionsState();
 }
 
-class _AccountActionsState extends State<_AccountActions> {
+class _AccountActionsState extends ConsumerState<_AccountActions> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -16,7 +16,7 @@ class _AccountActionsState extends State<_AccountActions> {
             await FirebaseAuth.instance.signOut();
             GoogleLogin().logout();
             setState(() {
-              context.read<LoginBloc>().add(UserLogoutEvent());
+              ref.read(loginNotifierProvider.notifier).userLogout();
             });
             if (context.mounted) {
               context.go('/login');

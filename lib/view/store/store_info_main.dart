@@ -10,8 +10,9 @@ class _StoreInfoMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<StoreBloc, StoreState>(
-      builder: (context, state) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final state = ref.watch(storeNotifierProvider);
         if (state.viewIndex == 0) {
           return _StoreInfoSection(
             storeData: storeData,

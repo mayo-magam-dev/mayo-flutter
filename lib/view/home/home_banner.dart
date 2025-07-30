@@ -14,8 +14,9 @@ class _BannerState extends State<_Banner> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final state = ref.watch(homeNotifierProvider);
         if (state.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }

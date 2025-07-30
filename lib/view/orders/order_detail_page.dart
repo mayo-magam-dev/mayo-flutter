@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:mayo_flutter/dataSource/map.dart';
@@ -12,7 +13,7 @@ import 'package:mayo_flutter/model/store/read_store.dart';
 import 'package:mayo_flutter/util/formater.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 
-class OrderDetailPage extends StatefulWidget {
+class OrderDetailPage extends ConsumerStatefulWidget {
   const OrderDetailPage({
     super.key,
     required this.reservationId,
@@ -25,10 +26,10 @@ class OrderDetailPage extends StatefulWidget {
   final String reservationState;
 
   @override
-  State<OrderDetailPage> createState() => _OrderDetailPageState();
+  ConsumerState<OrderDetailPage> createState() => _OrderDetailPageState();
 }
 
-class _OrderDetailPageState extends State<OrderDetailPage> {
+class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
   late KakaoMapController mapController;
   Set<Marker> markers = {};
 

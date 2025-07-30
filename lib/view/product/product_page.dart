@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:mayo_flutter/bloc/home/home_bloc.dart';
-import 'package:mayo_flutter/bloc/login/login_bloc.dart';
+import 'package:mayo_flutter/providers/home_provider.dart';
+import 'package:mayo_flutter/providers/login_provider.dart';
 import 'package:mayo_flutter/dataSource/cart.dart';
 import 'package:mayo_flutter/dataSource/item.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
@@ -19,15 +19,13 @@ import 'package:mayo_flutter/util/formater.dart';
 import 'package:mayo_flutter/view/components/press_button.dart';
 import 'package:mayo_flutter/view/components/top_bar.dart';
 import 'package:mayo_flutter/router/app_routes.dart';
-import 'package:dio/dio.dart';
-import 'package:mayo_flutter/bloc/home/home_bloc.dart';
 
 part 'prouduct_scaffold.dart';
 part 'product_info.dart';
 part 'product_bottom_sheet.dart';
 part 'product_on_cart.dart';
 
-class ProductPage extends StatefulWidget {
+class ProductPage extends ConsumerStatefulWidget {
   const ProductPage({
     super.key,
     required this.id,
@@ -40,10 +38,10 @@ class ProductPage extends StatefulWidget {
   final String storeName;
 
   @override
-  State<ProductPage> createState() => _ProductPageState();
+  ConsumerState<ProductPage> createState() => _ProductPageState();
 }
 
-class _ProductPageState extends State<ProductPage> {
+class _ProductPageState extends ConsumerState<ProductPage> {
   late final Future<ReadItem?> itemData;
 
   @override

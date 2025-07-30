@@ -1,13 +1,13 @@
 part of 'sign_up_step2_page.dart';
 
-class _SignUpMiddle extends StatefulWidget {
+class _SignUpMiddle extends ConsumerStatefulWidget {
   const _SignUpMiddle();
 
   @override
-  State<_SignUpMiddle> createState() => _SignUpMiddleState();
+  ConsumerState<_SignUpMiddle> createState() => _SignUpMiddleState();
 }
 
-class _SignUpMiddleState extends State<_SignUpMiddle> {
+class _SignUpMiddleState extends ConsumerState<_SignUpMiddle> {
   bool _obscurePassword = true;
   bool _obscurePasswordConfirm = true;
   bool _passwordsMatch = false;
@@ -28,7 +28,7 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
     _confirmPasswordController.addListener(_checkPasswordMatch);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final state = context.read<SignUpBloc>().state;
+      final state = ref.read(signUpNotifierProvider);
       if (state.email != null && state.email!.isNotEmpty) {
         _emailController.text = state.email!;
       }
@@ -56,51 +56,62 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
         _passwordsMatch = match;
       });
 
-      context.read<SignUpBloc>().add(SetPasswordConfirmation(match));
+      ref
+          .read(signUpNotifierProvider.notifier)
+          .updatePassword(match.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpBloc, SignUpState>(
-      builder: (context, state) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final state = ref.watch(signUpNotifierProvider);
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Form(
             key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '이메일',
-                style: AppTextStyle.subheadingBold
-                    .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
-              ),
-              SizedBox(height: 5.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '이메일',
+                  style: AppTextStyle.subheadingBold
+                      .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
+                ),
+                SizedBox(height: 5.h),
                 // 이메일 입력란
                 TextFormField(
                   controller: _emailController,
                   onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   textInputAction: TextInputAction.next,
                   onChanged: (value) {
-                      context.read<SignUpBloc>().add(SetEmail(value));
-                      _formKey.currentState?.validate();
+                    ref
+                        .read(signUpNotifierProvider.notifier)
+                        .updateEmail(value);
+                    _formKey.currentState?.validate();
                   },
                   onFieldSubmitted: (value) {
-                      context.read<SignUpBloc>().add(SetEmail(value));
-                      _formKey.currentState?.validate();
-                    },
-                    validator: (value) {
-                      String? error;
-                      if (value == null || value.isEmpty) {
-                        error = '이메일을 입력해주세요.';
-                      } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(value)) {
-                        error = '이메일 형식이 올바르지 않습니다.';
-                      }
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        if (mounted) setState(() { _emailError = error; });
-                      });
-                      return null;
+                    ref
+                        .read(signUpNotifierProvider.notifier)
+                        .updateEmail(value);
+                    _formKey.currentState?.validate();
+                  },
+                  validator: (value) {
+                    String? error;
+                    if (value == null || value.isEmpty) {
+                      error = '이메일을 입력해주세요.';
+                    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$')
+                        .hasMatch(value)) {
+                      error = '이메일 형식이 올바르지 않습니다.';
+                    }
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (mounted)
+                        setState(() {
+                          _emailError = error;
+                        });
+                    });
+                    return null;
                   },
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
@@ -135,7 +146,9 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Row(
                       children: [
-                        Icon(Icons.warning, color: GlobalMainColor.globalPrimaryRedColor, size: 16),
+                        Icon(Icons.warning,
+                            color: GlobalMainColor.globalPrimaryRedColor,
+                            size: 16),
                         SizedBox(width: 4),
                         Text(
                           _emailError!,
@@ -145,35 +158,40 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                SizedBox(height: 26.h),
+                Text(
+                  '비밀번호',
+                  style: AppTextStyle.subheadingBold
+                      .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
                 ),
-              ),
-              SizedBox(height: 26.h),
-              Text(
-                '비밀번호',
-                style: AppTextStyle.subheadingBold
-                    .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
-              ),
-              SizedBox(height: 5.h),
+                SizedBox(height: 5.h),
                 // 비밀번호 입력란
                 TextFormField(
                   controller: _passwordController,
                   onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   obscureText: _obscurePassword,
                   onChanged: (value) {
-                    context.read<SignUpBloc>().add(SetPassword(value));
-                      _formKey.currentState?.validate();
-                    },
-                    validator: (value) {
-                      String? error;
-                      if (value == null || value.isEmpty) {
-                        error = '비밀번호를 입력해주세요.';
-                      } else if (value.length < 8) {
-                        error = '비밀번호는 8자 이상이어야 합니다.';
-                      }
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        if (mounted) setState(() { _passwordError = error; });
-                      });
-                      return null;
+                    ref
+                        .read(signUpNotifierProvider.notifier)
+                        .updatePassword(value);
+                    _formKey.currentState?.validate();
+                  },
+                  validator: (value) {
+                    String? error;
+                    if (value == null || value.isEmpty) {
+                      error = '비밀번호를 입력해주세요.';
+                    } else if (value.length < 8) {
+                      error = '비밀번호는 8자 이상이어야 합니다.';
+                    }
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (mounted)
+                        setState(() {
+                          _passwordError = error;
+                        });
+                    });
+                    return null;
                   },
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
@@ -220,7 +238,9 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Row(
                       children: [
-                        Icon(Icons.warning, color: GlobalMainColor.globalPrimaryRedColor, size: 16),
+                        Icon(Icons.warning,
+                            color: GlobalMainColor.globalPrimaryRedColor,
+                            size: 16),
                         SizedBox(width: 4),
                         Text(
                           _passwordError!,
@@ -230,15 +250,15 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                SizedBox(height: 26.h),
+                Text(
+                  '비밀번호 확인',
+                  style: AppTextStyle.subheadingBold
+                      .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
                 ),
-              ),
-              SizedBox(height: 26.h),
-              Text(
-                '비밀번호 확인',
-                style: AppTextStyle.subheadingBold
-                    .copyWith(color: GlobalMainColor.globalPrimaryBlackColor),
-              ),
-              SizedBox(height: 5.h),
+                SizedBox(height: 5.h),
                 // 비밀번호 확인 입력란
                 TextFormField(
                   controller: _confirmPasswordController,
@@ -280,39 +300,37 @@ class _SignUpMiddleState extends State<_SignUpMiddle> {
                         _obscurePasswordConfirm
                             ? 'assets/icons/eye_off.svg'
                             : 'assets/icons/eye_on.svg',
+                      ),
                     ),
                   ),
                 ),
-              ),
 
-              // 비밀번호 일치 여부 메시지 표시
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Row(
-                  children: [
-                    Icon(
-                      _passwordsMatch ? Icons.check_circle : Icons.warning,
-                      color: _passwordsMatch
-                          ? Colors.green
-                              : GlobalMainColor.globalPrimaryRedColor,
-                      size: 16,
-                    ),
-                    SizedBox(width: 4),
-                    Text(
-                      _passwordsMatch
-                          ? '비밀번호가 일치합니다.'
-                              : '비밀번호가 일치하지 않습니다.',
-                      style: TextStyle(
+                // 비밀번호 일치 여부 메시지 표시
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        _passwordsMatch ? Icons.check_circle : Icons.warning,
                         color: _passwordsMatch
                             ? Colors.green
-                                : GlobalMainColor.globalPrimaryRedColor,
-                        fontSize: 12,
+                            : GlobalMainColor.globalPrimaryRedColor,
+                        size: 16,
                       ),
-                    ),
-                  ],
+                      SizedBox(width: 4),
+                      Text(
+                        _passwordsMatch ? '비밀번호가 일치합니다.' : '비밀번호가 일치하지 않습니다.',
+                        style: TextStyle(
+                          color: _passwordsMatch
+                              ? Colors.green
+                              : GlobalMainColor.globalPrimaryRedColor,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
             ),
           ),
         );

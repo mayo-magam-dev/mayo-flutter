@@ -6,8 +6,9 @@ class _SignUpMiddle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpBloc, SignUpState>(
-      builder: (context, state) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final state = ref.watch(signUpNotifierProvider);
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -26,7 +27,7 @@ class _SignUpMiddle extends StatelessWidget {
                   onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   textInputAction: TextInputAction.next,
                   onChanged: (value) {
-                    context.read<SignUpBloc>().add(SetName(value));
+                    ref.read(signUpNotifierProvider.notifier).updateName(value);
                   },
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
@@ -75,7 +76,9 @@ class _SignUpMiddle extends StatelessWidget {
                   onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   textInputAction: TextInputAction.next,
                   onChanged: (value) {
-                    context.read<SignUpBloc>().add(SetDisplayName(value));
+                    ref
+                        .read(signUpNotifierProvider.notifier)
+                        .updateDisplayName(value);
                   },
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
@@ -125,7 +128,9 @@ class _SignUpMiddle extends StatelessWidget {
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.phone,
                   onChanged: (value) {
-                    context.read<SignUpBloc>().add(SetPhoneNumber(value));
+                    ref
+                        .read(signUpNotifierProvider.notifier)
+                        .updatePhone(value);
                   },
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
@@ -172,7 +177,9 @@ class _SignUpMiddle extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        context.read<SignUpBloc>().add(SetGender('male'));
+                        ref
+                            .read(signUpNotifierProvider.notifier)
+                            .updateGender('male');
                       },
                       child: Container(
                         height: 45.h,
@@ -202,7 +209,9 @@ class _SignUpMiddle extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        context.read<SignUpBloc>().add(SetGender('female'));
+                        ref
+                            .read(signUpNotifierProvider.notifier)
+                            .updateGender('female');
                       },
                       child: Container(
                         height: 45.h,

@@ -1,29 +1,29 @@
 part of 'login_page.dart';
 
-class _LoginSocialLogin extends StatefulWidget {
+class _LoginSocialLogin extends ConsumerStatefulWidget {
   const _LoginSocialLogin();
 
   @override
-  State<_LoginSocialLogin> createState() => _LoginSocialLoginState();
+  ConsumerState<_LoginSocialLogin> createState() => _LoginSocialLoginState();
 }
 
-class _LoginSocialLoginState extends State<_LoginSocialLogin> {
+class _LoginSocialLoginState extends ConsumerState<_LoginSocialLogin> {
   Future<void> _handleLoginSuccess({required String provider}) async {
     try {
       final userData = await UserDataSource().getUser();
 
       if (!mounted) return;
-      context.read<LoginBloc>().add(UserLoginEvent());
+      ref.read(loginNotifierProvider.notifier).userLogin();
       await FcmUtils.registerFcmToken();
       context.go(AppRoutes.home);
     } on DioException catch (_) {
       if (!mounted) return;
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        context.read<LoginBloc>().add(SocialLoginEvent(
-              email: user.email ?? '',
-              provider: provider,
-            ));
+        ref.read(loginNotifierProvider.notifier).socialLogin(
+              user.email ?? '',
+              provider,
+            );
 
         context.go(AppRoutes.signupStep1);
       }

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mayo_flutter/bloc/home/home_bloc.dart';
+import 'package:mayo_flutter/providers/home_provider.dart';
 import 'package:mayo_flutter/dataSource/cart.dart';
 import 'package:mayo_flutter/dataSource/reservation.dart';
 import 'package:mayo_flutter/dataSource/store.dart';
@@ -22,14 +22,14 @@ part 'cart_content.dart';
 part 'cart_bottom_sheet.dart';
 part 'cart_empty.dart';
 
-class CartPage extends StatefulWidget {
+class CartPage extends ConsumerStatefulWidget {
   const CartPage({super.key});
 
   @override
-  State<CartPage> createState() => _CartPageState();
+  ConsumerState<CartPage> createState() => _CartPageState();
 }
 
-class _CartPageState extends State<CartPage> {
+class _CartPageState extends ConsumerState<CartPage> {
   List<ReadCartResponse>? futureCart;
 
   Future<void> fetchCartData() async {

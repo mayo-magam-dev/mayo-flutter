@@ -27,8 +27,9 @@ class _List extends StatelessWidget {
               ],
             ),
             SizedBox(height: 17.h),
-            BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
+            Consumer(
+              builder: (context, ref, child) {
+                final state = ref.watch(homeNotifierProvider);
                 if (state.isLoading) {
                   return const CircularProgressIndicator();
                 }

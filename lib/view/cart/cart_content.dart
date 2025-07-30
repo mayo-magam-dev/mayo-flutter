@@ -1,6 +1,6 @@
 part of 'cart_page.dart';
 
-class _CartContent extends StatefulWidget {
+class _CartContent extends ConsumerStatefulWidget {
   const _CartContent(this.cartData);
 
   static bool disposable = true;
@@ -10,10 +10,10 @@ class _CartContent extends StatefulWidget {
   final List<ReadCartResponse> cartData;
 
   @override
-  State<_CartContent> createState() => _CartContentState();
+  ConsumerState<_CartContent> createState() => _CartContentState();
 }
 
-class _CartContentState extends State<_CartContent> {
+class _CartContentState extends ConsumerState<_CartContent> {
   List<ReadCartResponse>? futureCart;
 
   final TextEditingController reverationRequestEditingController =
@@ -111,7 +111,7 @@ class _CartContentState extends State<_CartContent> {
               GestureDetector(
                 onTap: () async {
                   await CartDataSource().deleteCart(item.cartId);
-                  context.read<HomeBloc>().add(LoadCartItems());
+                  ref.read(homeNotifierProvider.notifier).loadCartItems();
                   await fetchCartData();
                   context.go(AppRoutes.cart);
                 },

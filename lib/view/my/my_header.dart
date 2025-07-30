@@ -1,13 +1,13 @@
 part of 'my_page.dart';
 
-class _MyHeader extends StatefulWidget {
+class _MyHeader extends ConsumerStatefulWidget {
   const _MyHeader();
 
   @override
-  State<_MyHeader> createState() => _MyHeaderState();
+  ConsumerState<_MyHeader> createState() => _MyHeaderState();
 }
 
-class _MyHeaderState extends State<_MyHeader> {
+class _MyHeaderState extends ConsumerState<_MyHeader> {
   ReadUser? user;
   LocalLoginState? loginState;
   bool isLoading = true;
@@ -26,11 +26,11 @@ class _MyHeaderState extends State<_MyHeader> {
   }
 
   void _fetchUser() async {
-    final blocState = context.read<LoginBloc>().state;
+    final loginState = ref.read(loginNotifierProvider);
     final currentLoginState =
-        blocState is LoginStateChanged ? blocState.loginState : null;
+        loginState is LoginStateChanged ? loginState.loginState : null;
     setState(() {
-      loginState = currentLoginState;
+      this.loginState = currentLoginState;
       isLoading = true;
     });
     if (currentLoginState == LocalLoginState.login) {

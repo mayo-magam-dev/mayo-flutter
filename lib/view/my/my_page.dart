@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mayo_flutter/bloc/login/login_bloc.dart';
+import 'package:mayo_flutter/providers/login_provider.dart';
 import 'package:mayo_flutter/dataSource/user.dart';
 import 'package:mayo_flutter/designSystem/color.dart';
 import 'package:mayo_flutter/designSystem/fontsize.dart';
@@ -15,14 +15,14 @@ part 'my_header.dart';
 part 'my_middle.dart';
 part 'my_scaffold.dart';
 
-class MyPage extends StatefulWidget {
+class MyPage extends ConsumerStatefulWidget {
   const MyPage({super.key});
 
   @override
-  State<MyPage> createState() => _MyPageState();
+  ConsumerState<MyPage> createState() => _MyPageState();
 }
 
-class _MyPageState extends State<MyPage> with RouteAware {
+class _MyPageState extends ConsumerState<MyPage> with RouteAware {
   final RouteObserver<ModalRoute<void>> routeObserver =
       RouteObserver<ModalRoute<void>>();
 
@@ -46,18 +46,17 @@ class _MyPageState extends State<MyPage> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginBloc, LoginState>(
-      listener: (context, state) {
-        // 로그인 상태가 변경되면 마이페이지 새로고침
-        if (state is LoginStateChanged) {
-          setState(() {});
-        }
-      },
-      child: _Scaffold(
-        topBar: Topbar(title: '마이페이지', showCarts: true),
-        header: _MyHeader(),
-        middle: _MyMiddle(),
-      ),
+    ref.listen<LoginState>(loginNotifierProvider, (previous, next) {
+      // 로그인 상태가 변경되면 마이페이지 새로고침
+      if (next is LoginStateChanged) {
+        setState(() {});
+      }
+    });
+
+    return _Scaffold(
+      topBar: Topbar(title: '마이페이지', showCarts: true),
+      header: _MyHeader(),
+      middle: _MyMiddle(),
     );
   }
 }

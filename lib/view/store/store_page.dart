@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
-import 'package:mayo_flutter/bloc/store/store_bloc.dart';
-import 'package:mayo_flutter/bloc/store/store_event.dart';
-import 'package:mayo_flutter/bloc/store/store_state.dart';
+import 'package:mayo_flutter/providers/store_provider.dart';
 import 'package:mayo_flutter/dataSource/item.dart';
 import 'package:mayo_flutter/dataSource/map.dart';
 import 'package:mayo_flutter/dataSource/store.dart';
@@ -26,16 +24,16 @@ part 'store_info_section.dart';
 part 'store_origin_info.dart';
 part 'store_map.dart';
 
-class StorePage extends StatefulWidget {
+class StorePage extends ConsumerStatefulWidget {
   const StorePage({super.key, required this.id});
 
   final String id;
 
   @override
-  State<StorePage> createState() => _StorePageState();
+  ConsumerState<StorePage> createState() => _StorePageState();
 }
 
-class _StorePageState extends State<StorePage> {
+class _StorePageState extends ConsumerState<StorePage> {
   late final Future<(ReadStore, List<ReadItem>)> _storeDataFuture;
 
   @override
@@ -54,33 +52,30 @@ class _StorePageState extends State<StorePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => StoreBloc()..add(ChangeViewEvent(0)),
-      child: FutureBuilder<(ReadStore, List<ReadItem>)>(
-        future: _storeDataFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
-          }
-
-          if (!snapshot.hasData || snapshot.hasError) {
-            return const Scaffold(
-              body: Center(child: Text("데이터를 불러올 수 없습니다.")),
-            );
-          }
-
-          final store = snapshot.data!.$1;
-          final items = snapshot.data!.$2;
-
-          return _Scaffold(
-            topBar: Topbar(title: store.storeName, showCarts: false),
-            infoHeader: _StoreInfoHeader(storeData: store),
-            infoMain: _StoreInfoMain(storeData: store, itemData: items),
+    return FutureBuilder<(ReadStore, List<ReadItem>)>(
+      future: _storeDataFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
           );
-        },
-      ),
+        }
+
+        if (!snapshot.hasData || snapshot.hasError) {
+          return const Scaffold(
+            body: Center(child: Text("데이터를 불러올 수 없습니다.")),
+          );
+        }
+
+        final store = snapshot.data!.$1;
+        final items = snapshot.data!.$2;
+
+        return _Scaffold(
+          topBar: Topbar(title: store.storeName, showCarts: false),
+          infoHeader: _StoreInfoHeader(storeData: store),
+          infoMain: _StoreInfoMain(storeData: store, itemData: items),
+        );
+      },
     );
   }
 }

@@ -73,14 +73,28 @@ class _CartBottomSheet extends StatelessWidget {
             ),
             PressButton(
               text: "예약하기",
-              onPressed: () {
-                final request = CreateReservationRequest(
-                  pickupTime: _CartContent.pickupTime!,
-                  reservationIsPlastic: _CartContent.disposable,
-                  reservationRequest: _CartContent.reservationRequest,
-                );
-                ReservationDataSource().createReservation(request: request);
-                context.go(AppRoutes.home);
+              onPressed: () async {
+                try {
+                  final request = CreateReservationRequest(
+                    pickupTime: _CartContent.pickupTime!,
+                    reservationIsPlastic: _CartContent.disposable,
+                    reservationRequest: _CartContent.reservationRequest,
+                  );
+                  await ReservationDataSource()
+                      .createReservation(request: request);
+                  if (context.mounted) {
+                    context.go(AppRoutes.home);
+                  }
+                } catch (e) {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('예약 생성에 실패했습니다: $e'),
+                        backgroundColor: GlobalMainColor.globalPrimaryRedColor,
+                      ),
+                    );
+                  }
+                }
               },
             )
           ],
